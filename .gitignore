@@ -29,7 +29,13 @@ RISC.xcodeproj/
 *.pbxuser
 *.perspective
 *.perspectivev
+*.opensdf
+
 xcuserdata3
+*.vcxproj*
 *.mode1v3
 *.mode2v3
-
+*.sln
+*.sdf
+*.suo
+*.sdf
