@@ -6,14 +6,16 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/enable_shared_from_this.hpp>
 #include <boost/asio.hpp>
-#include "tcp_server.h"
+#include "TCPServer.h"
 
 using boost::asio::ip::tcp;
 
 int main() {
 	try {
 		boost::asio::io_service io_service;
-		tcp_server server(io_service);
+
+		TCPServer server(io_service, 13);
+
 		io_service.run();
 	}
 	catch (std::exception &e) {
