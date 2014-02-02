@@ -16,12 +16,11 @@ public:
 	void changeOwner(string newOwnerName);
 	string getOwner();
 	vector<GameObject> getTerritoryContent();
-	
+	~Territory();
+
 private:
 	string territoryID;
 	string owner;
 	vector<GameObject> contents;
-
-	~Territory();
 };
 
