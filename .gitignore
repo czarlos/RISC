@@ -39,3 +39,7 @@ xcuserdata3
 *.sdf
 *.suo
 *.sdf
+Debug\
+Debug/
+
+
