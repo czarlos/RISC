@@ -15,9 +15,8 @@ public:
 	int contentSize();
 	void changeOwner(string newOwnerName);
 	string getOwner();
-	vector<GameObject> getGameContent();
+	vector<GameObject> getTerritoryContent();
 	
-
 private:
 	string territoryID;
 	string owner;

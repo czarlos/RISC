@@ -22,6 +22,17 @@ int Territory::contentSize(){
 	return this->contents.size;
 }
 
+void Territory::changeOwner(string newOwnerName){
+	this->owner = newOwnerName;
+}
+
+string Territory::getOwner(){
+	return this->owner;
+}
+
+vector<GameObject> Territory::getTerritoryContent(){
+	return this->contents;
+}
 
 Territory::~Territory()
 {
