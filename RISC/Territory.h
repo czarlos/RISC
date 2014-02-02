@@ -1,7 +1,8 @@
 #pragma once
 #include <iostream>
 #include <string>
-#include <list>
+#include <vector>
+#include "GameObject.h"
 
 using namespace std;
 
@@ -14,13 +15,13 @@ public:
 	int contentSize();
 	void changeOwner(string newOwnerName);
 	string getOwner();
-	list<GameObjects> getGameContent();
+	vector<GameObject> getGameContent();
 	
 
 private:
 	string territoryID;
 	string owner;
-	list<GameObject> contents;
+	vector<GameObject> contents;
 
 	~Territory();
 };

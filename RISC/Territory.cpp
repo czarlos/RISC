@@ -1,19 +1,26 @@
 #include "Territory.h"
-using namespace std;
 
-
-Territory::Territory(string ID)
+Territory::Territory(string territoryID)
 {
-	territoryID = ID;
-	owner = "";
+	this->territoryID = territoryID;
+	this->owner = "";
 }
 
-void addToContent(GameObject itemToAdd){
-	contents
+void Territory::addToContent(GameObject itemToAdd){
+	this->contents.push_back(itemToAdd);
 }
 
+void Territory::removeFromContent(GameObject itemToRemove){
+	for (int i = 0; i < this->contents.size; i++){
+		if (this->contents.at(i).getGameObjectID == itemToRemove.getGameObjectID){
+			this->contents.erase(this->contents.begin() + i);
+		}
+	}
+}
 
-
+int Territory::contentSize(){
+	return this->contents.size;
+}
 
 
 Territory::~Territory()
