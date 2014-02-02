@@ -1,11 +1,11 @@
-#include "GameMap.h"
+#include "Board.h"
 
 
-GameMap::GameMap()
+Board::Board()
 {
 }
 
 
-GameMap::~GameMap()
+Board::~Board()
 {
 }
