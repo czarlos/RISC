@@ -41,5 +41,7 @@ xcuserdata3
 *.sdf
 Debug\
 Debug/
+Release/
+Release\
 
 
