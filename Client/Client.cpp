@@ -46,7 +46,7 @@ public:
 
 	void handle_connect(const boost::system::error_code &err, tcp::resolver::iterator endpoint_itr) {
 		if (!err) {
-			
+			conn->start();
 		}
 		else if (endpoint_itr != tcp::resolver::iterator()) {
 			// the connection failed - try the next one
