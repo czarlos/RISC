@@ -32,7 +32,7 @@ void TCPConnection::handle_read(const boost::system::error_code &err, std::size_
 
 	NetworkMessage msg = NetworkMessage();
 	msg.parse(&recv_buffer, bytes_transferred);
-	msg.print();
+	// msg.print();
 	recvQueue.push_back(msg);
 
 	this->bind_read();
@@ -80,5 +80,10 @@ std::string TCPConnection::getIPAddress() {
 
 void TCPConnection::start()
 {
-	this->bind_read();
+	this->bind_read();	
+}
+
+TCPConnection::network_message_queue * TCPConnection::getMessages()
+{
+	return &recvQueue;
 }

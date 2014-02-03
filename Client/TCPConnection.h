@@ -6,6 +6,7 @@
 #include <deque>
 #include <iostream>
 #include <string>
+#include <queue>
 #include <boost/enable_shared_from_this.hpp>
 #include "../Server/NetworkMessage.h"
 
@@ -36,6 +37,8 @@ private:
 	tcp::socket socket_;
 
 public:
+	
+
 	~TCPConnection();
 
 	typedef boost::shared_ptr<TCPConnection> pointer;
@@ -48,6 +51,10 @@ public:
 
 	std::string getIPAddress();
 	void send(NetworkMessage * msg);
+
+	network_message_queue * getMessages();
+
+
 	void start();
 };
 
