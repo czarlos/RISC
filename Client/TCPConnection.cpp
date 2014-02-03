@@ -73,3 +73,12 @@ void TCPConnection::print()
 	std::cout << "\tIP Address:\t" << this->getIPAddress() << std::endl;
 	std::cout << "\tPort:\t" << socket_.remote_endpoint().port() << std::endl;
 }
+
+std::string TCPConnection::getIPAddress() {
+	return socket_.remote_endpoint().address().to_string();
+}
+
+void TCPConnection::start()
+{
+	this->bind_read();
+}

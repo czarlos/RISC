@@ -4,6 +4,8 @@
 #include <boost/asio.hpp>
 #include <boost/bind.hpp>
 #include <deque>
+#include <iostream>
+#include <string>
 #include <boost/enable_shared_from_this.hpp>
 #include "../Server/NetworkMessage.h"
 
