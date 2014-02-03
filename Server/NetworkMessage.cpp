@@ -15,10 +15,10 @@ void NetworkMessage::parse(boost::asio::streambuf * da, size_t bytes)
 {
 	try {
 		// Type Byte + EOT are ignored
-		this->data_size = bytes - 1 - 1;
+		this->data_size = bytes - sizeof(type) - sizeof(EOT);
 
 		// Extract Type
-		da->sgetn(&type, 1);
+		da->sgetn(&type, sizeof(type));
 
 		// Extract Data
 		this->data = new char[this->data_size + 1];
@@ -27,7 +27,7 @@ void NetworkMessage::parse(boost::asio::streambuf * da, size_t bytes)
 
 		// Check for EOT
 		char * eot = new char[1];
-		da->sgetn(eot, 1);
+		da->sgetn(eot, sizeof(EOT));
 		if (*eot != '\4') {
 			throw std::exception("EOT was not encountered in frame.");
 		}
@@ -47,12 +47,14 @@ void NetworkMessage::setData(char ** contents, size_t s)
 	this->data_size = s + 1;
 	this->data = new char[this->data_size];		
 	memcpy(this->data, *contents, this->data_size);	
+
+	// end the string with null character to make it easier to see
 	this->data[this->data_size - 1] = '\0';
 }
 
 void NetworkMessage::encode(char ** buffer, size_t * s)
 {
-	*s = data_size + 2;
+	*s = sizeof(type) + data_size + sizeof(EOT);
 	// type, data, EOT
 
 	*buffer = new char[*s];
