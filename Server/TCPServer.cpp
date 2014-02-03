@@ -2,7 +2,7 @@
 
 void TCPServer::StartAccept() {
 	TCPConnection::pointer con = TCPConnection::create(acceptor_.get_io_service());
-	acceptor_.async_accept(con->socket(),
+	acceptor_.async_accept(*con->getSocket(),
 		boost::bind(&TCPServer::HandleAccept, this, con,
 		boost::asio::placeholders::error));
 }
