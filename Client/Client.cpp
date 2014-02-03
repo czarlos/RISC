@@ -14,22 +14,9 @@ using boost::asio::ip::tcp;
 class client {
 private:	
 	tcp::resolver resolver_;
+	boost::thread queue_handler;
 	
 	TCPConnection::pointer conn;
-
-	boost::asio::streambuf request_;
-	boost::asio::streambuf response_;		
-public:
-	client(boost::asio::io_service& io_service, const std::string& server) : resolver_(io_service) {
-		conn = TCPConnection::create(io_service);
-
-		tcp::resolver::query query(server, "daytime");
-		resolver_.async_resolve(query,
-			boost::bind(&client::handle_resolve, this, 
-			boost::asio::placeholders::error,
-			boost::asio::placeholders::iterator));
-
-	}
 
 	void handle_resolve(const boost::system::error_code& err,
 		tcp::resolver::iterator endpoint_iterator) {
@@ -51,13 +38,42 @@ public:
 		else if (endpoint_itr != tcp::resolver::iterator()) {
 			// the connection failed - try the next one
 			tcp::endpoint endpoint = *endpoint_itr;
-			conn->getSocket()->async_connect(endpoint, 
+			conn->getSocket()->async_connect(endpoint,
 				boost::bind(&client::handle_connect, this, boost::asio::placeholders::error, ++endpoint_itr));
 		}
 		else {
 			std::cout << "Error: " << err.message() << "\n";
 		}
 	}
+
+	void process_queue() {
+		while (true) {			
+			std::cout << "Reading Queue" << std::endl;						
+			while (!conn->getMessages()->empty()) {
+				NetworkMessage msg = conn->getMessages()->front();
+				msg.print();
+				conn->getMessages()->pop_front();
+			}
+			boost::this_thread::sleep(boost::posix_time::milliseconds(100));
+		}
+	}
+
+public:
+	client(boost::asio::io_service& io_service, const std::string& server) : resolver_(io_service) {
+		conn = TCPConnection::create(io_service);
+
+		tcp::resolver::query query(server, "daytime");
+		resolver_.async_resolve(query,
+			boost::bind(&client::handle_resolve, this, 
+			boost::asio::placeholders::error,
+			boost::asio::placeholders::iterator));
+
+	}
+
+	void start() {
+		queue_handler = boost::thread(&client::process_queue, this);
+	}
+
 };
 
 
