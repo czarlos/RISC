@@ -5,6 +5,7 @@
 #include <boost/thread.hpp>
 #include <deque>
 #include "TCPConnection.h"
+#include <boost/enable_shared_from_this.hpp>
 #include "..\Server\NetworkMessage.h"
 
 using boost::asio::ip::tcp;
