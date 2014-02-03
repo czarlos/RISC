@@ -17,13 +17,7 @@ void TCPServer::HandleAccept(TCPConnection::pointer new_connection, const boost:
 	if (!error) {
 		myClients.push_back(new_connection);
 		new_connection->start();
-
-		NetworkMessage msg = NetworkMessage();
-		msg.setType('*');
-		std::string g = "You are a vagabond";
-		char * h = new char[g.size()];
-		msg.setData(&h, g.size());
-		new_connection->send(&msg);
+		this->send_welcome(new_connection);
 
 		// Listen for more clients
 		this->StartAccept();
@@ -31,6 +25,17 @@ void TCPServer::HandleAccept(TCPConnection::pointer new_connection, const boost:
 	else {
 		// TODO: print error
 	}
+}
+
+void TCPServer::send_welcome(TCPConnection::pointer new_connection) {
+	NetworkMessage msg = NetworkMessage();
+	msg.setType('*');
+	std::string g = "You are a vagabond";
+	char * h = new char[g.size() + 1];
+	memcpy(h, g.data(), g.size());
+	h[g.size()] = '\0';
+	msg.setData(&h, g.size() + 1);
+	new_connection->send(&msg);
 }
 
 TCPServer::TCPServer(boost::asio::io_service &io_service, int port) : acceptor_(io_service, tcp::endpoint(tcp::v4(), port)) {

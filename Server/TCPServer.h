@@ -29,8 +29,8 @@ public:
 	TCPServer(boost::asio::io_service &io_service, int port);
 	~TCPServer();
 
-	void send(NetworkMessage *e) {
-		
-	}
+	void send(NetworkMessage *e);
+
+	void send_welcome(TCPConnection::pointer new_connection);
 };
 
