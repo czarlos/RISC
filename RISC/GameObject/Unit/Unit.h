@@ -1,16 +1,7 @@
-//
-//  Unit.h
-//  RISC
-//
-//  Created by Carlos Reyes on 1/22/14.
-//  Copyright (c) 2014 Carlos Reyes. All rights reserved.
-//
-
-#ifndef __RISC__Unit__
-#define __RISC__Unit__
-
+#pragma once
 #include <iostream>
-#include "MovableObject.h"
+#include <vector>
+#include "../../GameObject/MovableObject.h"
 
 class Unit : MovableObject {
 public:
@@ -20,4 +11,3 @@ public:
 	};
 };
 
-#endif /* defined(__RISC__Unit__) */

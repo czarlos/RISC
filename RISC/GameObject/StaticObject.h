@@ -1,14 +1,4 @@
-//
-//  StaticObject.h
-//  RISC
-//
-//  Created by Carlos Reyes on 1/22/14.
-//  Copyright (c) 2014 Carlos Reyes. All rights reserved.
-//
-
-#ifndef __RISC__StaticObject__
-#define __RISC__StaticObject__
-
+#pragma once
 #include <iostream>
 #include "CombatObject.h"
 
@@ -20,4 +10,3 @@ public:
 	};
 };
 
-#endif /* defined(__RISC__StaticObject__) */

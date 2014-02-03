@@ -4,7 +4,6 @@
 #include <string>
 #include "Weapon.h"
 #include "PlayerObject.h"
-#include "Location.h"
 
 class CombatObject : public PlayerObject {
 private:

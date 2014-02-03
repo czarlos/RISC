@@ -1,7 +1,7 @@
 #pragma once
 
 #include <iostream>
-#include "Location.h"
+#include "../GameMap/Location.h"
 #include "Order.h"
 
 class AttackOrder : public Order {

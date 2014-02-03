@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "GameObject.h"
+#include "../GameObject/GameObject.h"
 #include "Edge.h"
 #include "Location.h"
 

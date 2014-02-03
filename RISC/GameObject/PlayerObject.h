@@ -3,7 +3,6 @@
 #include <iostream>
 #include <string>
 #include "GameObject.h"
-#include "Location.h"
 
 
 class PlayerObject : public GameObject {

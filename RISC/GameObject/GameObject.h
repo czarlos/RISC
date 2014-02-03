@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-#include "Location.h"
+#include "../GameMap/Location.h"
 
 using namespace std;
 
