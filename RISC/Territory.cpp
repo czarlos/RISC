@@ -11,15 +11,19 @@ void Territory::addToContent(GameObject itemToAdd){
 }
 
 void Territory::removeFromContent(GameObject itemToRemove){
-	for (int i = 0; i < this->contents.size; i++){
-		if (this->contents.at(i).getGameObjectID == itemToRemove.getGameObjectID){
-			this->contents.erase(this->contents.begin() + i);
+	for (vector < GameObject>::iterator it = this->contents.begin(); it != this->contents.end(); ++it){
+		if ((*it).getGameObjectID() == itemToRemove.getGameObjectID()){
+			it = this->contents.erase(it);
 		}
 	}
 }
 
+string Territory::getTerritoryID(){
+	return this->territoryID;
+}
+
 int Territory::contentSize(){
-	return this->contents.size;
+	return this->contents.size();
 }
 
 void Territory::changeOwner(string newOwnerName){
