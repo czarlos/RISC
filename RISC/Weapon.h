@@ -10,10 +10,14 @@
 #define __RISC__Weapon__
 
 #include <iostream>
-#include "CombatObject.h"
 
 class Weapon {
+public:
+	Weapon() {
+		
+	}
 	
+	~Weapon();
 };
 
 #endif /* defined(__RISC__Weapon__) */

@@ -14,7 +14,6 @@
 #include "Weapon.h"
 #include "PlayerObject.h"
 
-
 class CombatObject : public PlayerObject {
 private:
 	int myHealth;
