@@ -20,6 +20,8 @@ public:
 private:
 
 	list<list<Territory>> gameMap;
+	int x;
+	int y;
 	
 };
 

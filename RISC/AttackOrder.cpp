@@ -8,3 +8,7 @@
 
 #include "AttackOrder.h"
 
+AttackOrder::AttackOrder(Location myLocation){
+	this->myLocation = myLocation;
+}
+

@@ -1,5 +1,9 @@
 #include "Territory.h"
 
+Territory::Territory(){
+
+}
+
 Territory::Territory(string territoryID)
 {
 	this->territoryID = territoryID;

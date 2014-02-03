@@ -1,13 +1,4 @@
-//
-//  MovableObject.h
-//  RISC
-//
-//  Created by Carlos Reyes on 1/22/14.
-//  Copyright (c) 2014 Carlos Reyes. All rights reserved.
-//
-
-#ifndef __RISC__MovableObject__
-#define __RISC__MovableObject__
+#pragma once
 
 #include <iostream>
 #include "CombatObject.h"
@@ -22,6 +13,3 @@ public:
 		myMovementRange = movementRange;
 	};
 };
-
-
-#endif /* defined(__RISC__MovableObject__) */

@@ -9,6 +9,7 @@ using namespace std;
 class Territory
 {
 public:
+	Territory();
 	Territory(string);
 	void addToContent(GameObject itemToAdd);
 	string getTerritoryID();
