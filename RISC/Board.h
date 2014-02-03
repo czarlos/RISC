@@ -3,6 +3,7 @@
 #include <vector>
 #include <list>
 #include "Territory.h"
+#include "Location.h"
 
 
 using namespace std;
@@ -12,8 +13,8 @@ class Board
 public:
 	Board(int,int);
 	vector <Territory> getAdjacentTerritory(Territory t);
-	//get terrain by location
-	//get adjacent terrain by location
+	Territory getTerritory(Location location);
+	vector<Territory> getAdjacentTerritoryByLocation(Location location);
 	~Board();
 
 private:
