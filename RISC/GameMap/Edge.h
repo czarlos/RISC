@@ -1,22 +1,24 @@
 #pragma once
 #include <iostream>
+#include "Territory.h"
 #include<string>
 
 using namespace std;
+class Territory;
 class Edge
 {
 public:
 	Edge();
-	Edge(string, string, double);
-	string getEndPointAIDTerritory();
-	string getEndPointBIDTerritory();
+	Edge(Territory*, Territory*, double);
+	Territory* getEndPointATerritory();
+	Territory* getEndPointBTerritory();
 	double getEdgeWeight();
 	~Edge();
 
 private:
 
-	string  endPointAID; 
-	string endPointBID;
+	Territory *endPointA; 
+	Territory *endPointB;
 	double edgeWeight;
 
 };

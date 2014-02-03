@@ -7,7 +7,7 @@
 #include "Location.h"
 
 using namespace std;
-//class Edge;
+class Edge;
 class Territory
 {
 public:

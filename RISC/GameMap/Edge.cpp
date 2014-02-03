@@ -5,10 +5,10 @@ Edge::Edge(){
 
 }
 
-Edge::Edge(string endPointAID, string endPointBID, double edgeWeight)
+Edge::Edge(Territory *endPointA, Territory *endPointB, double edgeWeight)
 {
-	this-> endPointAID = endPointAID;
-	this-> endPointBID = endPointBID;
+	this-> endPointA = endPointA;
+	this-> endPointB = endPointB;
 	this->edgeWeight = edgeWeight;
 
 }
@@ -17,12 +17,12 @@ double Edge::getEdgeWeight(){
 	return this->edgeWeight;
 }
 
-string Edge::getEndPointAIDTerritory(){
-	return this->endPointAID;
+Territory* Edge::getEndPointATerritory(){
+	return this->endPointA;
 }
 
-string Edge::getEndPointBIDTerritory(){
-	return this->endPointBID;
+Territory* Edge::getEndPointBTerritory(){
+	return this->endPointB;
 }
 
 Edge::~Edge()

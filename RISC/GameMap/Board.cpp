@@ -30,26 +30,15 @@ vector<Territory> Board::getAdjacentTerritory(Territory territory){
 	vector<Edge> connectedEdges = territory.getTerritoryEdges();
 
 	for (vector<Edge>::iterator iter = connectedEdges.begin(); iter != connectedEdges.end(); ++iter){
-		if ((*iter).getEndPointAIDTerritory() == territory.getTerritoryID()){
-			neighborTerritories.push_back(getTerritoryByID((*iter).getEndPointBIDTerritory()));
+		if ((*(*iter).getEndPointATerritory()).getTerritoryID() == territory.getTerritoryID()){
+			neighborTerritories.push_back((*(*iter).getEndPointBTerritory()));
 		}else{
-			neighborTerritories.push_back(getTerritoryByID((*iter).getEndPointAIDTerritory()));
+			neighborTerritories.push_back((*(*iter).getEndPointATerritory()));
 		}
 	}
 
 	return neighborTerritories;
 }
-
-Territory Board::getTerritoryByID(string territoryId){
-	for (list< list<Territory>>::iterator itero = this->gameMap.begin(); itero != gameMap.end(); ++itero){
-		for (list<Territory>::iterator iteri = (*itero).begin(); iteri != (*itero).end(); ++iteri){
-			if ((*iteri).getTerritoryID() == territoryId){
-				return (*iteri);
-			}
-		}
-	}
-}
-
 bool Board::checkIfOnBoard(Territory t){
 	for (list< list<Territory>>::iterator itero = this->gameMap.begin(); itero != gameMap.end(); ++itero){
 		for (list<Territory>::iterator iteri = (*itero).begin(); iteri != (*itero).end(); ++iteri){

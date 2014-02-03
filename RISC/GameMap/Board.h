@@ -36,7 +36,7 @@ private:
 	list<list<Territory>> gameMap;
 	int numOfEdges = NUM_OF_EDGES;
 	int numOfTerritories = NUM_OF_TERRITORYS;
-	Territory getTerritoryByID(string);
+	//Territory getTerritoryByID(string);
 	double boardSize = pow(numOfTerritories,2);
 	
 	
