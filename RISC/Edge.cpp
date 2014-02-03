@@ -1,16 +1,27 @@
 #include "Edge.h"
 
-Edge::Edge
-Edge::Edge(Territory u, Territory v, double edgeWeight)
+Edge::Edge(){}
+
+Edge::Edge(Territory endPointA, Territory endPointB, double edgeWeight)
 {
-	this->u = u;
-	this->v = v;
+	this->endPointA = endPointA;
+	this->endPointB = endPointB;
 	this->edgeWeight = edgeWeight;
 
 }
 
-Edge::
+double Edge::getEdgeWeight(){
+	return this->edgeWeight;
+}
 
-Edges::~Edges()
+Territory Edge::getEndPointATerritory(){
+	return this->endPointA;
+}
+
+Territory Edge::getEndPointBTerritory(){
+	return this->endPointB;
+}
+
+Edge::~Edge()
 {
 }

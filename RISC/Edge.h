@@ -2,20 +2,20 @@
 #include <iostream>
 #include "Territory.h"
 
-class Edges
+class Edge
 {
 public:
-	Edges();
-	Edges(Territory, Territory, double);
-	Territory getVisitedTerritory();
-	Territory getUnknownTerritory();
+	Edge();
+	Edge(Territory, Territory, double);
+	Territory getEndPointATerritory();
+	Territory getEndPointBTerritory();
 	double getEdgeWeight();
-	~Edges();
+	~Edge();
 
 private:
 
-	Territory v; 
-	Territory u;
+	Territory endPointA; 
+	Territory endPointB;
 	double edgeWeight;
 
 };
