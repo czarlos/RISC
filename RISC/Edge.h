@@ -5,11 +5,13 @@
 class Edges
 {
 public:
+	Edges();
 	Edges(Territory, Territory, double);
 	Territory getVisitedTerritory();
 	Territory getUnknownTerritory();
 	double getEdgeWeight();
 	~Edges();
+
 private:
 
 	Territory v; 
