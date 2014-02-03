@@ -1,11 +1,14 @@
 #include "Edge.h"
+//#include "Territory.h"
 
-Edge::Edge(){}
+Edge::Edge(){
 
-Edge::Edge(Territory endPointA, Territory endPointB, double edgeWeight)
+}
+
+Edge::Edge(string endPointAID, string endPointBID, double edgeWeight)
 {
-	this->endPointA = endPointA;
-	this->endPointB = endPointB;
+	this-> endPointAID = endPointAID;
+	this-> endPointBID = endPointBID;
 	this->edgeWeight = edgeWeight;
 
 }
@@ -14,12 +17,12 @@ double Edge::getEdgeWeight(){
 	return this->edgeWeight;
 }
 
-Territory Edge::getEndPointATerritory(){
-	return this->endPointA;
+string Edge::getEndPointAIDTerritory(){
+	return this->endPointAID;
 }
 
-Territory Edge::getEndPointBTerritory(){
-	return this->endPointB;
+string Edge::getEndPointBIDTerritory(){
+	return this->endPointBID;
 }
 
 Edge::~Edge()

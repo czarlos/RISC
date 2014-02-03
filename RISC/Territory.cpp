@@ -4,10 +4,15 @@ Territory::Territory(){
 
 }
 
-Territory::Territory(string territoryID)
+Territory::Territory(string territoryID, Location location)
 {
 	this->territoryID = territoryID;
 	this->owner = "";
+	this->location = location;
+}
+
+Location Territory::getLocation(){
+	return this->location;
 }
 
 void Territory::addToContent(GameObject itemToAdd){
