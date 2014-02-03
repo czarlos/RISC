@@ -17,6 +17,14 @@ void TCPServer::HandleAccept(TCPConnection::pointer new_connection, const boost:
 	if (!error) {
 		myClients.push_back(new_connection);
 		new_connection->start();
+
+		NetworkMessage msg = NetworkMessage();
+		msg.setType('*');
+		std::string g = "You are a vagabond";
+		char * h = new char[g.size()];
+		msg.setData(&h, g.size());
+		new_connection->send(&msg);
+
 		// Listen for more clients
 		this->StartAccept();
 	}
