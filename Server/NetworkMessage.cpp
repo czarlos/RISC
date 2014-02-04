@@ -6,6 +6,16 @@ NetworkMessage::NetworkMessage()
 	type = '1';
 }
 
+NetworkMessage::NetworkMessage(char type, std::string contents)
+{
+	this->setType(type);	
+
+	char * h = new char[contents.size() + 1];
+	memcpy(h, contents.c_str(), contents.size());
+	h[contents.size()] = '\0';
+	this->setData(&h, contents.size() + 1);
+}
+
 
 NetworkMessage::~NetworkMessage()
 {

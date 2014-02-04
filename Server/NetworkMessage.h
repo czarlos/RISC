@@ -17,6 +17,7 @@ private:
 
 public:
 	NetworkMessage(); 
+	NetworkMessage(char type, std::string contents);
 	~NetworkMessage();
 
 	void parse(boost::asio::streambuf * da, size_t bytes);
