@@ -26,8 +26,16 @@ void TCPConnection::handle_read(const boost::system::error_code &err, std::size_
 	if (err == boost::asio::error::eof) {
 		return;
 	}
-	else if (err) {		
-		throw boost::system::system_error(err);
+	else if (err) {
+		if (err == boost::asio::error::connection_reset)
+		{
+			std::cout << "Socket closing: " << this->getIPAddress() << std::endl;			
+			this->close();
+			return;
+		}
+		else {
+			throw boost::system::system_error(err);
+		}
 	}
 
 	NetworkMessage msg = NetworkMessage();
@@ -64,8 +72,9 @@ void TCPConnection::write(char * data, size_t size, NetworkMessage * msg)
 
 void TCPConnection::send(NetworkMessage * msg)
 {
-	
-
+	if (!socket_.is_open()) {
+		return;
+	}
 	size_t size;
 	char ** send = new char*[1];
 	msg->encode(send, &size);
@@ -102,4 +111,19 @@ void TCPConnection::start()
 TCPConnection::network_message_queue * TCPConnection::getMessages()
 {
 	return &recvQueue;
+}
+
+void TCPConnection::close()
+{
+	try {
+		socket_.close();
+	}
+	catch (std::exception &e) {
+		
+	}
+}
+
+bool TCPConnection::isOpen()
+{
+	return socket_.is_open();
 }

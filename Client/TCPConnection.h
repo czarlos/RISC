@@ -54,7 +54,9 @@ public:
 
 	network_message_queue * getMessages();
 
+	bool isOpen();
 
 	void start();
+	void close();
 };
 
