@@ -12,6 +12,7 @@ class Territory
 {
 public:
 	Territory();
+	Territory(string);
 	Territory(string, Location);
 	Location getLocation();
 	void addToContent(GameObject );

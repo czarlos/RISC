@@ -4,6 +4,11 @@ Territory::Territory(){
 
 }
 
+Territory::Territory(string territoryID){
+	this->owner = "";
+	this->territoryID = territoryID;
+}
+
 Territory::Territory(string territoryID, Location location)
 {
 	this->territoryID = territoryID;
