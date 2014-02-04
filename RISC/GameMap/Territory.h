@@ -7,11 +7,12 @@
 #include "Location.h"
 
 using namespace std;
-//class Edge;
+class Edge;
 class Territory
 {
 public:
 	Territory();
+	Territory(string);
 	Territory(string, Location);
 	Location getLocation();
 	void addToContent(GameObject );
