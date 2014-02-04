@@ -27,12 +27,12 @@ private:
 
 	TCPConnection(boost::asio::io_service &ioserver);
 	
-	void handle_write(const boost::system::error_code& error, size_t bytes_transferred);
+	void handle_write(const boost::system::error_code& error, size_t bytes_transferred, NetworkMessage * msg);
 	void handle_read(const boost::system::error_code& error, size_t bytes_transferred);
 
 	void bind_read();
 
-	void write(char * data, size_t size);
+	void write(char * data, size_t size, NetworkMessage * msg);
 
 	tcp::socket socket_;
 

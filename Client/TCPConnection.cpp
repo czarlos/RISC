@@ -38,27 +38,43 @@ void TCPConnection::handle_read(const boost::system::error_code &err, std::size_
 	this->bind_read();
 }
 
-void TCPConnection::handle_write(const boost::system::error_code& error, size_t bytes_transferred)
+void TCPConnection::handle_write(const boost::system::error_code& error, size_t bytes_transferred, NetworkMessage * msg)
 {	
 	if (!error) {
 		std::cout << "Bytes Transferred: " << bytes_transferred << std::endl;
+		for (network_message_queue::iterator i = sendQueue.begin(); i != sendQueue.end(); i++) {
+
+			NetworkMessage * f = &(*i);
+			if (f == msg) {
+				sendQueue.erase(i);
+				std::cout << "Removed message from Queue" << std::endl;
+				break;
+			}
+		}		
 	}	
 }
 
-void TCPConnection::write(char * data, size_t size)
+void TCPConnection::write(char * data, size_t size, NetworkMessage * msg)
 {
 	boost::asio::async_write(socket_, boost::asio::buffer(data, size),
 		boost::bind(&TCPConnection::handle_write, this,
 		boost::asio::placeholders::error,
-		boost::asio::placeholders::bytes_transferred));
+		boost::asio::placeholders::bytes_transferred, msg));
 }
 
 void TCPConnection::send(NetworkMessage * msg)
 {
+	
+
 	size_t size;
 	char ** send = new char*[1];
 	msg->encode(send, &size);
-	this->write(*send, size);
+
+	sendQueue.push_back(*msg);
+
+	network_message_queue::iterator i = sendQueue.end();		
+	NetworkMessage * f = &(*--i);
+	this->write(*send, size, f);
 }
 
 tcp::socket * TCPConnection::getSocket()
