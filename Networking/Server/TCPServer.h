@@ -2,10 +2,10 @@
 #include <boost/bind.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/asio.hpp>
-#include "NetworkMessage.h"
+#include "../Shared/NetworkMessage.h"
 #include <boost/thread.hpp>
 #include <deque>
-#include "../Client/TCPConnection.h"
+#include "../Shared/TCPConnection.h"
 
 using boost::asio::ip::tcp;
 

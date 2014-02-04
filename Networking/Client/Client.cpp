@@ -4,9 +4,9 @@
 #include <boost/asio.hpp>
 #include <boost/thread.hpp>
 #include <deque>
-#include "TCPConnection.h"
+#include "../Shared/TCPConnection.h"
 #include <boost/enable_shared_from_this.hpp>
-#include "..\Server\NetworkMessage.h"
+#include "../Shared/NetworkMessage.h"
 
 using boost::asio::ip::tcp;
 
@@ -48,7 +48,8 @@ private:
 
 	void process_queue() {
 		while (true) {			
-			//std::cout << "Reading Queue" << std::endl;						
+			//std::cout << "Reading Queue" << std::endl;	
+			// check this for when server quits
 			while (!conn->getMessages()->empty()) {
 				NetworkMessage msg = conn->getMessages()->front();
 				std::cout << "Client " << this << " Received Message: " << std::endl;
