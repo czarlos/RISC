@@ -74,6 +74,10 @@ public:
 		queue_handler = boost::thread(&client::process_queue, this);
 	}
 
+	void send(NetworkMessage * msg) {
+		conn->send(msg);
+	}
+
 };
 
 
