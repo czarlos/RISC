@@ -33,6 +33,8 @@ void Board::generateBoard(){
 		}
 		else{
 			Edge edge = Edge(&endPointA, &endPointB, edgeWeight);
+			endPointA.addEdge(edge);
+			endPointB.addEdge(edge);
 			putEdgeInGameMap(edge,idxA, idxB);
 			putEdgeInGameMap(edge, idxB, idxA);
 		}
@@ -92,17 +94,16 @@ int Board::getNumberofEdges(){
 //	return neighborTerritories;
 //}
 
-//bool Board::checkIfOnBoard(Territory t){
-//	for (list< list<Territory>>::iterator itero = this->gameMap.begin(); itero != this->gameMap.end(); ++itero){
-//		for (list<Territory>::iterator iteri = (*itero).begin(); iteri != (*itero).end(); ++iteri){
-//			if ((*iteri).getTerritoryID() == t.getTerritoryID()){
-//				return true;
-//			}
-//
-//		}
-//	}
-//	return false;
-//}
+bool Board::checkIfOnBoard(Territory t){
+	for (list< list<Edge>>::iterator itero = this->gameMap.begin(); itero != this->gameMap.end(); ++itero){
+		for (list<Edge>::iterator iteri = (*itero).begin(); iteri != (*itero).end(); ++iteri){
+			if (((*(*iteri).getEndPointATerritory()).getTerritoryID() == t.getTerritoryID()) || ((*(*iteri).getEndPointBTerritory()).getTerritoryID() == t.getTerritoryID())){
+				return true;
+			}
+		}
+	}
+	return false;
+}
 
 //Territory Board::getTerritory(Location location){
 //	list<list<Territory>>::iterator itero = this->gameMap.begin();
