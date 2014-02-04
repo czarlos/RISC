@@ -9,8 +9,8 @@ class PlayerObject : public GameObject {
 private:
 	string myTeamName;
 public:
-	PlayerObject(string teamName, string unitID, Location position) : GameObject(unitID, position) {
-		myTeamName = teamName;
-	};
+	PlayerObject();
+	PlayerObject(string teamName, string unitID, Location position);
+	~PlayerObject();
 };
 

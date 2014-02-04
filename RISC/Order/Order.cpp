@@ -12,3 +12,6 @@ Order::Order(){
 
 }
 
+void Order::execute() {
+	
+}

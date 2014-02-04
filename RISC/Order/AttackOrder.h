@@ -8,9 +8,10 @@ class AttackOrder : public Order {
 	
 private:
 	Location myLocation;
-    
+	void execute();
 public:
-	
-	AttackOrder(Location);
+	AttackOrder(Location location);
+	~AttackOrder();
+
 };
 

@@ -8,8 +8,8 @@ class MovableObject : CombatObject {
 private:
 	int myMovementRange;
 public:
+	MovableObject();
 	MovableObject(int health, std::vector<Weapon> weaponList, std::string teamName, std::string unitID,
-				  Location position, int movementRange) : CombatObject(health, weaponList, teamName, unitID, position) {
-		myMovementRange = movementRange;
-	};
+				  Location position, int movementRange);
+	~MovableObject();
 };

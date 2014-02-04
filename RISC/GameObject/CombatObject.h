@@ -11,10 +11,9 @@ private:
 	vector<Weapon> myWeaponList;
 	
 public:
+	CombatObject();
 	CombatObject(int health, vector<Weapon> weaponList, string teamName, string unitID,
-				 Location position) : PlayerObject(teamName, unitID, position) {
-		myHealth = health;
-		myWeaponList = weaponList;
-	}
+				 Location position);
+	~CombatObject();
 };
 

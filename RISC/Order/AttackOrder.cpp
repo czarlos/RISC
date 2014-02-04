@@ -12,3 +12,10 @@ AttackOrder::AttackOrder(Location myLocation){
 	this->myLocation = myLocation;
 }
 
+AttackOrder::~AttackOrder() {
+	
+}
+
+void AttackOrder::execute() {
+	
+}

@@ -7,3 +7,16 @@
 //
 
 #include "Unit.h"
+
+Unit::Unit(int health, std::vector<Weapon> weaponList, std::string teamName, std::string unitID,
+	 Location position, int movementRange) : MovableObject(health, weaponList, teamName, unitID, position, movementRange) {
+	
+}
+
+int Unit::getTurnStatus() {
+	return 0;
+}
+
+void Unit::setTurnStatus(int turnStatus) {
+	
+}
