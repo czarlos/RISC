@@ -8,12 +8,15 @@
 class CombatObject : public PlayerObject {
 private:
 	int myHealth;
-	vector<Weapon> myWeaponList;
+	std::vector<Weapon> myWeaponList;
 	
 public:
 	CombatObject();
-	CombatObject(int health, vector<Weapon> weaponList, string teamName, string unitID,
-				 Location position);
+	CombatObject(int health, vector<Weapon> weaponList, string teamName, string unitID, Location location);
+	
+	void addWeapon(Weapon weapon);
+	
+	int getHealth();
+	std::vector<Weapon> getWeaponsList();
 	~CombatObject();
 };
-

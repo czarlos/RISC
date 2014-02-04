@@ -1,14 +1,15 @@
 #pragma once
 #include <iostream>
 #include <vector>
-#include "../../GameObject/MovableObject.h"
+#include "../MovableObject.h"
 
 class Unit : MovableObject {
 private:
-	int turnStatus;
+	int myTurnStatus = 0;
 public:
 	Unit(int health, std::vector<Weapon> weaponList, std::string teamName, std::string unitID,
-		 Location position, int movementRange);
+		 Location loaction, int movementRange);
+	
 	int getTurnStatus();
 	void setTurnStatus(int turnStatus);
 	~Unit();

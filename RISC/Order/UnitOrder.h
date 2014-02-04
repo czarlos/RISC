@@ -11,15 +11,17 @@
 #include <iostream>
 #include "../GameMap/Location.h"
 #include "../GameObject/GameObject.h"
+#include "../GameState/GameState.h"
+#include "Order.h"
 
-class UnitOrder {
+class UnitOrder : public Order {
 private:
 	Location mySource;
 	Location myDestination;
 	GameObject myObject;
 public:
-	UnitOrder(Location source, Location destination, GameObject object);
+	UnitOrder(Location source, Location destination, GameObject object, GameState state);
 	~UnitOrder();
 protected:
-	void execute();	
+	void execute(GameState state);
 };

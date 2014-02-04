@@ -4,17 +4,20 @@
 GameObject::GameObject(string id, Location location)
 {
 	this->id = id;
-	this->location = location;
+	this->myLocation = location;
 }
 
 GameObject::GameObject() {
 	
 }
 
-string GameObject::getGameObjectID(){
+string GameObject::getGameObjectID() {
 	return this->id;
 }
 
+Location GameObject::getLocation() {
+	return this->myLocation;
+}
 
 GameObject::~GameObject()
 {

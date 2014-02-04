@@ -9,14 +9,14 @@
 #include "Unit.h"
 
 Unit::Unit(int health, std::vector<Weapon> weaponList, std::string teamName, std::string unitID,
-	 Location position, int movementRange) : MovableObject(health, weaponList, teamName, unitID, position, movementRange) {
+	 Location location, int movementRange) : MovableObject(health, weaponList, teamName, unitID, location, movementRange) {
 	
 }
 
 int Unit::getTurnStatus() {
-	return 0;
+	return myTurnStatus;
 }
 
 void Unit::setTurnStatus(int turnStatus) {
-	
+	this->myTurnStatus = turnStatus;
 }

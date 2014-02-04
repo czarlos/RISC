@@ -9,12 +9,13 @@ class GameObject
 public:
 	GameObject();
 	GameObject(string, Location);
+	Location getLocation();
 	string getGameObjectID();
 	virtual ~GameObject();
 
 private:
 	string id;
-	Location location;
+	Location myLocation;
 	
 };
 

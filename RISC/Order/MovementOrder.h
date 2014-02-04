@@ -18,8 +18,8 @@ private:
 	Location mySource;
 	Location myDestination;
 	MovableObject myObject;
-	void execute();
+	void execute(GameState state);
 public:
-	MovementOrder(Location source, Location destination, MovableObject object);
+	MovementOrder(Location source, Location destination, MovableObject object, GameState state);
 	~MovementOrder();
 };

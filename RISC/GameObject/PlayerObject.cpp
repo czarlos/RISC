@@ -8,12 +8,16 @@
 
 #include "PlayerObject.h"
 
-PlayerObject::PlayerObject(string teamName, string unitID, Location position) : GameObject(unitID, position) {
+PlayerObject::PlayerObject(string teamName, string unitID, Location location) : GameObject(unitID, location) {
 	this->myTeamName = teamName;
 };
 
 PlayerObject::PlayerObject() {
 	
+}
+
+string PlayerObject::getTeamName() {
+	return this->myTeamName;
 }
 
 PlayerObject::~PlayerObject() {
