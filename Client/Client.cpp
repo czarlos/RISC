@@ -48,9 +48,10 @@ private:
 
 	void process_queue() {
 		while (true) {			
-			std::cout << "Reading Queue" << std::endl;						
+			//std::cout << "Reading Queue" << std::endl;						
 			while (!conn->getMessages()->empty()) {
 				NetworkMessage msg = conn->getMessages()->front();
+				std::cout << "Client " << this << " Received Message: " << std::endl;
 				msg.print();
 				conn->getMessages()->pop_front();
 			}
