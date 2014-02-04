@@ -3,6 +3,7 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/asio.hpp>
 #include "NetworkMessage.h"
+#include <boost/thread.hpp>
 #include <deque>
 #include "../Client/TCPConnection.h"
 
@@ -14,7 +15,9 @@ typedef std::deque<TCPConnection::pointer> client_queue;
 class TCPServer
 {
 private:
-	tcp::acceptor acceptor_;	
+	tcp::acceptor acceptor_;
+
+	boost::thread queue_handler;
 
 	client_queue myClients;
 
@@ -25,11 +28,14 @@ private:
 	void HandleAccept(TCPConnection::pointer new_connection,
 		const boost::system::error_code &error);
 
+	void process_queue();
+
 public:		
 	TCPServer(boost::asio::io_service &io_service, int port);
 	~TCPServer();
 
-	void send(NetworkMessage *e);
+	void send(NetworkMessage *e, TCPConnection::pointer recipient);
+	void send(NetworkMessage *e, std::string ip);
 
 	void send_welcome(TCPConnection::pointer new_connection);
 };
