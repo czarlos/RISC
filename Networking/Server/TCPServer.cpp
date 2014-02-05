@@ -59,15 +59,12 @@ void TCPServer::send(NetworkMessage *e, TCPConnection::pointer recipient)
 
 void TCPServer::send(NetworkMessage *e, std::string ip)
 {
-	for (client_queue::iterator i = myClients.begin(); i != myClients.end(); i++) {
+	client_queue::iterator i = myClients.begin();
+	while (i != myClients.end()) {
 		if ((*i)->isOpen()) {
 			if ((*i)->getIPAddress().compare(ip) == 0) {
 				(*i)->send(e);
 			}
-		}
-		else {
-			myClients.erase(i);
-			std::cout << "Removing client " << &(*i) << std::endl;
 		}
 	}
 }
