@@ -11,24 +11,37 @@ void Board::generateBoard(){
 	//randomly distributes the edges to the territories
 	list<Territory> listOfTerritories = populateListOfTerritories();
 
+	//for (list<Territory>::iterator iter = listOfTerritories.begin(); iter != listOfTerritories.end(); ++iter){
+	//	cout << (*iter).getTerritoryID() << endl;
+	//}
+
+
 	srand((unsigned int) time(NULL));
 	this->gameMap = list<list<Edge>>();
 	Territory endPointA;
 	Territory endPointB;
 	double edgeWeight;
-	
 	for (int i = 0; i < NUM_OF_EDGES; ++i){
 		list<Territory>::iterator iter = listOfTerritories.begin();
 		edgeWeight = MIN_EDGE_WEIGHT + ((double)rand() / RAND_MAX)*(MAX_EDGE_WEIGHT - MIN_EDGE_WEIGHT);
 		int idxA = rand() % NUM_OF_TERRITORYS;
+		//cout << idxA << endl;
 		advance(iter, idxA);
 		endPointA = (*iter);
 
 		iter = listOfTerritories.begin();
 		int idxB = rand() % NUM_OF_TERRITORYS;
+		//cout << idxB << endl;
+
 		advance(iter, idxB);
 		endPointB = (*iter);
+
+		//cout << (endPointA).getTerritoryID() << endl;
+		//cout << (endPointB).getTerritoryID() << endl;
+
+
 		if ((endPointA).getTerritoryID() == (endPointB).getTerritoryID()){
+
 			i--;
 		}
 		else{
@@ -39,28 +52,47 @@ void Board::generateBoard(){
 			putEdgeInGameMap(edge, idxB, idxA);
 		}
 	}
+	this->printGameMap();
 }
 
 void Board::putEdgeInGameMap(Edge edge, int idxA, int idxB){
 	list < list<Edge>> ::iterator itero = this->gameMap.begin();
-	advance(itero, idxA);
+	advance(itero, idxB);
 	list<Edge>::iterator iteri = (*itero).begin();
-	advance(iteri, idxB);
+	advance(iteri, idxA);
 	(*itero).insert(iteri, edge);
 }
 
 list<Territory> Board::populateListOfTerritories(){
+	vector<Location> *assignedLocations = new vector<Location>();
 	char id = 'a';
 	stringstream ss;
 	string sid;
 	list<Territory> listOfTerritories;
 	for (int i = 0; i < NUM_OF_TERRITORYS; ++i){
+		cout << sid << endl;
 		ss << id;
-		ss >> sid;
-		listOfTerritories.push_back(Territory(sid));
+		sid = ss.str();
+		listOfTerritories.push_back(Territory(sid,generateRandLocation(assignedLocations)));
 		id++;
 	}
 	return listOfTerritories;
+}
+
+Location Board::generateRandLocation(vector<Location> *assignedLocations){
+	//srand((unsigned int)(time(NULL)));
+	//Location *location;
+	double randYCoor;
+	double randXCoor;
+	randXCoor = MIN_EDGE_WEIGHT + ((double)rand() / RAND_MAX)*(MAX_EDGE_WEIGHT - MIN_EDGE_WEIGHT);
+	randYCoor = MIN_EDGE_WEIGHT + ((double)rand() / RAND_MAX)*(MAX_EDGE_WEIGHT - MIN_EDGE_WEIGHT);
+	for (vector<Location>::iterator iter = (*assignedLocations).begin(); iter != (*assignedLocations).end(); ++iter){
+		
+		if ((*iter).getX() == randXCoor && (*iter).getY() == randYCoor){
+			return generateRandLocation(assignedLocations);
+		}
+	}
+	return Location(randXCoor, randYCoor);
 }
 
 int Board::getNumberOfTerritories(){
@@ -131,6 +163,29 @@ Territory *Board::getTerritory(Location location){
 
 vector<Territory> *Board::getAdjacentTerritoryByLocation(Location location){
 	return getAdjacentTerritory(getTerritory(location));
+}
+
+void Board::printGameMap(){
+	for (list<list<Edge>>::iterator itero = this->gameMap.begin(); itero != this->gameMap.end(); ++itero){
+		for (list<Edge>::iterator iteri = (*itero).begin(); iteri != (*itero).end(); ++iteri){
+			cout << "this is my A" << endl;
+			cout << "this is the territory name:" << endl;
+			cout << (*(*iteri).getEndPointATerritory()).getTerritoryID() << endl;
+			cout << "this is my location:" << endl;
+			cout << (*(*iteri).getEndPointATerritory()).getLocation().getX()<< endl;
+			cout << (*(*iteri).getEndPointATerritory()).getLocation().getY() << endl;
+			cout << "this is my B" << endl;
+			cout << "this is the territory name:" << endl;
+			cout << (*(*iteri).getEndPointBTerritory()).getTerritoryID() << endl;
+			cout << "this is my location:" << endl;
+			cout << (*(*iteri).getEndPointBTerritory()).getLocation().getX() << endl;
+			cout << (*(*iteri).getEndPointBTerritory()).getLocation().getY() << endl;
+			cout << "------------------------------------------------" << endl;
+
+
+		}
+	}
+
 }
 
 Board::~Board()
