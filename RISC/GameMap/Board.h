@@ -4,6 +4,7 @@
 #include <list>
 #include <math.h>
 #include "Territory.h"
+#include "Edge.h"
 #include "Location.h"
 
 
@@ -26,9 +27,9 @@ public:
 	int getNumberOfTerritories();
 	double getBoardSize();
 	int getNumberofEdges();
-	vector <Territory> getAdjacentTerritory(Territory t);
-	//Territory getTerritory(Location location);
-	vector<Territory> getAdjacentTerritoryByLocation(Location location);
+	vector <Territory> *getAdjacentTerritory(Territory *t);
+	Territory *getTerritory(Location location);
+	vector<Territory> *getAdjacentTerritoryByLocation(Location location);
 	~Board();
 
 private:

@@ -33,8 +33,8 @@ void Board::generateBoard(){
 		}
 		else{
 			Edge edge = Edge(&endPointA, &endPointB, edgeWeight);
-			endPointA.addEdge(edge);
-			endPointB.addEdge(edge);
+			//endPointA.addEdge(edge);
+			//endPointB.addEdge(edge);
 			putEdgeInGameMap(edge,idxA, idxB);
 			putEdgeInGameMap(edge, idxB, idxA);
 		}
@@ -75,47 +75,61 @@ int Board::getNumberofEdges(){
 	return this->numOfEdges;
 }
 
-//vector<Territory> Board::getAdjacentTerritory(Territory territory){
-//	vector<Territory> neighborTerritories;
-//
-//	if (!checkIfOnBoard(territory)){
-//		return neighborTerritories;
-//	}
-//	vector<Edge> connectedEdges = territory.getTerritoryEdges();
-//
-//	for (vector<Edge>::iterator iter = connectedEdges.begin(); iter != connectedEdges.end(); ++iter){
-//		if ((*(*iter).getEndPointATerritory()).getTerritoryID() == territory.getTerritoryID()){
-//			neighborTerritories.push_back((*(*iter).getEndPointBTerritory()));
-//		}else{
-//			neighborTerritories.push_back((*(*iter).getEndPointATerritory()));
-//		}
-//	}
-//
-//	return neighborTerritories;
-//}
+vector<Territory> *Board::getAdjacentTerritory(Territory *territory){
 
-bool Board::checkIfOnBoard(Territory t){
-	for (list< list<Edge>>::iterator itero = this->gameMap.begin(); itero != this->gameMap.end(); ++itero){
+	//NOTE: neighborterritories is better to be declare as a pointer because returning a pointer to
+	// the list of territories is much more memory efficient.
+
+	vector<Territory> *neighborTerritories;
+	
+	for (list<list<Edge>>::iterator itero = this->gameMap.begin(); itero != this->gameMap.end(); ++itero){
 		for (list<Edge>::iterator iteri = (*itero).begin(); iteri != (*itero).end(); ++iteri){
-			if (((*(*iteri).getEndPointATerritory()).getTerritoryID() == t.getTerritoryID()) || ((*(*iteri).getEndPointBTerritory()).getTerritoryID() == t.getTerritoryID())){
-				return true;
+			if ((*(*iteri).getEndPointATerritory()).getTerritoryID() == (*territory).getTerritoryID()){
+				neighborTerritories->push_back((*(*iteri).getEndPointBTerritory()));
+			}
+			if ((*(*iteri).getEndPointBTerritory()).getTerritoryID() == (*territory).getTerritoryID()){
+				neighborTerritories->push_back((*(*iteri).getEndPointATerritory()));
 			}
 		}
 	}
-	return false;
+
+	return neighborTerritories;
 }
 
-//Territory Board::getTerritory(Location location){
-//	list<list<Territory>>::iterator itero = this->gameMap.begin();
-//	itero = next(this->gameMap.begin(), (int) location.getY());
-//	list<Territory>::iterator iteri = (*itero).begin();
-//	iteri = next((*itero).begin(), (int) location.getX());
-//	return (*iteri);
+//bool Board::checkIfOnBoard(Territory t){
+//	for (list< list<Edge>>::iterator itero = this->gameMap.begin(); itero != this->gameMap.end(); ++itero){
+//		for (list<Edge>::iterator iteri = (*itero).begin(); iteri != (*itero).end(); ++iteri){
+//			if (((*(*iteri).getEndPointATerritory()).getTerritoryID() == t.getTerritoryID()) || ((*(*iteri).getEndPointBTerritory()).getTerritoryID() == t.getTerritoryID())){
+//				return true;
+//			}
+//		}
+//	}
+//	return false;
 //}
 
-//vector<Territory> Board::getAdjacentTerritoryByLocation(Location location){
-//	return getAdjacentTerritory(getTerritory(location));
-//}
+//NOTE: Possiblity re-do this method
+Territory *Board::getTerritory(Location location){
+	Territory *desireTerritory;
+
+	for (list<list<Edge>>::iterator itero = this->gameMap.begin(); itero != this->gameMap.end(); ++itero){
+		for (list<Edge>::iterator iteri = (*itero).begin(); iteri != (*itero).end(); ++iteri){
+			if ((*(*iteri).getEndPointATerritory()).getLocation().getX() == location.getX() && (*(*iteri).getEndPointATerritory()).getLocation().getY() == location.getY()){
+				desireTerritory = (*iteri).getEndPointATerritory();
+			}
+
+			if ((*(*iteri).getEndPointBTerritory()).getLocation().getX() == location.getX() && (*(*iteri).getEndPointBTerritory()).getLocation().getY() == location.getY()){
+				desireTerritory = (*iteri).getEndPointBTerritory();
+			}
+
+		}
+	}
+	return desireTerritory;
+
+}
+
+vector<Territory> *Board::getAdjacentTerritoryByLocation(Location location){
+	return getAdjacentTerritory(getTerritory(location));
+}
 
 Board::~Board()
 {
