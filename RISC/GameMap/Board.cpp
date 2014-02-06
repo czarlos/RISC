@@ -81,6 +81,7 @@ vector<Territory> *Board::getAdjacentTerritory(Territory *territory){
 	// the list of territories is much more memory efficient.
 
 	vector<Territory> *neighborTerritories;
+	neighborTerritories = new  vector<Territory>();
 	
 	for (list<list<Edge>>::iterator itero = this->gameMap.begin(); itero != this->gameMap.end(); ++itero){
 		for (list<Edge>::iterator iteri = (*itero).begin(); iteri != (*itero).end(); ++iteri){
@@ -110,6 +111,7 @@ vector<Territory> *Board::getAdjacentTerritory(Territory *territory){
 //NOTE: Possiblity re-do this method
 Territory *Board::getTerritory(Location location){
 	Territory *desireTerritory;
+	desireTerritory = new Territory();
 
 	for (list<list<Edge>>::iterator itero = this->gameMap.begin(); itero != this->gameMap.end(); ++itero){
 		for (list<Edge>::iterator iteri = (*itero).begin(); iteri != (*itero).end(); ++iteri){

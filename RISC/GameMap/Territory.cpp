@@ -1,6 +1,8 @@
 #include "Territory.h"
 
 Territory::Territory(){
+	this->territoryID = "null";
+	this->owner = "";
 
 }
 
