@@ -34,6 +34,7 @@ private:
 	void handle_connect(const boost::system::error_code &err, tcp::resolver::iterator endpoint_itr) {
 		if (!err) {
 			conn->start();
+			conn->doOnMessageReceived(boost::bind(&client::process_message, this, _1));
 		}
 		else if (endpoint_itr != tcp::resolver::iterator()) {
 			// the connection failed - try the next one
@@ -46,18 +47,11 @@ private:
 		}
 	}
 
-	void process_queue() {
-		while (true) {			
-			//std::cout << "Reading Queue" << std::endl;	
-			// check this for when server quits
-			while (!conn->getMessages()->empty()) {
-				NetworkMessage msg = conn->getMessages()->front();
-				std::cout << "Client " << this << " Received Message: " << std::endl;
-				msg.print();
-				conn->getMessages()->pop_front();
-			}
-			boost::this_thread::sleep(boost::posix_time::milliseconds(100));
-		}
+	void process_message(TCPConnection * conn) {		
+		NetworkMessage msg = conn->getMessages()->front();
+		std::cout << "Client " << this << " Received Message: " << std::endl;
+		msg.print();
+		conn->getMessages()->pop_front();		
 	}
 
 public:
@@ -73,7 +67,7 @@ public:
 	}
 
 	void start() {
-		queue_handler = boost::thread(&client::process_queue, this);
+		// queue_handler = boost::thread(&client::process_queue, this);
 	}
 
 	void send(NetworkMessage * msg) {
