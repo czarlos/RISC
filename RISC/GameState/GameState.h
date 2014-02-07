@@ -11,12 +11,15 @@
 #include <iostream>
 #include <vector>
 #include "Team.h"
+#include "../GameMap/Board.h"
 
 class GameState {
 public:
 	GameState();
 	~GameState();
-	Team getTeam(Team team);
+	Board* getBoard(Board* board);
+	Team* getTeam(string teamName);
 private:
 	std::vector<Team> myTeamList;
+	Board myBoard;
 };

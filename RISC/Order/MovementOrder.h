@@ -20,9 +20,9 @@ class MovementOrder : public Order {
 private:
 	Location myDestination;
 	MovableObject myObject;
-	double findDistance(Location start, Location end);
-	void execute(GameState state);
+	double findDistance(Location* start, Location* end);
+	void execute(GameState* state);
 public:
-	MovementOrder(Location destination, MovableObject object, GameState state);
+	MovementOrder(Location* destination, MovableObject* object, GameState* state);
 	~MovementOrder();
 };

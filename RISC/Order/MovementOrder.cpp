@@ -8,9 +8,9 @@
 
 #include "MovementOrder.h"
 
-MovementOrder::MovementOrder(Location destination, MovableObject object, GameState state) : Order(state){
-	this->myDestination = destination;
-	this->myObject = object;
+MovementOrder::MovementOrder(Location* destination, MovableObject* object, GameState* state) : Order(state){
+	this->myDestination = *destination;
+	this->myObject = *object;
 }
 
 MovementOrder::~MovementOrder() {
@@ -22,11 +22,11 @@ MovementOrder::~MovementOrder() {
  * the desired location is <= its movement range, it moves
  * the unit, otherwise it does nothing.
  */
-void MovementOrder::execute(GameState state) {
+void MovementOrder::execute(GameState* state) {
 	string teamName = myObject.getTeamName();
-	Team team = state.getTeam(teamName);
-	MovableObject mo = team.getMovableObject(myObject);
-	if (MathUtilities::findDistance(mo.getLocation(), myDestination)
+	Team team = *state->getTeam(teamName);
+	MovableObject mo = team.getMovableObject(myObject.getGameObjectID());
+	if (MathUtilities::findDistance(mo.getLocation(), &myDestination)
 		<= mo.getMovementRange()) {
 		mo.setLocation(myDestination);
 	}

@@ -15,6 +15,6 @@
 class MathUtilities {
 public:
 	MathUtilities();
-	static double findDistance(Location start, Location end);
+	static double findDistance(Location* start, Location* end);
 	~MathUtilities();
 };

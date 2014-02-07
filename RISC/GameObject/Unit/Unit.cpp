@@ -9,7 +9,7 @@
 #include "Unit.h"
 
 Unit::Unit(int health, std::vector<Weapon> weaponList, std::string teamName, std::string objID,
-	 Location location, int movementRange) : MovableObject(health, weaponList, teamName, objID, location, movementRange) {
+	 Location* location, int movementRange) : MovableObject(health, weaponList, teamName, objID, location, movementRange) {
 	
 }
 

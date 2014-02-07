@@ -8,13 +8,13 @@
 
 #include "UnitOrder.h"
 
-UnitOrder::UnitOrder(Location source, Location destination, GameObject object, GameState state) : Order(state) {
-	this->mySource = source;
-	this->myDestination = destination;
-	this->myObject = object;
+UnitOrder::UnitOrder(Location* source, Location* destination, GameObject* object, GameState* state) : Order(state) {
+	this->mySource = *source;
+	this->myDestination = *destination;
+	this->myObject = *object;
 }
 
-void UnitOrder::execute(GameState state) {
+void UnitOrder::execute(GameState* state) {
 	
 }
 

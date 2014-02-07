@@ -8,8 +8,8 @@ class GameObject
 {
 public:
 	GameObject();
-	GameObject(string, Location);
-	Location getLocation();
+	GameObject(string, Location*);
+	Location* getLocation();
 	string getGameObjectID();
 	void setLocation(Location destination);
 	virtual ~GameObject();

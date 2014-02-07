@@ -9,7 +9,7 @@ private:
 	string myUnitID;
 public:
 	Unit(int health, std::vector<Weapon> weaponList, std::string teamName, std::string unitID,
-		 Location loaction, int movementRange);
+		 Location* loaction, int movementRange);
 	int getTurnStatus();
 	void setTurnStatus(int turnStatus);
 	~Unit();

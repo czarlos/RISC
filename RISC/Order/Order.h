@@ -8,9 +8,9 @@ private:
 	GameState myState;
 public:
 	Order();
-	Order(GameState state);
+	Order(GameState* state);
 	virtual ~Order() {};
 protected:
-	virtual void execute(GameState state) = 0;
+	virtual void execute(GameState* state) = 0;
 };
 

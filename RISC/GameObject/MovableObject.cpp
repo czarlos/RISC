@@ -9,7 +9,7 @@
 #include "MovableObject.h"
 
 MovableObject::MovableObject(int health, std::vector<Weapon> weaponList, std::string teamName, std::string objID,
-			  Location location, int movementRange) : CombatObject(health, weaponList, teamName, objID, location) {
+			  Location* location, int movementRange) : CombatObject(health, weaponList, teamName, objID, location) {
 	this->myMovementRange = movementRange;
 };
 

@@ -12,14 +12,20 @@ GameState::GameState() {
 	
 }
 
-Team GameState::getTeam(Team team) {
-	std::vector<Team> vector = this->myTeamList;
-	if ( std::find(vector.begin(), vector.end(), team) != vector.end() ) {
-		return team;
+Team* GameState::getTeam(string teamName) {
+	std::vector<Team> v = this->myTeamList;
+	
+	for(std::vector<Team>::iterator it = v.begin(); it != v.end(); ++it) {
+		if ( (*it).getTeamName() == teamName) {
+			return &(*it);
+		}
 	}
-	else {
-		return NULL;
-	}
+	
+	return NULL;
+}
+
+Board* GameState::getBoard(Board* board) {
+	return &(this->myBoard);
 }
 
 GameState::~GameState() {

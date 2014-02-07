@@ -9,9 +9,9 @@ class AttackOrder : public Order {
 	
 private:
 	Location myLocation;
-	void execute(GameState state);
+	void execute(GameState* state);
 public:
-	AttackOrder(Location location, GameState state);
+	AttackOrder(Location* location, GameState* state);
 	~AttackOrder();
 
 };

@@ -16,8 +16,8 @@ Team::~Team() {
 	
 }
 
-void Team::addUnit(Unit u) {
-	myUnitList.push_back(u);
+void Team::addUnit(Unit* u) {
+	myUnitList.push_back(*u);
 }
 
 /* Getters/Setters start here */
@@ -40,4 +40,8 @@ MovableObject Team::getMovableObject(string objID) {
 		}
 	}
 	return NULL;
+}
+
+string Team::getTeamName() {
+	return this->myTeamName;
 }
