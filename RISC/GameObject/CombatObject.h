@@ -4,6 +4,7 @@
 #include <string>
 #include "Weapon.h"
 #include "PlayerObject.h"
+#include "../GameState/GameState.h"
 
 class CombatObject : public PlayerObject {
 private:
@@ -20,5 +21,7 @@ public:
 	std::vector<Weapon> getWeaponsList();
 	~CombatObject();
 protected:
-	virtual void attack(GameObject* defender);
+	//virtual void attack(GameState* state, Location* destination);
+	virtual void attack(GameObject* otherObject, GameState* state);
+
 };

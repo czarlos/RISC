@@ -18,6 +18,6 @@ AttackOrder::~AttackOrder() {
 }
 
 void AttackOrder::execute(GameState* state) {
-	CombatObject otherCombatObject = (*state).getCombatObjectByLocation(destination);
-	myCombatObject.attack(otherCombatObject);
+	CombatObject otherCombatObject = (*state).getCombatObjectByLocation(myLocation);
+	myCombatObject.attack(&otherCombatObject, state));
 }
