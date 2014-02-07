@@ -8,10 +8,9 @@
 
 #include "Order.h"
 
-Order::Order(GameState* state) {
-	this->myState = *state;
+Order::Order() {
 }
 
-void Order::execute(GameState* state) {
+void Order::execute() {
 	
 }

@@ -32,3 +32,7 @@ void Unit::setDone() {
 void Unit::setReset() {
 	this->myTurnStatus = 0;
 }
+
+Unit::~Unit(){
+
+}

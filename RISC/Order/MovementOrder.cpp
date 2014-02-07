@@ -8,7 +8,7 @@
 
 #include "MovementOrder.h"
 
-MovementOrder::MovementOrder(Location* destination, MovableObject* object, GameState* state) : Order(state){
+MovementOrder::MovementOrder(Location* destination, MovableObject* object) : Order(){
 	this->myDestination = *destination;
 	this->myObject = *object;
 }
@@ -17,6 +17,6 @@ MovementOrder::~MovementOrder() {
 	
 }
 
-void MovementOrder::execute(GameState* state) {
+void MovementOrder::execute() {
 
 }

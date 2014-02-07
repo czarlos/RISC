@@ -3,15 +3,16 @@
 #include <iostream>
 #include "../GameMap/Location.h"
 #include "Order.h"
+#include "../GameObject/CombatObject.h"
 
 class AttackOrder : public Order {
 	
 private:
 	Location myLocation;
 	CombatObject myCombatObject;
-	void execute(GameState* state);
+	void execute();
 public:
-	AttackOrder(Location* destination, CombatObject* obj, GameState* state);
+	AttackOrder(Location* destination, CombatObject* obj);
 	~AttackOrder();
 
 };

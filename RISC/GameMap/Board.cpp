@@ -7,7 +7,7 @@ Board::Board(){
 
 	//vector<vector<Edge>> e;
 	this->gameMap.resize(NUM_OF_TERRITORYS);
-	for (int i = 0; i < this->gameMap.size(); i++) {
+	for (size_t i = 0; i < this->gameMap.size(); i++) {
 		this->gameMap[i] = vector<Edge>();
 		this->gameMap[i].resize(NUM_OF_TERRITORYS);
 	}
