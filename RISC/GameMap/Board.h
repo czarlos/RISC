@@ -42,7 +42,7 @@ private:
 
 	static const int numOfEdges = NUM_OF_EDGES;
 	static const int numOfTerritories = NUM_OF_TERRITORYS;
-	static const double boardSize = pow(numOfTerritories,2);
+	double boardSize = pow(numOfTerritories,2);
 
 	//test
 	void printGameMap();
