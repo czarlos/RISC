@@ -22,7 +22,7 @@ Location Territory::getLocation(){
 	return this->location;
 }
 
-void Territory::addToContent(GameObject itemToAdd){
+void Territory::addToContent(Unit itemToAdd){
 	this->contents.push_back(itemToAdd);
 }
 
@@ -34,8 +34,8 @@ void Territory::addToContent(GameObject itemToAdd){
 //	return this->edges;
 //}
 
-void Territory::removeFromContent(GameObject itemToRemove){
-	for (vector < GameObject>::iterator it = this->contents.begin(); it != this->contents.end(); ++it){
+void Territory::removeFromContent(Unit itemToRemove){
+	for (vector < Unit>::iterator it = this->contents.begin(); it != this->contents.end(); ++it){
 		if ((*it).getGameObjectID() == itemToRemove.getGameObjectID()){
 			it = this->contents.erase(it);
 		}
@@ -58,7 +58,7 @@ string Territory::getOwner(){
 	return this->owner;
 }
 
-vector<GameObject> Territory::getTerritoryContent(){
+vector<Unit> Territory::getTerritoryContent(){
 	return this->contents;
 }
 

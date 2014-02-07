@@ -1,11 +1,12 @@
 #pragma once
 #include <iostream>
 #include <vector>
-#include <list>
+//#include <list>
 #include <math.h>
 #include "Territory.h"
 #include "Edge.h"
 #include "Location.h"
+#include "../GameObject/Unit/Unit.h"
 
 
 
@@ -27,19 +28,20 @@ public:
 	int getNumberOfTerritories();
 	double getBoardSize();
 	int getNumberofEdges();
-	vector <Territory> *getAdjacentTerritory(Territory *t);
-	Territory *getTerritory(Location location);
-	vector<Territory> *getAdjacentTerritoryByLocation(Location location);
+	vector <Territory> *getAdjacentTerritory(Territory *);
+	Territory *getTerritory(Location );
+	vector<Unit> getUnitListAtLocation(Location);
+	vector<Territory> *getAdjacentTerritoryByLocation(Location);
 	~Board();
 
 private:
-	Location generateRandLocation(vector<Location> *assignedLocations);
-	void putEdgeInGameMap(Edge*, int, int);
-	list<Territory> populateListOfTerritories();
-	bool checkIfOnBoard(Territory territory);
+	Location generateRandLocation(vector<Location> *);
+	//void putEdgeInGameMap(Edge*, int, int);
+	vector<Territory> populateListOfTerritories();
+	bool checkIfOnBoard(Territory );
 
-	vector<vector<Edge*>*>* gameMap;
-
+	vector<vector<Edge>> gameMap;
+	
 	int numOfEdges = NUM_OF_EDGES;
 	int numOfTerritories = NUM_OF_TERRITORYS;
 	double boardSize = pow(numOfTerritories,2);
