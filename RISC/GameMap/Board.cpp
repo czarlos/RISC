@@ -5,9 +5,9 @@
 
 Board::Board(){
 	this->gameMap = new list<list<Edge*>*>();
-	for (int i = 0; i < numOfTerritories; ++i){
+	for (int i = 0; i < numOfTerritories; i++){
 		list<Edge*> *listOfNullEdges = new list<Edge*>();
-		for (int i = 0; i < numOfTerritories; ++i){
+		for (int i = 0; i < numOfTerritories; i++){
 			listOfNullEdges->push_back(new Edge());
 		}
 		cout << "hit" << endl;
@@ -15,6 +15,7 @@ Board::Board(){
 		
 	}
 }
+
 
 void Board::generateBoard(){
 	//randomly generate and place the territory in the matrix
@@ -25,13 +26,12 @@ void Board::generateBoard(){
 	//	cout << (*iter).getTerritoryID() << endl;
 	//}
 
-
 	srand((unsigned int) time(NULL));
 	//this->gameMap = list<list<Edge>>();
 	Territory *endPointA = new Territory();
 	Territory *endPointB = new Territory();
 	double edgeWeight;
-	for (int i = 0; i < NUM_OF_EDGES; ++i){
+	for (int i = 0; i < NUM_OF_EDGES; i++){
 		list<Territory>::iterator iter = listOfTerritories.begin();
 		edgeWeight = MIN_EDGE_WEIGHT + ((double)rand() / RAND_MAX)*(MAX_EDGE_WEIGHT - MIN_EDGE_WEIGHT);
 		int idxA = rand() % NUM_OF_TERRITORYS;
@@ -87,7 +87,8 @@ void Board::putEdgeInGameMap(Edge *edge, int idxA, int idxB){
 	advance(itero, idxB);
 	list<Edge*>::iterator iteri = (*itero)->begin();
 	advance(iteri, idxA);
-	(*(*itero)).insert(iteri, edge);
+
+	(*itero)->insert(iteri, edge);
 
 }
 
@@ -196,8 +197,8 @@ vector<Territory> *Board::getAdjacentTerritoryByLocation(Location location){
 }
 
 void Board::printGameMap(){
-	for (list<list<Edge*>*>::iterator itero = this->gameMap->begin(); itero != this->gameMap->end(); ++itero){
-		for (list<Edge*>::iterator iteri = (*itero)->begin(); iteri != (*itero)->end(); ++iteri){
+	for (list<list<Edge*>*>::iterator itero = this->gameMap->begin(); itero != this->gameMap->end(); itero++){
+		for (list<Edge*>::iterator iteri = (*itero)->begin(); iteri != (*itero)->end(); iteri++){
 			if ((*iteri)->getEndPointATerritory() != NULL && (*iteri)->getEndPointBTerritory() != NULL){
 				cout << "this is my A" << endl;
 				cout << "this is the territory name:" << endl;
