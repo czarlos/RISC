@@ -8,8 +8,8 @@
 
 #include "StaticObject.h"
 
-StaticObject::StaticObject(int health, std::vector<Weapon> weaponList, std::string teamName, std::string unitID,
-			 Location location) : CombatObject(health, weaponList, teamName, unitID, location) {
+StaticObject::StaticObject(int health, std::vector<Weapon> weaponList, std::string teamName, std::string objID,
+			 Location location) : CombatObject(health, weaponList, teamName, objID, location) {
 };
 
 StaticObject::~StaticObject() {

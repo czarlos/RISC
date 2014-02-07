@@ -17,11 +17,12 @@ class Team {
 public:
 	Team(string teamName);
 	~Team();
-	Unit getUnit(Unit u);
-	MovableObject getMovableObject(MovableObject m);
+	Unit getUnit(string objID);
+	MovableObject getMovableObject(string objID);
 	void addUnit(Unit u);
 private:
 	std::vector<Unit> myUnitList;
+	std::vector<MovableObject> myMovableList;
 	string myTeamName;
 	
 };

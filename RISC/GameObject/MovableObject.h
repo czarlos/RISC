@@ -9,7 +9,7 @@ private:
 	int myMovementRange;
 public:
 	MovableObject();
-	MovableObject(int health, std::vector<Weapon> weaponList, std::string teamName, std::string unitID,
+	MovableObject(int health, std::vector<Weapon> weaponList, std::string teamName, std::string objID,
 				  Location location, int movementRange);
 	Location getLocation();
 	int getMovementRange();

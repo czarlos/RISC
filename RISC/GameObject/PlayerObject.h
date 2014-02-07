@@ -10,7 +10,7 @@ private:
 	string myTeamName;
 public:
 	PlayerObject();
-	PlayerObject(string teamName, string unitID, Location location);
+	PlayerObject(string teamName, string objID, Location location);
 	string getTeamName();
 	~PlayerObject();
 };

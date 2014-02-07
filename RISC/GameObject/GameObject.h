@@ -15,7 +15,7 @@ public:
 	virtual ~GameObject();
 
 private:
-	string id;
+	string objID;
 	Location myLocation;
 	
 };

@@ -1,9 +1,9 @@
 #include "GameObject.h"
 
 
-GameObject::GameObject(string id, Location location)
+GameObject::GameObject(string objID, Location location)
 {
-	this->id = id;
+	this->objID = objID;
 	this->myLocation = location;
 }
 
@@ -12,7 +12,7 @@ GameObject::GameObject() {
 }
 
 string GameObject::getGameObjectID() {
-	return this->id;
+	return this->objID;
 }
 
 Location GameObject::getLocation() {

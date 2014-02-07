@@ -8,8 +8,8 @@
 
 #include "CombatObject.h"
 
-CombatObject::CombatObject(int health, vector<Weapon> weaponList, string teamName, string unitID,
-			 Location location) : PlayerObject(teamName, unitID, location) {
+CombatObject::CombatObject(int health, vector<Weapon> weaponList, string teamName, string objID,
+			 Location location) : PlayerObject(teamName, objID, location) {
 	this->myHealth = health;
 	this->myWeaponList = weaponList;
 }

@@ -12,7 +12,7 @@ private:
 	
 public:
 	CombatObject();
-	CombatObject(int health, vector<Weapon> weaponList, string teamName, string unitID, Location location);
+	CombatObject(int health, vector<Weapon> weaponList, string teamName, string objID, Location location);
 	
 	void addWeapon(Weapon weapon);
 	
