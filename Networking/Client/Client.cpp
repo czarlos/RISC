@@ -51,7 +51,9 @@ private:
 		NetworkMessage msg = conn->getMessages()->front();
 		std::cout << "Client " << this << " Received Message: " << std::endl;
 		msg.print();
-		conn->getMessages()->pop_front();		
+		conn->getMessages()->pop_front();	
+
+		this->send(new NetworkMessage('-', "Hello there fag"));
 	}
 
 public:

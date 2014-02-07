@@ -38,6 +38,12 @@ void TCPServer::HandleAccept(TCPConnection::pointer new_connection, const boost:
 
 void TCPServer::process_message(TCPConnection * conn) {
 	std::cout << "Message" << std::endl;
+	if (conn->getMessages()->size() > 0) {
+		NetworkMessage m = conn->getMessages()->front();
+		receiveQueue.push_back(m);
+		conn->getMessages()->pop_front();
+		m.print();
+	}	
 }
 
 void TCPServer::send_welcome(TCPConnection::pointer new_connection) {

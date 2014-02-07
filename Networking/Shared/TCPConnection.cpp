@@ -52,7 +52,7 @@ void TCPConnection::handle_write(const boost::system::error_code& error, size_t 
 		std::cout << "Bytes Transferred: " << bytes_transferred << std::endl;
 		for (network_message_queue::iterator i = sendQueue.begin(); i != sendQueue.end(); i++) {
 
-			NetworkMessage * f = &(*i);
+			NetworkMessage * f = &(*i);			
 			if (f == msg) {
 				sendQueue.erase(i);
 				std::cout << "Removed message from Queue" << std::endl;
@@ -82,7 +82,7 @@ void TCPConnection::send(NetworkMessage * msg)
 	sendQueue.push_back(*msg);
 
 	network_message_queue::iterator i = sendQueue.end();		
-	NetworkMessage * f = &(*--i);
+	NetworkMessage * f = &(*(--i));
 	this->write(*send, size, f);
 }
 
