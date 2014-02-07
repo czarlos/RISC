@@ -1,4 +1,5 @@
 #include "TCPServer.h"
+#include "..\Shared\Messages\ClientJoinMessage.h"
 
 void TCPServer::StartAccept() {
 	TCPConnection::pointer con = TCPConnection::create(acceptor_.get_io_service());
@@ -36,13 +37,12 @@ void TCPServer::HandleAccept(TCPConnection::pointer new_connection, const boost:
 	}
 }
 
-void TCPServer::process_message(TCPConnection * conn) {
-	std::cout << "Message" << std::endl;
+void TCPServer::process_message(TCPConnection * conn) {	
 	if (conn->getMessages()->size() > 0) {
-		NetworkMessage m = conn->getMessages()->front();
+		NetworkMessage * m = conn->getMessages()->front();
 		receiveQueue.push_back(m);
 		conn->getMessages()->pop_front();
-		m.print();
+		m->print();
 	}	
 }
 
@@ -51,10 +51,9 @@ void TCPServer::send_welcome(TCPConnection::pointer new_connection) {
 	std::string g = "Welcome to RISC good ser.";	
 	NetworkMessage msg = NetworkMessage('*', g);
 	new_connection->send(&msg);
-
-	g = "New Client Connected: " + new_connection->getIPAddress();
-	msg = NetworkMessage('+', g);
-	this->send(&msg, "127.0.0.1");	
+	
+	ClientJoinMessage f = ClientJoinMessage(new_connection->getIPAddress(), new_connection->getSocket()->remote_endpoint().port());
+	this->send(&f, "127.0.0.1");	
 }
 
 TCPServer::TCPServer(boost::asio::io_service &io_service, int port) : acceptor_(io_service, tcp::endpoint(tcp::v4(), port)) {

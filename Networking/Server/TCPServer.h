@@ -9,7 +9,7 @@
 
 using boost::asio::ip::tcp;
 
-typedef std::deque<NetworkMessage> network_message_queue;
+typedef std::deque<NetworkMessage *> network_message_queue;
 typedef std::deque<TCPConnection::pointer> client_queue;
 
 class TCPServer

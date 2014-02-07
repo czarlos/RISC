@@ -7,6 +7,8 @@
 #include "../Shared/TCPConnection.h"
 #include <boost/enable_shared_from_this.hpp>
 #include "../Shared/NetworkMessage.h"
+#include "../Shared/NetworkMessageFactory.h"
+#include "../Shared/Messages/ClientJoinMessage.h"
 
 using boost::asio::ip::tcp;
 
@@ -47,13 +49,13 @@ private:
 		}
 	}
 
-	void process_message(TCPConnection * conn) {		
-		NetworkMessage msg = conn->getMessages()->front();
-		std::cout << "Client " << this << " Received Message: " << std::endl;
-		msg.print();
+	void process_message(TCPConnection * conn) {				
+		NetworkMessage * msg = conn->getMessages()->front();
+		// std::cout << "Client " << this << " Received Message: " << std::endl;
+		msg->print();
 		conn->getMessages()->pop_front();	
 
-		this->send(new NetworkMessage('-', "Hello there fag"));
+		this->send(new ClientJoinMessage("lolz", 90));
 	}
 
 public:
