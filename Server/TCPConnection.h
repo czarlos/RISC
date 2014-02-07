@@ -16,7 +16,7 @@ private:
 	network_message_queue recvQueue;
 	network_message_queue sendQueue;
 
-	const unsigned int PACKET_SIZE = 128;
+	static const unsigned int PACKET_SIZE = 128;
 
 
 	char buf[128];

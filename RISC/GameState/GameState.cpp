@@ -28,6 +28,10 @@ Board* GameState::getBoard(Board* board) {
 	return &(this->myBoard);
 }
 
+CombatObject* GameState::getCombatObjectByLocation(Location l) {
+	return NULL;
+}
+
 GameState::~GameState() {
 	
 }

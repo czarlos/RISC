@@ -10,8 +10,7 @@ private:
 	string myUnitID;
 	const int RAND_MAX = 20;
 public:
-	Unit(int health, std::vector<Weapon> weaponList, std::string teamName, std::string unitID,
-		 Location* loaction, int movementRange);
+	Unit(int health, std::vector<Weapon> weaponList, std::string teamName, std::string unitID, int movementRange);
 	int getTurnStatus();
 	void setTurnStatus(int turnStatus);
 	~Unit();

@@ -8,8 +8,7 @@
 
 #include "Unit.h"
 
-Unit::Unit(int health, std::vector<Weapon> weaponList, std::string teamName, std::string objID,
-	 Location* location, int movementRange) : MovableObject(health, weaponList, teamName, objID, location, movementRange) {
+Unit::Unit(int health, std::vector<Weapon> weaponList, std::string teamName, std::string objID, int movementRange) : MovableObject(health, weaponList, teamName, objID, movementRange) {
 	
 }
 
@@ -25,11 +24,11 @@ void Unit::setTurnStatus(int turnStatus) {
  * on random number generation. Winner of roll stays in array
  * loser is removed.
  *
- * Note: Can we just remove the first element of the array?
+ 
  */
 void CombatObject::attack(GameObject *otherObject, GameState* state) {
-	
-	std::vector<Unit> unitList = (state->getBoard())->getUnitListAtLocation(otherObject->getLocation());
+	Location* otherLocation = (state->board)->getUnitLocation(otherObject);
+	std::vector<Unit> unitList = (state->getBoard())->getUnitListAtLocation(*otherLocation);
 	
 	int attackRoll = int(range*(rand()/(RAND_MAX + 1.0)));
 	int defenseRoll = int(range*(rand()/(RAND_MAX + 1.0)));

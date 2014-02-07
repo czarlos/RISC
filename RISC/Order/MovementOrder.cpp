@@ -25,9 +25,14 @@ MovementOrder::~MovementOrder() {
 void MovementOrder::execute(GameState* state) {
 	string teamName = myObject.getTeamName();
 	Team team = *state->getTeam(teamName);
+	
 	MovableObject mo = team.getMovableObject(myObject.getGameObjectID());
-	if (MathUtilities::findDistance(mo.getLocation(), &myDestination)
+	
+	Location* initialLocation = (state->getBoard())->getObjectLocation(mo);
+
+	
+	if (MathUtilities::findDistance(initialLocation, &myDestination)
 		<= mo.getMovementRange()) {
-		mo.setLocation(myDestination);
+		(state->getBoard())->setObjectLocation(mo, myDestination);
 	}
 }

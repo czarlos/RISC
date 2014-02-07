@@ -14,10 +14,10 @@ using namespace std;
 //Eventually in future implmenation, it would be best to let the player Host decide 
 //the amount of territorys and the number of edges that they want to begin the game
 //with
-const int NUM_OF_TERRITORYS = 6;
-const int NUM_OF_EDGES = 10;
-const int MAX_EDGE_WEIGHT = 100;
-const int MIN_EDGE_WEIGHT = 1;
+static const int NUM_OF_TERRITORYS = 6;
+static const int NUM_OF_EDGES = 10;
+static const int MAX_EDGE_WEIGHT = 100;
+static const int MIN_EDGE_WEIGHT = 1;
 
 class Board
 {
@@ -40,9 +40,9 @@ private:
 
 	vector<vector<Edge*>*>* gameMap;
 
-	int numOfEdges = NUM_OF_EDGES;
-	int numOfTerritories = NUM_OF_TERRITORYS;
-	double boardSize = pow(numOfTerritories,2);
+	static const int numOfEdges = NUM_OF_EDGES;
+	static const int numOfTerritories = NUM_OF_TERRITORYS;
+	static const double boardSize = pow(numOfTerritories,2);
 
 	//test
 	void printGameMap();

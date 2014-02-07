@@ -5,8 +5,7 @@
 class StaticObject : CombatObject {
 	
 public:
-	StaticObject(int health, std::vector<Weapon> weaponList, std::string teamName, std::string objID,
-				 Location loaction);
+	StaticObject(int health, std::vector<Weapon> weaponList, std::string teamName, std::string objID);
 	~StaticObject();
 };
 

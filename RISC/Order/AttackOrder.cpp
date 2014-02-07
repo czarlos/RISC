@@ -13,11 +13,12 @@ AttackOrder::AttackOrder(Location* destination, CombatObject* obj, GameState* st
 	this->myCombatObject = *obj;
 }
 
-AttackOrder::~AttackOrder() {
-	
-}
 
 void AttackOrder::execute(GameState* state) {
-	CombatObject otherCombatObject = (*state).getCombatObjectByLocation(myLocation);
+	CombatObject otherCombatObject = *(*state).getCombatObjectByLocation(myLocation);
 	myCombatObject.attack(&otherCombatObject, state));
+}
+
+AttackOrder::~AttackOrder() {
+	
 }
