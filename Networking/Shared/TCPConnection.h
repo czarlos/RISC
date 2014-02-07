@@ -22,6 +22,7 @@ private:
 	typedef std::deque<NetworkMessage> network_message_queue;
 
 	typedef boost::signals2::signal<void (TCPConnection * conn) > OnMessageReceived;
+	typedef boost::signals2::signal<void(TCPConnection * conn) > OnClientDisconnected;
 
 	network_message_queue recvQueue;
 	network_message_queue sendQueue;
@@ -39,11 +40,14 @@ private:
 
 	tcp::socket socket_;
 	OnMessageReceived onMessageReceived;
+	OnClientDisconnected onClientDisconnected;
 
 public:
 	typedef OnMessageReceived::slot_type OnMessageReceivedType;
+	typedef OnClientDisconnected::slot_type OnClientDisconnectedType;	
 
 	boost::signals2::connection doOnMessageReceived(const OnMessageReceivedType & slot);
+	boost::signals2::connection doOnClientDisconnected(const OnClientDisconnectedType & slot);
 
 	~TCPConnection();
 

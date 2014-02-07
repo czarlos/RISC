@@ -9,6 +9,7 @@ TCPConnection::TCPConnection(boost::asio::io_service & io_service) : socket_(io_
 
 TCPConnection::~TCPConnection()
 {
+	this->close();
 }
 
 TCPConnection::pointer TCPConnection::create(boost::asio::io_service &io_service)
@@ -39,8 +40,7 @@ void TCPConnection::handle_read(const boost::system::error_code &err, std::size_
 	}
 
 	NetworkMessage msg = NetworkMessage();
-	msg.parse(&recv_buffer, bytes_transferred);
-	// msg.print();
+	msg.parse(&recv_buffer, bytes_transferred);	
 	recvQueue.push_back(msg);
 	this->bind_read();
 	onMessageReceived(this);	
@@ -115,11 +115,12 @@ TCPConnection::network_message_queue * TCPConnection::getMessages()
 
 void TCPConnection::close()
 {
-	try {
+	try {		
 		socket_.close();
+		onClientDisconnected(this);
 	}
 	catch (std::exception &e) {
-		
+		std::cout << "Error: " << e.what() << std::endl;
 	}
 }
 
@@ -132,5 +133,10 @@ bool TCPConnection::isOpen()
 boost::signals2::connection TCPConnection::doOnMessageReceived(const OnMessageReceivedType & slot)
 {
 	return onMessageReceived.connect(slot);
+}
+
+boost::signals2::connection TCPConnection::doOnClientDisconnected(const OnClientDisconnectedType & slot)
+{
+	return onClientDisconnected.connect(slot);
 }
 
