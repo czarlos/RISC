@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "../GameObject/GameObject.h"
+#include "../GameObject/Unit/Unit.h"
 //#include "Edge.h"
 #include "Location.h"
 
@@ -15,15 +15,15 @@ public:
 	Territory(string);
 	Territory(string, Location);
 	Location getLocation();
-	void addToContent(GameObject );
+	void addToContent(Unit);
 	//void addEdge(Edge);
 	//vector<Edge> getTerritoryEdges();
 	string getTerritoryID();
-	void removeFromContent(GameObject);
+	void removeFromContent(Unit);
 	int contentSize();
 	void changeOwner(string);
 	string getOwner();
-	vector<GameObject> getTerritoryContent();
+	vector<Unit> getTerritoryContent();
 	~Territory();
 
 private:
@@ -31,6 +31,6 @@ private:
 	string territoryID;
 	string owner;
 	Location location;
-	vector<GameObject> contents;
+	vector<Unit> contents;
 };
 

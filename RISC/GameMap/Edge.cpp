@@ -1,8 +1,8 @@
 #include "Edge.h"
 
 Edge::Edge(){
-	this->endPointA = NULL;
-	this->endPointB = NULL;
+	this->endPointA = new Territory();
+	this->endPointB = new Territory();
 	this->edgeWeight = 0;
 
 }

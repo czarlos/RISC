@@ -5,11 +5,14 @@
 #include "../../GameState/GameState.h"
 
 class Unit : public MovableObject {
+
+
 private:
 	int myTurnStatus = 0;
 	string myUnitID;
-	const int RAND_MAX = 20;
 public:
+	const int RMAX = 20;
+
 	Unit(int health, std::vector<Weapon> weaponList, std::string teamName, std::string unitID, int movementRange);
 	int getTurnStatus();
 	void setTurnStatus(int turnStatus);

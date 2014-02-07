@@ -6,20 +6,18 @@
 //  Copyright (c) 2014 Carlos Reyes. All rights reserved.
 //
 
+/*
 #pragma once
 
 #include <iostream>
 #include <vector>
 #include <string>
-#include "Unit.h"
+#include "../GameObject/Unit/Unit.h"
 
 class Team {
 public:
 	Team(string teamName);
 	~Team();
-	Unit getUnit(string objID);
-	MovableObject getMovableObject(string objID);
-	void addUnit(Unit* u);
 	string getTeamName();
 
 private:
@@ -27,3 +25,4 @@ private:
 	std::vector<MovableObject> myMovableList;
 	string myTeamName;
 };
+*/

@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Carlos Reyes. All rights reserved.
 //
 
+/*
 #include "Team.h"
 
 Team::Team(string teamName) {
@@ -20,7 +21,7 @@ void Team::addUnit(Unit* u) {
 	myUnitList.push_back(*u);
 }
 
-/* Getters/Setters start here */
+// Getters/Setters start here
 
 Unit Team::getUnit(string objID) {
 	std::vector<Unit> unitList = this->myUnitList;
@@ -45,3 +46,5 @@ MovableObject Team::getMovableObject(string objID) {
 string Team::getTeamName() {
 	return this->myTeamName;
 }
+
+*/

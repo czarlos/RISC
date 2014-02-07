@@ -10,17 +10,24 @@
 
 #include <iostream>
 #include <vector>
-#include "Team.h"
 #include "../GameMap/Board.h"
+#include "../GameObject/CombatObject.h"
+#include "../GameObject/MovableObject.h"
+
 
 class GameState {
 public:
 	GameState();
+	Board* getBoard();
 	~GameState();
-	Board* getBoard(Board* board);
-	Team* getTeam(string teamName);
-	CombatObject* getCombatObjectByLocation(Location l);
+//	Team* getTeam(std::string teamName);
+	
+	CombatObject* getCombatObjectByLocation(Location* l);
+	Location* getObjectLocation(GameObject* object);
+	void setObjectLocation(GameObject* object, Location* location);
+	MovableObject getMovableObject(std::string name);
+	
 private:
-	std::vector<Team> myTeamList;
+	//std::vector<Team> myTeamList;
 	Board myBoard;
 };

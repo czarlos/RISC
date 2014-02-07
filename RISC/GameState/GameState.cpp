@@ -11,7 +11,7 @@
 GameState::GameState() {
 	
 }
-
+/*
 Team* GameState::getTeam(string teamName) {
 	std::vector<Team> v = this->myTeamList;
 	
@@ -23,12 +23,24 @@ Team* GameState::getTeam(string teamName) {
 	
 	return NULL;
 }
-
-Board* GameState::getBoard(Board* board) {
+*/
+Board* GameState::getBoard() {
 	return &(this->myBoard);
 }
 
-CombatObject* GameState::getCombatObjectByLocation(Location l) {
+CombatObject* GameState::getCombatObjectByLocation(Location* l) {
+	return NULL;
+}
+
+Location* GameState::getObjectLocation(GameObject* object) {
+	return NULL;
+}
+
+void GameState::setObjectLocation(GameObject* object, Location* location) {
+	
+}
+
+MovableObject GameState::getMovableObject(std::string name) {
 	return NULL;
 }
 

@@ -1,11 +1,12 @@
 #pragma once
 #include <iostream>
 #include <vector>
-#include <list>
+//#include <list>
 #include <math.h>
 #include "Territory.h"
 #include "Edge.h"
 #include "Location.h"
+#include "../GameObject/Unit/Unit.h"
 
 
 
@@ -14,10 +15,10 @@ using namespace std;
 //Eventually in future implmenation, it would be best to let the player Host decide 
 //the amount of territorys and the number of edges that they want to begin the game
 //with
-static const int NUM_OF_TERRITORYS = 6;
-static const int NUM_OF_EDGES = 10;
-static const int MAX_EDGE_WEIGHT = 100;
-static const int MIN_EDGE_WEIGHT = 1;
+#define NUM_OF_TERRITORYS 6;
+#define NUM_OF_EDGES 10;
+#define MAX_EDGE_WEIGHT 100;
+#define MIN_EDGE_WEIGHT 1;
 
 class Board
 {
@@ -27,18 +28,19 @@ public:
 	int getNumberOfTerritories();
 	double getBoardSize();
 	int getNumberofEdges();
-	vector <Territory> *getAdjacentTerritory(Territory *t);
-	Territory *getTerritory(Location location);
-	vector<Territory> *getAdjacentTerritoryByLocation(Location location);
+	vector <Territory> *getAdjacentTerritory(Territory *);
+	Territory *getTerritory(Location );
+	vector<Unit> getUnitListAtLocation(Location);
+	vector<Territory> *getAdjacentTerritoryByLocation(Location);
+	
 	~Board();
 
 private:
-	Location generateRandLocation(vector<Location> *assignedLocations);
-	void putEdgeInGameMap(Edge*, int, int);
-	list<Territory> populateListOfTerritories();
-	bool checkIfOnBoard(Territory territory);
+	Location generateRandLocation(vector<Location> *);
+	//void putEdgeInGameMap(Edge*, int, int);
+	vector<Territory> populateListOfTerritories();
+	bool checkIfOnBoard(Territory );
 
-	vector<vector<Edge*>*>* gameMap;
 
 	static const int numOfEdges = NUM_OF_EDGES;
 	static const int numOfTerritories = NUM_OF_TERRITORYS;

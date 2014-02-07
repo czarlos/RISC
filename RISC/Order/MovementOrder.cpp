@@ -13,9 +13,6 @@ MovementOrder::MovementOrder(Location* destination, MovableObject* object, GameS
 	this->myObject = *object;
 }
 
-MovementOrder::~MovementOrder() {
-	
-}
 
 /* Moves a Movable Object from its current location to
  * a specified destination location, if the distance to
@@ -26,13 +23,16 @@ void MovementOrder::execute(GameState* state) {
 	string teamName = myObject.getTeamName();
 	Team team = *state->getTeam(teamName);
 	
-	MovableObject mo = team.getMovableObject(myObject.getGameObjectID());
+	MovableObject mo = *(state->getMovableObject(myObject.getGameObjectID()));
 	
-	Location* initialLocation = (state->getBoard())->getObjectLocation(mo);
-
+	Location* initialLocation = state->getObjectLocation(mo);
 	
 	if (MathUtilities::findDistance(initialLocation, &myDestination)
 		<= mo.getMovementRange()) {
-		(state->getBoard())->setObjectLocation(mo, myDestination);
+		state->setObjectLocation(mo, myDestination);
 	}
+}
+
+MovementOrder::~MovementOrder() {
+	
 }
