@@ -37,7 +37,7 @@ private:
 	void putEdgeInGameMap(Edge*, int, int);
 	list<Territory> populateListOfTerritories();
 	bool checkIfOnBoard(Territory territory);
-	list<list<Edge>>* gameMap;
+	list<list<Edge*>*>* gameMap;
 	int numOfEdges = NUM_OF_EDGES;
 	int numOfTerritories = NUM_OF_TERRITORYS;
 	double boardSize = pow(numOfTerritories,2);
