@@ -17,8 +17,7 @@ class TCPServer
 private:
 	tcp::acceptor acceptor_;
 
-	boost::thread queue_handler;
-
+	boost::shared_mutex clientQueueMutex;
 	client_queue myClients;
 
 	network_message_queue sendQueue;
@@ -27,12 +26,12 @@ private:
 	void StartAccept();
 	void HandleAccept(TCPConnection::pointer new_connection,
 		const boost::system::error_code &error);
-
-	void process_queue();
 	
+	void process_message(TCPConnection * conn);
+	void handle_disconnect(TCPConnection * conn);
 
 public:		
-	void process_message(TCPConnection * conn);
+	
 	TCPServer(boost::asio::io_service &io_service, int port);
 	~TCPServer();
 

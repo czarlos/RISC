@@ -15,9 +15,17 @@ void TCPServer::HandleAccept(TCPConnection::pointer new_connection, const boost:
 	new_connection->print();
 
 	if (!error) {
-		myClients.push_back(new_connection);
+
+		// scope the lock so it frees automatically
+		{
+			boost::upgrade_lock<boost::shared_mutex> lock(clientQueueMutex);
+			boost::upgrade_to_unique_lock<boost::shared_mutex> uniqueLock(lock);
+			myClients.push_back(new_connection);			
+		}
+
 		new_connection->start();
 		new_connection->doOnMessageReceived(boost::bind(&TCPServer::process_message, this, _1));
+		new_connection->doOnClientDisconnected(boost::bind(&TCPServer::handle_disconnect, this, _1));
 		this->send_welcome(new_connection);
 
 		// Listen for more clients
@@ -46,9 +54,6 @@ void TCPServer::send_welcome(TCPConnection::pointer new_connection) {
 TCPServer::TCPServer(boost::asio::io_service &io_service, int port) : acceptor_(io_service, tcp::endpoint(tcp::v4(), port)) {
 	std::cout << "Creating Server" << std::endl;
 	std::cout << "Listening On Port: " << port << std::endl;
-	
-	// queue_handler = boost::thread(&TCPServer::process_queue, this);
-
 	this->StartAccept();
 }
 
@@ -64,6 +69,7 @@ void TCPServer::send(NetworkMessage *e, TCPConnection::pointer recipient)
 
 void TCPServer::send(NetworkMessage *e, std::string ip)
 {
+	boost::shared_lock<boost::shared_mutex> lock(clientQueueMutex);
 	client_queue::iterator i = myClients.begin();
 	while (i != myClients.end()) {
 		if ((*i)->isOpen()) {
@@ -73,27 +79,21 @@ void TCPServer::send(NetworkMessage *e, std::string ip)
 		}
 		i++;
 	}
+	lock.unlock();
 }
 
-void TCPServer::process_queue() {
-	while (true) {
-		client_queue::iterator i = myClients.begin();
-		while (i != myClients.end()) {			
-			if ((*i)->isOpen()) {
-				while (!(*i)->getMessages()->empty()) {
-					NetworkMessage msg = (*i)->getMessages()->front();
-					std::cout << "Server " << this << " Received Message: " << std::endl;
-					msg.print();
-					this->receiveQueue.push_back(msg);
-					(*i)->getMessages()->pop_front();
-				}
-				i++;
-			}
-			else {
-				std::cout << "Removing client " << &(*i) << std::endl;				
-				i = myClients.erase(i);								
-			}
+void TCPServer::handle_disconnect(TCPConnection * conn)
+{
+	client_queue::iterator i = myClients.begin();
+	while (i != myClients.end()) {
+		TCPConnection * j = i->get();
+		if (j == conn) {
+			std::cout << "Client disconnected: " << conn << std::endl;
+			i = myClients.erase(i);				
+			return;
 		}
-		boost::this_thread::sleep(boost::posix_time::milliseconds(100));
-	}
+		else {
+			i++;
+		}
+	}	
 }
