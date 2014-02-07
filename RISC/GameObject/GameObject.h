@@ -11,6 +11,7 @@ public:
 	GameObject(string, Location);
 	Location getLocation();
 	string getGameObjectID();
+	void setLocation(Location destination);
 	virtual ~GameObject();
 
 private:

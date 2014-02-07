@@ -17,6 +17,10 @@ MovableObject::MovableObject() {
 	
 }
 
+int MovableObject::getMovementRange() {
+	return this->myMovementRange;
+}
+
 MovableObject::~MovableObject() {
 	
 }

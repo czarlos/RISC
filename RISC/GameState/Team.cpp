@@ -8,8 +8,8 @@
 
 #include "Team.h"
 
-Team::Team() {
-	
+Team::Team(string teamName) {
+	this->myTeamName = teamName;
 }
 
 Team::~Team() {
@@ -22,10 +22,16 @@ void Team::addUnit(Unit u) {
 
 /* Getters/Setters start here */
 
-Unit Team::getUnit(Unit u) {
+Unit Team::getUnit(string unitID) {
 	std::vector<Unit> vector = this->myUnitList;
-	if ( std::find(vector.begin(), vector.end(), u) != vector.end() ) {
-		return u;
+	for (int i=0; i<vector.size(); i++) {
+		if (vector.at(i)->unitID == unitID) {
+			return vector.at(i);
+		}
 	}
 
+}
+
+MovableObject Team::getMovableObject(MovableObject mo) {
+	
 }

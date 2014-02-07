@@ -8,7 +8,7 @@
 
 #include "AttackOrder.h"
 
-AttackOrder::AttackOrder(Location myLocation, GameState state) : Order(state){
+AttackOrder::AttackOrder(Location location, GameState state) : Order(state){
 	this->myLocation = myLocation;
 }
 

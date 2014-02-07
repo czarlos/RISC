@@ -12,6 +12,16 @@ GameState::GameState() {
 	
 }
 
+Team GameState::getTeam(Team team) {
+	std::vector<Team> vector = this->myTeamList;
+	if ( std::find(vector.begin(), vector.end(), team) != vector.end() ) {
+		return team;
+	}
+	else {
+		return NULL;
+	}
+}
+
 GameState::~GameState() {
 	
 }

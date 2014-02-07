@@ -19,6 +19,10 @@ Location GameObject::getLocation() {
 	return this->myLocation;
 }
 
+void GameObject::setLocation(Location destination) {
+	this->myLocation = destination;
+}
+
 GameObject::~GameObject()
 {
 }

@@ -16,7 +16,7 @@ class GameState {
 public:
 	GameState();
 	~GameState();
+	Team getTeam(Team team);
 private:
 	std::vector<Team> myTeamList;
-
 };
