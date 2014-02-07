@@ -19,4 +19,6 @@ public:
 	int getHealth();
 	std::vector<Weapon> getWeaponsList();
 	~CombatObject();
+protected:
+	virtual void attack(GameObject* defender);
 };

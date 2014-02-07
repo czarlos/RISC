@@ -13,5 +13,7 @@ public:
 	int getTurnStatus();
 	void setTurnStatus(int turnStatus);
 	~Unit();
+protected:
+	void attack(CombatObject* defender);
 };
 

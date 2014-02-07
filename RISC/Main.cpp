@@ -1,5 +1,5 @@
 #include <iostream>
-#include "GameMap\Board.h"
+#include "GameMap/Board.h"
 
 int main(int argc, char* argv[]) {
 	std::cout << "Hello there" << std::endl;

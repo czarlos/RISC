@@ -20,3 +20,7 @@ int Unit::getTurnStatus() {
 void Unit::setTurnStatus(int turnStatus) {
 	this->myTurnStatus = turnStatus;
 }
+
+void CombatObject::attack(GameObject *defender) {
+	cout << "this money";
+}
