@@ -38,28 +38,33 @@ void TCPConnection::handle_read(const boost::system::error_code &err, std::size_
 			throw boost::system::system_error(err);
 		}
 	}
-
-	NetworkMessage msg = NetworkMessage();
-	msg.parse(&recv_buffer, bytes_transferred);	
-	recvQueue.push_back(msg);
-	this->bind_read();
-	onMessageReceived(this);	
+	
+	NetworkMessage * nm = NetworkMessageFactory::parseMessage(&recv_buffer, bytes_transferred);
+	if (nm != NULL) {
+		recvQueue.push_back(nm);
+		onMessageReceived(this);
+	}
+	this->bind_read();	
 }
 
 void TCPConnection::handle_write(const boost::system::error_code& error, size_t bytes_transferred, NetworkMessage * msg)
 {	
 	if (!error) {
-		std::cout << "Bytes Transferred: " << bytes_transferred << std::endl;
+		// std::cout << "Bytes Transferred: " << bytes_transferred << std::endl;
 		for (network_message_queue::iterator i = sendQueue.begin(); i != sendQueue.end(); i++) {
 
-			NetworkMessage * f = &(*i);			
+			// this may no longer work
+			NetworkMessage * f = *i;			
 			if (f == msg) {
 				sendQueue.erase(i);
-				std::cout << "Removed message from Queue" << std::endl;
+				// std::cout << "Removed message from Queue" << std::endl;
 				break;
 			}
 		}		
 	}	
+	else {
+	std::cout << "Error: " << error.message() << std::endl;
+	}
 }
 
 void TCPConnection::write(char * data, size_t size, NetworkMessage * msg)
@@ -79,10 +84,10 @@ void TCPConnection::send(NetworkMessage * msg)
 	char ** send = new char*[1];
 	msg->encode(send, &size);
 
-	sendQueue.push_back(*msg);
+	sendQueue.push_back(msg);
 
 	network_message_queue::iterator i = sendQueue.end();		
-	NetworkMessage * f = &(*(--i));
+	NetworkMessage * f = *(--i);
 	this->write(*send, size, f);
 }
 

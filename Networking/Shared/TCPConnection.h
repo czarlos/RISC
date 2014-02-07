@@ -10,6 +10,7 @@
 #include <boost/enable_shared_from_this.hpp>
 #include <boost/signals2.hpp>
 #include "../Shared/NetworkMessage.h"
+#include "NetworkMessageFactory.h"
 
 
 #define EOT '\4'
@@ -19,7 +20,7 @@ using boost::asio::ip::tcp;
 class TCPConnection : public boost::enable_shared_from_this<TCPConnection>
 {
 private:
-	typedef std::deque<NetworkMessage> network_message_queue;
+	typedef std::deque<NetworkMessage *> network_message_queue;
 
 	typedef boost::signals2::signal<void (TCPConnection * conn) > OnMessageReceived;
 	typedef boost::signals2::signal<void(TCPConnection * conn) > OnClientDisconnected;
