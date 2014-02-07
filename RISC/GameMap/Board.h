@@ -4,6 +4,7 @@
 #include <list>
 #include <math.h>
 #include "Territory.h"
+#include "Edge.h"
 #include "Location.h"
 
 
@@ -26,19 +27,23 @@ public:
 	int getNumberOfTerritories();
 	double getBoardSize();
 	int getNumberofEdges();
-	vector <Territory> getAdjacentTerritory(Territory t);
-	//Territory getTerritory(Location location);
-	vector<Territory> getAdjacentTerritoryByLocation(Location location);
+	vector <Territory> *getAdjacentTerritory(Territory *t);
+	Territory *getTerritory(Location location);
+	vector<Territory> *getAdjacentTerritoryByLocation(Location location);
 	~Board();
 
 private:
-	void putEdgeInGameMap(Edge, int, int);
+	Location generateRandLocation(vector<Location> *assignedLocations);
+	void putEdgeInGameMap(Edge*, int, int);
 	list<Territory> populateListOfTerritories();
-	//bool checkIfOnBoard(Territory territory);
-	list<list<Edge>> gameMap;
+	bool checkIfOnBoard(Territory territory);
+	list<list<Edge*>*>* gameMap;
 	int numOfEdges = NUM_OF_EDGES;
 	int numOfTerritories = NUM_OF_TERRITORYS;
 	double boardSize = pow(numOfTerritories,2);
+
+	//test
+	void printGameMap();
 	
 	
 };

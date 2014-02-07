@@ -3,11 +3,11 @@
 #include <string>
 #include <vector>
 #include "../GameObject/GameObject.h"
-#include "Edge.h"
+//#include "Edge.h"
 #include "Location.h"
 
 using namespace std;
-class Edge;
+//class Edge;
 class Territory
 {
 public:
@@ -16,8 +16,8 @@ public:
 	Territory(string, Location);
 	Location getLocation();
 	void addToContent(GameObject );
-	void addEdge(Edge);
-	vector<Edge> getTerritoryEdges();
+	//void addEdge(Edge);
+	//vector<Edge> getTerritoryEdges();
 	string getTerritoryID();
 	void removeFromContent(GameObject);
 	int contentSize();
@@ -27,7 +27,7 @@ public:
 	~Territory();
 
 private:
-	vector<Edge> edges;
+	//vector<Edge> edges;
 	string territoryID;
 	string owner;
 	Location location;

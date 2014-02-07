@@ -1,6 +1,8 @@
 #include "Territory.h"
 
 Territory::Territory(){
+	this->territoryID = "null";
+	this->owner = "";
 
 }
 
@@ -24,13 +26,13 @@ void Territory::addToContent(GameObject itemToAdd){
 	this->contents.push_back(itemToAdd);
 }
 
-void Territory::addEdge(Edge edge){
-	this->edges.push_back(edge);
-}
-
-vector<Edge> Territory::getTerritoryEdges(){
-	return this->edges;
-}
+//void Territory::addEdge(Edge edge){
+//	this->edges.push_back(edge);
+//}
+//
+//vector<Edge> Territory::getTerritoryEdges(){
+//	return this->edges;
+//}
 
 void Territory::removeFromContent(GameObject itemToRemove){
 	for (vector < GameObject>::iterator it = this->contents.begin(); it != this->contents.end(); ++it){
