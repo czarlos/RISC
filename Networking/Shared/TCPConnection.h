@@ -1,5 +1,5 @@
 #pragma once
-#pragma once
+#define _SCL_SECURE_NO_WARNINGS
 #define _CRT_SECURE_NO_WARNINGS
 #include <boost/asio.hpp>
 #include <boost/bind.hpp>
@@ -8,6 +8,7 @@
 #include <string>
 #include <queue>
 #include <boost/enable_shared_from_this.hpp>
+#include <boost/signals2.hpp>
 #include "../Shared/NetworkMessage.h"
 
 
@@ -19,6 +20,8 @@ class TCPConnection : public boost::enable_shared_from_this<TCPConnection>
 {
 private:
 	typedef std::deque<NetworkMessage> network_message_queue;
+
+	typedef boost::signals2::signal<void (TCPConnection * conn) > OnMessageReceived;
 
 	network_message_queue recvQueue;
 	network_message_queue sendQueue;
@@ -35,9 +38,12 @@ private:
 	void write(char * data, size_t size, NetworkMessage * msg);
 
 	tcp::socket socket_;
+	OnMessageReceived onMessageReceived;
 
 public:
-	
+	typedef OnMessageReceived::slot_type OnMessageReceivedType;
+
+	boost::signals2::connection doOnMessageReceived(const OnMessageReceivedType & slot);
 
 	~TCPConnection();
 

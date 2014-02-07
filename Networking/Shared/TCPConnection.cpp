@@ -42,8 +42,8 @@ void TCPConnection::handle_read(const boost::system::error_code &err, std::size_
 	msg.parse(&recv_buffer, bytes_transferred);
 	// msg.print();
 	recvQueue.push_back(msg);
-
 	this->bind_read();
+	onMessageReceived(this);	
 }
 
 void TCPConnection::handle_write(const boost::system::error_code& error, size_t bytes_transferred, NetworkMessage * msg)
@@ -127,3 +127,10 @@ bool TCPConnection::isOpen()
 {
 	return socket_.is_open();
 }
+
+
+boost::signals2::connection TCPConnection::doOnMessageReceived(const OnMessageReceivedType & slot)
+{
+	return onMessageReceived.connect(slot);
+}
+
