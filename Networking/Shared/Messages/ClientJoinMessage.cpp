@@ -42,7 +42,8 @@ void ClientJoinMessage::process_data()
 
 void ClientJoinMessage::print()
 {
-	throw std::logic_error("The method or operation is not implemented.");
+	std::cout << "Client Joined the Game." << std::endl;
+	std::cout << "\t " << this->clientIP << ":" << this->port << std::endl;
 }
 
 void ClientJoinMessage::encode_data()
