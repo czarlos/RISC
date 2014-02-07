@@ -10,7 +10,6 @@
 
 #include <iostream>
 #include <vector>
-#include "Team.h"
 #include "../GameMap/Board.h"
 
 class GameState {
@@ -18,9 +17,8 @@ public:
 	GameState();
 	~GameState();
 	Board* getBoard(Board* board);
-	Team* getTeam(string teamName);
-	CombatObject* getCombatObjectByLocation(Location l);
+	void init();
+
 private:
-	std::vector<Team> myTeamList;
 	Board myBoard;
 };

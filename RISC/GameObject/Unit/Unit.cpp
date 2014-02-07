@@ -8,73 +8,27 @@
 
 #include "Unit.h"
 
+Unit::Unit(){
+	this->myUnitID = "null";
+	this->myTurnStatus = 0;
+}
+
+Unit::Unit(int health, string teamName, string objID, int movementRange) : MovableObject(health, teamName, objID, movementRange) {
+	this->myTurnStatus = 0;
+}
+
 Unit::Unit(int health, std::vector<Weapon> weaponList, std::string teamName, std::string objID, int movementRange) : MovableObject(health, weaponList, teamName, objID, movementRange) {
-	
+	this->myTurnStatus = 0;
 }
 
 int Unit::getTurnStatus() {
-	return myTurnStatus;
+	return this->myTurnStatus;
 }
 
-void Unit::setTurnStatus(int turnStatus) {
-	this->myTurnStatus = turnStatus;
+void Unit::setDone() {
+	this->myTurnStatus = 1;
 }
 
-/* Takes in the other unit and the state, dice rolls based
- * on random number generation. Winner of roll stays in array
- * loser is removed.
- *
- 
- */
-void CombatObject::attack(GameObject *otherObject, GameState* state) {
-	Location* otherLocation = (state->board)->getUnitLocation(otherObject);
-	std::vector<Unit> unitList = (state->getBoard())->getUnitListAtLocation(*otherLocation);
-	
-	int attackRoll = int(range*(rand()/(RAND_MAX + 1.0)));
-	int defenseRoll = int(range*(rand()/(RAND_MAX + 1.0)));
-	
-	if (attackRoll > defenseRoll) {
-		for (int i; i>unitList.size(); i++) {
-			if (unitList.at(i) == *otherObject) {
-				unitList.erase(unitList.begin()+i);
-			}
-		}
-		return;
-	}
-	else {
-		for (int i; i>unitList.size(); i++) {
-			if (unitList.at(i) == this) {
-				unitList.erase(unitList.begin()+i);
-			}
-		}
-		return;
-	}
+void Unit::setReset() {
+	this->myTurnStatus = 0;
 }
-
-/*
-void CombatObject::attack(state, destination) {
-	
-	std::vector<Unit> unitList = (state->getBoard())->getUnitListAtLocation(destination);
-	int attackRoll;
-	int defenseRoll;
-	
-	
-	while ( !unitList.is_empty<Unit> ||
-		   !unitList.is_empty<Unit>) {
-		
-		attackRoll = int(range*(rand()/(RAND_MAX + 1.0)));
-		defenseRoll = int(range*(rand()/(RAND_MAX + 1.0)));
-	
-		if (attackRoll > defenseRoll) {
-			//attacker wins
-			
-			return;
-		}
-		else {
-			//defender wins
-			return;
-		}
-	}
-}
-
-*/

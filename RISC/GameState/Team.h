@@ -11,19 +11,12 @@
 #include <iostream>
 #include <vector>
 #include <string>
-#include "Unit.h"
 
 class Team {
 public:
-	Team(string teamName);
+	Team();
 	~Team();
-	Unit getUnit(string objID);
-	MovableObject getMovableObject(string objID);
-	void addUnit(Unit* u);
-	string getTeamName();
 
-private:
-	std::vector<Unit> myUnitList;
-	std::vector<MovableObject> myMovableList;
-	string myTeamName;
+
+
 };

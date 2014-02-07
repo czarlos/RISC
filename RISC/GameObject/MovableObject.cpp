@@ -8,12 +8,16 @@
 
 #include "MovableObject.h"
 
-MovableObject::MovableObject(int health, std::vector<Weapon> weaponList, std::string teamName, std::string objID, int movementRange) : CombatObject(health, weaponList, teamName, objID) {
+MovableObject::MovableObject(int health, vector<Weapon> weaponList, string teamName, string objID, int movementRange) : CombatObject(health, weaponList, teamName, objID) {
 	this->myMovementRange = movementRange;
 };
 
 MovableObject::MovableObject() {
 	
+}
+
+MovableObject::MovableObject(int health, string teamName, string obj, int movementRange) : CombatObject(health, teamName, obj){
+	this->myMovementRange = movementRange;
 }
 
 int MovableObject::getMovementRange() {

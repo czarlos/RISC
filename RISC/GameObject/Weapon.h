@@ -5,10 +5,7 @@
 
 class Weapon {
 public:
-	Weapon() {
-		
-	}
-	
+	Weapon();
 	~Weapon();
 };
 

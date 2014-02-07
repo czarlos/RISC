@@ -3,7 +3,6 @@
 #include <iostream>
 #include "../GameMap/Location.h"
 #include "Order.h"
-#include "GameState.h"
 
 class AttackOrder : public Order {
 	

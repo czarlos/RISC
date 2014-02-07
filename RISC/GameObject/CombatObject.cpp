@@ -13,6 +13,10 @@ CombatObject::CombatObject(int health, vector<Weapon> weaponList, string teamNam
 	this->myWeaponList = weaponList;
 }
 
+CombatObject::CombatObject(int health, string teamName, string objID) : PlayerObject(teamName, objID) {
+	this->myHealth = health;
+}
+
 CombatObject::CombatObject() {
 	
 }

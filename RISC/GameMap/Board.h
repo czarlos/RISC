@@ -15,10 +15,10 @@ using namespace std;
 //Eventually in future implmenation, it would be best to let the player Host decide 
 //the amount of territorys and the number of edges that they want to begin the game
 //with
-#define NUM_OF_TERRITORYS 6;
-#define NUM_OF_EDGES 10;
-#define MAX_EDGE_WEIGHT 100;
-#define MIN_EDGE_WEIGHT 1;
+const int  NUM_OF_TERRITORYS = 6;
+const int  NUM_OF_EDGES = 10;
+const int MAX_EDGE_WEIGHT = 100;
+const int  MIN_EDGE_WEIGHT =1;
 
 class Board
 {
@@ -32,6 +32,10 @@ public:
 	Territory *getTerritory(Location );
 	vector<Unit> getUnitListAtLocation(Location);
 	vector<Territory> *getAdjacentTerritoryByLocation(Location);
+	//unimplmented methods below
+
+	Location getUnitLocation(GameObject*);
+	
 	~Board();
 
 private:
@@ -39,6 +43,8 @@ private:
 	//void putEdgeInGameMap(Edge*, int, int);
 	vector<Territory> populateListOfTerritories();
 	bool checkIfOnBoard(Territory );
+
+	vector<vector<Edge>> gameMap;
 
 
 	int numOfEdges = NUM_OF_EDGES;

@@ -2,23 +2,19 @@
 #include <iostream>
 #include <vector>
 #include "../MovableObject.h"
-#include "../../GameState/GameState.h"
 
 class Unit : public MovableObject {
 
 
 private:
-	int myTurnStatus = 0;
+	int myTurnStatus;
 	string myUnitID;
 public:
-	const int RMAX = 20;
-
-	Unit(int health, std::vector<Weapon> weaponList, std::string teamName, std::string unitID, int movementRange);
+	Unit();
+	Unit(int health, string teamName, string unitID, int movementRange);
+	Unit(int health, vector<Weapon> weaponList, string teamName, string unitID, int movementRange);
 	int getTurnStatus();
-	void setTurnStatus(int turnStatus);
+	void setDone();
+	void setReset();
 	~Unit();
-protected:
-	//void attack(GameState* state, Location* destination);
-	void attack(GameObject* otherObject, GameState* State);
 };
-

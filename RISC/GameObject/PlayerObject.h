@@ -8,6 +8,7 @@
 class PlayerObject : public GameObject {
 private:
 	string myTeamName;
+	
 public:
 	PlayerObject();
 	PlayerObject(string teamName, string objID);
