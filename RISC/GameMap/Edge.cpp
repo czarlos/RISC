@@ -1,6 +1,9 @@
 #include "Edge.h"
 
 Edge::Edge(){
+	this->endPointA = NULL;
+	this->endPointB = NULL;
+	this->edgeWeight = 0;
 
 }
 
