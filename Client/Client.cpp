@@ -4,7 +4,7 @@
 #include <boost/asio.hpp>
 #include <boost/thread.hpp>
 #include <deque>
-#include "..\Server\NetworkMessage.h"
+#include "../Server/NetworkMessage.h"
 
 using boost::asio::ip::tcp;
 

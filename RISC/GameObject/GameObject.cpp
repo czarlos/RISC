@@ -1,16 +1,18 @@
 #include "GameObject.h"
 
 
-GameObject::GameObject(string id, Location location)
+GameObject::GameObject(string objID)
 {
-	this->id = id;
-	this->location = location;
+	this->objID = objID;
 }
 
-string GameObject::getGameObjectID(){
-	return this->id;
+GameObject::GameObject() {
+	
 }
 
+string GameObject::getGameObjectID() {
+	return this->objID;
+}
 
 GameObject::~GameObject()
 {

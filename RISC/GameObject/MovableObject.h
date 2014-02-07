@@ -3,13 +3,13 @@
 #include <iostream>
 #include "CombatObject.h"
 
-class MovableObject : CombatObject {
+class MovableObject : public CombatObject {
 	
 private:
 	int myMovementRange;
 public:
-	MovableObject(int health, std::vector<Weapon> weaponList, std::string teamName, std::string unitID,
-				  Location position, int movementRange) : CombatObject(health, weaponList, teamName, unitID, position) {
-		myMovementRange = movementRange;
-	};
+	MovableObject();
+	MovableObject(int health, std::vector<Weapon> weaponList, std::string teamName, std::string objID, int movementRange);
+	int getMovementRange();
+	~MovableObject();
 };

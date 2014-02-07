@@ -8,7 +8,17 @@
 
 #include "AttackOrder.h"
 
-AttackOrder::AttackOrder(Location myLocation){
-	this->myLocation = myLocation;
+AttackOrder::AttackOrder(Location* destination, CombatObject* obj, GameState* state) : Order(state){
+	this->myLocation = *destination;
+	this->myCombatObject = *obj;
 }
 
+
+void AttackOrder::execute(GameState* state) {
+	CombatObject otherCombatObject = *(*state).getCombatObjectByLocation(myLocation);
+	myCombatObject.attack(&otherCombatObject, state));
+}
+
+AttackOrder::~AttackOrder() {
+	
+}
