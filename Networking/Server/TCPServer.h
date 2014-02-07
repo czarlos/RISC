@@ -29,8 +29,10 @@ private:
 		const boost::system::error_code &error);
 
 	void process_queue();
+	
 
 public:		
+	void process_message(TCPConnection * conn);
 	TCPServer(boost::asio::io_service &io_service, int port);
 	~TCPServer();
 

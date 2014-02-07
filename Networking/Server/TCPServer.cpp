@@ -17,6 +17,7 @@ void TCPServer::HandleAccept(TCPConnection::pointer new_connection, const boost:
 	if (!error) {
 		myClients.push_back(new_connection);
 		new_connection->start();
+		new_connection->doOnMessageReceived(boost::bind(&TCPServer::process_message, this, _1));
 		this->send_welcome(new_connection);
 
 		// Listen for more clients
@@ -25,6 +26,10 @@ void TCPServer::HandleAccept(TCPConnection::pointer new_connection, const boost:
 	else {
 		// TODO: print error
 	}
+}
+
+void TCPServer::process_message(TCPConnection * conn) {
+	std::cout << "Message" << std::endl;
 }
 
 void TCPServer::send_welcome(TCPConnection::pointer new_connection) {
@@ -42,7 +47,7 @@ TCPServer::TCPServer(boost::asio::io_service &io_service, int port) : acceptor_(
 	std::cout << "Creating Server" << std::endl;
 	std::cout << "Listening On Port: " << port << std::endl;
 	
-	queue_handler = boost::thread(&TCPServer::process_queue, this);
+	// queue_handler = boost::thread(&TCPServer::process_queue, this);
 
 	this->StartAccept();
 }
@@ -66,6 +71,7 @@ void TCPServer::send(NetworkMessage *e, std::string ip)
 				(*i)->send(e);
 			}
 		}
+		i++;
 	}
 }
 
@@ -88,6 +94,6 @@ void TCPServer::process_queue() {
 				i = myClients.erase(i);								
 			}
 		}
-		boost::this_thread::sleep(boost::posix_time::milliseconds(5000));
+		boost::this_thread::sleep(boost::posix_time::milliseconds(100));
 	}
 }
