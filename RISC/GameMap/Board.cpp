@@ -33,7 +33,7 @@ void Board::generateBoard(){
 		advance(iter, idxA);
 		endPointA = (*iter);
 
-		cout << endPointA.getTerritoryID() << endl;
+		//cout << endPointA.getTerritoryID() << endl;
 
 		iter = listOfTerritories.begin();
 		int idxB = rand() % NUM_OF_TERRITORYS;
@@ -42,7 +42,7 @@ void Board::generateBoard(){
 		advance(iter, idxB);
 		endPointB = *iter;
 
-		cout << endPointB.getTerritoryID() << endl;
+		//cout << endPointB.getTerritoryID() << endl;
 
 
 		if (endPointA.getTerritoryID() == endPointB.getTerritoryID()){
@@ -57,7 +57,7 @@ void Board::generateBoard(){
 
 		}
 	}
-	this->printGameMap();
+	//this->printGameMap();
 }
 
 vector<Territory> Board::populateListOfTerritories(){
