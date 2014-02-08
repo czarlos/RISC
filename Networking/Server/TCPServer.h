@@ -5,6 +5,7 @@
 #include "../Shared/NetworkMessage.h"
 #include <boost/thread.hpp>
 #include <deque>
+#include <boost/signals2.hpp>
 #include "../Shared/TCPConnection.h"
 
 using boost::asio::ip::tcp;
@@ -15,6 +16,9 @@ typedef std::deque<TCPConnection::pointer> client_queue;
 class TCPServer
 {
 private:
+
+	typedef boost::signals2::signal<void(TCPConnection * conn)> OnMessageReceived;
+
 	tcp::acceptor acceptor_;
 
 	boost::shared_mutex clientQueueMutex;
@@ -30,13 +34,17 @@ private:
 	void process_message(TCPConnection * conn);
 	void handle_disconnect(TCPConnection * conn);
 
+
+	OnMessageReceived onMessageReceived;
 public:		
 	
 	TCPServer(boost::asio::io_service &io_service, int port);
 	~TCPServer();
 
+	boost::signals2::connection doOnMessageReceived(const OnMessageReceived::slot_type & slot);
+
 	void send(NetworkMessage *e, TCPConnection::pointer recipient);
-	void send(NetworkMessage *e, std::string ip);
+	void send(NetworkMessage *e, std::string * ip);
 
 	void send_welcome(TCPConnection::pointer new_connection);
 };

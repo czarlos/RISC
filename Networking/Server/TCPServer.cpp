@@ -43,6 +43,7 @@ void TCPServer::process_message(TCPConnection * conn) {
 		receiveQueue.push_back(m);
 		conn->getMessages()->pop_front();
 		m->print();
+		onMessageReceived(conn);
 	}	
 }
 
@@ -53,7 +54,7 @@ void TCPServer::send_welcome(TCPConnection::pointer new_connection) {
 	new_connection->send(&msg);
 	
 	ClientJoinMessage f = ClientJoinMessage(new_connection->getIPAddress(), new_connection->getSocket()->remote_endpoint().port());
-	this->send(&f, "127.0.0.1");	
+	this->send(&f, NULL);	
 }
 
 TCPServer::TCPServer(boost::asio::io_service &io_service, int port) : acceptor_(io_service, tcp::endpoint(tcp::v4(), port)) {
@@ -72,13 +73,13 @@ void TCPServer::send(NetworkMessage *e, TCPConnection::pointer recipient)
 	}
 }
 
-void TCPServer::send(NetworkMessage *e, std::string ip)
+void TCPServer::send(NetworkMessage *e, std::string * ip)
 {
 	boost::shared_lock<boost::shared_mutex> lock(clientQueueMutex);
 	client_queue::iterator i = myClients.begin();
 	while (i != myClients.end()) {
 		if ((*i)->isOpen()) {
-			if ((*i)->getIPAddress().compare(ip) == 0) {
+			if (ip == NULL || (*i)->getIPAddress().compare(*ip) == 0) {
 				(*i)->send(e);
 			}
 		}
