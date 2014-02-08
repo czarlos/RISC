@@ -17,6 +17,14 @@ MovementOrder::~MovementOrder() {
 	
 }
 
-void MovementOrder::execute() {
-
+void MovementOrder::execute(GameState* gameState) {
+	
+	Board* board = gameState->getBoard();
+	
+	if (MathUtilities::findDistance(board->getObjectLocation(&myObject), &myDestination) <= (double) (myObject.getMovementRange())) {
+		//send the signal to move it
+	}
+	else {
+		//send it not to
+	}
 }

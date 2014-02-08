@@ -22,6 +22,6 @@ private:
 	//void execute(GameState* state);
 public:
 	MovementOrder(Location* destination, MovableObject* object);
-	void execute();
+	void execute(GameState* gameState);
 	~MovementOrder();
 };

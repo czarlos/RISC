@@ -10,9 +10,9 @@ class AttackOrder : public Order {
 private:
 	Location myLocation;
 	CombatObject myCombatObject;
-	void execute();
 public:
 	AttackOrder(Location* destination, CombatObject* obj);
+	void execute(GameState* gameState);
 	~AttackOrder();
 
 };

@@ -20,6 +20,7 @@ private:
 	GameObject myObject;
 public:
 	UnitOrder(Location* source, Location* destination, GameObject* object);
+	void execute(GameState* gameState);
 	~UnitOrder();
 protected:
 	void execute();

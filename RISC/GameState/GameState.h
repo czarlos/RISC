@@ -16,7 +16,7 @@ class GameState {
 public:
 	GameState();
 	~GameState();
-	Board* getBoard(Board* board);
+	Board* getBoard();
 	void init();
 
 private:

@@ -191,6 +191,10 @@ void Board::printGameMap(){
 
 }
 
+Location* Board::getObjectLocation(GameObject* gameObject) {
+	return NULL;
+}
+
 Board::~Board()
 {
 }

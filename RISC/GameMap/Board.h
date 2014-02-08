@@ -35,6 +35,7 @@ public:
 	//unimplmented methods below
 
 	Location getUnitLocation(GameObject*);
+	Location* getObjectLocation(GameObject*);
 	
 	~Board();
 

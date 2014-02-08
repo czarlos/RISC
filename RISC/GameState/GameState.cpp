@@ -12,7 +12,7 @@ GameState::GameState() {
 	
 }
 
-Board* GameState::getBoard(Board* board) {
+Board* GameState::getBoard() {
 	return &(this->myBoard);
 }
 
