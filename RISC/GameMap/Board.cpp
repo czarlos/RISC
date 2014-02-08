@@ -5,7 +5,6 @@
 
 Board::Board(){
 
-	//vector<vector<Edge>> e;
 	this->gameMap.resize(NUM_OF_TERRITORYS);
 	for (size_t i = 0; i < this->gameMap.size(); i++) {
 		this->gameMap[i] = vector<Edge>();
@@ -18,10 +17,6 @@ void Board::generateBoard(){
 	//randomly generate and place the territory in the matrix
 	//randomly distributes the edges to the territories
 	vector<Territory> listOfTerritories = populateListOfTerritories();
-
-	//for (list<Territory>::iterator iter = listOfTerritories.begin(); iter != listOfTerritories.end(); ++iter){
-	//	cout << (*iter).getTerritoryID() << endl;
-	//}
 
 	srand((unsigned int) time(NULL));
 	//this->gameMap = list<list<Edge>>();
@@ -60,40 +55,10 @@ void Board::generateBoard(){
 			this->gameMap[idxA][idxB] = edge;
 			this->gameMap[idxB][idxA] = edge;
 
-		
-		
-			//putEdgeInGameMap(edge,idxA, idxB);
-			//putEdgeInGameMap(edge, idxB, idxA);
 		}
 	}
 	this->printGameMap();
 }
-
-//void Board::putEdgeInGameMap(Edge *edge, int idxA, int idxB){
-//
-//	cout << "********************************************" << endl;
-//	cout << "this is my A" << endl;
-//	cout << "this is the territory name:" << endl;
-//	cout << (edge->getEndPointATerritory())->getTerritoryID() << endl;
-//	cout << "this is my location:" << endl;
-//	cout << (edge->getEndPointATerritory())->getLocation().getX() << endl;
-//	cout << (edge->getEndPointATerritory())->getLocation().getY() << endl;
-//	cout << "this is my B" << endl;
-//	cout << "this is the territory name:" << endl;
-//	cout << (edge->getEndPointBTerritory())->getTerritoryID() << endl;
-//	cout << "this is my location:" << endl;
-//	cout << (edge->getEndPointBTerritory())->getLocation().getX() << endl;
-//	cout << (edge->getEndPointBTerritory())->getLocation().getY() << endl;
-//	cout << "********************************************" << endl;
-//
-//	vector < vector<Edge*>*> ::iterator itero = this->gameMap->begin();
-//	advance(itero, idxB);
-//	vector<Edge*>::iterator iteri = (*itero)->begin();
-//	advance(iteri, idxA);
-//	(*itero)->erase(iteri);
-//	(*itero)->insert(iteri, edge);
-//
-//}
 
 vector<Territory> Board::populateListOfTerritories(){
 	vector<Location> *assignedLocations = new vector<Location>();
@@ -114,8 +79,7 @@ vector<Territory> Board::populateListOfTerritories(){
 }
 
 Location Board::generateRandLocation(vector<Location> *assignedLocations){
-	//srand((unsigned int)(time(NULL)));
-	//Location *location;
+
 	double randYCoor;
 	double randXCoor;
 	randXCoor = MIN_EDGE_WEIGHT + ((double)rand() / RAND_MAX)*(MAX_EDGE_WEIGHT - MIN_EDGE_WEIGHT);
