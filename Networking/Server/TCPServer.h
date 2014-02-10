@@ -1,3 +1,4 @@
+#define  _SCL_SECURE_NO_WARNINGS
 #pragma once
 #include <boost/bind.hpp>
 #include <boost/shared_ptr.hpp>
