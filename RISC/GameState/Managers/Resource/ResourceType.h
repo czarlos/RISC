@@ -6,9 +6,9 @@ using namespace std;
 
 class ResourceType{
 public:
+	ResourceType();
 	ResourceType(string);
 	string getResourceName();
-	
 	~ResourceType();
 
 private:
