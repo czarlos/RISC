@@ -4,6 +4,9 @@ Territory::Territory(){
 	this->territoryID = "null";
 	this->owner = "";
 	this->maxCapacity = MAX_CAPACITY;
+	this->production = new vector<string>();
+	this->location = Location(0, 0);
+	this->contents = new vector<Unit>();
 
 }
 
@@ -11,6 +14,9 @@ Territory::Territory(string territoryID){
 	this->owner = "";
 	this->territoryID = territoryID;
 	this->maxCapacity = MAX_CAPACITY;
+	this->production = new vector<string>();
+	this->location = Location(0, 0);
+	this->contents = new vector<Unit>();
 }
 
 Territory::Territory(string territoryID, Location location)
@@ -19,7 +25,8 @@ Territory::Territory(string territoryID, Location location)
 	this->owner = "";
 	this->location = location;
 	this->maxCapacity = MAX_CAPACITY;
-
+	this->production = new vector<string>();
+	this->contents = new vector<Unit>();
 }
 
 Location Territory::getLocation(){
@@ -27,7 +34,7 @@ Location Territory::getLocation(){
 }
 
 void Territory::addToContent(Unit itemToAdd){
-	this->contents.push_back(itemToAdd);
+	this->contents->push_back(itemToAdd);
 }
 
 //void Territory::addEdge(Edge edge){
@@ -39,9 +46,9 @@ void Territory::addToContent(Unit itemToAdd){
 //}
 
 void Territory::removeFromContent(Unit itemToRemove){
-	for (vector < Unit>::iterator it = this->contents.begin(); it != this->contents.end(); ++it){
+	for (vector < Unit>::iterator it = this->contents->begin(); it != this->contents->end(); ++it){
 		if ((*it).getGameObjectID() == itemToRemove.getGameObjectID()){
-			it = this->contents.erase(it);
+			it = this->contents->erase(it);
 		}
 	}
 }
@@ -51,7 +58,7 @@ string Territory::getTerritoryID(){
 }
 
 int Territory::contentSize(){
-	return this->contents.size();
+	return this->contents->size();
 }
 
 void Territory::changeOwner(string newOwnerName){
@@ -62,7 +69,15 @@ string Territory::getOwner(){
 	return this->owner;
 }
 
-vector<Unit> Territory::getTerritoryContent(){
+void Territory::addToProduction(string resourceName){
+	this->production->push_back(resourceName);
+}
+
+vector<string>* Territory::getProduction(){
+	return this->production;
+}
+
+vector<Unit>* Territory::getTerritoryContents(){
 	return this->contents;
 }
 
