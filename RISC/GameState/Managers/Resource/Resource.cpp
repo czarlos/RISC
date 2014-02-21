@@ -32,3 +32,7 @@ void Resource::replenish(){
 	//such as if resource retrieve from the territory counts as a deposit or not
 	//method is bascially generating resources every X turn by Y amount
 }
+
+Resource::~Resource(){
+
+}
