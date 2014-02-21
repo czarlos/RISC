@@ -22,7 +22,7 @@ public:
 	void getMaxCapacity();
 	void changeOwner(string);
 	string getOwner();
-	vector<Unit> getTerritoryContent();
+	vector<Unit>* getTerritoryUnits();
 	~Territory();
 
 private:
@@ -30,6 +30,7 @@ private:
 	string owner;
 	Location location;
 	int maxCapacity;
-	vector<Unit> contents;
+	vector<string> production;
+	vector<Unit>* units;
 };
 
