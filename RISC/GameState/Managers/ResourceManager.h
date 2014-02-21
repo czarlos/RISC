@@ -2,7 +2,7 @@
 #include <iostream>
 #include <vector>
 #include <map>
-//#include "GameState\Managers\Resource\Resource.h"
+#include "Resource\Resource.h"
 
 using namespace std;
 
@@ -15,15 +15,16 @@ public:
 	void replenish();
 	void replenishSpecific(string);
 	void replenishExcept(vector<string>);
-	map<string,int>* getResource(string resourceName);
+	void fillResourceMap();
+	map<ResourceType, Resource>* getResource(string resourceName);
 	//added in get resource map, something that returns the key and value
 	void addResource(string resourceName);
-	map<string,int>* getResourceList();
+	map<ResourceType, Resource>* getResourceList();
 	~ResourceManager();
 
 private:
 	//the vector will be a vector of the class that extends resources 
-	map<string, int>* resourceList;
+	map<ResourceType, Resource>* resourceMap;
 	//change ^ to a map
 };
 

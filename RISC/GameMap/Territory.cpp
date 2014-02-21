@@ -4,7 +4,7 @@ Territory::Territory(){
 	this->territoryID = "null";
 	this->owner = "";
 	this->maxCapacity = MAX_CAPACITY;
-	this->production = new vector<string>();
+	this->production = new vector<ResourceType>();
 	this->location = Location(0, 0);
 	this->contents = new vector<Unit>();
 
@@ -14,7 +14,7 @@ Territory::Territory(string territoryID){
 	this->owner = "";
 	this->territoryID = territoryID;
 	this->maxCapacity = MAX_CAPACITY;
-	this->production = new vector<string>();
+	this->production = new vector<ResourceType>();
 	this->location = Location(0, 0);
 	this->contents = new vector<Unit>();
 }
@@ -25,7 +25,7 @@ Territory::Territory(string territoryID, Location location)
 	this->owner = "";
 	this->location = location;
 	this->maxCapacity = MAX_CAPACITY;
-	this->production = new vector<string>();
+	this->production = new vector<ResourceType>();
 	this->contents = new vector<Unit>();
 }
 
@@ -69,11 +69,11 @@ string Territory::getOwner(){
 	return this->owner;
 }
 
-void Territory::addToProduction(string resourceName){
-	this->production->push_back(resourceName);
+void Territory::addToProduction(ResourceType resourceType){
+	this->production->push_back(resourceType);
 }
 
-vector<string>* Territory::getProduction(){
+vector<ResourceType>* Territory::getProduction(){
 	return this->production;
 }
 

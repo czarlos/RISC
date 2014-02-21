@@ -3,6 +3,7 @@
 
 ResourceManager::ResourceManager()
 {
+	this->resourceMap = new map<ResourceType, Resource>();
 }
 
 
