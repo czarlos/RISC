@@ -3,12 +3,14 @@
 Territory::Territory(){
 	this->territoryID = "null";
 	this->owner = "";
+	this->maxCapacity = MAX_CAPACITY;
 
 }
 
 Territory::Territory(string territoryID){
 	this->owner = "";
 	this->territoryID = territoryID;
+	this->maxCapacity = MAX_CAPACITY;
 }
 
 Territory::Territory(string territoryID, Location location)
@@ -16,6 +18,8 @@ Territory::Territory(string territoryID, Location location)
 	this->territoryID = territoryID;
 	this->owner = "";
 	this->location = location;
+	this->maxCapacity = MAX_CAPACITY;
+
 }
 
 Location Territory::getLocation(){
