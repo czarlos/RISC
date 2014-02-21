@@ -8,8 +8,8 @@
 #include "RocketLaunchers.h"
 
 RocketLaunchers::RocketLaunchers() {
-	this->myCombatBonus = 3;
-	this->myUpgradeCost = 19;
+	UnitType::myCombatBonus = 3;
+	UnitType::myUpgradeCost = 19;
 	// TODO Auto-generated constructor stub
 
 }

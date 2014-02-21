@@ -8,7 +8,7 @@
 
 #include "Unit.h"
 
-Unit::Unit(int health, UnitType unitType, string teamName, std::string objID, int movementRange) : MovableObject(health, teamName, objID, movementRange) {
+Unit::Unit(int health, UnitType unitType, string teamName, string objID, int movementRange) : MovableObject(health, teamName, objID, movementRange) {
 	this->myTurnStatus = false;
 	this->myUnitType = unitType;
 }

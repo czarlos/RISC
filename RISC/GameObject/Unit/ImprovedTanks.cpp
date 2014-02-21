@@ -7,9 +7,9 @@
 
 #include "ImprovedTanks.h"
 
-ImprovedTanks::ImprovedTanks() {
-	this->myCombatBonus = 12;
-	this->myUpgradeCost = 35;
+ImprovedTanks::ImprovedTanks() : UnitType() {
+	UnitType::myCombatBonus = 12;
+	UnitType::myUpgradeCost = 35;
 	// TODO Auto-generated constructor stub
 
 }

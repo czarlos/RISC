@@ -8,8 +8,8 @@
 #include "Infantry.h"
 
 Infantry::Infantry(){
-	this->myCombatBonus = 0;
-	this->myUpgradeCost = 3;
+	UnitType::myCombatBonus = 0;
+	UnitType::myUpgradeCost = 3;
 	// TODO Auto-generated constructor stub
 
 }

@@ -15,13 +15,14 @@
 #include "../GameObject/MovableObject.h"
 #include "Order.h"
 
-class MovementOrder : public Order {
+class MovementOrder : virtual Order {
 private:
 	Location myDestination;
 	MovableObject myObject;
-	//void execute(GameState* state);
+	//void execute();
+
+	void execute(GameState* state);
 public:
 	MovementOrder(Location* destination, MovableObject* object);
-	void execute();
 	~MovementOrder();
 };

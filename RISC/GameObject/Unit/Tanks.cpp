@@ -8,8 +8,8 @@
 #include "Tanks.h"
 
 Tanks::Tanks() {
-	this->myCombatBonus = 6;
-	this->myUpgradeCost = 25;
+	UnitType::myCombatBonus = 6;
+	UnitType::myUpgradeCost = 25;
 }
 
 Tanks::~Tanks() {

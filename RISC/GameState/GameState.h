@@ -27,7 +27,7 @@ public:
 
 
 	void setObjectLocation(GameObject* object, Location* location);
-
+	void execute();
 	~GameState();
 
 private:

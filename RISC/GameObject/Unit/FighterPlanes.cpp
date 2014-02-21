@@ -8,8 +8,8 @@
 #include "FighterPlanes.h"
 
 FighterPlanes::FighterPlanes() {
-	this->myCombatBonus = 15;
-	this->myUpgradeCost = 0;
+	UnitType::myCombatBonus = 15;
+	UnitType::myUpgradeCost = 0;
 	// TODO Auto-generated constructor stub
 
 }

@@ -7,9 +7,9 @@
 
 #include "AutomaticWeapons.h"
 
-AutomaticWeapons::AutomaticWeapons() {
-	this->myCombatBonus = 1;
-	this->myUpgradeCost = 8;
+AutomaticWeapons::AutomaticWeapons() : UnitType() {
+	UnitType::myCombatBonus = 1;
+	UnitType::myUpgradeCost = 8;
 
 }
 
