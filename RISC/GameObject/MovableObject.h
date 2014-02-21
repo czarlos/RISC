@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include "CombatObject.h"
+#include "Weapon.h"
 
 class MovableObject : public CombatObject {
 	
