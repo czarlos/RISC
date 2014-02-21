@@ -8,7 +8,7 @@ Board* GameState::getBoard(Board* board) {
 	return &(this->myBoard);
 }
 
-void GameState::init() {
+void GameState::initGamestate() {
 
 }
 
