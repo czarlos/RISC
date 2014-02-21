@@ -10,16 +10,14 @@ class ResourceManager
 {
 public:
 	ResourceManager();
-	void withdraw(int, string);
-	void deposit(int, string);
+	void withdraw(int, ResourceType);
+	void deposit(int, ResourceType);
 	void replenish();
-	void replenishSpecific(string);
-	void replenishExcept(vector<string>);
-	void fillResourceMap();
-	map<ResourceType, Resource>* getResource(string resourceName);
-	//added in get resource map, something that returns the key and value
-	void addResource(string resourceName);
-	map<ResourceType, Resource>* getResourceList();
+	void replenishSpecific(ResourceType);
+	void replenishExcept(vector<ResourceType>);
+	map<ResourceType, Resource>* getResourceMap();
+	Resource getResource(ResourceType);
+	void addResource(ResourceType);
 	~ResourceManager();
 
 private:
