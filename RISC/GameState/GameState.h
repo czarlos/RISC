@@ -15,17 +15,15 @@ public:
 	Board* getBoard();
 
 	GameObject* getGameObject(string id);
-	GameObject* getGameObjectByLocation(Location* location);
-	Location* getGameObjectLocation(GameObject* gameObject);
+	vector<GameObject*> getGameObjectsByLocation(Location* location);
 
 	Territory* getTerritory(string id);
-	Territory getTerritoryByLocation(Location* location);
-	Location* getTerritoryLocation(Territory* territory);
+	Territory* getTerritoryByLocation(Location* location);
 
 	vector<Player*> getPlayerList();
-	Player* getPLayer(string teamName);
-	vector<Territory*> getPlayerTerritories();
-	vector<Unit*> getPlayerUnits();
+	Player* getPlayer(string teamName);
+	vector<Territory*> getPlayerTerritories(string teamName);
+	vector<Unit*> getPlayerUnits(Player* player);
 
 
 	void setObjectLocation(GameObject* object, Location* location);
@@ -40,7 +38,4 @@ private:
 	string serverInfo; //thinking it is a string
 	string id;
 	int score;
-
-
-
 };

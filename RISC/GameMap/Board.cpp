@@ -191,6 +191,10 @@ void Board::printGameMap(){
 
 }
 
+vector<vector<Edge>> Board::getGameMap() {
+	return this->gameMap;
+}
+
 Board::~Board()
 {
 }

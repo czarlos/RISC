@@ -32,9 +32,9 @@ public:
 	Territory getTerritory(Location);
 	vector<Unit> getUnitListAtLocation(Location);
 	vector<Territory> *getAdjacentTerritoryByLocation(Location);
-	//unimplmented methods below
 
-	Location getUnitLocation(GameObject*);
+	//Carlos's methods below
+	vector<vector<Edge>> getGameMap();
 	
 	~Board();
 
