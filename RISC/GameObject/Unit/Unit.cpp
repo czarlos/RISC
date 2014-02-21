@@ -8,16 +8,25 @@
 
 #include "Unit.h"
 
-Unit::Unit(int health, std::vector<Weapon> weaponList, std::string teamName, std::string objID, int movementRange) : MovableObject(health, weaponList, teamName, objID, movementRange) {
-	
+Unit::Unit(int health, UnitType unitType, string teamName, std::string objID, int movementRange) : MovableObject(health, teamName, objID, movementRange) {
+	this->myTurnStatus = false;
+	this->myUnitType = unitType;
 }
 
-int Unit::getTurnStatus() {
+bool Unit::getTurnStatus() {
 	return myTurnStatus;
 }
 
-void Unit::setTurnStatus(int turnStatus) {
+void Unit::setTurnStatus(bool turnStatus) {
 	this->myTurnStatus = turnStatus;
+}
+
+UnitType* Unit::getUnitType() {
+	return myUnitType;
+}
+
+void Unit::setUnitType(UnitType unitType) {
+	this->myUnitType = &unitType;
 }
 
 /* Takes in the other unit and the state, dice rolls based
@@ -27,28 +36,28 @@ void Unit::setTurnStatus(int turnStatus) {
  
  */
 void CombatObject::attack(GameObject *otherObject, GameState* state) {
-	Location* otherLocation = (state->board)->getUnitLocation(otherObject);
-	std::vector<Unit> unitList = (state->getBoard())->getUnitListAtLocation(*otherLocation);
-	
-	int attackRoll = int(range*(rand()/(RAND_MAX + 1.0)));
-	int defenseRoll = int(range*(rand()/(RAND_MAX + 1.0)));
-	
-	if (attackRoll > defenseRoll) {
-		for (int i; i>unitList.size(); i++) {
-			if (unitList.at(i) == *otherObject) {
-				unitList.erase(unitList.begin()+i);
-			}
-		}
-		return;
-	}
-	else {
-		for (int i; i>unitList.size(); i++) {
-			if (unitList.at(i) == this) {
-				unitList.erase(unitList.begin()+i);
-			}
-		}
-		return;
-	}
+//	Location* otherLocation = (state->board)->getUnitLocation(otherObject);
+//	std::vector<Unit> unitList = (state->getBoard())->getUnitListAtLocation(*otherLocation);
+//
+//	int attackRoll = int(range*(rand()/(RAND_MAX + 1.0)));
+//	int defenseRoll = int(range*(rand()/(RAND_MAX + 1.0)));
+//
+//	if (attackRoll > defenseRoll) {
+//		for (int i; i>unitList.size(); i++) {
+//			if (unitList.at(i) == *otherObject) {
+//				unitList.erase(unitList.begin()+i);
+//			}
+//		}
+//		return;
+//	}
+//	else {
+//		for (int i; i>unitList.size(); i++) {
+//			if (unitList.at(i) == this) {
+//				unitList.erase(unitList.begin()+i);
+//			}
+//		}
+//		return;
+//	}
 }
 
 /*

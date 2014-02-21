@@ -4,18 +4,23 @@
 #include "../MovableObject.h"
 #include "../../GameState/GameState.h"
 
+using namespace std;
+
 class Unit : public MovableObject {
 
 
 private:
-	int myTurnStatus = 0;
+	bool myTurnStatus = false;
 	string myUnitID;
+	UnitType* myUnitType;
 public:
 	const int RMAX = 20;
 
-	Unit(int health, std::vector<Weapon> weaponList, std::string teamName, std::string unitID, int movementRange);
-	int getTurnStatus();
-	void setTurnStatus(int turnStatus);
+	Unit(int health, UnitType unitType, string teamName, string unitID, int movementRange);
+	bool getTurnStatus();
+	void setTurnStatus(bool turnStatus);
+	UnitType* getUnitType();
+	void setUnitType(UnitType unitType);
 	~Unit();
 protected:
 	//void attack(GameState* state, Location* destination);

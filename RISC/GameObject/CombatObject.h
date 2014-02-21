@@ -6,19 +6,18 @@
 #include "PlayerObject.h"
 #include "../GameState/GameState.h"
 
+using namespace std;
+
 class CombatObject : public PlayerObject {
 private:
 	int myHealth;
-	std::vector<Weapon> myWeaponList;
 	
 public:
 	CombatObject();
-	CombatObject(int health, vector<Weapon> weaponList, string teamName, string objID);
+	CombatObject(int health, string teamName, string objID);
 	
-	void addWeapon(Weapon weapon);
-	
+	int getUnitType();
 	int getHealth();
-	std::vector<Weapon> getWeaponsList();
 	~CombatObject();
 protected:
 	//virtual void attack(GameState* state, Location* destination);
