@@ -7,7 +7,7 @@ using namespace std;
 class Resource{
 public:
 	Resource();
-	Resource(string);
+	Resource(ResourceType);
 	double getAmount();
 	ResourceType getResourceType();
 	void deposit(int);

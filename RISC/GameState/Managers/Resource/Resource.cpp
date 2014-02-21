@@ -5,10 +5,9 @@ Resource::Resource(){
 	this->amount = 0;
 }
 
-Resource::Resource(string resourceName){
-	this->getResourceType = ResourceType(resourceName);
+Resource::Resource(ResourceType resourceType){
+	this->resourceType = resourceType;
 	this->amount = 0;
-
 }
 
 double Resource::getAmount(){

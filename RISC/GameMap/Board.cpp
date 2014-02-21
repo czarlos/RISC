@@ -163,10 +163,10 @@ vector<Territory> *Board::getAdjacentTerritoryByLocation(Location location){
 	return getAdjacentTerritory(&(getTerritory(location)));
 }
 
-vector<Unit> Board::getUnitListAtLocation(Location location){
-
-	return getTerritory(location).getTerritoryContent();
-}
+//vector<Unit> Board::getUnitListAtLocation(Location location){
+//
+//	return getTerritory(location).getTerritoryContents();
+//}
 
 void Board::printGameMap(){
 	for (vector<vector<Edge>>::iterator itero = this->gameMap.begin(); itero != this->gameMap.end(); itero++){

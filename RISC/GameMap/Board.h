@@ -30,7 +30,9 @@ public:
 	int getNumberofEdges();
 	vector <Territory> *getAdjacentTerritory(Territory *);
 	Territory getTerritory(Location);
-	vector<Unit> getUnitListAtLocation(Location);
+
+	//vector<Unit> getUnitListAtLocation(Location);
+
 	vector<Territory> *getAdjacentTerritoryByLocation(Location);
 
 	//Carlos's methods below

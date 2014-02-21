@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 #include "../GameObject/Unit/Unit.h"
+#include "../GameState/Managers/Resource/ResourceType.h"
+//#include "Edge.h"
 #include "Location.h"
 
 using namespace std;
@@ -25,8 +27,8 @@ public:
 	string getOwner();
 	vector<Unit>* getTerritoryContents();
 
-	vector<string>* getProduction();
-	void addToProduction(string);
+	vector<ResourceType>* getProduction();
+	void addToProduction(ResourceType);
 
 	~Territory();
 
@@ -35,7 +37,7 @@ private:
 	string owner;
 	Location location;
 	int maxCapacity;
-	vector<string>* production;
+	vector<ResourceType>* production;
 	vector<Unit>* contents;
 };
 
