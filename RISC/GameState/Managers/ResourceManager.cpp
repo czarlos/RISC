@@ -8,11 +8,36 @@ ResourceManager::ResourceManager()
 
 void ResourceManager:: withdraw(int amount, ResourceType resourceType){
 
-
 }
 
 map<ResourceType, Resource>* ResourceManager::getResourceMap(){
 	return this->resourceMap;
+}
+
+void ResourceManager::withdraw(int amount, ResourceType typeOfResource){
+	if (this->resourceMap->find(typeOfResource) != this->resourceMap->end()){
+		//if found
+		this->resourceMap->at(typeOfResource).withdraw(amount);
+	}
+}
+
+void ResourceManager::deposit(int amount, ResourceType typeOfResource){
+	if (this->resourceMap->find(typeOfResource) != this->resourceMap->end()){
+		//if found
+		this->resourceMap->at(typeOfResource).deposit(amount);
+	}
+}
+
+void ResourceManager::replenish(){
+	//implement if it is going to be needed
+}
+
+void ResourceManager::replenishSpecific(ResourceType){
+	//implement if it is going to be needed
+}
+
+void ResourceManager::replenishExcept(vector<ResourceType>){
+	//implement if it is going ot be needed
 }
 
 Resource ResourceManager::getResource(ResourceType resourceType){
@@ -28,7 +53,7 @@ Resource ResourceManager::getResource(ResourceType resourceType){
 
 void ResourceManager::addResource(ResourceType resourceType) {
 	//remember to instantiate resource
-	if (this->resourceMap->find(resourceType) == this->resourceMap->end()){
+	if(this->resourceMap->find(resourceType) == this->resourceMap->end()){
 		cout << "This resource already exist" << endl;
 		return;
 	}
