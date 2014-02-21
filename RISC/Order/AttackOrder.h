@@ -5,7 +5,7 @@
 #include "Order.h"
 #include "../GameObject/CombatObject.h"
 
-class AttackOrder : public Order {
+class AttackOrder : virtual Order {
 	
 private:
 	Location myLocation;

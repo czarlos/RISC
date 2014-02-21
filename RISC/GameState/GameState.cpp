@@ -5,7 +5,7 @@ GameState::GameState() {
 }
 
 
-Board* GameState::getBoard(Board* board) {
+Board* GameState::getBoard() {
 	return &(this->myBoard);
 }
 
@@ -13,7 +13,7 @@ void GameState::initGamestate() {
 
 }
 
-Unit* GameState::getUnit(Unit* unit) {
+GameObject* GameState::getGameObject(string id) {
 
 }
 
