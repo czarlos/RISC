@@ -20,4 +20,3 @@ void UpgradeOrder::execute(GameState* state) {
 	unit = &(state->getUnit(&myUnit));
 	unit.setUnitType(myUnitType);
 }
-
