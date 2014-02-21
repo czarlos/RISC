@@ -8,12 +8,13 @@
 
 #include "MovementOrder.h"
 
-MovementOrder::MovementOrder(Location* destination, MovableObject* object, GameState* state) : Order(state){
+MovementOrder::MovementOrder(Location* destination, MovableObject* object) : Order(){
 	this->myDestination = *destination;
 	this->myObject = *object;
 }
 
 
+<<<<<<< HEAD
 /* Moves a Movable Object from its current location to
  * a specified destination location, if the distance to
  * the desired location is <= its movement range, it moves
@@ -35,4 +36,8 @@ void MovementOrder::execute(GameState* state) {
 
 MovementOrder::~MovementOrder() {
 	
+=======
+void MovementOrder::execute() {
+
+>>>>>>> 5b1acb92b013157c929f8a4e8d034c06823ac1c1
 }

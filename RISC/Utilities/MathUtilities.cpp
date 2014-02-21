@@ -17,8 +17,8 @@ MathUtilities::MathUtilities() {
  * Location and an end Location.
  */
 double MathUtilities::findDistance(Location* start, Location* end) {
-	int deltaX = ((*start).getX()) - ((*end).getX());
-	int deltaY = ((*start).getY()) - ((*end).getY());
+	double deltaX = ((*start).getX()) - ((*end).getX());
+	double deltaY = ((*start).getY()) - ((*end).getY());
 	double xDist = std::abs(deltaX);
 	double yDist = std::abs(deltaY);
 	return std::sqrt(std::pow(xDist, 2)+std::pow(yDist, 2));

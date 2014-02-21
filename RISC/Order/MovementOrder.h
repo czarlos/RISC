@@ -11,18 +11,17 @@
 #include <iostream>
 #include <cmath>
 #include "../GameMap/Location.h"
-#include "../GameObject/MovableObject.h"
-#include "../GameObject/PlayerObject.h"
 #include "../Utilities/MathUtilities.h"
+#include "../GameObject/MovableObject.h"
 #include "Order.h"
 
 class MovementOrder : public Order {
 private:
 	Location myDestination;
 	MovableObject myObject;
-	double findDistance(Location* start, Location* end);
-	void execute(GameState* state);
+	//void execute(GameState* state);
 public:
-	MovementOrder(Location* destination, MovableObject* object, GameState* state);
+	MovementOrder(Location* destination, MovableObject* object);
+	void execute();
 	~MovementOrder();
 };

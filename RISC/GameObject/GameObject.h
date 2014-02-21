@@ -1,6 +1,5 @@
 #pragma once
 #include <iostream>
-#include "../GameMap/Location.h"
 
 using namespace std;
 
@@ -8,7 +7,7 @@ class GameObject
 {
 public:
 	GameObject();
-	GameObject(string);
+	GameObject(string objID);
 	string getGameObjectID();
 	virtual ~GameObject();
 

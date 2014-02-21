@@ -7,22 +7,17 @@
 
 #include "UpgradeOrder.h"
 
-namespace std {
-
-UpgradeOrder::UpgradeOrder(Unit* unit, UnitType* unitType, GameState* state) :
-		Order (state){
+UpgradeOrder::UpgradeOrder(Unit* unit, UnitType* unitType, GameState* state) : Order () {
 	this->myUnit = unit;
 	this->myUnitType = unitType;
 }
 
 UpgradeOrder::~UpgradeOrder() {
-	// TODO Auto-generated destructor stub
 }
 
 void UpgradeOrder::execute(GameState* state) {
 	Unit unit;
-	unit = &(state->getBoard()->getUnit(&myUnit));
+	unit = &(state->getUnit(&myUnit));
 	unit.setUnitType(myUnitType);
 }
 
-} /* namespace std */

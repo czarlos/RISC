@@ -1,11 +1,3 @@
-//
-//  GameState.h
-//  RISC
-//
-//  Created by Carlos Reyes on 2/4/14.
-//  Copyright (c) 2014 Carlos Reyes. All rights reserved.
-//
-
 #pragma once
 
 #include <iostream>
@@ -13,7 +5,9 @@
 #include "../GameMap/Board.h"
 #include "../GameObject/CombatObject.h"
 #include "../GameObject/MovableObject.h"
+#include "Player/Player.h"
 
+using namespace std;
 
 class GameState {
 public:
@@ -23,11 +17,24 @@ public:
 //	Team* getTeam(std::string teamName);
 	
 	CombatObject* getCombatObjectByLocation(Location* l);
+	Unit* getUnit(Unit* unit);
 	Location* getObjectLocation(GameObject* object);
 	void setObjectLocation(GameObject* object, Location* location);
 	MovableObject getMovableObject(std::string name);
 	
 private:
-	//std::vector<Team> myTeamList;
+	void initGamestate();
+
+	Board* getBoard(Board* board);
+
+private:
 	Board myBoard;
+	vector<Player> playerList;
+	string nameOfGame;
+	string serverInfo; //thinking it is a string
+	string id;
+	int score;
+
+
+
 };

@@ -1,16 +1,17 @@
 #pragma once
 
 #include <iostream>
-#include "../GameState/GameState.h"
+//#include "../GameState/GameState.h"
 
 class Order {
 private:
-	GameState myState;
+	//GameState myState;
 public:
 	Order();
-	Order(GameState* state);
+	//Order(GameState* state);
 	virtual ~Order() {};
 protected:
-	virtual void execute(GameState* state) = 0;
+	//virtual void execute(GameState* state) = 0;
+	virtual void execute() = 0;
 };
 

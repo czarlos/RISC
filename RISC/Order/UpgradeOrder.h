@@ -6,18 +6,19 @@
  */
 
 #pragma once
+#include "../GameState/GameState.h"
+#include "../GameObject/Unit/Unit.h"
 
-namespace std {
+using namespace std;
 
-class UpgradeOrder : public Order {
+class UpgradeOrder : virtual Order {
 public:
 	UpgradeOrder(Unit* unit, UnitType* unitType, GameState* state);
-	virtual ~UpgradeOrder();
+	~UpgradeOrder();
 
 private:
 	Unit myUnit;
 	UnitType myUnitType;
+protected:
 	void execute(GameState* state);
 };
-
-} /* namespace std */
