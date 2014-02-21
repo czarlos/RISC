@@ -1,17 +1,8 @@
 #include "ResourceManager.h"
 
-
 ResourceManager::ResourceManager()
 {
 	this->resourceMap = new map<ResourceType, Resource>();
-}
-
-void ResourceManager:: withdraw(int amount, ResourceType resourceType){
-
-}
-
-map<ResourceType, Resource>* ResourceManager::getResourceMap(){
-	return this->resourceMap;
 }
 
 void ResourceManager::withdraw(int amount, ResourceType typeOfResource){
@@ -38,6 +29,10 @@ void ResourceManager::replenishSpecific(ResourceType){
 
 void ResourceManager::replenishExcept(vector<ResourceType>){
 	//implement if it is going ot be needed
+}
+
+map<ResourceType, Resource>* ResourceManager::getResourceMap(){
+	return this->resourceMap;
 }
 
 Resource ResourceManager::getResource(ResourceType resourceType){
