@@ -16,7 +16,7 @@ public:
 	int getCombatBonus();
 	virtual ~UnitType();
 
-protected:
+private:
 	int myUpgradeCost;
 	int myCombatBonus;
 };

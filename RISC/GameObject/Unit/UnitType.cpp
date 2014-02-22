@@ -10,7 +10,9 @@
 UnitType::UnitType() {
 	this->myUpgradeCost = 0;
 	this->myCombatBonus = 0;
-}
+} 
+
+//UnitType::getCombatBonus
 
 UnitType::~UnitType() {
 }
