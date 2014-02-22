@@ -13,6 +13,7 @@
 #include "../GameMap/Location.h"
 #include "../Utilities/MathUtilities.h"
 #include "../GameObject/MovableObject.h"
+#include "../GameState/GameState.h"
 #include "Order.h"
 
 class MovementOrder : virtual Order {

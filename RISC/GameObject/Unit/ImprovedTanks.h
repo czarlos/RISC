@@ -6,6 +6,7 @@
  */
 
 #pragma once
+#include "UnitType.h"
 
 class ImprovedTanks : public UnitType{
 public:

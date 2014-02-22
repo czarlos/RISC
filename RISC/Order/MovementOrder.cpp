@@ -34,3 +34,5 @@ void MovementOrder::execute(GameState* state) {
 }
 
 MovementOrder::~MovementOrder() {
+
+}

@@ -6,7 +6,7 @@
  */
 
 #pragma once
-
+#include "UnitType.h"
 class AutomaticWeapons : public UnitType{
 public:
 	AutomaticWeapons();

@@ -47,9 +47,9 @@ void Territory::addToContent(Unit itemToAdd){
 
 void Territory::removeFromContent(Unit itemToRemove){
 	for (vector < Unit>::iterator it = this->contents->begin(); it != this->contents->end(); ++it){
-		if ((*it).getGameObjectID() == itemToRemove.getGameObjectID()){
+		/*if ((*it).getGameObjectID() == itemToRemove.getGameObjectID()){
 			it = this->contents->erase(it);
-		}
+		}*/
 	}
 }
 

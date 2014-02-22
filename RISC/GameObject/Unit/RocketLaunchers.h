@@ -6,6 +6,7 @@
  */
 
 #pragma once
+#include "UnitType.h"
 
 class RocketLaunchers : virtual UnitType{
 public:

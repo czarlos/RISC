@@ -12,9 +12,6 @@ CombatObject::CombatObject(int health, string teamName, string objID) : PlayerOb
 	this->myHealth = health;
 }
 
-CombatObject::CombatObject(int health, string teamName, string objID) : PlayerObject(teamName, objID) {
-	this->myHealth = health;
-}
 
 CombatObject::CombatObject() {
 	this->myHealth = 1;
