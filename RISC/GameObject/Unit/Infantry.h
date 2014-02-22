@@ -10,5 +10,5 @@
 class Infantry : public UnitType{
 public:
 	Infantry();
-	virtual ~Infantry();
+	~Infantry();
 };

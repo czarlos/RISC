@@ -11,5 +11,5 @@
 class RocketLaunchers : public UnitType{
 public:
 	RocketLaunchers();
-	virtual ~RocketLaunchers();
+	~RocketLaunchers();
 };

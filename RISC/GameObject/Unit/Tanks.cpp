@@ -7,12 +7,13 @@
 
 #include "Tanks.h"
 
-Tanks::Tanks() {
-	UnitType::myCombatBonus = 6;
-	UnitType::myUpgradeCost = 25;
+Tanks::Tanks() : UnitType(){
+	this->type = "Tank";
+	this->level = 3;
+	this->myCombatBonus = 6;
+	this->myUpgradeCost = 25;
 }
 
 Tanks::~Tanks() {
-	// TODO Auto-generated destructor stub
 }
 

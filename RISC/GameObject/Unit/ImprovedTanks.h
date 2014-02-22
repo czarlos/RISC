@@ -11,5 +11,5 @@
 class ImprovedTanks : public UnitType{
 public:
 	ImprovedTanks();
-	virtual ~ImprovedTanks();
+	~ImprovedTanks();
 };

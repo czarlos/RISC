@@ -8,13 +8,13 @@
 #include "ImprovedTanks.h"
 
 ImprovedTanks::ImprovedTanks() : UnitType() {
-	UnitType::myCombatBonus = 12;
-	UnitType::myUpgradeCost = 35;
-	// TODO Auto-generated constructor stub
+	this->type = "ImproveTanks";
+	this->level = 4;
+	this->myCombatBonus = 12;
+	this->myUpgradeCost = 25;
 
 }
 
 ImprovedTanks::~ImprovedTanks() {
-	// TODO Auto-generated destructor stub
 }
 

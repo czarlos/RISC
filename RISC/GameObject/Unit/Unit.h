@@ -13,6 +13,7 @@ private:
 	bool myTurnStatus = false;
 	string myUnitID;
 	UnitType* myUnitType;
+
 public:
 	const int RMAX = 20;
 	Unit();

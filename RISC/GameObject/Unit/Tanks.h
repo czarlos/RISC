@@ -8,8 +8,8 @@
 #pragma once
 #include "UnitType.h"
 
-class Tanks : virtual UnitType{
+class Tanks : public UnitType{
 public:
 	Tanks();
-	virtual ~Tanks();
+	~Tanks();
 };
