@@ -9,7 +9,7 @@
 
 RocketLaunchers::RocketLaunchers():UnitType() {
 	this->type = "RocketLaunchers";
-	this->getLevel = 2;
+	this->level = 2;
 	this->myCombatBonus = 3;
 	this->myUpgradeCost = 19;
 
