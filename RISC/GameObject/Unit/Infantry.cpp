@@ -7,14 +7,14 @@
 
 #include "Infantry.h"
 
-Infantry::Infantry(){
-	UnitType::myCombatBonus = 0;
-	UnitType::myUpgradeCost = 3;
-	// TODO Auto-generated constructor stub
-
+Infantry::Infantry():UnitType(){
+	this->level = 0;
+	this->type = "infantry";
+	this->myCombatBonus = 0;
+	this->myUpgradeCost = 0;
 }
 
 Infantry::~Infantry() {
-	// TODO Auto-generated destructor stub
+
 }
 

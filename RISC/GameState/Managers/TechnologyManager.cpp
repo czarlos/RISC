@@ -12,6 +12,8 @@ void TechnologyManager::initTechMap(){
 
 int TechnologyManager::getCurrentLevel(){
 
+	return 0;
+
 }
 
 UnitType* TechnologyManager::getHighestAvaUpgrade(){
@@ -34,7 +36,7 @@ void TechnologyManager::updateHighestAvaUpgrade(){
 	else{
 		for (vector<UnitType>::iterator iter = this->possibleUpgrades->begin(); iter != this->possibleUpgrades->end(); iter++){
 			if ((*iter).getLevel() > highestLevel){
-				highestLevel == (*iter).getLevel();
+				highestLevel = (*iter).getLevel();
 				(*this->highestAvaUpgrade) = (*iter);
 			}
 		}

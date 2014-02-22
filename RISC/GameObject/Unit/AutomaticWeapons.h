@@ -10,5 +10,5 @@
 class AutomaticWeapons : public UnitType{
 public:
 	AutomaticWeapons();
-	virtual ~AutomaticWeapons();
+	~AutomaticWeapons();
 };

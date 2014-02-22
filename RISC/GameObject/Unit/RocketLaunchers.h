@@ -8,8 +8,8 @@
 #pragma once
 #include "UnitType.h"
 
-class RocketLaunchers : virtual UnitType{
+class RocketLaunchers : public UnitType{
 public:
 	RocketLaunchers();
-	virtual ~RocketLaunchers();
+	~RocketLaunchers();
 };

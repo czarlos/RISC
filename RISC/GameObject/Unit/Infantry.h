@@ -7,8 +7,8 @@
 
 #pragma once
 #include "UnitType.h"
-class Infantry : virtual UnitType{
+class Infantry : public UnitType{
 public:
 	Infantry();
-	virtual ~Infantry();
+	~Infantry();
 };

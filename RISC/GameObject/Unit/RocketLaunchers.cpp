@@ -7,14 +7,14 @@
 
 #include "RocketLaunchers.h"
 
-RocketLaunchers::RocketLaunchers() {
-	UnitType::myCombatBonus = 3;
-	UnitType::myUpgradeCost = 19;
-	// TODO Auto-generated constructor stub
+RocketLaunchers::RocketLaunchers():UnitType() {
+	this->type = "RocketLaunchers";
+	this->getLevel = 2;
+	this->myCombatBonus = 3;
+	this->myUpgradeCost = 19;
 
 }
 
 RocketLaunchers::~RocketLaunchers() {
-	// TODO Auto-generated destructor stub
 }
 

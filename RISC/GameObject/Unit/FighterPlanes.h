@@ -11,5 +11,5 @@
 class FighterPlanes : public UnitType {
 public:
 	FighterPlanes();
-	virtual ~FighterPlanes();
+	~FighterPlanes();
 };

@@ -6,6 +6,7 @@
  */
 
 #pragma once
+#include <string>
 
 using namespace std;
 
@@ -14,11 +15,13 @@ public:
 	UnitType();
 	int getUpgradeCost();
 	int getCombatBonus();
+	int getType();
 	int getLevel();
 	virtual ~UnitType();
 
-private:
+protected:
 	int level;
+	string type;
 	int myUpgradeCost;
 	int myCombatBonus;
 

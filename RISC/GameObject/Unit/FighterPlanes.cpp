@@ -7,14 +7,13 @@
 
 #include "FighterPlanes.h"
 
-FighterPlanes::FighterPlanes() {
-	UnitType::myCombatBonus = 15;
-	UnitType::myUpgradeCost = 0;
-	// TODO Auto-generated constructor stub
-
+FighterPlanes::FighterPlanes():UnitType() {
+	this->type = "FighterPlanes";
+	this->level = 5;
+	this->myCombatBonus = 15;
+	this->myUpgradeCost = 35;
 }
 
 FighterPlanes::~FighterPlanes() {
-	// TODO Auto-generated destructor stub
 }
 
