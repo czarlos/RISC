@@ -15,8 +15,8 @@ public:
 	bool operator == (const ResourceType&r)const{
 		return !Compare(r);
 	}
-	bool operator < (const ResourceType&d) const{
-		return Compare(d) < 0;
+	bool operator < (const ResourceType&r) const{
+		return Compare(r) < 0;
 	}
 
 	~ResourceType();

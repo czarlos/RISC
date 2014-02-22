@@ -9,7 +9,23 @@
 
 UnitType::UnitType() {
 
+	this->level = 0;
+	this->type = "";
+	this->myCombatBonus = 0;
+	this->myUpgradeCost = 0;
+
 } 
+
+int UnitType::Compare(const UnitType& u)const{
+	if (this->type < u.type){
+		return -1;
+	}
+	else if (this->type > u.type){
+		return 1;
+	}
+
+	return 0;
+}
 
 string UnitType::getType(){
 	return this->type;
