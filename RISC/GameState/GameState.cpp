@@ -8,8 +8,9 @@ Board* GameState::getBoard() {
 	return &(this->myBoard);
 }
 
-void GameState::initGamestate() {
-
+void GameState::initGamestate(vector<Player*> playerList, Board* board) {
+	this->myPlayerList = playerList;
+	this->myBoard = *board;
 }
 
 GameObject* GameState::getGameObject(string id) {
@@ -90,6 +91,26 @@ vector<Territory*> GameState::getPlayerTerritories(string teamName) {
 	return returnVector;
 }
 
+vector<Unit*> GameState::getPlayerUnits(Player* player) {
+	vector<Unit*> unitArray;
+	vector<Territory*> territories = getPlayerTerritories(player->getTeamName);
+	for each (Territory* terr in territories)
+	{
+		for each (Unit u in *(terr->getTerritoryContents())) {
+			unitArray.push_back(&u);
+		}
+	}
+
+	return unitArray;
+}
+
+void GameState::addPlayer(Player* player) {
+	(this->myPlayerList).push_back(player);
+}
+
+void GameState::addUnit(Unit* unit, Location* location) {
+	this->getTerritoryByLocation(location)->addToContent(*unit);
+}
 
 GameState::~GameState() {
 	

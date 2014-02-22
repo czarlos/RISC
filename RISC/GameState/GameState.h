@@ -26,12 +26,16 @@ public:
 	vector<Unit*> getPlayerUnits(Player* player);
 
 
+	void addUnit(Unit* unit, Location* location);
+	void addPlayer(Player* player);
+
+
+	void initGamestate(vector<Player*> playerList, Board* board);
 	void setObjectLocation(GameObject* object, Location* location);
 	void execute();
 	~GameState();
 
 private:
-	void initGamestate();
 	vector<Player*> myPlayerList;
 	Board myBoard;
 	string nameOfGame;

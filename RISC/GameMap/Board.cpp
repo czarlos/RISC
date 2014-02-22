@@ -29,7 +29,7 @@ void Board::generateBoard(){
 		
 		edgeWeight = MIN_EDGE_WEIGHT + ((double)rand() / RAND_MAX)*(MAX_EDGE_WEIGHT - MIN_EDGE_WEIGHT);
 		int idxA = rand() % NUM_OF_TERRITORYS;
-		cout << idxA << endl;
+		//cout << idxA << endl;
 		advance(iter, idxA);
 		endPointA = (*iter);
 
@@ -37,7 +37,7 @@ void Board::generateBoard(){
 
 		iter = listOfTerritories.begin();
 		int idxB = rand() % NUM_OF_TERRITORYS;
-		cout << idxB << endl;
+		//cout << idxB << endl;
 
 		advance(iter, idxB);
 		endPointB = *iter;

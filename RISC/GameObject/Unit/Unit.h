@@ -23,7 +23,7 @@ public:
 	void setUnitType(UnitType unitType);
 	string getGameObjectID();
 
-	Unit(int health, string teamName, string unitID, int movementRange);
+	//Unit(int health, string teamName, string unitID, int movementRange);
 
 	void setDone();
 	void setReset();
