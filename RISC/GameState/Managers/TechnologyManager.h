@@ -17,19 +17,19 @@ public:
 	//this will return 1-6 depending on the upgrades that are open for the player
 	int getCurrentLevel();
 	//check to see if the upgrade could be done
-	bool isUpgradeAllowed(UnitType);
+	bool isUpgradeAllowed(UnitType*);
 	//upgrade the unit
-	void performUpgrade(UnitType,Unit);
+	void performUpgrade(UnitType*,Unit*);
 	//give the total cost to get to that upgrade if it is not avaliable
 	//else return 0 meaning the upgrade is avaliable
-	int calculateCost(UnitType);
+	int calculateCost(UnitType*);
 	//give the lat avliable upgrade type that a player can do
 	//this upgrade type is the highest that they can upgrade to
-	UnitType getCurrentPossibleUpgrade();
+	UnitType* getCurrentPossibleUpgrade();
 	//get a list of all the possible upgrade type
-	vector<UnitType> getAllPossibleUpgrades();
+	vector<UnitType>* getAllPossibleUpgrades();
 	//get a list of all unavaliable upgrade types
-	vector<UnitType> getAllUnavalibleUpgrades();
+	vector<UnitType>* getAllUnavalibleUpgrades();
 	//Deposits the technology points a player wishes to spend to open up the 
 	//upgrade
 	void deposit(int);
@@ -42,24 +42,30 @@ public:
 	//it will check the current techpoints deposited into the manager by the player
 	//and make an upgrade avaliable
 	//if some how the techpoints got reduce, it will also lock the upgrades
+	//called private method lockUpgrades() and updateHighestAvaUpgrade()
 	void unlockUpgrade();
-	
+	//return the highestAvaUpgrade
+	UnitType* getHighestAvaUpgrade();
 
 	~TechnologyManager();
 
 private:
+	//update the highestAvaUpgrade
+	void updateHighestAvaUpgrade();
 	//check to see if the techpoints deposited by the player is enough to support 
 	//the upgrades in list of possible upgrades
 	void lockUpgrades();
 	//Map of upgrades to it's cost to unlock the upgrades
-	map <UnitType, int> upgradeList;
+	map <UnitType, int>* upgradeList;
 	//Map of upgrades to it's cost of using the upgrades
-	map<UnitType, int> upgradeCost;
+	map<UnitType, int>* upgradeCost;
 	//list of the possible upgrades
-	vector<UnitType> possibleUpgrades;
+	vector<UnitType>* possibleUpgrades;
 	//list of the unavliable upgrades
-	vector<UnitType> UnavaliableUpgrades;
+	vector<UnitType>* UnavaliableUpgrades;
 	int techPoint;
+	//this keep track of the highest possible upgrade that a player can do
+	UnitType* highestAvaUpgrade;
 
 
 };

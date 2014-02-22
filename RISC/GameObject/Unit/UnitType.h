@@ -14,9 +14,12 @@ public:
 	UnitType();
 	int getUpgradeCost();
 	int getCombatBonus();
+	int getLevel();
 	virtual ~UnitType();
 
 private:
+	int level;
 	int myUpgradeCost;
 	int myCombatBonus;
+
 };
