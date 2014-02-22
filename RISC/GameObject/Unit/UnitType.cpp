@@ -11,7 +11,21 @@ UnitType::UnitType() {
 
 } 
 
-//UnitType::getCombatBonus
+string UnitType::getType(){
+	return this->type;
+}
+
+int UnitType::getLevel(){
+	return this->level;
+}
+
+int UnitType::getCombatBonus(){
+	return this->myCombatBonus;
+}
+
+int UnitType::getUpgradeCost(){
+	return this->myUpgradeCost;
+}
 
 UnitType::~UnitType() {
 }
