@@ -6,7 +6,7 @@
  */
 
 #pragma once
-
+#include "UnitType.h"
 class Infantry : virtual UnitType{
 public:
 	Infantry();

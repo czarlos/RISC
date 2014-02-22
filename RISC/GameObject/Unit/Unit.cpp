@@ -8,13 +8,17 @@
 
 #include "Unit.h"
 
-Unit::Unit(int health, UnitType unitType, string teamName, string objID, int movementRange) : MovableObject(health, teamName, objID, movementRange) {
+Unit::Unit(int health, UnitType* unitType, string teamName, string objID, int movementRange) : MovableObject(health, teamName, objID, movementRange) {
 	this->myTurnStatus = false;
 	this->myUnitType = unitType;
 }
 
 bool Unit::getTurnStatus() {
 	return myTurnStatus;
+}
+
+string Unit::getGameObjectID(){
+	return this->myUnitID;
 }
 
 void Unit::setTurnStatus(bool turnStatus) {
@@ -29,3 +33,4 @@ void Unit::setUnitType(UnitType unitType) {
 	this->myUnitType = &unitType;
 }
 
+Unit::~Unit(){}

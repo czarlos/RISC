@@ -6,6 +6,7 @@
  */
 
 #pragma once
+#include "UnitType.h"
 
 class Tanks : virtual UnitType{
 public:

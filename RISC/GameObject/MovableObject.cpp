@@ -8,9 +8,6 @@
 
 #include "MovableObject.h"
 
-MovableObject::MovableObject(int health, std::string teamName, std::string objID, int movementRange) : CombatObject(health, teamName, objID) {
-	this->myMovementRange = movementRange;
-};
 
 MovableObject::MovableObject() {
 	this->myMovementRange = 1;

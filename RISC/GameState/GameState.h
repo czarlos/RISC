@@ -15,7 +15,7 @@ public:
 	Board* getBoard();
 
 	GameObject* getGameObject(string id);
-	vector<GameObject*> getGameObjectsByLocation(Location* location);
+	vector<GameObject*>* getGameObjectsByLocation(Location* location);
 
 	Territory* getTerritory(string id);
 	Territory* getTerritoryByLocation(Location* location);
