@@ -9,19 +9,33 @@ NetworkMessageFactory::~NetworkMessageFactory()
 {
 }
 
-NetworkMessage * NetworkMessageFactory::parseMessage(boost::asio::streambuf * da, size_t bytes)
-{
-	char type;
-	da->sgetn(&type, sizeof(type));
-	da->sungetc();
+NetworkMessage * NetworkMessageFactory::parseMessage(boost::asio::streambuf & da, size_t bytes)
+{		
+	std::istream is (&da);
+	NetworkMessage * m = nullptr;	
+	try {
+		boost::archive::text_iarchive ia(is);		
+		ia & m;
+	}
+	catch (std::exception &e) {
+		std::cout << e.what() << std::endl;
+	}
 
-	Creator * c = NetworkMessageFactory::getCreator((NetworkMessageType)type);
+	std::istream isa(&da);
+
+	NetworkMessage * mm;
+	{
+		boost::archive::text_iarchive ia(isa);
+		ia & mm;
+	}
+
+	Creator * c = NetworkMessageFactory::getCreator((NetworkMessageType)m->getType());
 	if (c != NULL) {
 		return c->create(da, bytes);
 	}
-	// read the stream
-	da->consume(bytes);
+	// read the stream		
 	return (NetworkMessage *)NULL;
+
 }
 
 void NetworkMessageFactory::registerMessageType(NetworkMessageType n, Creator * creator)
