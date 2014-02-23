@@ -34,7 +34,7 @@ Location* Territory::getLocation(){
 }
 
 void Territory::addToContent(Unit* itemToAdd){
-	this->contents.push_back(itemToAdd);
+	//this->contents.push_back(itemToAdd);
 }
 
 //void Territory::addEdge(Edge edge){
