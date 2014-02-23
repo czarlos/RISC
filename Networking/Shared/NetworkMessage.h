@@ -10,37 +10,44 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <boost/asio.hpp>
 #include <iostream>
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
+#include <boost/serialization/base_object.hpp>
+#include <boost/serialization/utility.hpp>
+#include <boost/serialization/list.hpp>
+#include <boost/serialization/assume_abstract.hpp>
+#include <boost/serialization/export.hpp>
 
 #define EOT '\4'
 
 class NetworkMessage
 {
 private:
-	char type;
-	char * data;
-	char * ip;
-
-	size_t data_size;
+	char type;	
 
 	virtual void process_data() {}
 	virtual void encode_data() {}
 
+	friend class boost::serialization::access;
+	template<class Archive>
+	void serialize(Archive& ar, const unsigned int version)
+	{
+		ar & type;		
+	}
+
 public:
 	NetworkMessage(); 
 	NetworkMessage(boost::asio::streambuf * da, size_t bytes);
-	NetworkMessage(char type, std::string contents);
 	NetworkMessage(char type);
-	~NetworkMessage();
+	NetworkMessage(char type, std::string contents);
+	virtual ~NetworkMessage();
 
-	void parse(boost::asio::streambuf * da, size_t bytes);
-	void encode(char ** buffer, size_t * s);
-
-	char getType();
-	char * getData();
+	char getType();	
 	char * getIP();
 
 	void setType(char m_type);
 	void setData(char ** contents, size_t s);
 
-	virtual void print();
+	virtual void print() = 0;
 };
+
