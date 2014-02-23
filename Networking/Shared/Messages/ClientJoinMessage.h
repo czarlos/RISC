@@ -1,6 +1,8 @@
 #define _SCL_SECURE_NO_WARNINGS
 #pragma once
 #include "../NetworkMessage.h"
+#include <boost/serialization/base_object.hpp>
+#include <boost/serialization/export.hpp>
 #include "../NetworkMessageFactory.h"
 
 class ClientJoinMessage :
@@ -11,6 +13,16 @@ class ClientJoinMessage :
 private:
 	std::string clientIP;
 	int port;
+
+	friend class boost::serialization::access;
+
+	template<class Archive>
+	void serialize(Archive& ar, const unsigned int version)
+	{
+		ar & boost::serialization::base_object<NetworkMessage>(*this);		
+		ar & clientIP;
+		ar & port;		
+	}
 public:
 
 	ClientJoinMessage(boost::asio::streambuf * da, size_t bytes);
@@ -26,4 +38,3 @@ public:
 	virtual void encode_data();
 
 };
-
