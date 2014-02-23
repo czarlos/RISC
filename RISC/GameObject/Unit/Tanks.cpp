@@ -12,6 +12,7 @@ Tanks::Tanks() : UnitType(){
 	this->level = 3;
 	this->myCombatBonus = 6;
 	this->myUpgradeCost = 25;
+	this->getCostToUnlock = 80;
 }
 
 Tanks::~Tanks() {

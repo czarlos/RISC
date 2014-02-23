@@ -13,18 +13,23 @@ UnitType::UnitType() {
 	this->type = "";
 	this->myCombatBonus = 0;
 	this->myUpgradeCost = 0;
+	this->costToUnlock = 0;
 
 } 
 
-int UnitType::Compare(const UnitType& u)const{
-	if (this->type < u.type){
-		return -1;
-	}
-	else if (this->type > u.type){
-		return 1;
-	}
+//int UnitType::Compare(const UnitType& u)const{
+//	if (this->type < u.type){
+//		return -1;
+//	}
+//	else if (this->type > u.type){
+//		return 1;
+//	}
+//
+//	return 0;
+//}
 
-	return 0;
+int UnitType::getCostToUnlock(){
+	return this->getCostToUnlock;
 }
 
 string UnitType::getType(){
