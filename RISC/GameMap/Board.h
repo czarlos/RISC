@@ -37,7 +37,7 @@ public:
 
 	//Carlos's methods below
 	vector<vector<Edge>> getGameMap();
-	
+
 	~Board();
 
 private:

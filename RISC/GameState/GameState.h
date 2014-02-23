@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <vector>
+#include <assert.h>
 #include "../GameMap/Board.h"
 #include "../GameObject/GameObject.h"
 #include "Player/Player.h"
@@ -28,7 +29,6 @@ public:
 
 	void addUnit(Unit* unit, Location* location);
 	void addPlayer(Player* player);
-
 
 	void initGamestate(vector<Player*> playerList, Board* board);
 	void setObjectLocation(GameObject* object, Location* location);

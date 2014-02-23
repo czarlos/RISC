@@ -9,7 +9,6 @@ int main(int argc, char* argv[]) {
 	cout << "Hello there" << endl;
 	Board board = Board();
 	board.generateBoard();
-
 	Player player1 = Player("Carlos", "TeamKilgo");
 	Player player2 = Player("Wei", "TeamEdens");
 
@@ -29,7 +28,7 @@ int main(int argc, char* argv[]) {
 	string id2 = "weiUnit";
 	string teamName2 = "TeamEdens";
 	Unit unit2 = Unit(10, &type, teamName2, id2, 1);
-
+	
 	Location location = Location();
 	Location location2 = Location();
 
@@ -37,7 +36,9 @@ int main(int argc, char* argv[]) {
 	gameState.addUnit(&unit, &location);
 	gameState.addUnit(&unit, &location);
 
-	cout << "Team Name: " << unit.getTeamName() << endl;
+	
+
+	//cout << "Team Name: " << unit.getTeamName() << endl;
 
 	while (true) {}
 	return 0;

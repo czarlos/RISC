@@ -90,10 +90,10 @@ vector<Territory*> GameState::getPlayerTerritories(string teamName) {
 	}
 	return returnVector;
 }
-
+/*
 vector<Unit*> GameState::getPlayerUnits(Player* player) {
 	vector<Unit*> unitArray;
-	vector<Territory*> territories = getPlayerTerritories(player->getTeamName);
+	vector<Territory*> territories = getPlayerTerritories(player->getTeamName());
 	for each (Territory* terr in territories)
 	{
 		for each (Unit u in *(terr->getTerritoryContents())) {
@@ -103,14 +103,18 @@ vector<Unit*> GameState::getPlayerUnits(Player* player) {
 
 	return unitArray;
 }
-
+*/
 void GameState::addPlayer(Player* player) {
 	(this->myPlayerList).push_back(player);
 }
 
 void GameState::addUnit(Unit* unit, Location* location) {
-	this->getTerritoryByLocation(location)->addToContent(*unit);
+
+	Territory* terr = this->getTerritoryByLocation(location);
+
+	//terr->addToContent(unit);
 }
+
 
 GameState::~GameState() {
 	
