@@ -8,8 +8,6 @@
 #include "Location.h"
 #include "../GameObject/Unit/Unit.h"
 
-
-
 using namespace std;
 //NUM_OF_TERRITORYS also means that the board is 6x6
 //Eventually in future implmenation, it would be best to let the player Host decide 

@@ -149,10 +149,10 @@ Territory* Board::getTerritory(Location* location){
 	{
 		for each (Edge edge in edgeList)
 		{
-			if (edge.getEndPointATerritory()->getLocation().getX() == location->getX() && edge.getEndPointATerritory()->getLocation().getY() == location->getY()) {
+			if (edge.getEndPointATerritory()->getLocation()->getX() == location->getX() && edge.getEndPointATerritory()->getLocation()->getY() == location->getY()) {
 				desireTerritory = edge.getEndPointATerritory();
 			}
-			if (edge.getEndPointBTerritory()->getLocation().getX() == location->getX() && edge.getEndPointBTerritory()->getLocation().getY() == location->getY()) {
+			if (edge.getEndPointBTerritory()->getLocation()->getX() == location->getX() && edge.getEndPointBTerritory()->getLocation()->getY() == location->getY()) {
 				desireTerritory = edge.getEndPointBTerritory();
 			}
 		}

@@ -108,6 +108,7 @@ vector<Unit*> GameState::getPlayerUnits(Player* player) {
 void GameState::addPlayer(Player* player) {
 	(this->myPlayerList).push_back(*player);
 }
+
 void GameState::addUnit(Unit* unit, Location* location) {
 	for each (Player player in this->myPlayerList)
 	{
@@ -117,7 +118,7 @@ void GameState::addUnit(Unit* unit, Location* location) {
 	}
 	Territory* terr = this->getTerritoryByLocation(location);
 	
-	//terr->addToContent(unit);
+	terr->addToContent(unit);
 }
 
 

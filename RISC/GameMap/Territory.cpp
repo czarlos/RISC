@@ -5,7 +5,7 @@ Territory::Territory(){
 	this->territoryID = "null";
 	this->owner = "";
 	this->maxCapacity = MAX_CAPACITY;
-	this->production = new vector<ResourceType>();
+	this->production = vector<ResourceType*>();
 	this->location = Location(0, 0);
 	this->contents = vector<Unit *>();
 }
@@ -14,7 +14,7 @@ Territory::Territory(string territoryID){
 	this->owner = "";
 	this->territoryID = territoryID;
 	this->maxCapacity = MAX_CAPACITY;
-	this->production = new vector<ResourceType>();
+	this->production = vector<ResourceType*>();
 	this->location = Location(0, 0);
 	this->contents = vector<Unit *>();
 }
@@ -25,27 +25,15 @@ Territory::Territory(string territoryID, Location location)
 	this->owner = "";
 	this->location = location;
 	this->maxCapacity = MAX_CAPACITY;
-	this->production = new vector<ResourceType>();
-	this->contents = vector<Unit *>();
+	this->production = vector<ResourceType*>();
+	this->contents = vector<Unit*>();
 }
 
-Location Territory::getLocation(){
-	return this->location;
+Location* Territory::getLocation(){
+	return &(this->location);
 }
 
 void Territory::addToContent(Unit* itemToAdd){
-	//printf("%p\n", &(this->contents));
-	vector<Unit*> realMoney;
-	
-	UnitType type = Infantry();
-	string id = "carlosUnit";
-	string teamName = "TeamKilgo";
-	Unit x(10, &type, teamName, id, 1);
-	
-	(realMoney).push_back((&x));
-	cout << realMoney.at(0)->getTeamName() << endl;
-	
-	this->contents.push_back(&x);
 	this->contents.push_back(itemToAdd);
 }
 
@@ -81,11 +69,11 @@ string Territory::getOwner(){
 	return this->owner;
 }
 
-void Territory::addToProduction(ResourceType resourceType){
-	this->production->push_back(resourceType);
+void Territory::addToProduction(ResourceType* resourceType){
+	(this->production).push_back(resourceType);
 }
 
-vector<ResourceType>* Territory::getProduction(){
+vector<ResourceType*> Territory::getProduction(){
 	return this->production;
 }
 
