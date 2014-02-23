@@ -49,12 +49,11 @@ void TCPServer::process_message(TCPConnection * conn) {
 
 void TCPServer::send_welcome(TCPConnection::pointer new_connection) {
 
-	std::string g = "Welcome to RISC good ser.";	
-	NetworkMessage msg = NetworkMessage('*', g);
-	new_connection->send(&msg);
+	std::string g = "Welcome to RISC good ser.";		
+	// new_connection->send(&msg);
 	
-	ClientJoinMessage f = ClientJoinMessage(new_connection->getIPAddress(), new_connection->getSocket()->remote_endpoint().port());
-	this->send(&f, NULL);	
+	ClientJoinMessage * f = new ClientJoinMessage(new_connection->getIPAddress(), new_connection->getSocket()->remote_endpoint().port());	
+	this->send(f, NULL);	
 }
 
 TCPServer::TCPServer(boost::asio::io_service &io_service, int port) : acceptor_(io_service, tcp::endpoint(tcp::v4(), port)) {
@@ -80,7 +79,8 @@ void TCPServer::send(NetworkMessage *e, std::string * ip)
 	while (i != myClients.end()) {
 		if ((*i)->isOpen()) {
 			if (ip == NULL || (*i)->getIPAddress().compare(*ip) == 0) {
-				(*i)->send(e);
+				(*i)->go_send(e);
+				// (*i)->send(e);
 			}
 		}
 		i++;
