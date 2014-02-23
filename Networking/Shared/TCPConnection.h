@@ -133,17 +133,17 @@ public:
 
   /// Asynchronously read a data structure from the socket.
   template <typename T, typename Handler>
-  void async_read(T & t, Handler handler)
+  void async_read(T ** t, Handler handler)
   {
     // Issue a read operation to read exactly the number of bytes in a header.
     void (TCPConnection::*f)(
         const boost::system::error_code&,
-        T&, boost::tuple<Handler>)
+        T**, boost::tuple<Handler>)
       = &TCPConnection::handle_read_header<T, Handler>;
 
     boost::asio::async_read(socket_, boost::asio::buffer(inbound_header_),
         boost::bind(f,
-          this, boost::asio::placeholders::error, boost::ref(t),
+          this, boost::asio::placeholders::error, t,
           boost::make_tuple(handler)));
   }
 
@@ -152,7 +152,7 @@ public:
   /// created using boost::bind as a parameter.
   template <typename T, typename Handler>
   void handle_read_header(const boost::system::error_code& e,
-      T & t, boost::tuple<Handler> handler)
+      T ** t, boost::tuple<Handler> handler)
   {
     if (e)
     {
@@ -174,16 +174,18 @@ public:
 
 
 	  // turn it into a special type
-	  t = new ClientJoinMessage("127.0.0.1", 1999);
+	  NetworkMessage * lolz = new ClientJoinMessage("127.0.0.1", 1999);
+	  *t = lolz;
+	  // *t = lolz;
 
       // Start an asynchronous call to receive the data.
       inbound_data_.resize(inbound_data_size);
       void (TCPConnection::*f)(
           const boost::system::error_code&,
-          T&, boost::tuple<Handler>)
+          T**, boost::tuple<Handler>)
         = &TCPConnection::handle_read_data<T, Handler>;
       boost::asio::async_read(socket_, boost::asio::buffer(inbound_data_),
-        boost::bind(f, this, boost::asio::placeholders::error, boost::ref(t), handler));
+        boost::bind(f, this, boost::asio::placeholders::error, t, handler));
     }
   }
 
@@ -191,7 +193,7 @@ public:
 /// Handle a completed read of message data.
   template <typename T, typename Handler>
   void handle_read_data(const boost::system::error_code& e,
-      T& t, boost::tuple<Handler> handler)
+      T ** t, boost::tuple<Handler> handler)
   {
     if (e)
     {
@@ -205,11 +207,16 @@ public:
         std::string archive_data(&inbound_data_[0], inbound_data_.size());
         std::istringstream archive_stream(archive_data);
         boost::archive::text_iarchive archive(archive_stream);
-        archive >> t;
+
+		//archive.register_type<NetworkMessage>();
+		archive.register_type<ClientJoinMessage>();
+
+        archive & **t;
       }
       catch (std::exception& e)
       {
         // Unable to decode data.
+		  std::cout << e.what() << std::endl;
         boost::system::error_code error(boost::asio::error::invalid_argument);
         boost::get<0>(handler)(error);
         return;
@@ -222,6 +229,8 @@ public:
 
 
 	void send(NetworkMessage * msg);
+
+	NetworkMessage * g;
 
 	network_message_queue * getMessages();
 
