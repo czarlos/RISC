@@ -17,19 +17,19 @@ UnitType::UnitType() {
 
 } 
 
-//int UnitType::Compare(const UnitType& u)const{
-//	if (this->type < u.type){
-//		return -1;
-//	}
-//	else if (this->type > u.type){
-//		return 1;
-//	}
-//
-//	return 0;
-//}
+int UnitType::Compare(const UnitType& u)const{
+	if (this->type < u.type){
+		return -1;
+	}
+	else if (this->type > u.type){
+		return 1;
+	}
+
+	return 0;
+}
 
 int UnitType::getCostToUnlock(){
-	return this->getCostToUnlock;
+	return this->costToUnlock;
 }
 
 string UnitType::getType(){

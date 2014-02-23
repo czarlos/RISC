@@ -12,7 +12,7 @@ RocketLaunchers::RocketLaunchers():UnitType() {
 	this->level = 2;
 	this->myCombatBonus = 3;
 	this->myUpgradeCost = 19;
-	this->getCostToUnlock = 50;
+	this->costToUnlock = 50;
 
 }
 
