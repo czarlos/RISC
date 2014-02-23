@@ -2,7 +2,7 @@
 #include "../GameObject/Unit/Infantry.h"
 
 Territory::Territory(){
-	this->territoryID = "null";
+	this->territoryID = "";
 	this->owner = "";
 	this->maxCapacity = MAX_CAPACITY;
 	this->production = vector<ResourceType*>();
@@ -34,22 +34,14 @@ Location* Territory::getLocation(){
 }
 
 void Territory::addToContent(Unit* itemToAdd){
-	//this->contents.push_back(itemToAdd);
+	this->contents.push_back(itemToAdd);
 }
-
-//void Territory::addEdge(Edge edge){
-//	this->edges.push_back(edge);
-//}
-//
-//vector<Edge> Territory::getTerritoryEdges(){
-//	return this->edges;
-//}
 
 void Territory::removeFromContent(Unit* itemToRemove){
 	for (vector <Unit*>::iterator it = (this->contents).begin(); it != (this->contents).end(); ++it){
-		/*if ((*it).getGameObjectID() == itemToRemove.getGameObjectID()){
-			it = this->contents->erase(it);
-		}*/
+		if ((*it)->getGameObjectID() == itemToRemove->getGameObjectID()){
+			it = this->contents.erase(it);
+		}
 	}
 }
 
@@ -61,6 +53,10 @@ int Territory::contentSize(){
 	return (this->contents).size();
 }
 
+int Territory::getMaxCapacity(){
+	return this->maxCapacity;
+}
+
 void Territory::changeOwner(string newOwnerName){
 	this->owner = newOwnerName;
 }
@@ -69,16 +65,17 @@ string Territory::getOwner(){
 	return this->owner;
 }
 
+vector<Unit*> Territory::getTerritoryContents(){
+	return this->contents;
+}
+
+
 void Territory::addToProduction(ResourceType* resourceType){
 	(this->production).push_back(resourceType);
 }
 
 vector<ResourceType*> Territory::getProduction(){
 	return this->production;
-}
-
-vector<Unit*> Territory::getTerritoryContents(){
-	return this->contents;
 }
 
 Territory::~Territory()
