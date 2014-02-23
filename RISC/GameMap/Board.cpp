@@ -105,25 +105,27 @@ int Board::getNumberofEdges(){
 	return this->numOfEdges;
 }
 
-vector<Territory> *Board::getAdjacentTerritory(Territory *territory){
+vector<Territory*> Board::getAdjacentTerritory(Territory *territory){
 
 	//NOTE: neighborterritories is better to be declare as a pointer because returning a pointer to
 	// the list of territories is much more memory efficient.
 
-	vector<Territory> *neighborTerritories;
-	neighborTerritories = new  vector<Territory>();
+	vector<Territory*> neighborTerritories;
+	//neighborTerritories = new  vector<Territory>();
 	
-	for (vector<vector<Edge>>::iterator itero = this->gameMap.begin(); itero != this->gameMap.end(); ++itero){
-		for (vector<Edge>::iterator iteri = (*itero).begin(); iteri != (*itero).end(); ++iteri){
-			if ((*iteri).getEndPointATerritory().getTerritoryID() == territory->getTerritoryID()){
-				neighborTerritories->push_back((*iteri).getEndPointBTerritory());
+	for each (vector<Edge> edgeVector in gameMap)
+	{
+		for each (Edge edge in edgeVector)
+		{
+			if (edge.getEndPointATerritory()->getTerritoryID() == territory->getTerritoryID())
+			{
+				neighborTerritories.push_back(edge.getEndPointBTerritory());
 			}
-			if ((*iteri).getEndPointBTerritory().getTerritoryID() == territory->getTerritoryID()){
-				neighborTerritories->push_back((*iteri).getEndPointATerritory());
+			if (edge.getEndPointBTerritory()->getTerritoryID() == territory->getTerritoryID()) {
+				neighborTerritories.push_back(edge.getEndPointATerritory());
 			}
 		}
 	}
-
 	return neighborTerritories;
 }
 
@@ -139,28 +141,29 @@ vector<Territory> *Board::getAdjacentTerritory(Territory *territory){
 //}
 
 //NOTE: Possiblity re-do this method
-Territory Board::getTerritory(Location location){
-	Territory desireTerritory;
-	desireTerritory = Territory();
+Territory* Board::getTerritory(Location* location){
+	Territory* desireTerritory = NULL;
+	//desireTerritory = Territory();
 
-	for (vector<vector<Edge>>::iterator itero = this->gameMap.begin(); itero != this->gameMap.end(); ++itero){
-		for (vector<Edge>::iterator iteri = (*itero).begin(); iteri != (*itero).end(); ++iteri){
-			if ((*iteri).getEndPointATerritory().getLocation().getX() == location.getX() && (*iteri).getEndPointATerritory().getLocation().getY() == location.getY()){
-				desireTerritory = (*iteri).getEndPointATerritory();
+	for each (vector<Edge> edgeList in gameMap)
+	{
+		for each (Edge edge in edgeList)
+		{
+			if (edge.getEndPointATerritory()->getLocation().getX() == location->getX() && edge.getEndPointATerritory()->getLocation().getY() == location->getY()) {
+				desireTerritory = edge.getEndPointATerritory();
 			}
-
-			if ((*iteri).getEndPointBTerritory().getLocation().getX() == location.getX() && (*iteri).getEndPointBTerritory().getLocation().getY() == location.getY()){
-				desireTerritory = (*iteri).getEndPointBTerritory();
+			if (edge.getEndPointBTerritory()->getLocation().getX() == location->getX() && edge.getEndPointBTerritory()->getLocation().getY() == location->getY()) {
+				desireTerritory = edge.getEndPointBTerritory();
 			}
-
 		}
 	}
+
 	return desireTerritory;
 
 }
 
-vector<Territory> *Board::getAdjacentTerritoryByLocation(Location location){
-	return getAdjacentTerritory(&(getTerritory(location)));
+vector<Territory*> Board::getAdjacentTerritoryByLocation(Location* location){
+	return getAdjacentTerritory(getTerritory(location));
 }
 
 //vector<Unit> Board::getUnitListAtLocation(Location location){
@@ -168,6 +171,7 @@ vector<Territory> *Board::getAdjacentTerritoryByLocation(Location location){
 //	return getTerritory(location).getTerritoryContents();
 //}
 
+/*
 void Board::printGameMap(){
 	for (vector<vector<Edge>>::iterator itero = this->gameMap.begin(); itero != this->gameMap.end(); itero++){
 		for (vector<Edge>::iterator iteri = (*itero).begin(); iteri != (*itero).end(); iteri++){
@@ -190,7 +194,7 @@ void Board::printGameMap(){
 	}
 
 }
-
+*/
 vector<vector<Edge>> Board::getGameMap() {
 	return this->gameMap;
 }

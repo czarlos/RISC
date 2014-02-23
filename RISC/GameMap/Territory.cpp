@@ -1,4 +1,5 @@
 #include "Territory.h"
+#include "../GameObject/Unit/Infantry.h"
 
 Territory::Territory(){
 	this->territoryID = "null";
@@ -6,8 +7,7 @@ Territory::Territory(){
 	this->maxCapacity = MAX_CAPACITY;
 	this->production = new vector<ResourceType>();
 	this->location = Location(0, 0);
-	this->contents = new vector<Unit>();
-
+	this->contents = vector<Unit *>();
 }
 
 Territory::Territory(string territoryID){
@@ -16,7 +16,7 @@ Territory::Territory(string territoryID){
 	this->maxCapacity = MAX_CAPACITY;
 	this->production = new vector<ResourceType>();
 	this->location = Location(0, 0);
-	this->contents = new vector<Unit>();
+	this->contents = vector<Unit *>();
 }
 
 Territory::Territory(string territoryID, Location location)
@@ -26,15 +26,27 @@ Territory::Territory(string territoryID, Location location)
 	this->location = location;
 	this->maxCapacity = MAX_CAPACITY;
 	this->production = new vector<ResourceType>();
-	this->contents = new vector<Unit>();
+	this->contents = vector<Unit *>();
 }
 
 Location Territory::getLocation(){
 	return this->location;
 }
 
-void Territory::addToContent(Unit itemToAdd){
-	this->contents->push_back(itemToAdd);
+void Territory::addToContent(Unit* itemToAdd){
+	//printf("%p\n", &(this->contents));
+	vector<Unit*> realMoney;
+	
+	UnitType type = Infantry();
+	string id = "carlosUnit";
+	string teamName = "TeamKilgo";
+	Unit x(10, &type, teamName, id, 1);
+	
+	(realMoney).push_back((&x));
+	cout << realMoney.at(0)->getTeamName() << endl;
+	
+	this->contents.push_back(&x);
+	this->contents.push_back(itemToAdd);
 }
 
 //void Territory::addEdge(Edge edge){
@@ -45,8 +57,8 @@ void Territory::addToContent(Unit itemToAdd){
 //	return this->edges;
 //}
 
-void Territory::removeFromContent(Unit itemToRemove){
-	for (vector < Unit>::iterator it = this->contents->begin(); it != this->contents->end(); ++it){
+void Territory::removeFromContent(Unit* itemToRemove){
+	for (vector <Unit*>::iterator it = (this->contents).begin(); it != (this->contents).end(); ++it){
 		/*if ((*it).getGameObjectID() == itemToRemove.getGameObjectID()){
 			it = this->contents->erase(it);
 		}*/
@@ -58,7 +70,7 @@ string Territory::getTerritoryID(){
 }
 
 int Territory::contentSize(){
-	return this->contents->size();
+	return (this->contents).size();
 }
 
 void Territory::changeOwner(string newOwnerName){
@@ -77,7 +89,7 @@ vector<ResourceType>* Territory::getProduction(){
 	return this->production;
 }
 
-vector<Unit>* Territory::getTerritoryContents(){
+vector<Unit*> Territory::getTerritoryContents(){
 	return this->contents;
 }
 

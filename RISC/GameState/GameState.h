@@ -21,7 +21,7 @@ public:
 	Territory* getTerritory(string id);
 	Territory* getTerritoryByLocation(Location* location);
 
-	vector<Player*> getPlayerList();
+	vector<Player> getPlayerList();
 	Player* getPlayer(string teamName);
 	vector<Territory*> getPlayerTerritories(string teamName);
 	vector<Unit*> getPlayerUnits(Player* player);
@@ -30,13 +30,13 @@ public:
 	void addUnit(Unit* unit, Location* location);
 	void addPlayer(Player* player);
 
-	void initGamestate(vector<Player*> playerList, Board* board);
+	void initGamestate(vector<Player> playerList, Board* board);
 	void setObjectLocation(GameObject* object, Location* location);
 	void execute();
 	~GameState();
 
 private:
-	vector<Player*> myPlayerList;
+	vector<Player> myPlayerList;
 	Board myBoard;
 	string nameOfGame;
 	string serverInfo; //thinking it is a string

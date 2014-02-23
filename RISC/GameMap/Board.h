@@ -28,12 +28,12 @@ public:
 	int getNumberOfTerritories();
 	double getBoardSize();
 	int getNumberofEdges();
-	vector <Territory> *getAdjacentTerritory(Territory *);
-	Territory getTerritory(Location);
+	vector <Territory*> getAdjacentTerritory(Territory* territory);
+	Territory* getTerritory(Location*);
 
 	//vector<Unit> getUnitListAtLocation(Location);
 
-	vector<Territory> *getAdjacentTerritoryByLocation(Location);
+	vector<Territory*> getAdjacentTerritoryByLocation(Location* location);
 
 	//Carlos's methods below
 	vector<vector<Edge>> getGameMap();

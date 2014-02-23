@@ -19,12 +19,12 @@ double Edge::getEdgeWeight(){
 	return this->edgeWeight;
 }
 
-Territory Edge::getEndPointATerritory(){
-	return this->endPointA;
+Territory* Edge::getEndPointATerritory(){
+	return &(this->endPointA);
 }
 
-Territory Edge::getEndPointBTerritory(){
-	return this->endPointB;
+Territory* Edge::getEndPointBTerritory(){
+	return &(this->endPointB);
 }
 
 Edge::~Edge()

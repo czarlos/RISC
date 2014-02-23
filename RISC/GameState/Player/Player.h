@@ -15,9 +15,9 @@ public:
 	string getUserName();
 	string getPassword();
 	string getTeamName();
-	//Unit getUnits();
+	Unit* getUnit(Unit* unit);
 	//vector<Territory> getTerritories();
-	//void addUnit(Unit unit, Location loc);
+	void addUnit(Unit* unit);
 	void setSpectator();
 	~Player();
 
@@ -26,6 +26,7 @@ private:
 		password,
 		teamName;
 	bool left, join, spectator;
+	vector<Unit*> unitList;
 
 };
 

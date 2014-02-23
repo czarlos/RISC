@@ -13,9 +13,9 @@ int main(int argc, char* argv[]) {
 	Player player2 = Player("Wei", "TeamEdens");
 
 
-	vector<Player*> playerlist;
-	playerlist.push_back(&player1);
-	playerlist.push_back(&player2);
+	vector<Player> playerlist;
+	playerlist.push_back(player1);
+	playerlist.push_back(player2);
 
 	GameState gameState = GameState();
 	gameState.initGamestate(playerlist, &board);
@@ -23,11 +23,11 @@ int main(int argc, char* argv[]) {
 	UnitType type = Infantry();
 	string id = "carlosUnit";
 	string teamName = "TeamKilgo";
-	Unit unit = Unit(10, &type, teamName, id, 1);
+	Unit unit(10, &type, teamName, id, 1);
 
 	string id2 = "weiUnit";
 	string teamName2 = "TeamEdens";
-	Unit unit2 = Unit(10, &type, teamName2, id2, 1);
+	Unit unit2(10, &type, teamName2, id2, 1);
 	
 	Location location = Location();
 	Location location2 = Location();
@@ -38,9 +38,10 @@ int main(int argc, char* argv[]) {
 
 	
 
-	//cout << "Team Name: " << unit.getTeamName() << endl;
-
-	while (true) {}
+	cout << "Team Name: " << unit.getTeamName() << endl;
+	
+	//int age;
+	//cin >> age;
 	return 0;
 }
 
