@@ -8,8 +8,7 @@ class GameServer
 {
 
 private:
-	TCPServer * server_;
-	boost::thread server_thread;
+	TCPServer * server_;	
 	boost::asio::io_service io_service;
 
 	void startServer();
@@ -17,5 +16,7 @@ private:
 public:
 	GameServer();
 	~GameServer();
+
+	void start();
 };
 
