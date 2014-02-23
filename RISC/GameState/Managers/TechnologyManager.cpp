@@ -8,14 +8,14 @@ TechnologyManager::TechnologyManager()
 
 void TechnologyManager::initTechManager(){
 	this->techPoint = 0;
-	this->possibleUpgrades = vector<UnitType>();
-	this->unavaliableUpgrades = vector<UnitType>();
-	this->unavaliableUpgrades.push_back(Infantry());
-	this->unavaliableUpgrades.push_back(AutomaticWeapons());
-	this->unavaliableUpgrades.push_back(RocketLaunchers());
-	this->unavaliableUpgrades.push_back(Tanks());
-	this->unavaliableUpgrades.push_back(ImprovedTanks());
-	this->unavaliableUpgrades.push_back(FighterPlanes());
+	this->possibleUpgrades = vector<UnitType*>();
+	this->unavaliableUpgrades = vector<UnitType*>();
+	this->unavaliableUpgrades.push_back(new Infantry());
+	this->unavaliableUpgrades.push_back(new AutomaticWeapons());
+	this->unavaliableUpgrades.push_back(new RocketLaunchers());
+	this->unavaliableUpgrades.push_back(new Tanks());
+	this->unavaliableUpgrades.push_back(new ImprovedTanks());
+	this->unavaliableUpgrades.push_back(new FighterPlanes());
 }
 
 int TechnologyManager::getCurrentLevel(){
@@ -23,8 +23,8 @@ int TechnologyManager::getCurrentLevel(){
 }
 
 bool TechnologyManager::isUpgradeAllowed(UnitType* unitType){
-	for (vector<UnitType>::iterator iter = this->possibleUpgrades.begin(); iter != this->possibleUpgrades.end(); iter++){
-		if ((*unitType) == (*iter)){
+	for (vector<UnitType*>::iterator iter = this->possibleUpgrades.begin(); iter != this->possibleUpgrades.end(); iter++){
+		if (unitType == (*iter)){
 			return true;
 		}
 	}
@@ -41,9 +41,9 @@ int TechnologyManager::calculateCostToUnlock(UnitType* unitType){
 	int totalCost = 0;
 	int levelOfDesiredUpgrade = unitType->getLevel();
 
-	for (vector<UnitType>::iterator iter = this->unavaliableUpgrades.begin(); iter != this->unavaliableUpgrades.end(); iter++){
-		if ((*iter).getLevel() <= levelOfDesiredUpgrade){
-			totalCost = totalCost + (*iter).getCostToUnlock();
+	for (vector<UnitType*>::iterator iter = this->unavaliableUpgrades.begin(); iter != this->unavaliableUpgrades.end(); iter++){
+		if ((*iter)->getLevel() <= levelOfDesiredUpgrade){
+			totalCost = totalCost + (*iter)->getCostToUnlock();
 		}
 	}
 	return totalCost;
@@ -52,19 +52,19 @@ int TechnologyManager::calculateCostToUnlock(UnitType* unitType){
 int TechnologyManager::calculateCostOfUpgrading(UnitType* unitType){
 	int totalCost = 0;
 	int levelOfUpgrade = unitType->getUpgradeCost();
-	for (vector<UnitType>::iterator iter = this->possibleUpgrades.begin(); iter != this->possibleUpgrades.end(); iter++){
-		if ((*iter).getLevel() <= levelOfUpgrade){
-			totalCost = totalCost + (*iter).getUpgradeCost();
+	for (vector<UnitType*>::iterator iter = this->possibleUpgrades.begin(); iter != this->possibleUpgrades.end(); iter++){
+		if ((*iter)->getLevel() <= levelOfUpgrade){
+			totalCost = totalCost + (*iter)->getUpgradeCost();
 		}
 	}
 	return totalCost;
 }
 
-vector<UnitType> TechnologyManager::getCurrentPossibleUpgrade(){
+vector<UnitType*> TechnologyManager::getCurrentPossibleUpgrade(){
 	return this->possibleUpgrades;
 }
 
-vector<UnitType> TechnologyManager::getAllUnavalibleUpgrades(){
+vector<UnitType*> TechnologyManager::getAllUnavalibleUpgrades(){
 	return this->unavaliableUpgrades;
 }
 
@@ -80,13 +80,13 @@ void TechnologyManager::unlockUpgrade(){
 	int pointsToSpent = this->techPoint;
 	int usedTechPoint = 0;
 	int currentLevelOfUpgrade = this->highestAvaUpgrade->getLevel();
-	for (vector<UnitType>::iterator iter = this->possibleUpgrades.begin(); iter != this->possibleUpgrades.end(); iter++){
-		usedTechPoint= usedTechPoint+(*iter).getCostToUnlock();
+	for (vector<UnitType*>::iterator iter = this->possibleUpgrades.begin(); iter != this->possibleUpgrades.end(); iter++){
+		usedTechPoint= usedTechPoint+(*iter)->getCostToUnlock();
 	}
-	for (vector<UnitType>::iterator iter = this->unavaliableUpgrades.begin(); iter != this->unavaliableUpgrades.end(); iter++){
-		if ((*iter).getLevel() == (currentLevelOfUpgrade + 1)){
+	for (vector<UnitType*>::iterator iter = this->unavaliableUpgrades.begin(); iter != this->unavaliableUpgrades.end(); iter++){
+		if ((*iter)->getLevel() == (currentLevelOfUpgrade + 1)){
 			pointsToSpent = pointsToSpent - usedTechPoint;
-			if (pointsToSpent >= (*iter).getCostToUnlock()){
+			if (pointsToSpent >= (*iter)->getCostToUnlock()){
 				this->possibleUpgrades.push_back((*iter));
 				updateHighestAvaUpgrade();
 			}
@@ -111,13 +111,13 @@ void TechnologyManager::updateHighestAvaUpgrade(){
 	if (this->possibleUpgrades.size() == 1){
 		//Note: highestAvaUpgrade is a pointer to a UnitType
 		//the UnitType that is store in possibleUpgrades is not a pointer to a UnitType
-		(*this->highestAvaUpgrade) = this->possibleUpgrades.front();
+		this->highestAvaUpgrade = this->possibleUpgrades.front();
 	}
 	else{
-		for (vector<UnitType>::iterator iter = this->possibleUpgrades.begin(); iter != this->possibleUpgrades.end(); iter++){
-			if ((*iter).getLevel() > highestLevel){
-				highestLevel = (*iter).getLevel();
-				(*this->highestAvaUpgrade) = (*iter);
+		for (vector<UnitType*>::iterator iter = this->possibleUpgrades.begin(); iter != this->possibleUpgrades.end(); iter++){
+			if ((*iter)->getLevel() > highestLevel){
+				highestLevel = (*iter)->getLevel();
+				this->highestAvaUpgrade = (*iter);
 			}
 		}
 	}

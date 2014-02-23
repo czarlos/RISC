@@ -31,9 +31,9 @@ public:
 	//gives the cost to use an avaviable upgrade
 	int calculateCostOfUpgrading(UnitType*);
 	//get a list of all the possible upgrade type
-	vector<UnitType> getCurrentPossibleUpgrade();
+	vector<UnitType*> getCurrentPossibleUpgrade();
 	//get a list of all unavaliable upgrade types
-	vector<UnitType> getAllUnavalibleUpgrades();
+	vector<UnitType*> getAllUnavalibleUpgrades();
 	//Deposits the technology points a player wishes to spend to open up the 
 	//upgrade
 	void deposit(int);
@@ -60,9 +60,9 @@ private:
 	//the upgrades in list of possible upgrades
 	void lockUpgrades();
 	//list of the possible upgrades
-	vector<UnitType> possibleUpgrades;
+	vector<UnitType*> possibleUpgrades;
 	//list of the unavliable upgrades
-	vector<UnitType> unavaliableUpgrades;
+	vector<UnitType*> unavaliableUpgrades;
 	int techPoint;
 	//this keep track of the highest possible upgrade that a player can do
 	UnitType* highestAvaUpgrade;
