@@ -24,10 +24,14 @@ bool TechnologyManager::isUpgradeAllowed(UnitType* unitType){
 }
 
 void TechnologyManager::performUpgrade(UnitType* unitType, Unit* unitToApply){
-
+	//written in a way that you have to check if the unitType is avaliable before
+	//applying it ot the unit that is selected
+	unitToApply->setUnitType = unitType;
 }
 
 int TechnologyManager::calculateCost(UnitType* unitType){
+	int totalCost = 0;
+	int levelOfDesiredUpgrade = unitType->getLevel();
 
 
 	return 0;
