@@ -8,8 +8,6 @@
 #include "Location.h"
 #include "../GameObject/Unit/Unit.h"
 
-
-
 using namespace std;
 //NUM_OF_TERRITORYS also means that the board is 6x6
 //Eventually in future implmenation, it would be best to let the player Host decide 
@@ -28,16 +26,16 @@ public:
 	int getNumberOfTerritories();
 	double getBoardSize();
 	int getNumberofEdges();
-	vector <Territory> *getAdjacentTerritory(Territory *);
-	Territory getTerritory(Location);
+	vector <Territory*> getAdjacentTerritory(Territory* territory);
+	Territory* getTerritory(Location*);
 
 	//vector<Unit> getUnitListAtLocation(Location);
 
-	vector<Territory> *getAdjacentTerritoryByLocation(Location);
+	vector<Territory*> getAdjacentTerritoryByLocation(Location* location);
 
 	//Carlos's methods below
 	vector<vector<Edge>> getGameMap();
-	
+
 	~Board();
 
 private:

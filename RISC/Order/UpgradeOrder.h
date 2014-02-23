@@ -8,6 +8,7 @@
 #pragma once
 #include "../GameState/GameState.h"
 #include "../GameObject/Unit/Unit.h"
+#include "Order.h"
 
 using namespace std;
 
@@ -17,8 +18,9 @@ public:
 	~UpgradeOrder();
 
 private:
-	Unit myUnit;
-	UnitType myUnitType;
+	Unit* myUnit;
+	UnitType* myUnitType;
+	GameState* myGameState;
 protected:
 	void execute(GameState* state);
 };

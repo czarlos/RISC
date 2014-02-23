@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string.h>
 #include "../../GameMap/Board.h"
+#include "../../GameObject/Unit/Unit.h"
 
 using namespace std;
 
@@ -14,9 +15,9 @@ public:
 	string getUserName();
 	string getPassword();
 	string getTeamName();
-	Unit getUnits();
-	vector<Territory> getTerritories();
-	void addUnits(Unit unit, Location loc);
+	Unit* getUnit(Unit* unit);
+	//vector<Territory> getTerritories();
+	void addUnit(Unit* unit);
 	void setSpectator();
 	~Player();
 
@@ -25,6 +26,7 @@ private:
 		password,
 		teamName;
 	bool left, join, spectator;
+	vector<Unit*> unitList;
 
 };
 

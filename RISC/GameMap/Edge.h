@@ -10,8 +10,8 @@ class Edge
 public:
 	Edge();
 	Edge(Territory, Territory, double);
-	Territory getEndPointATerritory();
-	Territory getEndPointBTerritory();
+	Territory* getEndPointATerritory();
+	Territory* getEndPointBTerritory();
 	double getEdgeWeight();
 	~Edge();
 

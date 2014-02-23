@@ -17,18 +17,19 @@ public:
 	Territory(string, Location);
 
 	string getTerritoryID();
-	Location getLocation();
-	void addToContent(Unit);
-	void removeFromContent(Unit);
+	Location* getLocation();
+	void addToContent(Unit*);
+	void removeFromContent(Unit*);
 	int contentSize();
 
 	void getMaxCapacity();
 	void changeOwner(string);
 	string getOwner();
-	vector<Unit>* getTerritoryContents();
+	vector<Unit*> getTerritoryContents();
 
-	vector<ResourceType>* getProduction();
-	void addToProduction(ResourceType);
+	vector<ResourceType*> getProduction();
+	void addToProduction(ResourceType*);
+
 
 	~Territory();
 
@@ -37,7 +38,8 @@ private:
 	string owner;
 	Location location;
 	int maxCapacity;
-	vector<ResourceType>* production;
-	vector<Unit>* contents;
+	vector<ResourceType*> production;
+	vector<Unit*> contents;
+
 };
 
