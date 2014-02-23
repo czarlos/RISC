@@ -22,5 +22,5 @@ public:
 	UnitOrder(Location* source, Location* destination, GameObject* object);
 	~UnitOrder();
 protected:
-	void execute();
+	Response execute();
 };

@@ -13,8 +13,8 @@ AttackOrder::AttackOrder(Location* destination, CombatObject* obj) : Order(){
 	this->myCombatObject = *obj;
 }
 
-void AttackOrder::execute() {
-
+Response AttackOrder::execute(GameState* state) {
+	
 }
 
 AttackOrder::~AttackOrder() {

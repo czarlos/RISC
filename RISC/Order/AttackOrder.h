@@ -10,7 +10,7 @@ class AttackOrder : virtual Order {
 private:
 	Location myLocation;
 	CombatObject myCombatObject;
-	void execute();
+	Response execute();
 public:
 	AttackOrder(Location* destination, CombatObject* obj);
 	~AttackOrder();

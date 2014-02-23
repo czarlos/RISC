@@ -22,7 +22,7 @@ private:
 	MovableObject myObject;
 	//void execute();
 
-	void execute(GameState* state);
+	Response execute(GameState* state);
 public:
 	MovementOrder(Location* destination, MovableObject* object);
 	~MovementOrder();

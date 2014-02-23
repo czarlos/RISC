@@ -1,7 +1,8 @@
 #pragma once
 
 #include <iostream>
-//#include "../GameState/GameState.h"
+#include "../GameState/GameState.h"
+#include "Response.h"
 
 class Order {
 private:
@@ -12,6 +13,6 @@ public:
 	virtual ~Order() {};
 protected:
 	//virtual void execute(GameState* state) = 0;
-	virtual void execute() = 0;
+	virtual Response execute(GameState* state);
 };
 
