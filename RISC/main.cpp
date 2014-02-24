@@ -7,16 +7,16 @@
 using namespace std;
 
 int main(int argc, char* argv[]) {
-	/*cout << "Hello there" << endl;
+	cout << "Hello there" << endl;
 	Board* board = new Board();
 	board->generateBoard();
-	Player* player1 = new Player("Carlos", "TeamKilgo");
-	Player* player2 = new Player("Wei", "TeamEdens");*/
+	//Player* player1 = new Player("Carlos", "TeamKilgo");
+	//Player* player2 = new Player("Wei", "TeamEdens");
 
-	Edge* e = new Edge();
-	
-	e->getEndPointATerritory()->addToContent(new Unit(10, new Infantry(), "team", "unit", 1));
-	cout << e->getEndPointATerritory()->getTerritoryContents().at(0)->getTeamName() << endl;
+	//Edge* e = new Edge();
+	//
+	//e->getEndPointATerritory()->addToContent(new Unit(10, new Infantry(), "team", "unit", 1));
+	//cout << e->getEndPointATerritory()->getTerritoryContents().at(0)->getTeamName() << endl;
 
 	//vector<Player*> playerlist;
 	//playerlist.push_back(player1);

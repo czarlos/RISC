@@ -43,8 +43,6 @@ public:
 
 private:
 
-	//void putEdgeInGameMap(Edge*, int, int);
-
 	//generates random locations for the territories
 	Location generateRandLocation(vector<Location> *);
 	//populates the list of avaliable territories to use for constructing the board

@@ -12,16 +12,14 @@ Board::Board(){
 	}
 }
 
-
 void Board::generateBoard(){
 	//randomly generate and place the territory in the matrix
 	//randomly distributes the edges to the territories
 	vector<Territory> listOfTerritories = populateListOfTerritories();
 
 	srand((unsigned int) time(NULL));
-	//this->gameMap = list<list<Edge>>();
-	Territory endPointA = Territory();
-	Territory endPointB = Territory();
+	Territory* endPointA = new Territory();
+	Territory* endPointB = new Territory();
 	double edgeWeight;
 
 	for (int i = 0; i < NUM_OF_EDGES; i++){
@@ -31,29 +29,29 @@ void Board::generateBoard(){
 		int idxA = rand() % NUM_OF_TERRITORYS;
 		//cout << idxA << endl;
 		advance(iter, idxA);
-		endPointA = (*iter);
+		endPointA = &(*iter);
 
-		//cout << endPointA.getTerritoryID() << endl;
+		//cout << endPointA->getTerritoryID() << endl;
 
 		iter = listOfTerritories.begin();
 		int idxB = rand() % NUM_OF_TERRITORYS;
 		//cout << idxB << endl;
 
 		advance(iter, idxB);
-		endPointB = *iter;
+		endPointB = &(*iter);
 
-		//cout << endPointB.getTerritoryID() << endl;
+		//cout << endPointB->getTerritoryID() << endl;
 
 
-		if (endPointA.getTerritoryID() == endPointB.getTerritoryID()){
+		if (endPointA->getTerritoryID() == endPointB->getTerritoryID()){
 
 			i--;
 		}
 		else{
-			//Edge edge= Edge(endPointA, endPointB, edgeWeight);
+			Edge edge= Edge(endPointA, endPointB, edgeWeight);
 
-			//this->gameMap[idxA][idxB] = edge;
-			//this->gameMap[idxB][idxA] = edge;
+			this->gameMap[idxA][idxB] = edge;
+			this->gameMap[idxB][idxA] = edge;
 
 		}
 	}
@@ -102,16 +100,15 @@ double Board::getBoardSize(){
 }
 
 int Board::getNumberofEdges(){
+	//Note: if multiple edges connect to the same two endpoints,
+	//they are considered to be the same edge
 	return this->numOfEdges;
 }
 
 vector<Territory*> Board::getAdjacentTerritory(Territory *territory){
 
-	//NOTE: neighborterritories is better to be declare as a pointer because returning a pointer to
-	// the list of territories is much more memory efficient.
-
 	vector<Territory*> neighborTerritories;
-	//neighborTerritories = new  vector<Territory>();
+	neighborTerritories = vector<Territory*>();
 	
 	for each (vector<Edge> edgeVector in gameMap)
 	{
@@ -194,8 +191,6 @@ void Board::printGameMap(){
 	}
 
 }
-
-
 
 vector<vector<Edge>> Board::getGameMap() {
 	return this->gameMap;
