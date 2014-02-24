@@ -9,6 +9,8 @@ Player::Player() {
 	this->join = false;
 	this->spectator = false;
 	this->unitList = vector<Unit*>();
+	this->resourceManager = new ResourceManager();
+	this->techManager = new TechnologyManager();
 }
 
 Player::Player(string username){
@@ -20,6 +22,8 @@ Player::Player(string username){
 	this->join = false;
 	this->spectator = false;
 	this->unitList = vector<Unit*>();
+	this->resourceManager = new ResourceManager();
+	this->techManager = new TechnologyManager();
 }
 
 Player::Player(string username, string teamName) {
@@ -31,6 +35,8 @@ Player::Player(string username, string teamName) {
 	this->join = false;
 	this->spectator = false;
 	this->unitList = vector<Unit*>();
+	this->resourceManager = new ResourceManager();
+	this->techManager = new TechnologyManager();
 }
 
 string Player::getUserName(){
@@ -95,6 +101,14 @@ void Player::setJoin(bool isJoin){
 
 void Player::addUnit(Unit* unitToAdd){
 	this->unitList.push_back(unitToAdd);
+}
+
+TechnologyManager* Player::getTechManager(){
+	return this->techManager;
+}
+
+ResourceManager* Player::getResourceManager(){
+	return this->resourceManager;
 }
 
 Player::~Player() {

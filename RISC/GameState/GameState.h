@@ -43,6 +43,7 @@ public:
 
 
 	//Notes: Below are Unnesscary @ carlos -> lets discuss wendesday night
+
 	//GameObject* getGameObject(string id);
 	//vector<GameObject*>* getGameObjectsByLocation(Location* location);
 	//Territory* getTerritory(string id);

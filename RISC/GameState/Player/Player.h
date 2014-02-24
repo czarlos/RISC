@@ -3,6 +3,8 @@
 #include <string.h>
 #include "../../GameMap/Board.h"
 #include "../../GameObject/Unit/Unit.h"
+#include "../Managers/ResourceManager.h"
+#include "../Managers/TechnologyManager.h"
 
 using namespace std;
 
@@ -47,6 +49,11 @@ public:
 	void setJoin(bool);
 	//add units to the player's unit collection
 	void addUnit(Unit*);
+	//get the player's techManager
+	TechnologyManager* getTechManager();
+	//get the player's resourceManager
+	ResourceManager* getResourceManager();
+
 	//vector<Territory*> getTerritories();
 
 	virtual ~Player();
@@ -58,6 +65,9 @@ private:
 	bool left, join, spectator;
 	vector<Unit*> unitList;
 	int score;
+	ResourceManager* resourceManager;
+	TechnologyManager* techManager;
+	
 	//Note: should the player also keep track of the territories that they own?
 
 };
