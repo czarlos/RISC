@@ -4,6 +4,7 @@ Player::Player() {
 	this->username = "";
 	this->password = "";
 	this->teamName = "";
+	this->score = 0;
 	this->left = false;
 	this->join = false;
 	this->spectator = false;
@@ -14,6 +15,7 @@ Player::Player(string username){
 	this->username = username;
 	this->password = "";
 	this->teamName = "";
+	this->score = 0;
 	this->left = false;
 	this->join = false;
 	this->spectator = false;
@@ -24,6 +26,7 @@ Player::Player(string username, string teamName) {
 	this->username = username;
 	this->password = "";
 	this->teamName = teamName;
+	this->score = 0;
 	this->left = false;
 	this->join = false;
 	this->spectator = false;
@@ -52,6 +55,14 @@ void Player::setPassword(string password){
 
 void Player::setTeamName(string teamName){
 	this->teamName = teamName;
+}
+
+int Player::getScore(){
+	return this->score;
+}
+
+void Player::increaseScore(int amount){
+	this->score = this->score + amount;
 }
 
 vector<Unit*> Player::getUnitList(){

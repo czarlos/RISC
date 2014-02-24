@@ -21,6 +21,10 @@ public:
 	string getPassword();
 	//get the player's team name
 	string getTeamName();
+	//get the player's score
+	int getScore();
+	//increase the player's score
+	void increaseScore(int);
 	//set the username of the player
 	void setUserName(string);
 	//set the password of the player
@@ -53,6 +57,7 @@ private:
 		teamName;
 	bool left, join, spectator;
 	vector<Unit*> unitList;
+	int score;
 	//Note: should the player also keep track of the territories that they own?
 
 };
