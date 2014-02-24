@@ -17,13 +17,15 @@
 #include "Order.h"
 
 class MovementOrder : virtual Order {
+
+public:
+	//movement order constructor
+	MovementOrder(Location* destination, MovableObject* object);
+	//execute of movement
+	Response* execute(GameState* state);
+	~MovementOrder();
+
 private:
 	Location myDestination;
 	MovableObject myObject;
-	//void execute();
-
-	Response execute(GameState* state);
-public:
-	MovementOrder(Location* destination, MovableObject* object);
-	~MovementOrder();
 };

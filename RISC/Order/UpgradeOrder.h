@@ -14,13 +14,11 @@ using namespace std;
 
 class UpgradeOrder : virtual Order {
 public:
-	UpgradeOrder(Unit* unit, UnitType* unitType, GameState* state);
+	UpgradeOrder(Unit* unit, UnitType* unitType);
+	Response* execute(GameState* state);
 	~UpgradeOrder();
 
 private:
 	Unit* myUnit;
 	UnitType* myUnitType;
-	GameState* myGameState;
-protected:
-	void execute(GameState* state);
 };

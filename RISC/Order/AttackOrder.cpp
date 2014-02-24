@@ -1,11 +1,3 @@
-//
-//  AttackOrder.cpp
-//  RISC
-//
-//  Created by Carlos Reyes on 1/18/14.
-//  Copyright (c) 2014 Carlos Reyes. All rights reserved.
-//
-
 #include "AttackOrder.h"
 
 AttackOrder::AttackOrder(Location* destination, CombatObject* obj) : Order(){
@@ -13,8 +5,8 @@ AttackOrder::AttackOrder(Location* destination, CombatObject* obj) : Order(){
 	this->myCombatObject = *obj;
 }
 
-Response AttackOrder::execute(GameState* state) {
-	
+Response* AttackOrder::execute(GameState* gamestate) {
+	return nullptr;
 }
 
 AttackOrder::~AttackOrder() {

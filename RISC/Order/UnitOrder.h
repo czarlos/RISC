@@ -14,13 +14,14 @@
 #include "Order.h"
 
 class UnitOrder : public Order {
+
+public:
+	UnitOrder(Location* source, Location* destination, GameObject* object);
+	Response* execute(GameState*);
+	~UnitOrder();
+
 private:
 	Location mySource;
 	Location myDestination;
 	GameObject myObject;
-public:
-	UnitOrder(Location* source, Location* destination, GameObject* object);
-	~UnitOrder();
-protected:
-	Response execute();
 };

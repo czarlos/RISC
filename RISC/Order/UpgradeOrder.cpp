@@ -7,14 +7,17 @@
 
 #include "UpgradeOrder.h"
 
-UpgradeOrder::UpgradeOrder(Unit* unit, UnitType* unitType, GameState* state) : Order () {
+UpgradeOrder::UpgradeOrder(Unit* unit, UnitType* unitType) : Order () {
 	this->myUnit = unit;
 	this->myUnitType = unitType;
-	this->myGameState = state;
 }
+
+Response* UpgradeOrder::execute(GameState* state) {
+
+	return nullptr;
+}
+
 
 UpgradeOrder::~UpgradeOrder() {
 }
 
-void UpgradeOrder::execute(GameState* state) {
-}

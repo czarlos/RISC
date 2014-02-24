@@ -1,16 +1,14 @@
-//
-//  Order.cpp
-//  RISC
-//
-//  Created by Carlos Reyes on 1/18/14.
-//  Copyright (c) 2014 Carlos Reyes. All rights reserved.
-//
-
 #include "Order.h"
 
 Order::Order() {
 }
 
-void Order::execute() {
-	
+Response* Order::execute(GameState* gamestate) {
+	//not sure if there should be a default execute method as well as
+	//all the override execute methods in the childerns
+	return nullptr;
+}
+
+Order::~Order(){
+
 }
