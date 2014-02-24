@@ -19,7 +19,7 @@ public:
 		return Compare(r) < 0;
 	}
 
-	~ResourceType();
+	virtual ~ResourceType();
 
 private:
 	string resourceName;
