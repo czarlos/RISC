@@ -58,6 +58,7 @@ void Territory::generateResourceProduction(){
 		//else keep adding production until the territory reaches
 		//the max amount of different type of resources that it can produce
 		randIndex = rand() % maxResourceOfTerritory + 0;
+		cout << randIndex << endl;
 		this->production.push_back(possibleResources.at(randIndex));
 	}
 }

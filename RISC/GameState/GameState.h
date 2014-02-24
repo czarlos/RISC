@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <vector>
+#include <assert.h>
 #include "../GameMap/Board.h"
 #include "../GameObject/GameObject.h"
 #include "Player/Player.h"
@@ -20,19 +21,22 @@ public:
 	Territory* getTerritory(string id);
 	Territory* getTerritoryByLocation(Location* location);
 
-	vector<Player*> getPlayerList();
+	vector<Player> getPlayerList();
 	Player* getPlayer(string teamName);
 	vector<Territory*> getPlayerTerritories(string teamName);
 	vector<Unit*> getPlayerUnits(Player* player);
 
 
+	void addUnit(Unit* unit, Location* location);
+	void addPlayer(Player* player);
+
+	void initGamestate(vector<Player> playerList, Board* board);
 	void setObjectLocation(GameObject* object, Location* location);
 	void execute();
 	~GameState();
 
 private:
-	void initGamestate();
-	vector<Player*> myPlayerList;
+	vector<Player> myPlayerList;
 	Board myBoard;
 	string nameOfGame;
 	string serverInfo; //thinking it is a string

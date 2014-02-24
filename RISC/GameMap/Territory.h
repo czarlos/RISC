@@ -71,6 +71,7 @@ private:
 	string owner;
 	Location location;
 	int maxCapacity;
+	int maxResourceProduction;
 	vector<ResourceType*> production;
 	vector<Unit*> contents;
 
