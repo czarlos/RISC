@@ -53,6 +53,22 @@ void GameState::startGame(){
 }
 
 
+void GameState::updateGameState(Response*){
+	//update the GameState
+}
+
+void GameState::checkLost(){
+	//check though each player in the list, if the player does not own any
+	//more terrtories, that player has lost the game
+	//call setLost(bool) on the player to set the player's lost status to true
+}
+
+void GameState::checkGameEnd(){
+	//this should look in the player's list. If there is only 
+	//one player in the list that has not been defeated,
+	//that player is the winner, broadcast the winner's score, name etc to every player
+}
+
 
 //Note: below are commented out method that are kind of reduanent and need
 //to be discuss before reimplementing

@@ -41,12 +41,16 @@ public:
 	bool isJoin();
 	//check to see if the player is spectating the game 
 	bool isSpectator();
+	//check to see if the player lost
+	bool isLost();
 	//set if the player is spectating the game or not
 	void setSpectator(bool);
 	//set if the player left the game
 	void setLeft(bool);
 	//set if the player join the game
 	void setJoin(bool);
+	//set if the player has lost
+	void setLost(bool);
 	//add units to the player's unit collection
 	void addUnit(Unit*);
 	//get the player's techManager
@@ -62,7 +66,7 @@ private:
 	string username,
 		password,
 		teamName;
-	bool left, join, spectator;
+	bool left, join, spectator,lost;
 	vector<Unit*> unitList;
 	int score;
 	ResourceManager* resourceManager;

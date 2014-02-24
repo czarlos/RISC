@@ -8,6 +8,7 @@ Player::Player() {
 	this->left = false;
 	this->join = false;
 	this->spectator = false;
+	this->lost = false;
 	this->unitList = vector<Unit*>();
 	this->resourceManager = new ResourceManager();
 	this->techManager = new TechnologyManager();
@@ -20,6 +21,7 @@ Player::Player(string username){
 	this->score = 0;
 	this->left = false;
 	this->join = false;
+	this->lost = false;
 	this->spectator = false;
 	this->unitList = vector<Unit*>();
 	this->resourceManager = new ResourceManager();
@@ -34,6 +36,7 @@ Player::Player(string username, string teamName) {
 	this->left = false;
 	this->join = false;
 	this->spectator = false;
+	this->lost = false;
 	this->unitList = vector<Unit*>();
 	this->resourceManager = new ResourceManager();
 	this->techManager = new TechnologyManager();
@@ -87,6 +90,10 @@ bool Player::isSpectator(){
 	return this->spectator;
 }
 
+bool Player::isLost(){
+	return this->lost;
+}
+
 void Player::setSpectator(bool isSpectating){
 	this->spectator = isSpectating;
 }
@@ -97,6 +104,10 @@ void Player::setLeft(bool isLeft){
 
 void Player::setJoin(bool isJoin){
 	this->join = isJoin;
+}
+
+void Player::setLost(bool isLost){
+	this->lost = isLost;
 }
 
 void Player::addUnit(Unit* unitToAdd){

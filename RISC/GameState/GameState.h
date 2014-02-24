@@ -7,6 +7,7 @@
 #include "../GameObject/GameObject.h"
 #include "Player/Player.h"
 #include <map>
+#include "../Order/Response.h"
 
 using namespace std;
 
@@ -37,7 +38,13 @@ public:
 	void assignGameId(string);
 	//start the game by assigning the player a territory etc etc..
 	void startGame();
-
+	//take in the response given back by the server and update the gamestate locally
+	void updateGameState(Response*);
+	//check to see if any player has lost
+	void checkLost();
+	//check to see if the game is over and the winner is declare
+	void checkGameEnd();
+	
 
 
 
