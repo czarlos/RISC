@@ -19,7 +19,7 @@ MovementOrder::MovementOrder(Location* destination, MovableObject* object) : Ord
  * the desired location is <= its movement range, it moves
  * the unit, otherwise it does nothing.
  */
-void MovementOrder::execute(GameState* state) {
+Response MovementOrder::execute(GameState* state) {
 //	string teamName = myObject.getTeamName();
 //	Team team = *state->getPlayer(teamName);
 //
