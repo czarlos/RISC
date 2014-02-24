@@ -13,6 +13,7 @@ UnitType::UnitType() {
 	this->type = "";
 	this->myCombatBonus = 0;
 	this->myUpgradeCost = 0;
+	this->costToUnlock = 0;
 
 } 
 
@@ -25,6 +26,10 @@ int UnitType::Compare(const UnitType& u)const{
 	}
 
 	return 0;
+}
+
+int UnitType::getCostToUnlock(){
+	return this->costToUnlock;
 }
 
 string UnitType::getType(){

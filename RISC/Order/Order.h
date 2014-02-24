@@ -5,14 +5,14 @@
 #include "Response.h"
 
 class Order {
-private:
-	//GameState myState;
 public:
+	//constructor for orders
 	Order();
-	//Order(GameState* state);
+
+	//execute and returns a response
+	virtual Response* execute(GameState* gamestate);
+	//destructor for orders
 	virtual ~Order();
-protected:
-	//virtual void execute(GameState* state) = 0;
-	virtual Response execute(GameState* state);
+
 };
 

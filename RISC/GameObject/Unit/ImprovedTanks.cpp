@@ -12,6 +12,7 @@ ImprovedTanks::ImprovedTanks() : UnitType() {
 	this->level = 4;
 	this->myCombatBonus = 12;
 	this->myUpgradeCost = 25;
+	this->costToUnlock = 120;
 
 }
 

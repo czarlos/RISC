@@ -1,6 +1,6 @@
 #include "AttackResponse.h"
 
-AttackResponse::AttackResponse(GameState* state) : Response(state){
+AttackResponse::AttackResponse(GameState* state) : Response(){
 	
 }
 

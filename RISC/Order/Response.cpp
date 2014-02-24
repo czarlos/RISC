@@ -1,12 +1,14 @@
 #include "Response.h"
 
-Response::Response(GameState* state) {
-	this->myState = state;
-}
-
-void Response::executeResponse(GameState* state) {
+Response::Response(){
 
 }
 
-Response::~Response() {
+void Response::executeResponse(GameState* gamestate){
+
+}
+
+
+Response::~Response(){
+
 }

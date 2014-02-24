@@ -1,6 +1,6 @@
 #include "MovementResponse.h"
 
-MovementResponse::MovementResponse(GameState* state) : Response(state) {
+MovementResponse::MovementResponse() : Response() {
 
 }
 

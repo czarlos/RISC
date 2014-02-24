@@ -23,6 +23,7 @@ public:
 	UnitType();
 	int getUpgradeCost();
 	int getCombatBonus();
+	int getCostToUnlock();
 	string getType();
 	int getLevel();
 	virtual ~UnitType();
@@ -30,6 +31,7 @@ public:
 protected:
 	int level;
 	string type;
+	int costToUnlock;
 	int myUpgradeCost;
 	int myCombatBonus;
 

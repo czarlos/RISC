@@ -17,12 +17,17 @@
 #include "Order.h"
 #include "MovementResponse.h"
 
+
 class MovementOrder : public Order {
+
+public:
+	//movement order constructor
+	MovementOrder(Location* destination, MovableObject* object);
+	//execute of movement
+	Response* execute(GameState* state);
+	~MovementOrder();
+
 private:
 	Location myDestination;
 	MovableObject myObject;
-public:
-	MovementOrder(Location* destination, MovableObject* object);
-	Response execute(GameState* state);
-	~MovementOrder();
 };

@@ -12,6 +12,7 @@ Infantry::Infantry():UnitType(){
 	this->type = "infantry";
 	this->myCombatBonus = 0;
 	this->myUpgradeCost = 0;
+	this->costToUnlock = 0;
 }
 
 Infantry::~Infantry() {

@@ -12,6 +12,7 @@ AutomaticWeapons::AutomaticWeapons() : UnitType() {
 	this->level = 1;
 	this->myCombatBonus = 1;
 	this->myUpgradeCost = 3;
+	this->costToUnlock = 20;
 }
 
 AutomaticWeapons::~AutomaticWeapons() {
