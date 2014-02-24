@@ -1,20 +1,20 @@
 #include "Resource.h"
 
 Resource::Resource(){
-	this->resourceType = ResourceType();
+	this->resourceType = new ResourceType();
 	this->amount = 0;
 }
 
-Resource::Resource(ResourceType resourceType){
+Resource::Resource(ResourceType* resourceType){
 	this->resourceType = resourceType;
 	this->amount = 0;
 }
 
-double Resource::getAmount(){
+int Resource::getAmount(){
 	return this->amount;
 }
 
-ResourceType Resource::getResourceType(){
+ResourceType* Resource::getResourceType(){
 	return this->resourceType;
 }
 
