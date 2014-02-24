@@ -9,17 +9,43 @@ using namespace std;
 class Player
 {
 public:
+	//default constructor for player
 	Player();
-	Player(string name);
-	Player(string name, string teamName);
+	//constructor for player that just take in the username of the player
+	Player(string);
+	//constructor for player that id the player by their username and the team that they're on
+	Player(string, string);
+	//get the username of the player
 	string getUserName();
+	//get the password of the player
 	string getPassword();
+	//get the player's team name
 	string getTeamName();
-	Unit* getUnit(Unit* unit);
-	//vector<Territory> getTerritories();
-	void addUnit(Unit* unit);
-	void setSpectator();
-	~Player();
+	//set the username of the player
+	void setUserName(string);
+	//set the password of the player
+	void setPassword(string);
+	//set the teamname of the player
+	void setTeamName(string);
+	//get a list of all the units that the player possesses
+	vector<Unit*> getUnitList();
+	//check to see if the player left the game
+	bool isLeft();
+	//check to see if the player join the game
+	bool isJoin();
+	//check to see if the player is spectating the game 
+	bool isSpectator();
+	//set if the player is spectating the game or not
+	void setSpectator(bool);
+	//set if the player left the game
+	void setLeft(bool);
+	//set if the player join the game
+	void setJoin(bool);
+	//add units to the player's unit collection
+	void addUnit(Unit*);
+	//vector<Territory*> getTerritories();
+
+	virtual ~Player();
 
 private:
 	string username,
@@ -27,6 +53,7 @@ private:
 		teamName;
 	bool left, join, spectator;
 	vector<Unit*> unitList;
+	//Note: should the player also keep track of the territories that they own?
 
 };
 
