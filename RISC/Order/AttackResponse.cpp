@@ -1,12 +1,12 @@
 #include "AttackResponse.h"
 
-AttackResponse::AttackResponse(GameState* state) : Response(){
+AttackResponse::AttackResponse() : Response(){
 	
 }
 
-void AttackResponse::executeResponse(GameState* state) {
-
-}
+//void AttackResponse::executeResponse(GameState* state) {
+//
+//}
 
 AttackResponse::~AttackResponse() {
 

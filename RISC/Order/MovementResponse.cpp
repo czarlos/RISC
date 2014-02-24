@@ -4,9 +4,9 @@ MovementResponse::MovementResponse() : Response() {
 
 }
 
-void MovementResponse::executeResponse(GameState* state) {
-
-}
+//void MovementResponse::executeResponse(GameState* state) {
+//
+//}
 
 MovementResponse::~MovementResponse() {
 
