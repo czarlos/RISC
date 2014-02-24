@@ -1,11 +1,13 @@
 #pragma once
-
+#include "../GameState/GameState.h"
 using namespace std;
 
 virtual class Response {
 public:
-	
-protected:
-	virtual void executeResponse(GameState* gs);
+	Response(GameState* state);
+	virtual ~Response();
+	virtual void executeResponse(GameState* state);
+private:
+	GameState* myState;
 
 };

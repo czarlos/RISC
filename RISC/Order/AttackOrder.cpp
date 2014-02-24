@@ -14,7 +14,7 @@ AttackOrder::AttackOrder(Location* destination, CombatObject* obj) : Order(){
 }
 
 Response AttackOrder::execute(GameState* state) {
-	
+	return NULL;
 }
 
 AttackOrder::~AttackOrder() {

@@ -20,6 +20,11 @@ MovementOrder::MovementOrder(Location* destination, MovableObject* object) : Ord
  * the unit, otherwise it does nothing.
  */
 Response MovementOrder::execute(GameState* state) {
+	MovementResponse movementResponse(state);
+
+	return NULL;
+
+
 //	string teamName = myObject.getTeamName();
 //	Team team = *state->getPlayer(teamName);
 //

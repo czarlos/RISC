@@ -10,7 +10,7 @@ private:
 public:
 	Order();
 	//Order(GameState* state);
-	virtual ~Order() {};
+	virtual ~Order();
 protected:
 	//virtual void execute(GameState* state) = 0;
 	virtual Response execute(GameState* state);

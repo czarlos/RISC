@@ -12,7 +12,7 @@
 
 using namespace std;
 
-class UpgradeOrder : virtual Order {
+class UpgradeOrder : public Order {
 public:
 	UpgradeOrder(Unit* unit, UnitType* unitType, GameState* state);
 	~UpgradeOrder();
@@ -22,5 +22,5 @@ private:
 	UnitType* myUnitType;
 	GameState* myGameState;
 protected:
-	void execute(GameState* state);
+	Response execute(GameState* state);
 };

@@ -13,8 +13,11 @@ UpgradeOrder::UpgradeOrder(Unit* unit, UnitType* unitType, GameState* state) : O
 	this->myGameState = state;
 }
 
+Response UpgradeOrder::execute(GameState* state) {
+	return NULL;
+}
+
 UpgradeOrder::~UpgradeOrder() {
 }
 
-void UpgradeOrder::execute(GameState* state) {
-}
+

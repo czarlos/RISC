@@ -11,6 +11,6 @@
 Order::Order() {
 }
 
-void Order::execute() {
-	
+Order::~Order() {
+
 }

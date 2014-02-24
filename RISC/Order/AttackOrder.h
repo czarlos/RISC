@@ -5,12 +5,12 @@
 #include "Order.h"
 #include "../GameObject/CombatObject.h"
 
-class AttackOrder : virtual Order {
+class AttackOrder : public Order {
 	
 private:
 	Location myLocation;
 	CombatObject myCombatObject;
-	Response execute();
+	Response execute(GameState* state);
 public:
 	AttackOrder(Location* destination, CombatObject* obj);
 	~AttackOrder();
