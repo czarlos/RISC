@@ -1,15 +1,20 @@
 #include <iostream>
+//NOTE: should prob delete the bottom includes when done testing
 #include "GameMap/Board.h"
 #include "GameObject\Unit\Infantry.h"
 #include "GameObject\Unit\UnitType.h"
 #include "GameState\GameState.h"
+#include "GameMap\Territory.h"
 
 using namespace std;
 
 int main(int argc, char* argv[]) {
 	cout << "Hello there" << endl;
-	Board* board = new Board();
-	board->generateBoard();
+	Territory* ter = new Territory();
+
+
+	//Board* board = new Board();
+	//board->generateBoard();
 	//Player* player1 = new Player("Carlos", "TeamKilgo");
 	//Player* player2 = new Player("Wei", "TeamEdens");
 

@@ -54,7 +54,7 @@ void ResourceManager::addResource(ResourceType* resourceType) {
 	}
 	else{
 		//this should already search for common insertions
-		this->resourceMap.insert(pair<ResourceType*, Resource*>(resourceType, new Resource((*resourceType))));
+		this->resourceMap.insert(pair<ResourceType*, Resource*>(resourceType, new Resource(resourceType)));
 	}
 }
 

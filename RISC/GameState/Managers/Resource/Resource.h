@@ -26,5 +26,5 @@ public:
 
 private:
 	ResourceType* resourceType;
-	double amount;
+	int amount;
 };
