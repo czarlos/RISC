@@ -38,7 +38,7 @@ public:
 	int contentSize();
 	//get the maximum capacity of the territory. The max is actally 
 	//defined by MAX_CAPACITY 
-	void getMaxCapacity();
+	int getMaxCapacity();
 	//the is the method to change the owner of the territory.
 	//upon builting the territory object, the owner is set to ""
 	//need to call after if the territory belong to someone
