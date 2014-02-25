@@ -78,9 +78,8 @@ void TCPServer::send(NetworkMessage *e, std::string * ip)
 	client_queue::iterator i = myClients.begin();
 	while (i != myClients.end()) {
 		if ((*i)->isOpen()) {
-			if (ip == NULL || (*i)->getIPAddress().compare(*ip) == 0) {
-				(*i)->go_send(e);
-				// (*i)->send(e);
+			if (ip == NULL || (*i)->getIPAddress().compare(*ip) == 0) {				
+				(*i)->send(e);				
 			}
 		}
 		i++;
