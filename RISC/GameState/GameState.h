@@ -6,8 +6,8 @@
 #include "../GameMap/Board.h"
 #include "../GameObject/GameObject.h"
 #include "Player/Player.h"
+#include "../GameMap/Territory.h"
 #include <map>
-#include "../Order/Response.h"
 
 using namespace std;
 
@@ -38,12 +38,14 @@ public:
 	void assignGameId(string);
 	//start the game by assigning the player a territory etc etc..
 	void startGame();
-	//take in the response given back by the server and update the gamestate locally
-	void updateGameState(Response*);
 	//check to see if any player has lost
 	void checkLost();
 	//check to see if the game is over and the winner is declare
 	void checkGameEnd();
+
+	void getGameObject();
+
+	void setUnitPosition(Unit* unit, Location* newLocation);
 	
 
 
@@ -51,10 +53,11 @@ public:
 
 	//Notes: Below are Unnesscary @ carlos -> lets discuss wendesday night
 
-	//GameObject* getGameObject(string id);
 	//vector<GameObject*>* getGameObjectsByLocation(Location* location);
 	//Territory* getTerritory(string id);
-	//Territory* getTerritoryByLocation(Location* location);
+	Territory* getTerritoryByLocation(Location* location);
+	Location* getUnitLocation(Unit* unit);
+	Territory* getUnitTerritory(Unit* unit);
 	//Player* getPlayer(string teamName);
 	//vector<Territory*> getPlayerTerritories(string teamName);
 	//vector<Unit*> getPlayerUnits(Player* player);

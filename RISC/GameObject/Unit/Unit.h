@@ -14,6 +14,7 @@ private:
 	string myUnitID;
 	UnitType* myUnitType;
 
+
 public:
 	const int RMAX = 20;
 	Unit();
@@ -24,7 +25,7 @@ public:
 	void setUnitType(UnitType unitType);
 	string getGameObjectID();
 
-	//Unit(int health, string teamName, string unitID, int movementRange);
+	int getCombatBonus();
 
 	void setDone();
 	void setReset();

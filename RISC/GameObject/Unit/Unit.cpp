@@ -21,6 +21,10 @@ bool Unit::getTurnStatus() {
 	return myTurnStatus;
 }
 
+int Unit::getCombatBonus() {
+	return this->myUnitType->getCombatBonus();
+}
+
 string Unit::getGameObjectID(){
 	return this->myUnitID;
 }

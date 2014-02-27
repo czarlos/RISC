@@ -6,7 +6,11 @@ using namespace std;
 
 class MovementResponse : public Response {
 public:
-	MovementResponse();
-	//void executeResponse(GameState* state);
+	MovementResponse(Unit* unit, Location* desiredLocation);
+	void executeResponse(GameState* state);
 	virtual ~MovementResponse();
+
+private:
+	Location* myDesiredLocation;
+	Unit* myUnit;
 };

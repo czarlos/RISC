@@ -52,11 +52,6 @@ void GameState::startGame(){
 	//assign player to territory etc init stuff
 }
 
-
-void GameState::updateGameState(Response*){
-	//update the GameState
-}
-
 void GameState::checkLost(){
 	//check though each player in the list, if the player does not own any
 	//more terrtories, that player has lost the game
@@ -69,26 +64,40 @@ void GameState::checkGameEnd(){
 	//that player is the winner, broadcast the winner's score, name etc to every player
 }
 
+void GameState::setUnitPosition(Unit* unit, Location* location) {
+	// 1. Remove unit from old territory
+	this->getTerritoryByLocation(this->getUnitLocation(unit))->removeFromContent(unit);
 
-//Note: below are commented out method that are kind of reduanent and need
-//to be discuss before reimplementing
+	// 2. Put desired unit in desired territory
+	Territory* terr = this->getTerritoryByLocation(location);
+	terr->addToContent(unit);
+	
+}
 
-//GameObject* GameState::getGameObject(string id) {
-//	for (vector<vector<Edge>>::iterator itero = myBoard.getGameMap().begin(); itero != myBoard.getGameMap().end(); ++itero){
-//		for (vector<Edge>::iterator iteri = (*itero).begin(); iteri != (*itero).end(); ++iteri){
-//
-//			
-//			/*for (vector<Unit*>::iterator iter2 = ((*iteri).getEndPointATerritory().getTerritoryContents())->begin(); iter2 != ((*iteri).getEndPointATerritory().getTerritoryContents())->end(); ++iter2) {
-//
-//				if ( ((*iter2)->getGameObjectID()) == id){
-//					return &(iter2);
-//				}
-//			}*/
-//
-//		}
-//	}
-//	return nullptr;
-//}
+Territory* GameState::getUnitTerritory(Unit* unit) {
+	return this->getTerritoryByLocation(this->getUnitLocation(unit));
+}
+
+Location* GameState::getUnitLocation(Unit* u) {
+	for each (vector<Edge> edgeVec in board->getGameMap())
+	{
+		for each (Edge edge in edgeVec)
+		{
+			for each (Unit* unit in edge.getEndPointATerritory()->getTerritoryContents()) {
+				if (unit == u) {
+					return edge.getEndPointATerritory()->getLocation();
+				}
+			}
+			for each (Unit* unit in edge.getEndPointBTerritory()->getTerritoryContents()) {
+				if (unit == u) {
+					return edge.getEndPointBTerritory()->getLocation();
+				}
+			}
+		}
+	}
+	return nullptr;
+}
+
 //
 //vector<GameObject*>* GameState::getGameObjectsByLocation(Location* location) {
 //	for (vector<vector<Edge>>::iterator itero = myBoard.getGameMap().begin(); itero != myBoard.getGameMap().end(); ++itero){
@@ -117,23 +126,24 @@ void GameState::checkGameEnd(){
 //	}
 //	return nullptr;
 //}
-//
-//Territory* GameState::getTerritoryByLocation(Location* location) {
-//	return myBoard.getTerritory(location);
-//}
-//
-//Player* GameState::getPlayer(string teamName) {
-//
-//
-//	/*for (int i=0; i< myPlayerList.size(); i++) {
-//	if (myPlayerList.at(i)->getTeamName() == teamName) {
-//
-//	}
-//	}*/
-//
-//	return nullptr;
-//}
-//
+
+Territory* GameState::getTerritoryByLocation(Location* location) {
+	return board->getTerritory(location);
+}
+
+/*
+Player* GameState::getPlayer(string teamName) {
+
+
+	for (int i=0; i< myPlayerList.size(); i++) {
+	if (myPlayerList.at(i)->getTeamName() == teamName) {
+
+	}
+	}
+
+	return nullptr;
+}
+*/
 //vector<Territory*> GameState::getPlayerTerritories(string teamName) {
 //	vector<Territory*> returnVector;
 //	for (vector<vector<Edge>>::iterator itero = myBoard.getGameMap().begin(); itero != myBoard.getGameMap().end(); ++itero){

@@ -4,9 +4,8 @@ Response::Response(){
 
 }
 
-//void Response::executeResponse(GameState* gamestate){
-//
-//}
+void Response::executeResponse(GameState* gamestate){
+}
 
 
 Response::~Response(){

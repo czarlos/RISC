@@ -1,8 +1,7 @@
 #pragma once
 
 #include <iostream>
-//#include "../GameState/GameState.h"
-
+#include "../GameState/GameState.h"
 
 
 class Response {
@@ -16,7 +15,7 @@ public:
 	//Note: this is causing circular dependency
 	// on the new methoding of using the response to update gamestate this should not be implemented
 
-	//virtual void executeResponse(GameState* state);
+	virtual void executeResponse(GameState* state);
 
 	//Note: since Response is the parent, it uses keyword Virtual for its destructor
 	//its childerns will inherit the keyword for their destructors

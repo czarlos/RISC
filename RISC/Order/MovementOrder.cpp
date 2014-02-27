@@ -8,9 +8,9 @@
 
 #include "MovementOrder.h"
 
-MovementOrder::MovementOrder(Location* destination, MovableObject* object) : Order(){
-	this->myDestination = *destination;
-	this->myObject = *object;
+MovementOrder::MovementOrder(Location* destination, Unit* object) : Order(){
+	this->myDestination = destination;
+	this->myObject = object;
 }
 
 
@@ -21,18 +21,16 @@ MovementOrder::MovementOrder(Location* destination, MovableObject* object) : Ord
  */
 
 Response* MovementOrder::execute(GameState* state) {
-//	string teamName = myObject.getTeamName();
-//	Team team = *state->getPlayer(teamName);
-//
-//	MovableObject mo = *(state->getGameObject(myObject.getGameObjectID()));
-//
-//	Location* initialLocation = state->getGameObject(mo.getGameObjectID());
-//
-//	if (MathUtilities::findDistance(initialLocation, &myDestination)
-//		<= mo.getMovementRange()) {
-//		state->setObjectLocation(&mo, &myDestination);
-//	}
-	return nullptr;
+
+	Location* initialLocation = state->getUnitLocation(myObject);
+
+	if (MathUtilities::findDistance(initialLocation, myDestination)
+		<= myObject->getMovementRange()) {
+		Response* movementResponse = new MovementResponse(this->myObject, this->myDestination);
+		return movementResponse;
+	}
+
+	return nullptr;;
 }
 
 MovementOrder::~MovementOrder() {
