@@ -130,6 +130,7 @@ Location* GameState::getLocation(Territory* terr) {
 			}
 		}
 	}
+	return nullptr;
 }
 
 //
