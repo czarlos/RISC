@@ -59,6 +59,7 @@ public:
 	Location* getUnitLocation(Unit* unit);
 	Territory* getUnitTerritory(Unit* unit);
 	vector<Unit*> getUnitList(Location* location);
+	Location* getLocation(Territory* territory);
 	//Player* getPlayer(string teamName);
 	//vector<Territory*> getPlayerTerritories(string teamName);
 	//vector<Unit*> getPlayerUnits(Player* player);

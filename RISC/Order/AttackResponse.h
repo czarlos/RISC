@@ -7,7 +7,7 @@ using namespace std;
 
 class AttackResponse : public Response {
 public:
-	AttackResponse(Territory* sourceUnits, Territory* destinationVector);
+	AttackResponse(Territory* source, Territory* destination);
 	void executeResponse(GameState* state);
 	virtual ~AttackResponse();
 private:
