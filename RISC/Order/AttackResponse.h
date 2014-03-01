@@ -2,15 +2,18 @@
 #include "../GameState/GameState.h"
 #include "Response.h"
 #include <ctime>
+#include <stack>
 using namespace std;
 
 class AttackResponse : public Response {
 public:
-	AttackResponse(Unit* unitOne, Unit* unitTwo);
+	AttackResponse(Territory* sourceUnits, Territory* destinationVector);
 	void executeResponse(GameState* state);
 	virtual ~AttackResponse();
 private:
-	Unit* myUnitOne;
-	Unit* myUnitTwo;
+	Territory* mySource;
+	Territory* myDestination;
+	vector<Unit*> mySourceVector;
+	vector<Unit*> myDestinationVector;
 	void removeUnit(GameState* state, Unit* unit);
 };

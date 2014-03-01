@@ -1,12 +1,20 @@
 #include "AttackOrder.h"
 
-AttackOrder::AttackOrder(Location* destination, CombatObject* obj) : Order(){
-	this->myLocation = *destination;
-	this->myCombatObject = *obj;
+AttackOrder::AttackOrder(Location* source, Location* destination) : Order(){
+	this->mySource = source;
+	this->myDestination = destination;
 }
 
-Response* AttackOrder::execute(GameState* gamestate) {
-	return nullptr;
+Response* AttackOrder::execute(GameState* state) {
+	Territory* sourceTerr = state->getTerritoryByLocation(mySource);
+	Territory* destinationTerr = state->getTerritoryByLocation(myDestination);
+	if (sourceTerr!=nullptr && destinationTerr!=nullptr) {
+		Response* response = new AttackResponse(sourceTerr, destinationTerr);
+		return response;
+	}
+	else {
+		return nullptr;
+	}
 }
 
 AttackOrder::~AttackOrder() {

@@ -23,6 +23,20 @@ MovementOrder::MovementOrder(Location* destination, Unit* object) : Order(){
 Response* MovementOrder::execute(GameState* state) {
 
 	Location* initialLocation = state->getUnitLocation(myObject);
+	
+	// Check if occupied by enemies
+	string owner = state->getTerritoryByLocation(myDestination)->getOwner();
+	bool occupied = state->getTerritoryByLocation(myDestination)->getTerritoryContents().empty();
+	string me = myObject->getTeamName();
+	
+	if (occupied!=false && owner != me) {
+		return nullptr;
+	}
+
+	// Check if the location exists
+	if (myDestination == nullptr) {
+		return nullptr;
+	}
 
 	if (MathUtilities::findDistance(initialLocation, myDestination)
 		<= myObject->getMovementRange()) {

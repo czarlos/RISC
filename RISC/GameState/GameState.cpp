@@ -98,6 +98,24 @@ Location* GameState::getUnitLocation(Unit* u) {
 	return nullptr;
 }
 
+vector<Unit*> GameState::getUnitList(Location* location) {
+	for each (vector<Edge> edgeVec in board->getGameMap())
+	{
+		for each (Edge edge in edgeVec)
+		{
+
+			if (location == edge.getEndPointATerritory()->getLocation()) {
+				return edge.getEndPointATerritory()->getTerritoryContents();
+			}
+			if (location == edge.getEndPointBTerritory()->getLocation()) {
+				return edge.getEndPointBTerritory()->getTerritoryContents();
+			}
+		}
+	}
+	vector<Unit*> empty;
+	return empty;
+}
+
 //
 //vector<GameObject*>* GameState::getGameObjectsByLocation(Location* location) {
 //	for (vector<vector<Edge>>::iterator itero = myBoard.getGameMap().begin(); itero != myBoard.getGameMap().end(); ++itero){
