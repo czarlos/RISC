@@ -1,70 +1,71 @@
-#include <iostream>
-//NOTE: should prob delete the bottom includes when done testing
-#include "GameMap/Board.h"
-#include "GameObject\Unit\Infantry.h"
-#include "GameObject\Unit\UnitType.h"
-#include "GameState\GameState.h"
-#include "GameMap\Territory.h"
+/*
+#include <glib.h>
+#include <gdk-pixbuf/gdk-pixbuf.h>
+#include <gtk/gtk.h>
 
-using namespace std;
-
-int main(int argc, char* argv[]) {
-	cout << "Hello there" << endl;
-	Territory* ter = new Territory();
-
-
-
-	//Board* board = new Board();
-	//board->generateBoard();
-	//Player* player1 = new Player("Carlos", "TeamKilgo");
-	//Player* player2 = new Player("Wei", "TeamEdens");
-
-	//Edge* e = new Edge();
-	//
-	//e->getEndPointATerritory()->addToContent(new Unit(10, new Infantry(), "team", "unit", 1));
-	//cout << e->getEndPointATerritory()->getTerritoryContents().at(0)->getTeamName() << endl;
-
-	//vector<Player*> playerlist;
-	//playerlist.push_back(player1);
-	//playerlist.push_back(player2);
-
-	//GameState gameState = GameState();
-	//gameState.initGamestate(playerlist, board);
-
-	//UnitType * type = new Infantry();
-	//string id = "carlosUnit";
-	//string teamName = "TeamKilgo";
-	//Unit unit(10, type, teamName, id, 1);
-
-	//string id2 = "weiUnit";
-	//string teamName2 = "TeamEdens";
-	//Unit unit2(10, &type, teamName2, id2, 1);
-	//
-	//Location location = Location();
-	//Location location2 = Location();
-
-
-	//gameState.addUnit(&unit, &location);
-	//gameState.addUnit(&unit, &location);
-
-	//
-
-	//cout << "Team Name: " << unit.getTeamName() << endl;
-	
-	//int age;
-	//cin >> age;
-	while (true) {}
-	return 0;
+void on_destroy(GtkWidget *widget G_GNUC_UNUSED, gpointer user_data G_GNUC_UNUSED)
+{
+	gtk_main_quit();
 }
 
-#include<conio.h>
-#include<graphics.h>
-void main()
+int main(int argc, char *argv[])
 {
-	clrscr();
-	int gdriver = DETECT, gmode;
-	initgraph(&gdriver, &gmode, "C:\TC\BGI");
-	circle(20, 15, 30);
-	getch();
-	closegraph();
+sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
+    sf::CircleShape shape(100.f);
+    shape.setFillColor(sf::Color::Green);
+
+    while (window.isOpen())
+    {
+        sf::Event event;
+        while (window.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+                window.close();
+        }
+
+        window.clear();
+        window.draw(shape);
+        window.display();
+    }
+
+    return 0;
+}
+*/
+#include <SFML/Graphics.hpp>
+#include "GUI\UnitPainter.h"
+
+using namespace sf;
+
+int main()
+{
+	UnitPainter* up = new UnitPainter();
+
+	sf::RenderWindow window(sf::VideoMode(1024, 650), "RISC");
+	
+	sf::Texture bg;
+	bg.loadFromFile("C:\\map.jpg");
+	sf::Sprite sprite;
+	sprite.setTexture(bg);
+
+	Vector2f vec(20,20);
+	RectangleShape rect(vec);
+	rect.setFillColor(up->getMoney());
+	//rect.setFillColor(Color::Red);
+	rect.setPosition(50, 50);
+
+	while (window.isOpen())
+	{
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed)
+				window.close();
+		}
+		window.clear();
+		window.draw(sprite);
+		window.draw(rect);
+		window.display();
+	}
+
+	return 0;
 }
