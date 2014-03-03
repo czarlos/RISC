@@ -59,7 +59,7 @@ void Board::generateBoard(){
 
 		}
 	}
-	this->printGameMap();
+	//this->printGameMap();
 }
 
 
