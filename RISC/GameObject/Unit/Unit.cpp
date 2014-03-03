@@ -9,7 +9,6 @@
 #include "Unit.h"
 
 Unit::Unit() {
-
 }
 
 Unit::Unit(int health, UnitType* unitType, string teamName, string objID, int movementRange) : MovableObject(health, teamName, objID, movementRange) {
