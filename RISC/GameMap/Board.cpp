@@ -90,42 +90,42 @@ void Board::generateFixedBoard(){
 
 
 
-	this->gameMap[0][0]= new Edge();
+	this->gameMap[0][0] = nullptr;
 	this->gameMap[0][1]= edge1;
 	this->gameMap[0][2]= edge2;
 	this->gameMap[0][3]= edge3;
 	this->gameMap[0][4]= edge4;
 	this->gameMap[0][5]= edge5;
 	this->gameMap[1][0]= edge1;
-	this->gameMap[1][1]= new Edge();
+	this->gameMap[1][1] = nullptr;
 	this->gameMap[1][2]= edge6;
 	this->gameMap[1][3]= edge15;
 	this->gameMap[1][4]= edge12;
 	this->gameMap[1][5]= edge14;
 	this->gameMap[2][0]= edge2;
 	this->gameMap[2][1]= edge6;
-	this->gameMap[2][2]= new Edge();
+	this->gameMap[2][2] = nullptr;
 	this->gameMap[2][3]= edge7;
 	this->gameMap[2][4]= edge9;
 	this->gameMap[2][5]= edge8;
 	this->gameMap[3][0]= edge3;
 	this->gameMap[3][1]= edge15;
 	this->gameMap[3][2]= edge7;
-	this->gameMap[3][3]= new Edge();
+	this->gameMap[3][3] = nullptr;
 	this->gameMap[3][4]= edge11;
 	this->gameMap[3][5]= edge13;
 	this->gameMap[4][0]= edge5;
 	this->gameMap[4][1]= edge12;
 	this->gameMap[4][2]= edge9;
 	this->gameMap[4][3]= edge11;
-	this->gameMap[4][4]= new Edge();
+	this->gameMap[4][4] = nullptr;
 	this->gameMap[4][5]= edge10;
 	this->gameMap[5][0]= edge4;
 	this->gameMap[5][1]= edge14;
 	this->gameMap[5][2]= edge8;
 	this->gameMap[5][3]= edge13;
 	this->gameMap[5][4]= edge10;
-	this->gameMap[5][5]= new Edge();
+	this->gameMap[5][5] = nullptr;
 
 
 	

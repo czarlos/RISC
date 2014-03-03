@@ -22,8 +22,10 @@ vector<Shape*> BoardPainter::makeBoard(Board* board) {
 	for each (vector<Edge*> edgeVec in board->getGameMap())
 	{
 		for each (Edge *edge in edgeVec) {
-			territoryVector.push_back(makeTerritory(edge->getEndPointATerritory()));
-			territoryVector.push_back(makeTerritory(edge->getEndPointBTerritory()));
+			if (edge != nullptr){
+				territoryVector.push_back(makeTerritory(edge->getEndPointATerritory()));
+				territoryVector.push_back(makeTerritory(edge->getEndPointBTerritory()));
+			}
 		}
 	}
 	return territoryVector;
