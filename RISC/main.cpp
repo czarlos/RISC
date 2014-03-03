@@ -5,6 +5,7 @@
 #include "GUI\BoardPainter.h"
 #include "GameMap\Board.h"
 #include "GameObject\Unit\Tanks.h"
+#include "GUI\Buttons\Button.h"
 
 using namespace sf;
 
@@ -24,7 +25,8 @@ int main()
 	board->generateFixedBoard();
 	addUnitsToBoard(board);
 
-
+	Button* button = new Button("Money", .5, .5, 80, 30, 70, 70);
+	
 	// We need to be constantly checking if a unit has been "made"
 	// This is hacky
 	vector<Shape*> madeUnits = initializeGame(board, up);
@@ -65,10 +67,13 @@ int main()
 				addInfoPanel();
 			}
 		}
-		
+		// This is where the button is, bundle it into one draw
+		window.draw(*button->getButton());
+		window.draw(*button->getText());
 		window.display();
 	}
 
+	delete(button);
 	delete(board);
 	delete(up);
 	delete(bp);
