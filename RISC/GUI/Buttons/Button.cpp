@@ -1,6 +1,6 @@
 #include "Button.h"
 
-Button::Button(string buttonName,float scaleFontX, float scaleFontY, int widthpxl, int heightpxl,int x, int y){
+Button::Button(sf::RenderWindow* buttonWindow,string buttonName,float scaleFontX, float scaleFontY, int widthpxl, int heightpxl,int x, int y){
 	
 	sf::RectangleShape *button = new sf::RectangleShape(sf::Vector2f(widthpxl, heightpxl));
 	button->setFillColor(sf::Color::White);
@@ -16,12 +16,17 @@ Button::Button(string buttonName,float scaleFontX, float scaleFontY, int widthpx
 	buttonText->setPosition(x, y);
 	buttonText->setScale(scaleFontX, scaleFontY);
 	this->text = buttonText;
+	this->currentWindow = buttonWindow;
 
 }
 
 void Button::updateButtonStatus(){
-	//if the moust is within it, highlight it other wise unhighlight it
-
+	if (this->shape->getGlobalBounds().contains(sf::Mouse::getPosition(*this->currentWindow).x, sf::Mouse::getPosition(*this->currentWindow).y)) {
+		this->shape->setFillColor(sf::Color::Green);
+	}
+	else {
+		this->shape->setFillColor(sf::Color::White);
+	}
 }
 
 sf::Shape* Button::getButton() {
@@ -32,9 +37,9 @@ sf::Text* Button::getText() {
 }
 
 void Button::onMouseClick(){
+	//implement in child class
 
 }
-
 
 Button::~Button(){
 

@@ -26,7 +26,7 @@ int main()
 	board->generateFixedBoard();
 	addUnitsToBoard(board);
 
-	Button* button = new Button("Money", .5, .5, 80, 30, 70, 70);
+	Button* button = new Button(&window,"Money", .5, .5, 80, 30, 70, 70);
 	
 	// We need to be constantly checking if a unit has been "made"
 	// This is hacky
@@ -82,6 +82,7 @@ int main()
 			}
 		}
 		// This is where the button is, bundle it into one draw
+		button->updateButtonStatus();
 		window.draw(*button->getButton());
 		window.draw(*button->getText());
 		window.display();

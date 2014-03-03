@@ -10,7 +10,7 @@ using namespace std;
 
 class Button{
 public:
-	Button(string, float,float, int, int, int, int);
+	Button(sf::RenderWindow*,string, float,float, int, int, int, int);
 	void updateButtonStatus();
 	sf::Shape* getButton();
 	sf::Text* getText();
@@ -18,15 +18,9 @@ public:
 	virtual void onMouseClick();
 	virtual ~Button();
 
-private:
+protected:
 	sf::Shape* shape;
 	sf::Text* text;
-
-//protected:
-//	int widthpxl;
-//	int heightpxl;
-//	int x;
-//	int y;
-//	string buttonName();
-
+	sf::Event* event;
+	sf::RenderWindow* currentWindow;
 };
