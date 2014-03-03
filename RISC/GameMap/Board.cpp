@@ -60,12 +60,12 @@ void Board::generateBoard(){
 
 
 void Board::generateFixedBoard(){
-	Territory * a = new Territory("motherfucker", new Location(700, 300));
-	Territory * b = new Territory("asshole", new Location(500, 300));
-	Territory * c = new Territory("bitch", new Location(900, 300));
-	Territory * d = new Territory("cunt", new Location(400, 500));
-	Territory * e = new Territory("whore", new Location(200, 600));
-	Territory * f = new Territory("bigBootyBitch", new Location(800, 500));
+	Territory * a = new Territory("wei", new Location(700, 300));
+	Territory * b = new Territory("let", new Location(500, 300));
+	Territory * c = new Territory("us", new Location(850, 300));
+	Territory * d = new Territory("not", new Location(400, 500));
+	Territory * e = new Territory("do", new Location(200, 500));
+	Territory * f = new Territory("that", new Location(800, 500));
 
 
 	Edge* edge1 = new Edge(a,b,20);
