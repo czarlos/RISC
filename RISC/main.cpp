@@ -15,6 +15,7 @@ vector<Shape*> initializeGame(Board* board, UnitPainter* up);
 
 int main()
 {
+
 	sf::RenderWindow window(sf::VideoMode(1024, 650), "RISC");
 	UnitPainter* up = new UnitPainter(&window);
 	BoardPainter* bp = new BoardPainter(&window);
@@ -68,7 +69,6 @@ int main()
 		window.display();
 	}
 
-
 	delete(board);
 	delete(up);
 	delete(bp);
@@ -80,6 +80,7 @@ int main()
 	{
 		delete(terr);
 	}
+
 	return 0;
 }
 

@@ -18,11 +18,15 @@ void Board::generateBoard(){
 	vector<Territory*> listOfTerritories = populateListOfTerritories();
 
 	srand((unsigned int) time(NULL));
-	Territory* endPointA = new Territory();
-	Territory* endPointB = new Territory();
+	Territory* endPointA;
+	Territory* endPointB;
 	double edgeWeight;
 
 	for (int i = 0; i < NUM_OF_EDGES; i++){
+		if (i < this->numOfTerritories){
+			this->gameMap[i][i] = new Edge();
+		}
+
 		vector<Territory*>::iterator iter = listOfTerritories.begin();
 		
 		edgeWeight = MIN_EDGE_WEIGHT + ((double)rand() / RAND_MAX)*(MAX_EDGE_WEIGHT - MIN_EDGE_WEIGHT);
@@ -55,7 +59,7 @@ void Board::generateBoard(){
 
 		}
 	}
-	this->printGameMap();
+	//this->printGameMap();
 }
 
 
