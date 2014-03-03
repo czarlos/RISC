@@ -11,6 +11,7 @@ public:
 	Creator(const NetworkMessageType& type);
 
 	virtual NetworkMessage * create(boost::asio::streambuf & da, size_t bytes) = 0;
+	virtual NetworkMessage * create() = 0;
 	// virtual NetworkMessage * create(char type, std::string contents) = 0;
 };
 
@@ -18,6 +19,11 @@ template <typename T>
 class FactoryCreator : public Creator {
 public:
 	FactoryCreator(const NetworkMessageType& type) : Creator(type) {}
+
+	NetworkMessage * create() {
+		T * val = new T();
+		return val;
+	}
 
 	NetworkMessage * create(boost::asio::streambuf & da, size_t bytes) {				
 		T val;
@@ -49,6 +55,8 @@ public:
 	~NetworkMessageFactory();
 
 	static void registerMessageType(NetworkMessageType n, Creator * creator);
+
+	static NetworkMessage * createMessage(char type);
 
 	static NetworkMessage * parseMessage(boost::asio::streambuf & da, size_t bytes);
 	// static NetworkMessage * parseMessage(char type, std::string contents);

@@ -59,6 +59,12 @@ NetworkMessageFactory::message_map & NetworkMessageFactory::getTable()
 	return table;
 }
 
+NetworkMessage * NetworkMessageFactory::createMessage(char type)
+{
+	Creator * c = NetworkMessageFactory::getCreator((NetworkMessageType)type);
+	return c->create();
+}
+
 Creator::Creator(const NetworkMessageType& type)
 {
 	NetworkMessageFactory::registerMessageType(type, this);

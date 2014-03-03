@@ -39,7 +39,7 @@ private:
 	TCPConnection(boost::asio::io_service &ioserver);	
 
 	void handle_read(const boost::system::error_code& error, size_t bytes_transferred);
-	void handle_write(const boost::system::error_code& error, size_t bytes_transferred, NetworkMessage * msg);
+	void handle_write(const boost::system::error_code& error, NetworkMessage * msg);
 
 
 	template <typename T, typename Handler>
@@ -120,9 +120,8 @@ private:
 
 
 			// turn it into a special type
-			NetworkMessage * lolz = new ClientJoinMessage("127.0.0.1", 1999);
+			NetworkMessage * lolz = NetworkMessageFactory::createMessage(message_type);			
 			*t = lolz;
-			// *t = lolz;
 
 			// Start an asynchronous call to receive the data.
 			inbound_data_.resize(inbound_data_size);
@@ -154,7 +153,7 @@ private:
 				std::istringstream archive_stream(archive_data);
 				boost::archive::text_iarchive archive(archive_stream);
 
-				//archive.register_type<NetworkMessage>();
+				// archive.register_type<NetworkMessage>();
 				archive.register_type<ClientJoinMessage>();
 
 				archive & **t;
@@ -214,7 +213,7 @@ public:
 
 	template <typename T>
 	void send(T * t) {
-		this->async_write(t, boost::bind(&TCPConnection::handle_write, this, boost::asio::placeholders::error, 10, t)); 		
+		this->async_write(t, boost::bind(&TCPConnection::handle_write, this, boost::asio::placeholders::error, t)); 		
 	}
 
 	NetworkMessage * g;
