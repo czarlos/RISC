@@ -9,7 +9,7 @@
 
 Infantry::Infantry():UnitType(){
 	this->level = 0;
-	this->type = "infantry";
+	this->type = "Infantry";
 	this->myCombatBonus = 0;
 	this->myUpgradeCost = 0;
 	this->costToUnlock = 0;

@@ -23,14 +23,14 @@ int main()
 
 	Button* button = new Button("Money", .5, .5, 80, 30, 70, 70);
 	
-	// We need to be constantly checking if a unit has been "made"
-	// This is hacky
+	// We need to be constantly checking if a unit has been made/deleted and add/remove it
 	vector<Shape*> madeUnits = InitializationUtilities::initializeGame(board, up);
 	vector<TerritoryBinder*> madeTerritories;
 	madeTerritories = bp->makeBoard(board);
 	vector<VertexArray*> madeLines;
 	madeLines = InitializationUtilities::addLines(board, bp);
-
+	string str;
+	Text* text = new Text();
 
 	while (window.isOpen())
 	{
@@ -39,31 +39,37 @@ int main()
 		{
 			if (event.type == sf::Event::Closed)
 				window.close();
+			
+			if (event.type == sf::Event::TextEntered)
+			{
+				// Handle ASCII characters only
+				if (event.text.unicode < 128)
+				{
+					str += static_cast<char>(event.text.unicode);
+					text->setString(str);
+				}
+			}
 		}
-
-
-
+		cout << str << endl;
 		window.clear();
+		/*Painting starts*/
+
 		//First draw the background
 		up->paintBackground("Resources/map.jpg");
 		//Then draw the board
 		bp->paintBoard(board, madeTerritories);
-		
-		if (madeLines.size() > 0) {
-			for each (VertexArray* line in madeLines)
-			{
-				window.draw(*line);
-			}
+
+		//Then the lines
+		for each (VertexArray* line in madeLines) {
+			window.draw(*line);
 		}
-		
 		//Then draw the units
-		if (madeUnits.size() > 0) {
-			for each (Shape* shape in madeUnits)
-			{
-				window.draw(*shape);
-			}
+		for each (Shape* shape in madeUnits)
+		{
+			window.draw(*shape);
 		}
 
+		/*Painting Ends*/
 		for each (TerritoryBinder* binder in madeTerritories)
 		{
 			FloatRect bounds = binder->getShape()->getGlobalBounds();

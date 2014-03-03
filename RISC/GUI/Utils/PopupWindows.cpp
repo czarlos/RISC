@@ -32,15 +32,14 @@ void PopupWindows::addInfoPanel(Board* board, TerritoryBinder* binder) {
 			resourceMap[resource] = 1;
 		}
 		else {
-			resourceMap[resource] = resourceMap[resource] + 1;
+			resourceMap[resource] += 1;
 		}
 	}
 
 	std::string productionString = std::string("Production: \n");
 
 
-	typedef map<ResourceType*, int>::iterator it_type;
-	for (it_type iterator = resourceMap.begin(); iterator != resourceMap.end(); iterator++) {
+	for (map<ResourceType*, int>::iterator iterator = resourceMap.begin(); iterator != resourceMap.end(); iterator++) {
 
 		productionString += iterator->first->getResourceName() + " " + to_string(resourceMap[iterator->first]) + "\n";
 	}
@@ -52,7 +51,28 @@ void PopupWindows::addInfoPanel(Board* board, TerritoryBinder* binder) {
 	Text* units = new Text();
 	units->setFont(*font);
 	units->setColor(Color::White);
-	units->setString("Units: ");
+
+	
+	map<string, int> unitMap;
+
+	for each (Unit* unit in binder->getTerritory()->getTerritoryContents())
+	{
+		if (unitMap.count(unit->getUnitType()->getType()) == 0) {
+			unitMap[unit->getUnitType()->getType()] = 1;
+		}
+		else {
+			unitMap[unit->getUnitType()->getType()] += 1;
+		}
+	}
+
+	std::string unitString = std::string("Unit: \n");
+
+	for (map<string, int>::iterator it = unitMap.begin(); it != unitMap.end(); ++it) {
+		unitString += it->first + " " + to_string(unitMap[it->first]) + "\n";
+
+	}
+
+	units->setString(unitString);
 	units->setCharacterSize(18);
 	units->setPosition(10, 120);
 
