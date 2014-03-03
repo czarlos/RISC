@@ -8,11 +8,18 @@ void on_destroy(GtkWidget *widget G_GNUC_UNUSED, gpointer user_data G_GNUC_UNUSE
 	gtk_main_quit();
 }
 
+<<<<<<< HEAD
 int main(int argc, char *argv[])
 {
 sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
     sf::CircleShape shape(100.f);
     shape.setFillColor(sf::Color::Green);
+=======
+	Board* board = new Board();
+	board->generateFixedBoard();
+	Player* player1 = new Player("Carlos", "TeamKilgo");
+	//Player* player2 = new Player("Wei", "TeamEdens");
+>>>>>>> c943d876c961b796da9914c90862988e7225a002
 
     while (window.isOpen())
     {

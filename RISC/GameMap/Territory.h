@@ -32,7 +32,7 @@ public:
 	//the territory's id. Other defining variables 
 	//location is set to the location parameter taken in by the constructor
 	//are set to 0 if its an int, "" if its a string
-	Territory(string, Location);
+	Territory(string, Location*);
 	//randomly decides what type of resources the territory should generate
 	//the territory has to generate at least one resource
 	//the 2nd, 3rd ... etc they may or may not have
@@ -69,7 +69,7 @@ public:
 private:
 	string territoryID;
 	string owner;
-	Location location;
+	Location* location;
 	int maxCapacity;
 	int maxResourceProduction;
 	vector<ResourceType*> production;

@@ -24,6 +24,11 @@ public:
 	Board();
 	//make the board
 	void generateBoard();
+
+	//make a fixed board
+	void generateFixedBoard();
+
+
 	//get the total number of territorys on the board
 	int getNumberOfTerritories();
 	//get the size of the board (just territory^2)
@@ -38,13 +43,13 @@ public:
 	//get the adjacent territories by location
 	vector<Territory*> getAdjacentTerritoryByLocation(Location* location);
 	//returns the game map
-	vector<vector<Edge>> getGameMap();
+	vector<vector<Edge*>> getGameMap();
 	~Board();
 
 private:
 
 	//generates random locations for the territories
-	Location generateRandLocation(vector<Location> *);
+	Location* generateRandLocation(vector<Location*> );
 	//populates the list of avaliable territories to use for constructing the board
 	vector<Territory> populateListOfTerritories();
 	//bool checkIfOnBoard(Territory );
@@ -53,7 +58,7 @@ private:
 	int numOfEdges = NUM_OF_EDGES;
 	int numOfTerritories = NUM_OF_TERRITORYS;
 	double boardSize = pow((double)numOfTerritories,2);
-	vector<vector<Edge>> gameMap;
+	vector<vector<Edge*>> gameMap;
 
 	//test
 	void printGameMap();
