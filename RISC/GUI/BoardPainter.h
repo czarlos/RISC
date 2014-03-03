@@ -8,6 +8,7 @@ using namespace sf;
 
 class BoardPainter {
 public:
+	BoardPainter();
 	BoardPainter(RenderWindow* rw);
 	void paintBoard(Board* board, vector<Shape*> territoryVector);
 	vector<Shape*> makeBoard(Board* board);

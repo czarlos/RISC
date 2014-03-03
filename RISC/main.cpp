@@ -18,7 +18,7 @@ int main()
 	sf::RenderWindow window(sf::VideoMode(1024, 650), "RISC");
 	UnitPainter* up = new UnitPainter(&window);
 	BoardPainter* bp = new BoardPainter(&window);
-	UnitPainter* info_up;
+	UnitPainter* info_up = new UnitPainter();
 	
 	Board* board = new Board();
 	board->generateFixedBoard();

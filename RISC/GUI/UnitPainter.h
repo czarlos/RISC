@@ -10,6 +10,7 @@ using namespace sf;
 
 class UnitPainter {
 public:
+	UnitPainter();
 	UnitPainter(RenderWindow* rw);
 	Shape* makeUnit(Unit* unit, Territory* terr);
 	void paintBackground(std::string filename);

@@ -1,5 +1,9 @@
 #include "BoardPainter.h"
 
+BoardPainter::BoardPainter(){
+
+}
+
 BoardPainter::BoardPainter(RenderWindow* rw) {
 	this->myRenderWindow = rw;
 
