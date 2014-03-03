@@ -8,17 +8,16 @@
 
 using namespace sf;
 
-void addInfoPanel(UnitPainter* info_up);
+void addInfoPanel();
 void scrollOverTerritory(FloatRect* bounds, Shape* terrShape, RenderWindow* window);
 void addUnitsToBoard(Board* board);
-void initializeGame(vector<Shape*> madeUnits, Board* board, UnitPainter* up);
+vector<Shape*> initializeGame(Board* board, UnitPainter* up);
 
 int main()
 {
 	sf::RenderWindow window(sf::VideoMode(1024, 650), "RISC");
 	UnitPainter* up = new UnitPainter(&window);
 	BoardPainter* bp = new BoardPainter(&window);
-	UnitPainter* info_up;
 	
 	Board* board = new Board();
 	board->generateFixedBoard();
@@ -27,8 +26,7 @@ int main()
 
 	// We need to be constantly checking if a unit has been "made"
 	// This is hacky
-	vector<Shape*> madeUnits;
-	initializeGame(madeUnits, board, up);
+	vector<Shape*> madeUnits = initializeGame(board, up);
 	vector<Shape*> madeTerritories;
 	madeTerritories = bp->makeBoard(board);
 
@@ -51,7 +49,6 @@ int main()
 		//Then draw the units
 		for each (Shape* shape in madeUnits)
 		{
-			cout << "cash tho" << endl;
 			window.draw(*shape);
 		}
 
@@ -64,7 +61,7 @@ int main()
 				cout << bounds.left << " <-left " << bounds.width << " <-width " << bounds.top << " <-top " << bounds.height << " <-height" << endl;
 				cout << Mouse::getPosition(window).x << " " << Mouse::getPosition(window).y << endl;
 
-				addInfoPanel(info_up);
+				addInfoPanel();
 			}
 		}
 		
@@ -87,10 +84,10 @@ int main()
 }
 
 
-void addInfoPanel(UnitPainter* info_up) {
+void addInfoPanel() {
 	RenderWindow info(sf::VideoMode(320, 480), "CASH");
 	info.setPosition(Vector2i(0, 0));
-	info_up = new UnitPainter(&info);
+	UnitPainter* info_up = new UnitPainter(&info);
 
 
 	cout << Mouse::getPosition().x << " " << Mouse::getPosition().y << endl;
@@ -106,6 +103,7 @@ void addInfoPanel(UnitPainter* info_up) {
 		info_up->paintBackground("Resources/carbon.jpg");
 		info.display();
 	}
+	delete(info_up);
 }
 
 
@@ -131,7 +129,8 @@ void addUnitsToBoard(Board* board) {
 	}
 }
 
-void initializeGame(vector<Shape*> madeUnits, Board* board, UnitPainter* up) {
+vector<Shape*> initializeGame(Board* board, UnitPainter* up) {
+	vector<Shape*> madeUnits;
 	for each (vector<Edge*> edgeVec in board->getGameMap())
 	{
 		for each (Edge* edge in edgeVec)
@@ -148,4 +147,5 @@ void initializeGame(vector<Shape*> madeUnits, Board* board, UnitPainter* up) {
 			}
 		}
 	}
+	return madeUnits;
 }
