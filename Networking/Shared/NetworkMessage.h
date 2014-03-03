@@ -10,13 +10,9 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <boost/asio.hpp>
 #include <iostream>
-#include <boost/archive/text_oarchive.hpp>
-#include <boost/archive/text_iarchive.hpp>
-#include <boost/serialization/base_object.hpp>
-#include <boost/serialization/utility.hpp>
-#include <boost/serialization/list.hpp>
-#include <boost/serialization/assume_abstract.hpp>
-#include <boost/serialization/export.hpp>
+#include <cereal\access.hpp>
+#include <cereal/types/polymorphic.hpp>
+#include <cereal/archives/binary.hpp>
 
 #define EOT '\4'
 
@@ -28,11 +24,11 @@ private:
 	virtual void process_data() {}
 	virtual void encode_data() {}
 
-	friend class boost::serialization::access;
+	friend class cereal::access;
+
 	template<class Archive>
-	void serialize(Archive& ar, const unsigned int version)
-	{
-		ar & type;		
+	void serialize(Archive& ar) {
+		ar(type);		
 	}
 
 public:
