@@ -1,64 +1,27 @@
-/*
-#include <glib.h>
-#include <gdk-pixbuf/gdk-pixbuf.h>
-#include <gtk/gtk.h>
-
-void on_destroy(GtkWidget *widget G_GNUC_UNUSED, gpointer user_data G_GNUC_UNUSED)
-{
-	gtk_main_quit();
-}
-
-<<<<<<< HEAD
-int main(int argc, char *argv[])
-{
-sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-    sf::CircleShape shape(100.f);
-    shape.setFillColor(sf::Color::Green);
-=======
-	Board* board = new Board();
-	board->generateFixedBoard();
-	Player* player1 = new Player("Carlos", "TeamKilgo");
-	//Player* player2 = new Player("Wei", "TeamEdens");
->>>>>>> c943d876c961b796da9914c90862988e7225a002
-
-    while (window.isOpen())
-    {
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-                window.close();
-        }
-
-        window.clear();
-        window.draw(shape);
-        window.display();
-    }
-
-    return 0;
-}
-*/
+#pragma once
 #include <SFML/Graphics.hpp>
+#include <SFML\Window.hpp>
 #include "GUI\UnitPainter.h"
+#include "GUI\BoardPainter.h"
+#include "GameMap\Board.h"
 
 using namespace sf;
 
+void addInfoPanel();
+
 int main()
 {
-	UnitPainter* up = new UnitPainter();
-
 	sf::RenderWindow window(sf::VideoMode(1024, 650), "RISC");
-	
-	sf::Texture bg;
-	bg.loadFromFile("C:\\map.jpg");
-	sf::Sprite sprite;
-	sprite.setTexture(bg);
 
-	Vector2f vec(20,20);
-	RectangleShape rect(vec);
-	rect.setFillColor(up->getMoney());
-	//rect.setFillColor(Color::Red);
-	rect.setPosition(50, 50);
+	UnitPainter* up = new UnitPainter(&window);
+	BoardPainter* bp = new BoardPainter(&window);
+	
+	Board* board = new Board();
+	Unit* unit = new Unit(10, new Infantry(), "carlos", "20", 1);
+	Territory* terr = new Territory("cash", Location(100.0, 100.0));
+	terr->addToContent(unit);
+
+	Shape* shape = up->paintUnit(terr->getTerritoryContents().at(0), terr);
 
 	while (window.isOpen())
 	{
@@ -68,11 +31,60 @@ int main()
 			if (event.type == sf::Event::Closed)
 				window.close();
 		}
+
+
+
 		window.clear();
-		window.draw(sprite);
-		window.draw(rect);
+		//First draw the background
+		up->paintBackground("C:\\map.jpg");
+		//Then draw the board
+		bp->paintTerritory(terr);
+		//Then draw the units
+		
+		
+		FloatRect bounds = shape->getLocalBounds();
+		
+		if (event.type == Event::MouseButtonPressed) {
+			cout << bounds.left << " <-left " << bounds.width << " <-width " << bounds.top << " <-top " << bounds.height << " <-height" << endl;
+			cout << Mouse::getPosition().x << " " << Mouse::getPosition().y << endl;
+		}
+		if (bounds.contains(Mouse::getPosition().x, Mouse::getPosition().y)) {
+			addInfoPanel();
+		}
+
+		/*Vector2i money = Mouse::getPosition();
+		if (bounds.contains(money)) {
+			addInfoPanel();
+		}*/
+
+		/*if (event.type == Event::MouseButtonPressed) {
+			addInfoPanel();
+		}*/
+		window.draw(*shape);
 		window.display();
 	}
 
 	return 0;
+}
+
+
+void addInfoPanel() {
+	RenderWindow info(sf::VideoMode(320, 480), "CASH");
+	info.setPosition(Vector2i(0, 0));
+	UnitPainter* info_up = new UnitPainter(&info);
+
+
+	cout << Mouse::getPosition().x << " " << Mouse::getPosition().y << endl;
+	while (info.isOpen()) {
+		sf::Event e;
+		while (info.pollEvent(e))
+		{
+			if (e.type == sf::Event::Closed) {
+				info.close();
+			}
+		}
+
+		info_up->paintBackground("C:\\carbon.jpg");
+		info.display();
+	}
 }
