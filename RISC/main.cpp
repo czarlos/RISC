@@ -13,9 +13,9 @@ int main(int argc, char* argv[]) {
 	Territory* ter = new Territory();
 
 
-	//Board* board = new Board();
-	//board->generateBoard();
-	//Player* player1 = new Player("Carlos", "TeamKilgo");
+	Board* board = new Board();
+	board->generateFixedBoard();
+	Player* player1 = new Player("Carlos", "TeamKilgo");
 	//Player* player2 = new Player("Wei", "TeamEdens");
 
 	//Edge* e = new Edge();

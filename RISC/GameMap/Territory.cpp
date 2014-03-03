@@ -8,7 +8,7 @@ Territory::Territory(){
 	this->maxResourceProduction = MAX_RESOURCE_PRODUCTION;
 	this->maxCapacity = MAX_CAPACITY;
 	this->production = vector<ResourceType*>();
-	this->location = Location(0, 0);
+	this->location = new Location(0, 0);
 	this->contents = vector<Unit *>();
 	generateResourceProduction();
 }
@@ -19,12 +19,12 @@ Territory::Territory(string territoryID){
 	this->maxCapacity = MAX_CAPACITY;
 	this->maxResourceProduction = MAX_RESOURCE_PRODUCTION;
 	this->production = vector<ResourceType*>();
-	this->location = Location(0, 0);
+	this->location = new Location(0, 0);
 	this->contents = vector<Unit *>();
 	generateResourceProduction();
 }
 
-Territory::Territory(string territoryID, Location location)
+Territory::Territory(string territoryID, Location* location)
 {
 	this->territoryID = territoryID;
 	this->owner = "";
@@ -65,7 +65,7 @@ void Territory::generateResourceProduction(){
 
 
 Location* Territory::getLocation(){
-	return &(this->location);
+	return this->location;
 }
 
 void Territory::addToContent(Unit* itemToAdd){
