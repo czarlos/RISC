@@ -18,7 +18,7 @@ int main()
 	
 	Board* board = new Board();
 	Unit* unit = new Unit(10, new Infantry(), "carlos", "20", 1);
-	Territory* terr = new Territory("cash", Location(100.0, 100.0));
+	Territory* terr = new Territory("cash", new Location(100.0, 100.0));
 	terr->addToContent(unit);
 
 	Shape* shape = up->makeUnit(terr->getTerritoryContents().at(0), terr);

@@ -6,11 +6,11 @@ BoardPainter::BoardPainter(RenderWindow* rw) {
 }
 
 void BoardPainter::paintBoard(Board* board) {
-	for each (vector<Edge> edgeVec in board->getGameMap())
+	for each (vector<Edge*> edgeVec in board->getGameMap())
 	{
-		for each (Edge edge in edgeVec) {
-			Territory* terr1 = edge.getEndPointATerritory();
-			Territory* terr2 = edge.getEndPointBTerritory();
+		for each (Edge *edge in edgeVec) {
+			Territory* terr1 = edge->getEndPointATerritory();
+			Territory* terr2 = edge->getEndPointBTerritory();
 			int terr1_x = terr1->getLocation()->getX();
 			int terr1_y = terr1->getLocation()->getY();
 			cout << terr1_x << " " << terr1_y << endl;

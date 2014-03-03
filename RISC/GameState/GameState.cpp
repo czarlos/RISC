@@ -79,18 +79,18 @@ Territory* GameState::getUnitTerritory(Unit* unit) {
 }
 
 Location* GameState::getUnitLocation(Unit* u) {
-	for each (vector<Edge> edgeVec in board->getGameMap())
+	for each (vector<Edge*> edgeVec in board->getGameMap())
 	{
-		for each (Edge edge in edgeVec)
+		for each (Edge * edge in edgeVec)
 		{
-			for each (Unit* unit in edge.getEndPointATerritory()->getTerritoryContents()) {
+			for each (Unit* unit in edge->getEndPointATerritory()->getTerritoryContents()) {
 				if (unit == u) {
-					return edge.getEndPointATerritory()->getLocation();
+					return edge->getEndPointATerritory()->getLocation();
 				}
 			}
-			for each (Unit* unit in edge.getEndPointBTerritory()->getTerritoryContents()) {
+			for each (Unit* unit in edge->getEndPointBTerritory()->getTerritoryContents()) {
 				if (unit == u) {
-					return edge.getEndPointBTerritory()->getLocation();
+					return edge->getEndPointBTerritory()->getLocation();
 				}
 			}
 		}
@@ -99,16 +99,16 @@ Location* GameState::getUnitLocation(Unit* u) {
 }
 
 vector<Unit*> GameState::getUnitList(Location* location) {
-	for each (vector<Edge> edgeVec in board->getGameMap())
+	for each (vector<Edge*> edgeVec in board->getGameMap())
 	{
-		for each (Edge edge in edgeVec)
+		for each (Edge* edge in edgeVec)
 		{
 
-			if (location == edge.getEndPointATerritory()->getLocation()) {
-				return edge.getEndPointATerritory()->getTerritoryContents();
+			if (location == edge->getEndPointATerritory()->getLocation()) {
+				return edge->getEndPointATerritory()->getTerritoryContents();
 			}
-			if (location == edge.getEndPointBTerritory()->getLocation()) {
-				return edge.getEndPointBTerritory()->getTerritoryContents();
+			if (location == edge->getEndPointBTerritory()->getLocation()) {
+				return edge->getEndPointBTerritory()->getTerritoryContents();
 			}
 		}
 	}
@@ -117,15 +117,15 @@ vector<Unit*> GameState::getUnitList(Location* location) {
 }
 
 Location* GameState::getLocation(Territory* terr) {
-	for each (vector<Edge> edgeVec in board->getGameMap())
+	for each (vector<Edge*> edgeVec in board->getGameMap())
 	{
-		for each (Edge edge in edgeVec)
+		for each (Edge *edge in edgeVec)
 		{
 
-			if (terr == edge.getEndPointATerritory()) {
+			if (terr == edge->getEndPointATerritory()) {
 				return terr->getLocation();
 			}
-			if (terr == edge.getEndPointBTerritory()) {
+			if (terr == edge->getEndPointBTerritory()) {
 				return terr->getLocation();
 			}
 		}
