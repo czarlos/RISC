@@ -12,6 +12,7 @@ void addInfoPanel();
 void scrollOverTerritory(FloatRect* bounds, Shape* terrShape, RenderWindow* window);
 void addUnitsToBoard(Board* board);
 vector<Shape*> initializeGame(Board* board, UnitPainter* up);
+vector<VertexArray*> addLines(Board* board, BoardPainter* bp);
 
 int main()
 {
@@ -30,6 +31,9 @@ int main()
 	vector<Shape*> madeUnits = initializeGame(board, up);
 	vector<Shape*> madeTerritories;
 	madeTerritories = bp->makeBoard(board);
+	vector<VertexArray*> madeLines;
+	madeLines = addLines(board, bp);
+
 
 	while (window.isOpen())
 	{
@@ -47,10 +51,20 @@ int main()
 		up->paintBackground("Resources/map.jpg");
 		//Then draw the board
 		bp->paintBoard(board, madeTerritories);
+		
+		if (madeLines.size() > 0) {
+			for each (VertexArray* line in madeLines)
+			{
+				window.draw(*line);
+			}
+		}
+		
 		//Then draw the units
-		for each (Shape* shape in madeUnits)
-		{
-			window.draw(*shape);
+		if (madeUnits.size() > 0) {
+			for each (Shape* shape in madeUnits)
+			{
+				window.draw(*shape);
+			}
 		}
 
 		for each (Shape* shape in madeTerritories)
@@ -90,7 +104,6 @@ void addInfoPanel() {
 	info.setPosition(Vector2i(0, 0));
 	UnitPainter* info_up = new UnitPainter(&info);
 
-
 	cout << Mouse::getPosition().x << " " << Mouse::getPosition().y << endl;
 	while (info.isOpen()) {
 		sf::Event e;
@@ -116,8 +129,6 @@ void scrollOverTerritory(FloatRect* bounds, Shape* terrShape, RenderWindow* wind
 		terrShape->setFillColor(Color::Transparent);
 	}
 }
-
-/*Irrelevant*/
 
 void addUnitsToBoard(Board* board) {
 	for each (vector<Edge*> edgeVec in board->getGameMap())
@@ -149,4 +160,21 @@ vector<Shape*> initializeGame(Board* board, UnitPainter* up) {
 		}
 	}
 	return madeUnits;
+}
+
+
+vector<VertexArray*> addLines(Board* board, BoardPainter* bp) {
+	vector<VertexArray*> madeLines;
+	for each (vector<Edge*> edgeVec in board->getGameMap())
+	{
+		for each (Edge* edge in edgeVec)
+		{
+			if (edge->getEndPointATerritory() != nullptr && edge->getEndPointBTerritory() != nullptr) {
+				Location* locationA = edge->getEndPointATerritory()->getLocation();
+				Location* locationB = edge->getEndPointBTerritory()->getLocation();
+				madeLines.push_back(bp->makeLine(locationA, locationB));
+			}
+		}
+	}
+	return madeLines;
 }

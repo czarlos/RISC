@@ -23,10 +23,11 @@ UnitPainter::UnitPainter(RenderWindow* rw) {
 }
 
 Shape* UnitPainter::makeUnit(Unit* unit, Territory* terr) {
+	int SIDE = 40;
 	sf::Color color = myColorMap[unit->getUnitType()->getLevel()];
 	sf::CircleShape* shape = new CircleShape(15, myShapeMap[unit->getUnitType()->getLevel()]);
 	shape->setFillColor(color);
-	shape->setPosition(terr->getLocation()->getX(), terr->getLocation()->getY());
+	shape->setPosition(terr->getLocation()->getX() - (SIDE / 2), terr->getLocation()->getY() - (SIDE / 2));
 
 	return shape;
 }

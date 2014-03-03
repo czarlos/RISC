@@ -29,10 +29,27 @@ vector<Shape*> BoardPainter::makeBoard(Board* board) {
 	return territoryVector;
 }
 
+VertexArray* BoardPainter::makeLine(Location* locationA, Location* locationB) {
+	int a_x = locationA->getX();
+	int a_y = locationA->getY();
+
+	int b_x = locationB->getX();
+	int b_y = locationB->getY();
+
+
+	VertexArray* line = new VertexArray(sf::LinesStrip, 2);
+	(*line)[0].position = Vector2f(a_x, a_y);
+	(*line)[1].position = Vector2f(b_x, b_y);
+	return line;
+}
+
 Shape* BoardPainter::makeTerritory(Territory* terr) {
-	int terr_x = terr->getLocation()->getX();
-	int terr_y = terr->getLocation()->getY();
-	CircleShape* tile = new CircleShape(30, 6);
+	int SIDE = 40;
+
+	int terr_x = terr->getLocation()->getX()-(SIDE/2);
+	int terr_y = terr->getLocation()->getY()-(SIDE/2);
+	RectangleShape* tile = new RectangleShape(Vector2f(SIDE, SIDE));
+	//CircleShape* tile = new CircleShape(SIDE, 6);
 	
 	tile->setFillColor(Color::Transparent);
 	tile->setOutlineColor(Color::Black);
