@@ -11,7 +11,7 @@ public:
 	TerritoryBinder(Territory* territory, Shape* shape);
 	Territory* getTerritory();
 	Shape* getShape();
-	~TerritoryBinder();
+	virtual ~TerritoryBinder();
 private:
 	Territory* myTerritory;
 	Shape* myShape;

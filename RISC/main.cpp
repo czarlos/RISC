@@ -6,10 +6,11 @@
 #include "GameMap\Board.h"
 #include "GameObject\Unit\Tanks.h"
 #include "GUI\Buttons\Button.h"
+#include "GUI\PopupWindows.h"
+#include <map>
 
 using namespace sf;
 
-void addInfoPanel(Board* board, TerritoryBinder*);
 void scrollOverTerritory(FloatRect* bounds, Shape* terrShape, RenderWindow* window);
 void addUnitsToBoard(Board* board);
 vector<Shape*> initializeGame(Board* board, UnitPainter* up);
@@ -77,8 +78,7 @@ int main()
 			if (event.type == Event::MouseButtonPressed && bounds.contains(Mouse::getPosition(window).x, Mouse::getPosition(window).y)) {
 				cout << bounds.left << " <-left " << bounds.width << " <-width " << bounds.top << " <-top " << bounds.height << " <-height" << endl;
 				cout << Mouse::getPosition(window).x << " " << Mouse::getPosition(window).y << endl;
-
-				addInfoPanel(board, binder);
+				PopupWindows::addInfoPanel(board, binder);
 			}
 		}
 		// This is where the button is, bundle it into one draw
@@ -101,61 +101,6 @@ int main()
 
 	return 0;
 }
-
-
-void addInfoPanel(Board* board, TerritoryBinder* binder) {
-	RenderWindow info(sf::VideoMode(320, 480), "Information Panel");
-	info.setPosition(Vector2i(0, 0));
-	UnitPainter* info_up = new UnitPainter(&info);
-
-	Font* font = new Font();
-	font->loadFromFile("Resources/Fonts/arial.ttf");
-
-	Text* owner = new Text();
-	owner->setFont(*font);
-	owner->setColor(Color::White);
-	owner->setString("Owner: ");
-	owner->setCharacterSize(18);
-	owner->setPosition(10, 10);
-
-	Text* production = new Text();
-	production->setFont(*font);
-	production->setColor(Color::White);
-	production->setString("Production: ");
-	production->setCharacterSize(18);
-	production->setPosition(10, 50);
-
-	Text* units = new Text();
-	units->setFont(*font);
-	units->setColor(Color::White);
-	units->setString("Units: ");
-	units->setCharacterSize(18);
-	units->setPosition(10, 90);
-
-	cout << Mouse::getPosition().x << " " << Mouse::getPosition().y << endl;
-	while (info.isOpen()) {
-		sf::Event e;
-		while (info.pollEvent(e))
-		{
-			if (e.type == sf::Event::Closed) {
-				info.close();
-			}
-		}
-		info_up->paintBackground("Resources/carbon.jpg");
-
-		info.draw(*owner);
-		info.draw(*production);
-		info.draw(*units);
-
-		info.display();
-	}
-	delete(info_up);
-	delete(font);
-	delete(owner);
-	delete(production);
-	delete(units);
-}
-
 
 void scrollOverTerritory(FloatRect* bounds, Shape* terrShape, RenderWindow* window) {
 	if (bounds->contains(Mouse::getPosition(*window).x, Mouse::getPosition(*window).y)) {

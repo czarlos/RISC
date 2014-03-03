@@ -67,6 +67,13 @@ void Board::generateFixedBoard(){
 	Territory * e = new Territory("do", new Location(200, 500));
 	Territory * f = new Territory("that", new Location(800, 500));
 
+	a->setOwner("Carlos");
+	b->setOwner("Carlos");
+	c->setOwner("Carlos");
+	d->setOwner("Wei");
+	e->setOwner("Wei");
+	f->setOwner("Wei");
+
 
 	Edge* edge1 = new Edge(a,b,20);
 	Edge* edge2 = new Edge(a,c,20);

@@ -63,6 +63,9 @@ void Territory::generateResourceProduction(){
 	}
 }
 
+void Territory::setOwner(string owner) {
+	this->owner = owner;
+}
 
 Location* Territory::getLocation(){
 	return this->location;
