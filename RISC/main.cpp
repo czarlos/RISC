@@ -7,11 +7,11 @@
 using namespace sf;
 
 void addInfoPanel();
+void scrollOverTerritory(FloatRect* bounds, Shape* terrShape, RenderWindow* window);
 
 int main()
 {
 	sf::RenderWindow window(sf::VideoMode(1024, 650), "RISC");
-
 	UnitPainter* up = new UnitPainter(&window);
 	BoardPainter* bp = new BoardPainter(&window);
 	
@@ -20,7 +20,8 @@ int main()
 	Territory* terr = new Territory("cash", Location(100.0, 100.0));
 	terr->addToContent(unit);
 
-	Shape* shape = up->paintUnit(terr->getTerritoryContents().at(0), terr);
+	Shape* shape = up->makeUnit(terr->getTerritoryContents().at(0), terr);
+	Shape* terrShape = bp->makeTerritory(terr);
 
 	while (window.isOpen())
 	{
@@ -37,31 +38,32 @@ int main()
 		//First draw the background
 		up->paintBackground("C:\\map.jpg");
 		//Then draw the board
-		bp->paintTerritory(terr);
+		window.draw(*terrShape);
 		//Then draw the units
-		
-		
-		FloatRect bounds = shape->getLocalBounds();
-		
-		if (event.type == Event::MouseButtonPressed) {
-			cout << bounds.left << " <-left " << bounds.width << " <-width " << bounds.top << " <-top " << bounds.height << " <-height" << endl;
-			cout << Mouse::getPosition().x << " " << Mouse::getPosition().y << endl;
-		}
-		if (bounds.contains(Mouse::getPosition().x, Mouse::getPosition().y)) {
-			addInfoPanel();
-		}
-
-		/*Vector2i money = Mouse::getPosition();
-		if (bounds.contains(money)) {
-			addInfoPanel();
-		}*/
-
-		/*if (event.type == Event::MouseButtonPressed) {
-			addInfoPanel();
-		}*/
 		window.draw(*shape);
+		
+		FloatRect bounds = terrShape->getGlobalBounds();
+		
+		scrollOverTerritory(&bounds, terrShape, &window);
+
+		//terrShape->setFillColor(Color::Transparent);
+		if (event.type == Event::MouseButtonPressed && bounds.contains(Mouse::getPosition(window).x, Mouse::getPosition(window).y)) {
+			cout << bounds.left << " <-left " << bounds.width << " <-width " << bounds.top << " <-top " << bounds.height << " <-height" << endl;
+			cout << Mouse::getPosition(window).x << " " << Mouse::getPosition(window).y << endl;
+
+			addInfoPanel();
+		}
+		
 		window.display();
 	}
+
+
+	delete(board);
+	delete(up);
+	delete(bp);
+	delete(unit);
+	delete(terr);
+	delete(shape);
 
 	return 0;
 }
@@ -84,5 +86,14 @@ void addInfoPanel() {
 
 		info_up->paintBackground("C:\\carbon.jpg");
 		info.display();
+	}
+}
+
+void scrollOverTerritory(FloatRect* bounds, Shape* terrShape, RenderWindow* window) {
+	if (bounds->contains(Mouse::getPosition(*window).x, Mouse::getPosition(*window).y)) {
+		terrShape->setFillColor(Color(255, 10, 10, 150));
+	}
+	else {
+		terrShape->setFillColor(Color::Transparent);
 	}
 }

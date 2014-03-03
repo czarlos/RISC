@@ -10,7 +10,7 @@ class BoardPainter {
 public:
 	BoardPainter(RenderWindow* rw);
 	void paintBoard(Board* board);
-	void paintTerritory(Territory* terr);
+	Shape* makeTerritory(Territory* terr);
 	virtual ~BoardPainter();
 
 private:
