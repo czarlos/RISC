@@ -51,7 +51,7 @@ private:
 	//generates random locations for the territories
 	Location* generateRandLocation(vector<Location*> );
 	//populates the list of avaliable territories to use for constructing the board
-	vector<Territory> populateListOfTerritories();
+	vector<Territory*> populateListOfTerritories();
 	//bool checkIfOnBoard(Territory );
 
 

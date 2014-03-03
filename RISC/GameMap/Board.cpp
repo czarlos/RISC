@@ -15,7 +15,7 @@ Board::Board(){
 void Board::generateBoard(){
 	//randomly generate and place the territory in the matrix
 	//randomly distributes the edges to the territories
-	vector<Territory> listOfTerritories = populateListOfTerritories();
+	vector<Territory*> listOfTerritories = populateListOfTerritories();
 
 	srand((unsigned int) time(NULL));
 	Territory* endPointA = new Territory();
@@ -23,13 +23,13 @@ void Board::generateBoard(){
 	double edgeWeight;
 
 	for (int i = 0; i < NUM_OF_EDGES; i++){
-		vector<Territory>::iterator iter = listOfTerritories.begin();
+		vector<Territory*>::iterator iter = listOfTerritories.begin();
 		
 		edgeWeight = MIN_EDGE_WEIGHT + ((double)rand() / RAND_MAX)*(MAX_EDGE_WEIGHT - MIN_EDGE_WEIGHT);
 		int idxA = rand() % NUM_OF_TERRITORYS;
 		//cout << idxA << endl;
 		advance(iter, idxA);
-		endPointA = &(*iter);
+		endPointA = (*iter);
 
 		//cout << endPointA->getTerritoryID() << endl;
 
@@ -38,7 +38,7 @@ void Board::generateBoard(){
 		//cout << idxB << endl;
 
 		advance(iter, idxB);
-		endPointB = &(*iter);
+		endPointB = (*iter);
 
 		//cout << endPointB->getTerritoryID() << endl;
 
@@ -55,7 +55,7 @@ void Board::generateBoard(){
 
 		}
 	}
-	//this->printGameMap();
+	this->printGameMap();
 }
 
 
@@ -132,19 +132,19 @@ void Board::generateFixedBoard(){
 
 
 
-vector<Territory> Board::populateListOfTerritories(){
+vector<Territory*> Board::populateListOfTerritories(){
 	vector<Location*> assignedLocations = vector<Location*>();
 	char id = 'a';
 	stringstream ss;
 	string sid;
-	vector<Territory> listOfTerritories;
+	vector<Territory*> listOfTerritories = vector<Territory*>();
 	for (int i = 0; i < NUM_OF_TERRITORYS; ++i){
 		ss.str("");
 		ss.clear();
 		ss << id;
 		sid = ss.str();
 		cout << sid << endl;
-		listOfTerritories.push_back(Territory(sid,generateRandLocation(assignedLocations)));
+		listOfTerritories.push_back(new Territory(sid,generateRandLocation(assignedLocations)));
 		id++;
 	}
 	return listOfTerritories;
