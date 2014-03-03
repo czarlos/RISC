@@ -1,6 +1,4 @@
 #pragma once
-#include <boost/archive/text_iarchive.hpp>
-#include <boost/archive/text_oarchive.hpp>
 #include <boost/interprocess/streams/bufferstream.hpp>
 #include "NetworkMessage.h"
 #include "Messages/NetworkMessageType.h"
@@ -28,6 +26,7 @@ public:
 	NetworkMessage * create(boost::asio::streambuf & da, size_t bytes) {				
 		T val;
 		std::istream reader(&da);
+		/*
 		try {			
 			boost::archive::text_iarchive msg(reader);
 			msg & val;
@@ -35,6 +34,7 @@ public:
 		catch (std::exception &e) {
 			std::cout << e.what() << std::endl;
 		}
+		*/
 		return &val;
 	}
 };

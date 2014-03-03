@@ -18,9 +18,9 @@ TCPConnection::pointer TCPConnection::create(boost::asio::io_service &io_service
 }
 
 void TCPConnection::bind_read()
-{
-	this->g = new ClientJoinMessage();
-	this->async_read(&g, boost::bind(&TCPConnection::handle_read, this,
+{	
+	std::shared_ptr<ClientJoinMessage> f(new ClientJoinMessage());
+	this->async_read(f, boost::bind(&TCPConnection::handle_read, this,
 		boost::asio::placeholders::error, 10));
 }
 

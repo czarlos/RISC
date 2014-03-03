@@ -55,7 +55,8 @@ private:
 		msg->print();
 		conn->getMessages()->pop_front();	
 
-		this->send(new ClientJoinMessage("lolz", 90));
+		std::shared_ptr<ClientJoinMessage> l(new ClientJoinMessage("lolz", 90));
+		this->send(l);
 	}
 
 public:
@@ -74,7 +75,7 @@ public:
 		// queue_handler = boost::thread(&client::process_queue, this);
 	}
 
-	void send(NetworkMessage * msg) {
+	void send(std::shared_ptr<NetworkMessage> msg) {
 		conn->send(msg);
 	}
 

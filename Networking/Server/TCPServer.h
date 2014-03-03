@@ -44,8 +44,8 @@ public:
 
 	boost::signals2::connection doOnMessageReceived(const OnMessageReceived::slot_type & slot);
 
-	void send(NetworkMessage *e, TCPConnection::pointer recipient);
-	void send(NetworkMessage *e, std::string * ip);
+	void send(std::shared_ptr<NetworkMessage> e, TCPConnection::pointer recipient);
+	void send(std::shared_ptr<NetworkMessage> e, std::string * ip);
 
 	void send_welcome(TCPConnection::pointer new_connection);
 };

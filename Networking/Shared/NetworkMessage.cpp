@@ -1,6 +1,6 @@
 #include "NetworkMessage.h"
 
-BOOST_CLASS_EXPORT(NetworkMessage);
+CEREAL_REGISTER_TYPE(NetworkMessage);
 
 NetworkMessage::NetworkMessage()
 {

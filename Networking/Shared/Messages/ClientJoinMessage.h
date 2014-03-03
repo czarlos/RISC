@@ -1,10 +1,11 @@
 #define _SCL_SECURE_NO_WARNINGS
 #pragma once
 #include "../NetworkMessage.h"
-#include <boost/serialization/base_object.hpp>
-#include <boost/serialization/export.hpp>
 #include "../NetworkMessageFactory.h"
-
+#include <cereal/access.hpp>
+#include <cereal/types/base_class.hpp>
+#include <cereal/types/polymorphic.hpp>
+#include <cereal/archives/binary.hpp>
 
 class ClientJoinMessage :
 	public NetworkMessage
@@ -15,14 +16,11 @@ private:
 	std::string clientIP;
 	int port;
 
-	friend class boost::serialization::access;
+	friend class cereal::access;
 
 	template<class Archive>
-	void serialize(Archive& ar, const unsigned int version)
-	{
-		ar & boost::serialization::base_object<NetworkMessage>(*this);		
-		ar & clientIP;
-		ar & port;		
+	void serialize(Archive& ar) {
+		ar(cereal::base_class<NetworkMessage>(this), clientIP, port);
 	}
 public:
 

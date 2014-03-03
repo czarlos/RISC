@@ -52,7 +52,7 @@ void TCPServer::send_welcome(TCPConnection::pointer new_connection) {
 	std::string g = "Welcome to RISC good ser.";		
 	// new_connection->send(&msg);
 	
-	NetworkMessage * f = new ClientJoinMessage(new_connection->getIPAddress(), new_connection->getSocket()->remote_endpoint().port());	
+	std::shared_ptr<ClientJoinMessage> f (new ClientJoinMessage(new_connection->getIPAddress(), new_connection->getSocket()->remote_endpoint().port()));	
 	this->send(f, NULL);	
 }
 
@@ -65,14 +65,14 @@ TCPServer::TCPServer(boost::asio::io_service &io_service, int port) : acceptor_(
 TCPServer::~TCPServer() {	
 }
 
-void TCPServer::send(NetworkMessage *e, TCPConnection::pointer recipient)
+void TCPServer::send(std::shared_ptr<NetworkMessage> e, TCPConnection::pointer recipient)
 {	
 	if (recipient->isOpen()) {
 		recipient->send(e);
 	}
 }
 
-void TCPServer::send(NetworkMessage *e, std::string * ip)
+void TCPServer::send(std::shared_ptr<NetworkMessage> e, std::string * ip)
 {
 	boost::shared_lock<boost::shared_mutex> lock(clientQueueMutex);
 	client_queue::iterator i = myClients.begin();

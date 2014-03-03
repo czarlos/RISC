@@ -14,8 +14,10 @@ NetworkMessage * NetworkMessageFactory::parseMessage(boost::asio::streambuf & da
 	std::istream is (&da);
 	NetworkMessage * m = nullptr;	
 	try {
+		/*
 		boost::archive::text_iarchive ia(is);		
 		ia & m;
+		*/
 	}
 	catch (std::exception &e) {
 		std::cout << e.what() << std::endl;
@@ -25,8 +27,10 @@ NetworkMessage * NetworkMessageFactory::parseMessage(boost::asio::streambuf & da
 
 	NetworkMessage * mm;
 	{
+		/*
 		boost::archive::text_iarchive ia(isa);
 		ia & mm;
+		*/
 	}
 
 	Creator * c = NetworkMessageFactory::getCreator((NetworkMessageType)m->getType());

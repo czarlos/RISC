@@ -9,7 +9,6 @@
 #include <string>
 #include <queue>
 #include <boost/enable_shared_from_this.hpp>
-#include <boost/archive/text_oarchive.hpp>
 #include <boost/signals2.hpp>
 #include <boost/tuple/tuple.hpp>
 #include "../Shared/NetworkMessage.h"
@@ -43,16 +42,12 @@ private:
 
 
 	template <typename T, typename Handler>
-	void async_write(T * t, Handler handler)
+	void async_write(std::shared_ptr<T> t, Handler handler)
 	{	  
 		// Serialize the data first so we know how large it is.
 		std::ostringstream archive_stream;
-		boost::archive::text_oarchive archive(archive_stream);
-
-		// archive.register_type<NetworkMessage>();
-		// archive.register_type<ClientJoinMessage>();
-
-		archive & *t;
+		cereal::BinaryOutputArchive oarchive(archive_stream);
+		oarchive(*t);
 		outbound_data_ = archive_stream.str();
 
 		// Format the header.
@@ -79,12 +74,12 @@ private:
 
 	/// Asynchronously read a data structure from the socket.
 	template <typename T, typename Handler>
-	void async_read(T ** t, Handler handler)
+	void async_read(std::shared_ptr<T> t, Handler handler)
 	{
 		// Issue a read operation to read exactly the number of bytes in a header.
 		void (TCPConnection::*f)(
 			const boost::system::error_code&,
-			T**, boost::tuple<Handler>)
+			t, boost::tuple<Handler>)
 			= &TCPConnection::handle_read_header<T, Handler>;
 
 		boost::asio::async_read(socket_, boost::asio::buffer(inbound_header_),
@@ -98,7 +93,7 @@ private:
 	/// created using boost::bind as a parameter.
 	template <typename T, typename Handler>
 	void handle_read_header(const boost::system::error_code& e,
-		T ** t, boost::tuple<Handler> handler)
+		std::shared_ptr<T> t, boost::tuple<Handler> handler)
 	{
 		if (e)
 		{
@@ -145,6 +140,7 @@ private:
 			NetworkMessage * lolz = NetworkMessageFactory::createMessage(nm);			
 			try
 			{
+				/*
 				std::string archive_data(&inbound_data_[0], inbound_data_.size());
 				std::istringstream archive_stream(archive_data);
 				boost::archive::text_iarchive archive(archive_stream);
@@ -154,6 +150,7 @@ private:
 				// archive.register_type<ClientJoinMessage *>();
 
 				archive & lolz;
+				*/
 			}
 			catch (std::exception& e)
 			{
@@ -209,7 +206,7 @@ public:
 
 
 	template <typename T>
-	void send(T * t) {
+	void send(std::shared_ptr<T> t) {
 		this->async_write(t, boost::bind(&TCPConnection::handle_write, this, boost::asio::placeholders::error, t)); 		
 	}
 
