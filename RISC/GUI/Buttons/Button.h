@@ -5,7 +5,7 @@
 #include <Text.hpp>
 #include <iostream>
 #include <string>
-#include "../../GameState/Managers/TechnologyManager.h"
+#include "../../GUI/UnitPainter.h"
 
 using namespace std;
 

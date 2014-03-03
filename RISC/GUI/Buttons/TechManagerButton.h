@@ -1,6 +1,6 @@
 #pragma once
 #include "Button.h"
-#include "../../GUI/UnitPainter.h"
+#include "../../GameState/Managers/TechnologyManager.h"
 
 class TechManagerButton :public Button{
 public:

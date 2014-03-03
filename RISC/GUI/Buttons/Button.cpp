@@ -30,6 +30,10 @@ void Button::updateButtonStatus(){
 	else {
 		this->shape->setFillColor(sf::Color::White);
 	}
+	(*this->currentWindow).draw(*this->shape);
+	(*this->currentWindow).draw(*this->text);
+
+
 }
 
 sf::Shape* Button::getButton() {
