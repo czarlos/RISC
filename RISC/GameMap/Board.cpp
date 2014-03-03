@@ -15,25 +15,21 @@ Board::Board(){
 void Board::generateBoard(){
 	//randomly generate and place the territory in the matrix
 	//randomly distributes the edges to the territories
-	vector<Territory*> listOfTerritories = populateListOfTerritories();
+	vector<Territory> listOfTerritories = populateListOfTerritories();
 
 	srand((unsigned int) time(NULL));
-	Territory* endPointA;
-	Territory* endPointB;
+	Territory* endPointA = new Territory();
+	Territory* endPointB = new Territory();
 	double edgeWeight;
 
 	for (int i = 0; i < NUM_OF_EDGES; i++){
-		//if (i < this->numOfTerritories){
-		//	this->gameMap[i][i] = new Edge();
-		//}
-
-		vector<Territory*>::iterator iter = listOfTerritories.begin();
+		vector<Territory>::iterator iter = listOfTerritories.begin();
 		
 		edgeWeight = MIN_EDGE_WEIGHT + ((double)rand() / RAND_MAX)*(MAX_EDGE_WEIGHT - MIN_EDGE_WEIGHT);
 		int idxA = rand() % NUM_OF_TERRITORYS;
 		//cout << idxA << endl;
 		advance(iter, idxA);
-		endPointA = (*iter);
+		endPointA = &(*iter);
 
 		//cout << endPointA->getTerritoryID() << endl;
 
@@ -42,7 +38,7 @@ void Board::generateBoard(){
 		//cout << idxB << endl;
 
 		advance(iter, idxB);
-		endPointB = (*iter);
+		endPointB = &(*iter);
 
 		//cout << endPointB->getTerritoryID() << endl;
 
@@ -94,8 +90,8 @@ void Board::generateFixedBoard(){
 	this->gameMap[0][1]= edge1;
 	this->gameMap[0][2]= edge2;
 	this->gameMap[0][3]= edge3;
-	this->gameMap[0][4]= edge4;
-	this->gameMap[0][5]= edge5;
+	//this->gameMap[0][4]= edge4;
+	//this->gameMap[0][5]= edge5;
 	this->gameMap[1][0]= edge1;
 	this->gameMap[1][1] = nullptr;
 	this->gameMap[1][2]= edge6;
@@ -114,13 +110,13 @@ void Board::generateFixedBoard(){
 	this->gameMap[3][3] = nullptr;
 	this->gameMap[3][4]= edge11;
 	this->gameMap[3][5]= edge13;
-	this->gameMap[4][0]= edge5;
+	//this->gameMap[4][0]= edge5;
 	this->gameMap[4][1]= edge12;
 	this->gameMap[4][2]= edge9;
 	this->gameMap[4][3]= edge11;
 	this->gameMap[4][4] = nullptr;
 	this->gameMap[4][5]= edge10;
-	this->gameMap[5][0]= edge4;
+	//this->gameMap[5][0]= edge4;
 	this->gameMap[5][1]= edge14;
 	this->gameMap[5][2]= edge8;
 	this->gameMap[5][3]= edge13;
@@ -136,19 +132,19 @@ void Board::generateFixedBoard(){
 
 
 
-vector<Territory*> Board::populateListOfTerritories(){
+vector<Territory> Board::populateListOfTerritories(){
 	vector<Location*> assignedLocations = vector<Location*>();
 	char id = 'a';
 	stringstream ss;
 	string sid;
-	vector<Territory*> listOfTerritories = vector<Territory*>();
+	vector<Territory> listOfTerritories;
 	for (int i = 0; i < NUM_OF_TERRITORYS; ++i){
 		ss.str("");
 		ss.clear();
 		ss << id;
 		sid = ss.str();
 		cout << sid << endl;
-		listOfTerritories.push_back(new Territory(sid,generateRandLocation(assignedLocations)));
+		listOfTerritories.push_back(Territory(sid,generateRandLocation(assignedLocations)));
 		id++;
 	}
 	return listOfTerritories;

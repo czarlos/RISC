@@ -9,22 +9,22 @@ BoardPainter::BoardPainter(RenderWindow* rw) {
 
 }
 
-void BoardPainter::paintBoard(Board* board, vector<Shape*> territoryVector) {
-	for each (Shape* shape in territoryVector)
+void BoardPainter::paintBoard(Board* board, vector<TerritoryBinder*> territoryVector) {
+	for each (TerritoryBinder* binder in territoryVector)
 	{
-		myRenderWindow->draw(*shape);
+		myRenderWindow->draw(*binder->getShape());
 	}
 }
 
-vector<Shape*> BoardPainter::makeBoard(Board* board) {
-	vector<Shape*> territoryVector;
+vector<TerritoryBinder*> BoardPainter::makeBoard(Board* board) {
+	vector<TerritoryBinder*> territoryVector;
 	
 	for each (vector<Edge*> edgeVec in board->getGameMap())
 	{
 		for each (Edge *edge in edgeVec) {
 			if (edge != nullptr){
-				territoryVector.push_back(makeTerritory(edge->getEndPointATerritory()));
-				territoryVector.push_back(makeTerritory(edge->getEndPointBTerritory()));
+				territoryVector.push_back(new TerritoryBinder(edge->getEndPointATerritory(), makeTerritory(edge->getEndPointATerritory())));
+				territoryVector.push_back(new TerritoryBinder(edge->getEndPointBTerritory(), makeTerritory(edge->getEndPointBTerritory())));
 			}
 		}
 	}
