@@ -4,7 +4,7 @@ ResourceManagerButton::ResourceManagerButton(sf::RenderWindow* buttonWindow, flo
 	this->text->setString("Resource Manager");
 }
 
-void ResourceManagerButton::setResourceManager(){
+void ResourceManagerButton::setResourceManager(ResourceManager* resourceManager){
 	this->resourceManager = resourceManager;
 }
 

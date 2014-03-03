@@ -6,9 +6,9 @@ class ResourceManagerButton :public Button{
 public:
 	ResourceManagerButton(sf::RenderWindow*, float, float, int, int, int, int);
 	void onMouseClick();
-	void setResourceManager();
+	void setResourceManager(ResourceManager*);
 	~ResourceManagerButton();
 
 private:
-	ResourceManagerButton * resourceManager;
+	ResourceManager * resourceManager;
 };

@@ -10,12 +10,13 @@ void TechnologyManager::initTechManager(){
 	this->techPoint = 0;
 	this->possibleUpgrades = vector<UnitType*>();
 	this->unavaliableUpgrades = vector<UnitType*>();
-	this->unavaliableUpgrades.push_back(new Infantry());
+	this->possibleUpgrades.push_back(new Infantry());
 	this->unavaliableUpgrades.push_back(new AutomaticWeapons());
 	this->unavaliableUpgrades.push_back(new RocketLaunchers());
 	this->unavaliableUpgrades.push_back(new Tanks());
 	this->unavaliableUpgrades.push_back(new ImprovedTanks());
 	this->unavaliableUpgrades.push_back(new FighterPlanes());
+	this->updateHighestAvaUpgrade();
 }
 
 int TechnologyManager::getCurrentLevel(){

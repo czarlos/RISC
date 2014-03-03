@@ -30,6 +30,7 @@ int main()
 	TechManagerButton* buttonT = new TechManagerButton(&window, .5, .5, 97, 25, 920, 10);
 	ResourceManagerButton* buttonR = new ResourceManagerButton(&window, .5, .5, 130, 25, 780, 10);
 
+	buttonT->setTechManager(new TechnologyManager());
 	// We need to be constantly checking if a unit has been "made"
 	// This is hacky
 	vector<Shape*> madeUnits = initializeGame(board, up);

@@ -2,9 +2,10 @@
 
 TechManagerButton::TechManagerButton(sf::RenderWindow* buttonWindow, float scaleFontX, float scaleFontY, int widthpxl, int heightpxl, int x, int y) :Button(buttonWindow, scaleFontX, scaleFontY,  widthpxl,  heightpxl,  x, y){
 	this->text->setString("Tech Manager");
+	this->loadFont();
 }
 
-void TechManagerButton::setTechManager(){
+void TechManagerButton::setTechManager(TechnologyManager* techManager){
 	this->techManager = techManager;
 }
 
@@ -20,9 +21,58 @@ void TechManagerButton::onMouseClick(){
 					techManagerInfo.close();
 				}
 			}
+
+			 this->updateView(&techManagerInfo);
+
 			 techManagerInfo.display();
 		}
 	}
+}
+
+void TechManagerButton::loadFont(){
+	this-> font = new sf::Font();
+	this->font->loadFromFile("Resources/Fonts/arial.ttf");
+}
+
+void TechManagerButton::updateView(sf::RenderWindow* window){
+
+	sf::Text * text = new sf::Text();
+	text->setFont(*this->font);
+	text->setString("This is my current Tech level: ");
+	text->setColor(sf::Color::White);
+	text->setPosition(20, 50);
+	text->setScale(.5, .5);
+	(*window).draw(*text);
+
+	text = new sf::Text();
+	text->setFont(*this->font);
+	text->setString(IntToString::intToString(this->techManager->getCurrentLevel()));
+	text->setColor(sf::Color::White);
+	text->setPosition(20, 70);
+	text->setScale(.5, .5);
+	(*window).draw(*text);
+
+	text = new sf::Text();
+	text->setFont(*this->font);
+	text->setString("This is my Highest Avaliable upgrade: ");
+	text->setColor(sf::Color::White);
+	text->setPosition(20, 90);
+	text->setScale(.5, .5);
+	(*window).draw(*text);
+
+	text = new sf::Text();
+	text->setFont(*this->font);
+	text->setString(this->techManager->getHighestAvaUpgrade()->getType());
+	text->setColor(sf::Color::White);
+	text->setPosition(20, 110);
+	text->setScale(.5, .5);
+	(*window).draw(*text);
+
+	//need to finish
+
+
+
+
 }
 
 TechManagerButton::~TechManagerButton(){
