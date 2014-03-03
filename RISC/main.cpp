@@ -5,7 +5,7 @@
 #include "GUI\BoardPainter.h"
 #include "GameMap\Board.h"
 #include "GameObject\Unit\Tanks.h"
-#include "GUI\Buttons\Button.h"
+#include "GUI\Buttons\TechManagerButton.h"
 
 using namespace sf;
 
@@ -26,7 +26,7 @@ int main()
 	board->generateFixedBoard();
 	addUnitsToBoard(board);
 
-	Button* button = new Button(&window,"Money", .5, .5, 80, 30, 70, 70);
+	TechManagerButton* button = new TechManagerButton(&window, .5, .5, 97, 25, 920, 10);
 	
 	// We need to be constantly checking if a unit has been "made"
 	// This is hacky
@@ -40,6 +40,8 @@ int main()
 	while (window.isOpen())
 	{
 		sf::Event event;
+		
+
 		while (window.pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed)
@@ -47,6 +49,7 @@ int main()
 		}
 
 
+		button->setEvent(event);
 
 		window.clear();
 		//First draw the background

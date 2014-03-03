@@ -5,15 +5,18 @@
 #include <Text.hpp>
 #include <iostream>
 #include <string>
+#include "../../GameState/Managers/TechnologyManager.h"
 
 using namespace std;
 
+const float OUTLINE_THICKNESS = 2.0;
 class Button{
 public:
-	Button(sf::RenderWindow*,string, float,float, int, int, int, int);
+	Button(sf::RenderWindow*, float,float, int, int, int, int);
 	void updateButtonStatus();
 	sf::Shape* getButton();
 	sf::Text* getText();
+	void setEvent(sf::Event);
 
 	virtual void onMouseClick();
 	virtual ~Button();
@@ -21,6 +24,6 @@ public:
 protected:
 	sf::Shape* shape;
 	sf::Text* text;
-	sf::Event* event;
+	sf::Event event;
 	sf::RenderWindow* currentWindow;
 };

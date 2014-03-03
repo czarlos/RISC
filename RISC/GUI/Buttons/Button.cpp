@@ -1,17 +1,19 @@
 #include "Button.h"
 
-Button::Button(sf::RenderWindow* buttonWindow,string buttonName,float scaleFontX, float scaleFontY, int widthpxl, int heightpxl,int x, int y){
+Button::Button(sf::RenderWindow* buttonWindow,float scaleFontX, float scaleFontY, int widthpxl, int heightpxl,int x, int y){
 	
 	sf::RectangleShape *button = new sf::RectangleShape(sf::Vector2f(widthpxl, heightpxl));
 	button->setFillColor(sf::Color::White);
 	button->setPosition(x, y);
+	button->setOutlineThickness(OUTLINE_THICKNESS);
+	button->setOutlineColor(sf::Color::Black);
 	this->shape = button;
 
 	sf::Font* font = new sf::Font();
 	font->loadFromFile("Resources/Fonts/arial.ttf");
 	sf::Text * buttonText = new sf::Text();
 	buttonText->setFont(*font);
-	buttonText->setString(buttonName);
+	buttonText->setString("");
 	buttonText->setColor(sf::Color::Black);
 	buttonText->setPosition(x, y);
 	buttonText->setScale(scaleFontX, scaleFontY);
@@ -23,6 +25,7 @@ Button::Button(sf::RenderWindow* buttonWindow,string buttonName,float scaleFontX
 void Button::updateButtonStatus(){
 	if (this->shape->getGlobalBounds().contains(sf::Mouse::getPosition(*this->currentWindow).x, sf::Mouse::getPosition(*this->currentWindow).y)) {
 		this->shape->setFillColor(sf::Color::Green);
+		this->onMouseClick();
 	}
 	else {
 		this->shape->setFillColor(sf::Color::White);
@@ -34,6 +37,9 @@ sf::Shape* Button::getButton() {
 }
 sf::Text* Button::getText() {
 	return this->text;
+}
+void Button::setEvent(sf::Event event){
+	this->event = event;
 }
 
 void Button::onMouseClick(){
