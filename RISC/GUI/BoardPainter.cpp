@@ -37,17 +37,17 @@ void BoardPainter::paintBoard(Board* board) {
 	}
 }
 
-void BoardPainter::paintTerritory(Territory* terr) {
+Shape* BoardPainter::makeTerritory(Territory* terr) {
 	int terr_x = terr->getLocation()->getX();
 	int terr_y = terr->getLocation()->getY();
-	CircleShape tile(30, 6);
+	CircleShape* tile = new CircleShape(30, 6);
 	
-	tile.setFillColor(Color::Transparent);
-	tile.setOutlineColor(Color::Black);
-	tile.setOutlineThickness(3);
-	tile.setPosition(terr_x, terr_y);
-
-	myRenderWindow->draw(tile);
+	tile->setFillColor(Color::Transparent);
+	tile->setOutlineColor(Color::Black);
+	tile->setOutlineThickness(3);
+	tile->setPosition(terr_x, terr_y);
+	
+	return tile;
 }
 
 BoardPainter::~BoardPainter() {
