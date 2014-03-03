@@ -37,7 +37,7 @@ int main()
 
 		window.clear();
 		//First draw the background
-		up->paintBackground("map.jpg");
+		up->paintBackground("Resources/map.jpg");
 		//Then draw the board
 		window.draw(*terrShape);
 		//Then draw the units
@@ -86,7 +86,7 @@ void addInfoPanel() {
 			}
 		}
 
-		info_up->paintBackground("carbon.jpg");
+		info_up->paintBackground("Resources/carbon.jpg");
 		info.display();
 	}
 }
