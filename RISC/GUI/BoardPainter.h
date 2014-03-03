@@ -9,10 +9,11 @@ using namespace sf;
 class BoardPainter {
 public:
 	BoardPainter(RenderWindow* rw);
-	void paintBoard(Board* board);
-	Shape* makeTerritory(Territory* terr);
+	void paintBoard(Board* board, vector<Shape*> territoryVector);
+	vector<Shape*> makeBoard(Board* board);
 	virtual ~BoardPainter();
 
 private:
+	Shape* makeTerritory(Territory* terr);
 	RenderWindow* myRenderWindow;
 };
