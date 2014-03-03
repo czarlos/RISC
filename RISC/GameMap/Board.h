@@ -13,7 +13,7 @@ using namespace std;
 //the amount of territorys and the number of edges that they want to begin the game
 //with
 const int  NUM_OF_TERRITORYS = 6;
-const int  NUM_OF_EDGES = 20;
+const int  NUM_OF_EDGES = 10;
 const int MAX_EDGE_WEIGHT = 100;
 const int  MIN_EDGE_WEIGHT =1;
 
@@ -51,7 +51,7 @@ private:
 	//generates random locations for the territories
 	Location* generateRandLocation(vector<Location*> );
 	//populates the list of avaliable territories to use for constructing the board
-	vector<Territory*> populateListOfTerritories();
+	vector<Territory> populateListOfTerritories();
 	//bool checkIfOnBoard(Territory );
 
 

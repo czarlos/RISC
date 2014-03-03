@@ -57,6 +57,7 @@ public:
 	void changeOwner(string);
 	//get the current owner of the territory
 	string getOwner();
+	void setOwner(string owner);
 	//get the current units in the territory
 	vector<Unit*> getTerritoryContents();
 	//get the different resources that the territory produces
