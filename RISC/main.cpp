@@ -4,86 +4,94 @@
 #include "GUI\UnitPainter.h"
 #include "GUI\BoardPainter.h"
 #include "GameMap\Board.h"
+#include "GameObject\Unit\Tanks.h"
 
 using namespace sf;
 
-void addInfoPanel();
+void addInfoPanel(UnitPainter* info_up);
 void scrollOverTerritory(FloatRect* bounds, Shape* terrShape, RenderWindow* window);
+void addUnitsToBoard(Board* board);
+void initializeGame(vector<Shape*> madeUnits, Board* board, UnitPainter* up);
 
 int main()
 {
 
-	Board *board = new Board();
-	board->generateBoard();
-	board->getBoardSize();
-
-
-
-	//sf::RenderWindow window(sf::VideoMode(1024, 650), "RISC");
-	//UnitPainter* up = new UnitPainter(&window);
-	//BoardPainter* bp = new BoardPainter(&window);
-	//
-	//Board* board = new Board();
-	//Unit* unit = new Unit(10, new Infantry(), "carlos", "20", 1);
-	//Territory* terr = new Territory("cash", new Location(100.0, 100.0));
-	//terr->addToContent(unit);
-
-	//Shape* shape = up->makeUnit(terr->getTerritoryContents().at(0), terr);
-	//Shape* terrShape = bp->makeTerritory(terr);
-
-	//while (window.isOpen())
-	//{
-	//	sf::Event event;
-	//	while (window.pollEvent(event))
-	//	{
-	//		if (event.type == sf::Event::Closed)
-	//			window.close();
-	//	}
-
-
-
-	//	window.clear();
-	//	//First draw the background
-	//	up->paintBackground("Resources/map.jpg");
-	//	//Then draw the board
-	//	window.draw(*terrShape);
-	//	//Then draw the units
-	//	window.draw(*shape);
-	//	
-	//	FloatRect bounds = terrShape->getGlobalBounds();
-	//	
-	//	scrollOverTerritory(&bounds, terrShape, &window);
-
-	//	//terrShape->setFillColor(Color::Transparent);
-	//	if (event.type == Event::MouseButtonPressed && bounds.contains(Mouse::getPosition(window).x, Mouse::getPosition(window).y)) {
-	//		cout << bounds.left << " <-left " << bounds.width << " <-width " << bounds.top << " <-top " << bounds.height << " <-height" << endl;
-	//		cout << Mouse::getPosition(window).x << " " << Mouse::getPosition(window).y << endl;
-
-	//		addInfoPanel();
-	//	}
-	//	
-	//	window.display();
-	//}
-
-
-	//delete(board);
-	//delete(up);
-	//delete(bp);
-	//delete(unit);
-	//delete(terr);
-	//delete(shape);
+	sf::RenderWindow window(sf::VideoMode(1024, 650), "RISC");
+	UnitPainter* up = new UnitPainter(&window);
+	BoardPainter* bp = new BoardPainter(&window);
+	UnitPainter* info_up = new UnitPainter();
 	
+	Board* board = new Board();
+	board->generateFixedBoard();
+	addUnitsToBoard(board);
 
-	while (1){};
+
+	// We need to be constantly checking if a unit has been "made"
+	// This is hacky
+	vector<Shape*> madeUnits;
+	initializeGame(madeUnits, board, up);
+	vector<Shape*> madeTerritories;
+	madeTerritories = bp->makeBoard(board);
+
+	while (window.isOpen())
+	{
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed)
+				window.close();
+		}
+
+
+
+		window.clear();
+		//First draw the background
+		up->paintBackground("Resources/map.jpg");
+		//Then draw the board
+		bp->paintBoard(board, madeTerritories);
+		//Then draw the units
+		for each (Shape* shape in madeUnits)
+		{
+			cout << "cash tho" << endl;
+			window.draw(*shape);
+		}
+
+		for each (Shape* shape in madeTerritories)
+		{
+			FloatRect bounds = shape->getGlobalBounds();
+			scrollOverTerritory(&bounds, shape, &window);
+
+			if (event.type == Event::MouseButtonPressed && bounds.contains(Mouse::getPosition(window).x, Mouse::getPosition(window).y)) {
+				cout << bounds.left << " <-left " << bounds.width << " <-width " << bounds.top << " <-top " << bounds.height << " <-height" << endl;
+				cout << Mouse::getPosition(window).x << " " << Mouse::getPosition(window).y << endl;
+
+				addInfoPanel(info_up);
+			}
+		}
+		
+		window.display();
+	}
+
+	delete(board);
+	delete(up);
+	delete(bp);
+	for each (Shape* unit in madeUnits)
+	{
+		delete(unit);
+	}
+	for each (Shape* terr in madeTerritories)
+	{
+		delete(terr);
+	}
 
 	return 0;
 }
 
 
-void addInfoPanel() {
+void addInfoPanel(UnitPainter* info_up) {
 	RenderWindow info(sf::VideoMode(320, 480), "CASH");
 	info.setPosition(Vector2i(0, 0));
-	UnitPainter* info_up = new UnitPainter(&info);
+	info_up = new UnitPainter(&info);
 
 
 	cout << Mouse::getPosition().x << " " << Mouse::getPosition().y << endl;
@@ -108,5 +116,37 @@ void scrollOverTerritory(FloatRect* bounds, Shape* terrShape, RenderWindow* wind
 	}
 	else {
 		terrShape->setFillColor(Color::Transparent);
+	}
+}
+
+/*Irrelevant*/
+
+void addUnitsToBoard(Board* board) {
+	for each (vector<Edge*> edgeVec in board->getGameMap())
+	{
+		for each (Edge* edge in edgeVec)
+		{
+			edge->getEndPointATerritory()->addToContent(new Unit(10, new Infantry(), "carlos", "20", 1));
+			edge->getEndPointBTerritory()->addToContent(new Unit(10, new Tanks(), "carlos", "10", 1));
+		}
+	}
+}
+
+void initializeGame(vector<Shape*> madeUnits, Board* board, UnitPainter* up) {
+	for each (vector<Edge*> edgeVec in board->getGameMap())
+	{
+		for each (Edge* edge in edgeVec)
+		{
+			for each (Unit* unit in edge->getEndPointATerritory()->getTerritoryContents()) {
+				if (!edge->getEndPointATerritory()->getTerritoryContents().empty()) {
+					madeUnits.push_back(up->makeUnit(unit, edge->getEndPointATerritory()));
+				}
+			}
+			for each (Unit* unit in edge->getEndPointBTerritory()->getTerritoryContents()) {
+				if (!edge->getEndPointBTerritory()->getTerritoryContents().empty()) {
+					madeUnits.push_back(up->makeUnit(unit, edge->getEndPointBTerritory()));
+				}
+			}
+		}
 	}
 }

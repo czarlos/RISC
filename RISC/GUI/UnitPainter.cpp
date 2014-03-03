@@ -1,5 +1,9 @@
 #include "UnitPainter.h"
 
+UnitPainter::UnitPainter(){
+
+}
+
 UnitPainter::UnitPainter(RenderWindow* rw) {
 	this->myRenderWindow = rw;
 
