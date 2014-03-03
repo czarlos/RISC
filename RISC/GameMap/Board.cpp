@@ -23,9 +23,9 @@ void Board::generateBoard(){
 	double edgeWeight;
 
 	for (int i = 0; i < NUM_OF_EDGES; i++){
-		if (i < this->numOfTerritories){
-			this->gameMap[i][i] = new Edge();
-		}
+		//if (i < this->numOfTerritories){
+		//	this->gameMap[i][i] = new Edge();
+		//}
 
 		vector<Territory*>::iterator iter = listOfTerritories.begin();
 		
