@@ -1,6 +1,6 @@
 #include "ClientJoinMessage.h"
 
-BOOST_CLASS_EXPORT_GUID(ClientJoinMessage, "ClientJoinMessage")
+BOOST_CLASS_EXPORT(ClientJoinMessage);
 REGISTERIMPL(ClientJoinMessage, NetworkMessageType::CLIENT_JOIN)
 
 ClientJoinMessage::ClientJoinMessage() : NetworkMessage(NetworkMessageType::CLIENT_JOIN)

@@ -5,6 +5,7 @@
 #include <boost/serialization/export.hpp>
 #include "../NetworkMessageFactory.h"
 
+
 class ClientJoinMessage :
 	public NetworkMessage
 {

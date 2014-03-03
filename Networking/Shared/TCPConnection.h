@@ -49,10 +49,10 @@ private:
 		std::ostringstream archive_stream;
 		boost::archive::text_oarchive archive(archive_stream);
 
-		archive.register_type<NetworkMessage>();
-		archive.register_type<ClientJoinMessage>();
+		// archive.register_type<NetworkMessage>();
+		// archive.register_type<ClientJoinMessage>();
 
-		archive & t;
+		archive & *t;
 		outbound_data_ = archive_stream.str();
 
 		// Format the header.
@@ -118,19 +118,14 @@ private:
 				return;
 			}
 
-
-			// turn it into a special type
-			NetworkMessage * lolz = NetworkMessageFactory::createMessage(message_type);			
-			*t = lolz;
-
 			// Start an asynchronous call to receive the data.
 			inbound_data_.resize(inbound_data_size);
 			void (TCPConnection::*f)(
 				const boost::system::error_code&,
-				T**, boost::tuple<Handler>)
+				NetworkMessageType nm, boost::tuple<Handler>)
 				= &TCPConnection::handle_read_data<T, Handler>;
 			boost::asio::async_read(socket_, boost::asio::buffer(inbound_data_),
-				boost::bind(f, this, boost::asio::placeholders::error, t, handler));
+				boost::bind(f, this, boost::asio::placeholders::error, (NetworkMessageType)message_type, handler));
 		}
 	}
 
@@ -138,7 +133,7 @@ private:
 	/// Handle a completed read of message data.
 	template <typename T, typename Handler>
 	void handle_read_data(const boost::system::error_code& e,
-		T ** t, boost::tuple<Handler> handler)
+		NetworkMessageType nm, boost::tuple<Handler> handler)
 	{
 		if (e)
 		{
@@ -147,6 +142,7 @@ private:
 		else
 		{
 			// Extract the data structure from the data just received.
+			NetworkMessage * lolz = NetworkMessageFactory::createMessage(nm);			
 			try
 			{
 				std::string archive_data(&inbound_data_[0], inbound_data_.size());
@@ -154,9 +150,10 @@ private:
 				boost::archive::text_iarchive archive(archive_stream);
 
 				// archive.register_type<NetworkMessage>();
-				archive.register_type<ClientJoinMessage>();
+				// archive.register_type<ClientJoinMessage>();
+				// archive.register_type<ClientJoinMessage *>();
 
-				archive & **t;
+				archive & lolz;
 			}
 			catch (std::exception& e)
 			{

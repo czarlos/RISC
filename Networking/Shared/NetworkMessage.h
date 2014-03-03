@@ -40,7 +40,7 @@ public:
 	NetworkMessage(boost::asio::streambuf * da, size_t bytes);
 	NetworkMessage(char type);
 	NetworkMessage(char type, std::string contents);
-	virtual ~NetworkMessage();
+	virtual ~NetworkMessage() {}
 
 	char getType();	
 	char * getIP();
@@ -48,6 +48,6 @@ public:
 	void setType(char m_type);
 	void setData(char ** contents, size_t s);
 
-	virtual void print() = 0;
+	virtual void print();
 };
 

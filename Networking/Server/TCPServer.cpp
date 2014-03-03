@@ -52,7 +52,7 @@ void TCPServer::send_welcome(TCPConnection::pointer new_connection) {
 	std::string g = "Welcome to RISC good ser.";		
 	// new_connection->send(&msg);
 	
-	ClientJoinMessage * f = new ClientJoinMessage(new_connection->getIPAddress(), new_connection->getSocket()->remote_endpoint().port());	
+	NetworkMessage * f = new ClientJoinMessage(new_connection->getIPAddress(), new_connection->getSocket()->remote_endpoint().port());	
 	this->send(f, NULL);	
 }
 
