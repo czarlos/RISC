@@ -13,46 +13,51 @@ void PopupWindows::addInfoPanel(Board* board, TerritoryBinder* binder) {
 	font->loadFromFile("Resources/Fonts/arial.ttf");
 
 	Text* owner = new Text();
-	owner->setFont(*font);
-	owner->setColor(Color::White);
 	std::string ownerString = std::string("Owner: ") + binder->getTerritory()->getOwner();
-	owner->setString(ownerString);
-	owner->setCharacterSize(18);
-	owner->setPosition(10, 10);
+	makeText(owner, ownerString, font, 10, 10, 14);
 
 	Text* production = new Text();
-	production->setFont(*font);
-	production->setColor(Color::White);
-
-	map<ResourceType*, int> resourceMap;
-
-	for each (ResourceType* resource in binder->getTerritory()->getProduction())
-	{
-		if (resourceMap.count(resource) == 0) {
-			resourceMap[resource] = 1;
-		}
-		else {
-			resourceMap[resource] += 1;
-		}
-	}
-
-	std::string productionString = std::string("Production: \n");
-
-
-	for (map<ResourceType*, int>::iterator iterator = resourceMap.begin(); iterator != resourceMap.end(); iterator++) {
-
-		productionString += iterator->first->getResourceName() + " " + to_string(resourceMap[iterator->first]) + "\n";
-	}
-
-	production->setString(productionString);
-	production->setCharacterSize(18);
-	production->setPosition(10, 50);
+	string productionString = makeProductionString(binder);
+	makeText(production, productionString, font, 10, 50, 14);
 
 	Text* units = new Text();
-	units->setFont(*font);
-	units->setColor(Color::White);
+	string unitString = makeInfoString(binder);
+	makeText(units, unitString, font, 10, 120, 14);
 
-	
+	cout << Mouse::getPosition().x << " " << Mouse::getPosition().y << endl;
+	while (info.isOpen()) {
+		sf::Event e;
+		while (info.pollEvent(e))
+		{
+			if (e.type == sf::Event::Closed) {
+				info.close();
+			}
+		}
+		info_up->paintBackground("Resources/carbon.jpg");
+
+		info.draw(*owner);
+		info.draw(*production);
+		info.draw(*units);
+
+		info.display();
+	}
+
+	delete(info_up);
+	delete(font);
+	delete(owner);
+	delete(production);
+	delete(units);
+}
+
+void PopupWindows::makeText(Text* text, string str, Font* font, int x, int y, int size) {
+	text->setFont(*font);
+	text->setColor(Color::White);
+	text->setString(str);
+	text->setCharacterSize(size);
+	text->setPosition(x, y);
+}
+
+string PopupWindows::makeInfoString(TerritoryBinder* binder) {
 	map<string, int> unitMap;
 
 	for each (Unit* unit in binder->getTerritory()->getTerritoryContents())
@@ -72,32 +77,31 @@ void PopupWindows::addInfoPanel(Board* board, TerritoryBinder* binder) {
 
 	}
 
-	units->setString(unitString);
-	units->setCharacterSize(18);
-	units->setPosition(10, 120);
+	return unitString;
 
-	cout << Mouse::getPosition().x << " " << Mouse::getPosition().y << endl;
-	while (info.isOpen()) {
-		sf::Event e;
-		while (info.pollEvent(e))
-		{
-			if (e.type == sf::Event::Closed) {
-				info.close();
-			}
+}
+
+string PopupWindows::makeProductionString(TerritoryBinder* binder) {
+	map<string, int> resourceMap;
+
+	for each (ResourceType* resource in binder->getTerritory()->getProduction())
+	{
+		if (resourceMap.count(resource->getResourceName()) == 0) {
+			resourceMap[resource->getResourceName()] = 1;
 		}
-		info_up->paintBackground("Resources/carbon.jpg");
-
-		info.draw(*owner);
-		info.draw(*production);
-		info.draw(*units);
-
-		info.display();
+		else {
+			resourceMap[resource->getResourceName()] += 1;
+		}
 	}
-	delete(info_up);
-	delete(font);
-	delete(owner);
-	delete(production);
-	delete(units);
+
+	std::string productionString = std::string("Production: \n");
+
+
+	for (map<string, int>::iterator iterator = resourceMap.begin(); iterator != resourceMap.end(); iterator++) {
+
+		productionString += iterator->first + " " + to_string(resourceMap[iterator->first]) + "\n";
+	}
+	return productionString;
 }
 
 PopupWindows::~PopupWindows() {

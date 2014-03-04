@@ -19,7 +19,6 @@ Button::Button(sf::RenderWindow* buttonWindow,float scaleFontX, float scaleFontY
 	buttonText->setScale(scaleFontX, scaleFontY);
 	this->text = buttonText;
 	this->currentWindow = buttonWindow;
-
 }
 
 void Button::updateButtonStatus(){

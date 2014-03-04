@@ -15,4 +15,5 @@ public:
 	static std::vector<VertexArray*> addLines(Board* board, BoardPainter* bp);
 	static std::vector<Shape*> initializeGame(Board* board, UnitPainter* up);
 	virtual ~InitializationUtilities();
+
 };
