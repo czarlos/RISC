@@ -1,5 +1,4 @@
 #include "TechManagerButton.h"
-
 TechManagerButton::TechManagerButton(sf::RenderWindow* buttonWindow, float scaleFontX, float scaleFontY, int widthpxl, int heightpxl, int x, int y) :Button(buttonWindow, scaleFontX, scaleFontY,  widthpxl,  heightpxl,  x, y){
 	this->text->setString("Tech Manager");
 	this->loadFont();
@@ -14,7 +13,6 @@ void TechManagerButton::onMouseClick(){
 		sf::RenderWindow techManagerInfo(sf::VideoMode(320, 480), "Tech Manager");
 		UnitPainter* up = new UnitPainter(&techManagerInfo);
 		techManagerInfo.setPosition(Vector2i(0, 0));
-
 
 		sf::Text* level = new sf::Text();
 		PopupWindows::makeText(level, "Current Technology Level: ", font, 10, 10, 14);
@@ -53,6 +51,7 @@ void TechManagerButton::onMouseClick(){
 		delete(upgradeText);
 		delete(up);
 	}
+
 }
 
 void TechManagerButton::loadFont(){
