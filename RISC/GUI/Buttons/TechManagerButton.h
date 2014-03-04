@@ -2,6 +2,7 @@
 #include "Button.h"
 #include "../../GameState/Managers/TechnologyManager.h"
 #include "../../Utilities/IntToString.h"
+#include "../Utils/TextToDisplay.h"
 
 class TechManagerButton :public Button{
 public:

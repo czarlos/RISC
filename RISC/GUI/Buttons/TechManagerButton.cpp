@@ -12,6 +12,7 @@ void TechManagerButton::setTechManager(TechnologyManager* techManager){
 void TechManagerButton::onMouseClick(){
 	if (this->event.type == sf::Event::MouseButtonPressed && this->shape->getGlobalBounds().contains(sf::Mouse::getPosition(*this->currentWindow).x, sf::Mouse::getPosition(*this->currentWindow).y)) {
 		sf::RenderWindow techManagerInfo(sf::VideoMode(320, 480), "Tech Manager");
+		UnitPainter* info_up = new UnitPainter(&techManagerInfo);
 		techManagerInfo.setPosition(Vector2i(0, 0));
 		while (techManagerInfo.isOpen()) {
 			 sf::Event ex;
@@ -21,6 +22,7 @@ void TechManagerButton::onMouseClick(){
 					techManagerInfo.close();
 				}
 			}
+			 info_up->paintBackground("Resources/carbon.jpg");
 
 			 this->updateView(&techManagerInfo);
 
@@ -36,39 +38,19 @@ void TechManagerButton::loadFont(){
 
 void TechManagerButton::updateView(sf::RenderWindow* window){
 
-	sf::Text * text = new sf::Text();
-	text->setFont(*this->font);
-	text->setString("This is my current Tech level: ");
-	text->setColor(sf::Color::White);
-	text->setPosition(20, 50);
-	text->setScale(.5, .5);
-	(*window).draw(*text);
+	TextToDisplay::displayText(window, "This is my current tech level:", this->font, 20, 0);
+	TextToDisplay::displayText(window, IntToString::intToString(this->techManager->getCurrentLevel()), this->font, 20, 20);
+	TextToDisplay::displayText(window, "This is my Highest Avaliable upgrade:", this->font, 20, 40);
+	TextToDisplay::displayText(window, this->techManager->getHighestAvaUpgrade()->getType(), this->font, 20, 60);
+	TextToDisplay::displayText(window, "level:" , this->font, 20, 80);
+	TextToDisplay::displayText(window, IntToString::intToString(this->techManager->getHighestAvaUpgrade()->getLevel()), this->font, 20, 100);
+	TextToDisplay::displayText(window, "Cost:", this->font, 20, 120);
+	TextToDisplay::displayText(window, IntToString::intToString(this->techManager->getHighestAvaUpgrade()->getUpgradeCost()), this->font, 20, 140);
+	TextToDisplay::displayText(window, "Combat bonus:", this->font, 20, 160);
+	TextToDisplay::displayText(window, IntToString::intToString(this->techManager->getHighestAvaUpgrade()->getCombatBonus()), this->font, 20, 180);
 
-	text = new sf::Text();
-	text->setFont(*this->font);
-	text->setString(IntToString::intToString(this->techManager->getCurrentLevel()));
-	text->setColor(sf::Color::White);
-	text->setPosition(20, 70);
-	text->setScale(.5, .5);
-	(*window).draw(*text);
 
-	text = new sf::Text();
-	text->setFont(*this->font);
-	text->setString("This is my Highest Avaliable upgrade: ");
-	text->setColor(sf::Color::White);
-	text->setPosition(20, 90);
-	text->setScale(.5, .5);
-	(*window).draw(*text);
 
-	text = new sf::Text();
-	text->setFont(*this->font);
-	text->setString(this->techManager->getHighestAvaUpgrade()->getType());
-	text->setColor(sf::Color::White);
-	text->setPosition(20, 110);
-	text->setScale(.5, .5);
-	(*window).draw(*text);
-
-	//need to finish
 
 
 
