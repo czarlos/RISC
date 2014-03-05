@@ -5,6 +5,7 @@ InfantryButton::InfantryButton(sf::RenderWindow* buttonWindow, float scaleFontX,
 	this->text->setString("Infantry");
 	this->font = new sf::Font();
 	this->font->loadFromFile("Resources/Fonts/arial.ttf");
+	this->calResult = 6;
 }
 
 void InfantryButton::onMouseClick(){
