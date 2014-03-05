@@ -19,6 +19,7 @@ void ViewPort::showViewPort() {
 	sf::RenderWindow window(sf::VideoMode(1024, 650), "RISC");
 	UnitPainter* up = new UnitPainter(&window);
 	BoardPainter* bp = new BoardPainter(&window);
+	window.setFramerateLimit(10);
 
 	Board* board = new Board();
 	board->generateFixedBoard();
@@ -50,6 +51,8 @@ void ViewPort::showViewPort() {
 	while (window.isOpen())
 	{
 		cout << "Current Client is: " << currentClient->getUserName() << endl;
+		cout << "Current Client #: " << next << endl;
+
 
 		sf::Event event;
 
