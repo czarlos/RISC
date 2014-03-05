@@ -21,6 +21,8 @@ int InfantryButton::getCalresult(){
 	return this->calResult;
 }
 
+
+
 InfantryButton::~InfantryButton(){
 
 }

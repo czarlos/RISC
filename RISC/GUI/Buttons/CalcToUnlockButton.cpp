@@ -28,6 +28,7 @@ void CalcToUnlockButton::onMouseClick(){
 
 			
 			this->updateButtons();
+			TextToDisplay::displayText(&calcToUnlockInfo, "This is the total Cost: ",this->font, 0, 180);
 			calcToUnlockInfo.display();
 		}
 		this->deleteButtons();
@@ -70,6 +71,7 @@ void CalcToUnlockButton::deleteButtons(){
 void CalcToUnlockButton::updateButtons(){
 	for (vector<Button*>::iterator iter = this->buttons.begin(); iter != this->buttons.end(); iter++){
 		(*iter)->updateButtonStatus();
+
 	}
 }
 

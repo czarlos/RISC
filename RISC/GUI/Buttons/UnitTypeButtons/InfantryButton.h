@@ -8,9 +8,12 @@ public:
 	void onMouseClick();
 	void setTechManager(TechnologyManager*);
 	int getCalresult();
+	//bool getIsClicked();
+	//void setIsClicked();
 	~InfantryButton();
 
 private:
 	TechnologyManager* techManager;
+	//int isClicked = false;
 	int calResult;
 };
