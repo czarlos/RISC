@@ -18,11 +18,14 @@ public:
 	sf::Shape* getButton();
 	sf::Text* getText();
 	void setEvent(sf::Event);
+	bool getIsClicked();
+	void setIsClicked(bool);
 	virtual void setTechManager(TechnologyManager*);
 	virtual void onMouseClick();
 	virtual ~Button();
 
 protected:
+	bool isClicked;
 	sf::Shape* shape;
 	sf::Text* text;
 	sf::Event event;
