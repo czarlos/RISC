@@ -44,83 +44,79 @@ void ViewPort::showViewPort() {
 	Client* currentClient = clientList.at(0);
 	currentClient->setTurnStatus(true);
 	int next = 1;
-
-	/*Main game loop*/
-	while (true) {
 		
+
+	/*Window execute loop*/
+	while (window.isOpen())
+	{
 		cout << "Current Client is: " << currentClient->getUserName() << endl;
-		
-		/*Window execute loop*/
-		while (window.isOpen())
+
+		sf::Event event;
+
+
+		while (window.pollEvent(event))
 		{
-			sf::Event event;
-
-
-			while (window.pollEvent(event))
-			{
-				if (event.type == sf::Event::Closed)
-					window.close();
-			}
-
-			buttonT->setEvent(event);
-			buttonR->setEvent(event);
-			endTurnB->setEvent(event);
-
-			window.clear();
-			/*Painting starts*/
-
-			//First draw the background
-			up->paintBackground("Resources/map.jpg");
-			//Then draw the board
-			bp->paintBoard(board, madeTerritories);
-
-			//Then the lines
-			for each (VertexArray* line in madeLines) {
-				window.draw(*line);
-			}
-			//Then draw the units
-			for each (Shape* shape in madeUnits)
-			{
-				window.draw(*shape);
-			}
-
-			/*Painting Ends*/
-			for each (TerritoryBinder* binder in madeTerritories)
-			{
-				FloatRect bounds = binder->getShape()->getGlobalBounds();
-				InitializationUtilities::scrollOverTerritory(&bounds, binder->getShape(), &window);
-
-				if (Mouse::isButtonPressed(Mouse::Left) && bounds.contains(Mouse::getPosition(window).x, Mouse::getPosition(window).y)) {
-					cout << bounds.left << " <-left " << bounds.width << " <-width " << bounds.top << " <-top " << bounds.height << " <-height" << endl;
-					cout << Mouse::getPosition(window).x << " " << Mouse::getPosition(window).y << endl;
-					PopupWindows::addInfoPanel(board, binder);
-				}
-				else if (Mouse::isButtonPressed(Mouse::Right) && bounds.contains(Mouse::getPosition(window).x, Mouse::getPosition(window).y)) {
-					PopupWindows::addOrderPanel(board, binder);
-				}
-			}
-			// This is where the button is, bundle it into one draw
-			buttonT->updateButtonStatus();
-			buttonR->updateButtonStatus();
-
-			/*End turn logic*/
-			endTurnB->updateButtonStatus();
-			if (endTurnB->isClicked()) {
-				currentClient->setTurnStatus(false);
-				if (next >= clientList.size()) {
-					currentClient = clientList.at(0);
-					next = 1;
-				}
-				else {
-					currentClient = clientList.at(next);
-					next += 1;
-				}
-				currentClient->setTurnStatus(true);
-			}
-
-			window.display();
+			if (event.type == sf::Event::Closed)
+				window.close();
 		}
 
+		buttonT->setEvent(event);
+		buttonR->setEvent(event);
+		endTurnB->setEvent(event);
+
+		window.clear();
+		/*Painting starts*/
+
+		//First draw the background
+		up->paintBackground("Resources/map.jpg");
+		//Then draw the board
+		bp->paintBoard(board, madeTerritories);
+
+		//Then the lines
+		for each (VertexArray* line in madeLines) {
+			window.draw(*line);
+		}
+		//Then draw the units
+		for each (Shape* shape in madeUnits)
+		{
+			window.draw(*shape);
+		}
+
+		/*Painting Ends*/
+		for each (TerritoryBinder* binder in madeTerritories)
+		{
+			FloatRect bounds = binder->getShape()->getGlobalBounds();
+			InitializationUtilities::scrollOverTerritory(&bounds, binder->getShape(), &window);
+
+			if (Mouse::isButtonPressed(Mouse::Left) && bounds.contains(Mouse::getPosition(window).x, Mouse::getPosition(window).y)) {
+				cout << bounds.left << " <-left " << bounds.width << " <-width " << bounds.top << " <-top " << bounds.height << " <-height" << endl;
+				cout << Mouse::getPosition(window).x << " " << Mouse::getPosition(window).y << endl;
+				PopupWindows::addInfoPanel(board, binder);
+			}
+			else if (Mouse::isButtonPressed(Mouse::Right) && bounds.contains(Mouse::getPosition(window).x, Mouse::getPosition(window).y)) {
+				PopupWindows::addOrderPanel(board, binder);
+			}
+		}
+		// This is where the button is, bundle it into one draw
+		buttonT->updateButtonStatus();
+		buttonR->updateButtonStatus();
+
+		/*End turn logic*/
+		endTurnB->updateButtonStatus();
+		if (endTurnB->isClicked()) {
+			currentClient->setTurnStatus(false);
+			if (next >= clientList.size()) {
+				currentClient = clientList.at(0);
+				next = 1;
+			}
+			else {
+				currentClient = clientList.at(next);
+				next += 1;
+			}
+			currentClient->setTurnStatus(true);
+		}
+
+		window.display();
 	}
 
 	delete(server);
