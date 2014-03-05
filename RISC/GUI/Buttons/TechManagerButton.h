@@ -14,6 +14,7 @@ public:
 
 private:
 	void updateView(sf::RenderWindow*);
+	int displayList(vector<UnitType*>,int,int,sf::RenderWindow*);
 	void loadFont();
 	TechnologyManager * techManager;
 	sf::Font* font;
