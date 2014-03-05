@@ -24,9 +24,10 @@ void CalcToUnlockButton::onMouseClick(){
 					calcToUnlockInfo.close();
 				}
 			}
+			infantryButton->setEvent(ex);
 
 			background->paintBackground("Resources/carbon.jpg");
-			
+
 			infantryButton->updateButtonStatus();
 			TextToDisplay::displayText(&calcToUnlockInfo, to_string(infantryButton->getCalresult()),this->font, 0, 0);
 			
