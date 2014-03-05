@@ -13,6 +13,9 @@ void CalcToUnlockButton::onMouseClick(){
 		UnitPainter* background = new UnitPainter(&calcToUnlockInfo);
 		calcToUnlockInfo.setPosition(Vector2i(100, 50));
 
+		InfantryButton* infantryButton = new InfantryButton(&calcToUnlockInfo, .5, .5, 170, 25, 0, 400);
+		infantryButton->setTechManager(this->techManager);
+
 		while (calcToUnlockInfo.isOpen()) {
 			sf::Event ex;
 			while (calcToUnlockInfo.pollEvent(ex))
@@ -23,13 +26,19 @@ void CalcToUnlockButton::onMouseClick(){
 			}
 
 			background->paintBackground("Resources/carbon.jpg");
-
+			
+			infantryButton->updateButtonStatus();
+			TextToDisplay::displayText(&calcToUnlockInfo, to_string(infantryButton->getCalresult()),this->font, 0, 0);
+			
 			
 			calcToUnlockInfo.display();
 		}
 	}
 }
 
+void CalcToUnlockButton::setTechManager(TechnologyManager* techManager){
+	this->techManager = techManager;
+}
 
 void CalcToUnlockButton::initButton(){
 

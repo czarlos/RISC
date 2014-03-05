@@ -25,5 +25,6 @@ protected:
 	sf::Shape* shape;
 	sf::Text* text;
 	sf::Event event;
+	sf::Font* font;
 	sf::RenderWindow* currentWindow;
 };

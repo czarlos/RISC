@@ -3,7 +3,6 @@
 #include "../../GameState/Managers/TechnologyManager.h"
 #include "../Utils/PopupWindows.h"
 #include "../../Utilities/IntToString.h"
-#include "../Utils/TextToDisplay.h"
 #include "CalcToUnlockButton.h"
 
 class TechManagerButton :public Button{
@@ -18,5 +17,4 @@ private:
 	int displayList(vector<UnitType*>,int,int,sf::RenderWindow*);
 	void loadFont();
 	TechnologyManager * techManager;
-	sf::Font* font;
 };

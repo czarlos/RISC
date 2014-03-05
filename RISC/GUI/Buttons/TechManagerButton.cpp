@@ -17,6 +17,7 @@ void TechManagerButton::onMouseClick(){
 		techManagerInfo.setPosition(Vector2i(0, 0));
 
 		CalcToUnlockButton* calcToUnlockButton = new CalcToUnlockButton(&techManagerInfo, .5, .5, 170, 25, 0, 400);
+		calcToUnlockButton->setTechManager(this->techManager);
 
 		while (techManagerInfo.isOpen()) {
 			 sf::Event ex;

@@ -4,7 +4,7 @@
 #include <Text.hpp>
 #include <iostream>
 #include <string>
-#include "../../GUI/UnitPainter.h"
+#include "../UnitPainter.h"
 
 class TextToDisplay{
 public:
