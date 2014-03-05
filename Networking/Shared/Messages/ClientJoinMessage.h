@@ -2,7 +2,6 @@
 #pragma once
 #include "../NetworkMessage.h"
 #include <boost/serialization/base_object.hpp>
-#include <boost/serialization/export.hpp>
 #include "../NetworkMessageFactory.h"
 
 

@@ -1,6 +1,10 @@
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
+#include <boost/serialization/export.hpp>
+
 #include "NetworkMessage.h"
 
-BOOST_CLASS_EXPORT(NetworkMessage);
+BOOST_CLASS_EXPORT_GUID(NetworkMessage, "NetworkMessage");
 
 NetworkMessage::NetworkMessage()
 {

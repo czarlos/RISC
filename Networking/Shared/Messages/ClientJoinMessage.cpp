@@ -1,6 +1,11 @@
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
+#include <boost/serialization/export.hpp>
+
 #include "ClientJoinMessage.h"
 
-BOOST_CLASS_EXPORT(ClientJoinMessage);
+BOOST_CLASS_EXPORT_GUID(ClientJoinMessage, "ClientJoinMessage");
+
 REGISTERIMPL(ClientJoinMessage, NetworkMessageType::CLIENT_JOIN)
 
 ClientJoinMessage::ClientJoinMessage() : NetworkMessage(NetworkMessageType::CLIENT_JOIN)

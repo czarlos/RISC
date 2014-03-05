@@ -10,13 +10,10 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <boost/asio.hpp>
 #include <iostream>
-#include <boost/archive/text_oarchive.hpp>
-#include <boost/archive/text_iarchive.hpp>
 #include <boost/serialization/base_object.hpp>
 #include <boost/serialization/utility.hpp>
 #include <boost/serialization/list.hpp>
 #include <boost/serialization/assume_abstract.hpp>
-#include <boost/serialization/export.hpp>
 
 #define EOT '\4'
 
