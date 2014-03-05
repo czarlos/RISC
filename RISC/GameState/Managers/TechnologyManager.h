@@ -9,6 +9,7 @@
 #include "../../GameObject/Unit/AutomaticWeapons.h"
 #include "../../GameObject/Unit/UnitType.h"
 #include "../../GameObject/Unit/Unit.h"
+#include "../../Order/UpgradeOrder.h"
 
 using namespace std;
 
@@ -24,7 +25,7 @@ public:
 	//check to see if the upgrade could be done
 	bool isUpgradeAllowed(UnitType*);
 	//upgrade the unit
-	void performUpgrade(UnitType*,Unit*);
+	UpgradeOrder* performUpgrade(UnitType*,Unit*);
 	//give the total cost to get to that upgrade if it is not avaliable
 	//else return 0 meaning the upgrade is avaliable
 	int calculateCostToUnlock(UnitType*);

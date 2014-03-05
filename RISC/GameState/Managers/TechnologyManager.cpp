@@ -32,10 +32,15 @@ bool TechnologyManager::isUpgradeAllowed(UnitType* unitType){
 	return false;
 }
 
-void TechnologyManager::performUpgrade(UnitType* unitType, Unit* unitToApply){
+UpgradeOrder* TechnologyManager::performUpgrade(UnitType* unitType, Unit* unitToApply){
 	//written in a way that you have to check if the unitType is avaliable before
 	//applying it ot the unit that is selected
-	unitToApply->setUnitType((*unitType));
+	for (vector<UnitType*>::iterator iter = this->possibleUpgrades.begin(); iter != this->possibleUpgrades.end(); iter++){
+		if ((*iter) == unitType){
+			return new UpgradeOrder(unitToApply, unitType);
+		}
+	}
+	return nullptr;
 }
 
 int TechnologyManager::calculateCostToUnlock(UnitType* unitType){
