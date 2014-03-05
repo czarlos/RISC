@@ -6,7 +6,7 @@
 
 BOOST_CLASS_EXPORT_GUID(ClientJoinMessage, "ClientJoinMessage");
 
-REGISTERIMPL(ClientJoinMessage, NetworkMessageType::CLIENT_JOIN)
+REGISTERIMPL(ClientJoinMessage, NetworkMessageType::CLIENT_JOIN);
 
 ClientJoinMessage::ClientJoinMessage() : NetworkMessage(NetworkMessageType::CLIENT_JOIN)
 {
@@ -43,3 +43,12 @@ void ClientJoinMessage::encode_data()
 {
 
 }
+
+template void ClientJoinMessage::serialize<boost::archive::text_iarchive>(
+    boost::archive::text_iarchive & ar, 
+    const unsigned int file_version
+);
+template void ClientJoinMessage::serialize<boost::archive::text_oarchive>(
+    boost::archive::text_oarchive & ar, 
+    const unsigned int file_version
+);

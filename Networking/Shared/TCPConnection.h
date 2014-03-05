@@ -52,7 +52,7 @@ private:
 		// archive.register_type<NetworkMessage>();
 		// archive.register_type<ClientJoinMessage>();
 
-		archive & *t;
+		archive & t;
 		outbound_data_ = archive_stream.str();
 
 		// Format the header.

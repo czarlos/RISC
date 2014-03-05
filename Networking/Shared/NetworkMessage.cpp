@@ -44,4 +44,13 @@ char NetworkMessage::getType()
 	return type;
 }
 
+template void NetworkMessage::serialize<boost::archive::text_iarchive>(
+    boost::archive::text_iarchive & ar, 
+    const unsigned int file_version
+);
+template void NetworkMessage::serialize<boost::archive::text_oarchive>(
+    boost::archive::text_oarchive & ar, 
+    const unsigned int file_version
+);
+
 

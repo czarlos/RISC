@@ -29,7 +29,7 @@ public:
 	ClientJoinMessage(std::string contents) : NetworkMessage(NetworkMessageType::CLIENT_JOIN, contents) {}
 	ClientJoinMessage(std::string ip, int port_num);
 	ClientJoinMessage();
-	~ClientJoinMessage();
+	virtual ~ClientJoinMessage();
 
 	virtual void process_data();
 
