@@ -107,7 +107,7 @@ void ViewPort::showViewPort() {
 			endTurnB->updateButtonStatus();
 			if (endTurnB->isClicked()) {
 				currentClient->setTurnStatus(false);
-				if (clientList.at(next) == nullptr) {
+				if (next >= clientList.size()) {
 					currentClient = clientList.at(0);
 					next = 1;
 				}
