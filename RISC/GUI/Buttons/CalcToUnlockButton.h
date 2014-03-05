@@ -21,7 +21,7 @@ private:
 	void setEventForButtons(sf::Event);
 	void initButtons(sf::RenderWindow*,TechnologyManager*);
 	void deleteButtons();
-	void updateButtons();
-	vector<Button*> buttons;
+	void updateButtons(sf::RenderWindow*, sf::Text*);
+	vector<UnitTypeButton*> buttons;
 	TechnologyManager* techManager;
 };

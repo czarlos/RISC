@@ -1,19 +1,11 @@
 #pragma once
-#include "../../Buttons/Button.h"
+#include "UnitTypeButton.h"
+
 #include "../../../GameState/Managers/TechnologyManager.h"
 
-class InfantryButton : public Button{
+class InfantryButton : public UnitTypeButton{
 public:
 	InfantryButton(sf::RenderWindow*, float, float, int, int, int, int);
 	void onMouseClick();
-	void setTechManager(TechnologyManager*);
-	int getCalresult();
-	//bool getIsClicked();
-	//void setIsClicked();
 	~InfantryButton();
-
-private:
-	TechnologyManager* techManager;
-	//int isClicked = false;
-	int calResult;
 };

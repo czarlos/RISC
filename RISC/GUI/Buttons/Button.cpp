@@ -19,7 +19,7 @@ Button::Button(sf::RenderWindow* buttonWindow,float scaleFontX, float scaleFontY
 	buttonText->setScale(scaleFontX, scaleFontY);
 	this->text = buttonText;
 	this->currentWindow = buttonWindow;
-	this->isClicked = false;
+	//this->isClicked = false;
 }
 
 void Button::updateButtonStatus(){
@@ -36,13 +36,13 @@ void Button::updateButtonStatus(){
 
 }
 
-bool Button::getIsClicked(){
-	return this->isClicked;
-}
-
-void Button::setIsClicked(bool isClicked){
-	this->isClicked;
-}
+//bool Button::getIsClicked(){
+//	return this->isClicked;
+//}
+//
+//void Button::setIsClicked(bool isClicked){
+//	this->isClicked;
+//}
 
 sf::Shape* Button::getButton() {
 	return this->shape;
@@ -54,9 +54,6 @@ void Button::setEvent(sf::Event event){
 	this->event = event;
 }
 
-void Button::setTechManager(TechnologyManager* techManager){
-	//implement in child class
-}
 void Button::onMouseClick(){
 	//implement in child class
 
