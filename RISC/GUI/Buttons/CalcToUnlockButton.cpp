@@ -13,8 +13,7 @@ void CalcToUnlockButton::onMouseClick(){
 		UnitPainter* background = new UnitPainter(&calcToUnlockInfo);
 		calcToUnlockInfo.setPosition(Vector2i(100, 50));
 
-		InfantryButton* infantryButton = new InfantryButton(&calcToUnlockInfo, .5, .5, 170, 25, 0, 400);
-		infantryButton->setTechManager(this->techManager);
+		this->initButtons(&calcToUnlockInfo, this->techManager);
 
 		while (calcToUnlockInfo.isOpen()) {
 			sf::Event ex;
@@ -24,16 +23,14 @@ void CalcToUnlockButton::onMouseClick(){
 					calcToUnlockInfo.close();
 				}
 			}
-			infantryButton->setEvent(ex);
-
+			this->setEventForButtons(ex);
 			background->paintBackground("Resources/carbon.jpg");
 
-			infantryButton->updateButtonStatus();
-			TextToDisplay::displayText(&calcToUnlockInfo, to_string(infantryButton->getCalresult()),this->font, 0, 0);
 			
-			
+			this->updateButtons();
 			calcToUnlockInfo.display();
 		}
+		this->deleteButtons();
 	}
 }
 
@@ -41,8 +38,39 @@ void CalcToUnlockButton::setTechManager(TechnologyManager* techManager){
 	this->techManager = techManager;
 }
 
-void CalcToUnlockButton::initButton(){
+void CalcToUnlockButton::setEventForButtons(sf::Event event){
+	for (vector<Button*>::iterator iter = this->buttons.begin(); iter != this->buttons.end(); iter++){
+		(*iter)->setEvent(event);
+	}
 
+}
+
+void CalcToUnlockButton::initButtons(sf::RenderWindow* window, TechnologyManager* techManager){
+	this->buttons = vector<Button*>();
+	this->buttons.push_back(new InfantryButton(window, .5, .5, 170, 25, 0, 0));
+	this->buttons.push_back(new AutomaticWeaponsButton(window, .5, .5, 170, 25, 0, 30));
+	this->buttons.push_back(new RocketLauncherButton(window, .5, .5, 170, 25, 0, 60));
+	this->buttons.push_back(new TankButton(window, .5, .5, 170, 25, 0, 90));
+	this->buttons.push_back(new ImprovedTanksButton(window, .5, .5, 170, 25, 0, 120));
+	this->buttons.push_back(new FighterPlanesButton(window, .5, .5, 170, 25, 0, 150));
+
+	for (vector<Button*>::iterator iter = this->buttons.begin(); iter != this->buttons.end(); iter++){
+		(*iter)->setTechManager(techManager);
+	}
+
+}
+
+void CalcToUnlockButton::deleteButtons(){
+	for (vector<Button*>::iterator iter = this->buttons.begin(); iter != this->buttons.end(); iter++){
+		delete((*iter));
+	}
+	
+}
+
+void CalcToUnlockButton::updateButtons(){
+	for (vector<Button*>::iterator iter = this->buttons.begin(); iter != this->buttons.end(); iter++){
+		(*iter)->updateButtonStatus();
+	}
 }
 
 CalcToUnlockButton::~CalcToUnlockButton(){

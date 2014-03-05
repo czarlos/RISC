@@ -2,6 +2,11 @@
 #include "Button.h"
 #include "../../GameState/Managers/TechnologyManager.h"
 #include "UnitTypeButtons\InfantryButton.h"
+#include "UnitTypeButtons\AutomaticWeaponsButton.h"
+#include "UnitTypeButtons\FighterPlanesButton.h"
+#include "UnitTypeButtons\ImprovedTanksButton.h"
+#include "UnitTypeButtons\RocketLauncherButton.h"
+#include "UnitTypeButtons\TankButton.h"
 #include "../Utils/TextToDisplay.h"
 
 
@@ -13,6 +18,10 @@ public:
 	~CalcToUnlockButton();
 
 private:
-	void initButton();
+	void setEventForButtons(sf::Event);
+	void initButtons(sf::RenderWindow*,TechnologyManager*);
+	void deleteButtons();
+	void updateButtons();
+	vector<Button*> buttons;
 	TechnologyManager* techManager;
 };

@@ -6,6 +6,7 @@
 #include <iostream>
 #include <string>
 #include "../../GUI/UnitPainter.h"
+#include "../../GameState/Managers/TechnologyManager.h"
 
 using namespace std;
 
@@ -17,7 +18,7 @@ public:
 	sf::Shape* getButton();
 	sf::Text* getText();
 	void setEvent(sf::Event);
-
+	virtual void setTechManager(TechnologyManager*);
 	virtual void onMouseClick();
 	virtual ~Button();
 
