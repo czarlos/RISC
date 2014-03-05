@@ -4,6 +4,7 @@
 #include "../Utils/PopupWindows.h"
 #include "../../Utilities/IntToString.h"
 #include "../Utils/TextToDisplay.h"
+#include "CalcToUnlockButton.h"
 
 class TechManagerButton :public Button{
 public:

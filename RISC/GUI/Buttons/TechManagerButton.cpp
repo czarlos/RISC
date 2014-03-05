@@ -16,6 +16,8 @@ void TechManagerButton::onMouseClick(){
 		UnitPainter* background= new UnitPainter(&techManagerInfo);
 		techManagerInfo.setPosition(Vector2i(0, 0));
 
+		CalcToUnlockButton* calcToUnlockButton = new CalcToUnlockButton(&techManagerInfo, .5, .5, 170, 25, 0, 400);
+
 		while (techManagerInfo.isOpen()) {
 			 sf::Event ex;
 			 while (techManagerInfo.pollEvent(ex))
@@ -24,11 +26,13 @@ void TechManagerButton::onMouseClick(){
 					techManagerInfo.close();
 				}
 			}
-
+			 calcToUnlockButton->setEvent(ex);
 			 background->paintBackground("Resources/carbon.jpg");
 
 			 updateView(&techManagerInfo);
 
+
+			 calcToUnlockButton->updateButtonStatus();
 			 techManagerInfo.display();
 		}
 	}
