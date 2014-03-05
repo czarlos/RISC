@@ -5,7 +5,6 @@
 #include "../../GameObject/Unit/Unit.h"
 #include "../Managers/ResourceManager.h"
 #include "../Managers/TechnologyManager.h"
-#include "../../ServerLogic/Client.h"
 
 using namespace std;
 

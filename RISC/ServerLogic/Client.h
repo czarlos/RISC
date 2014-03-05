@@ -9,9 +9,9 @@ using namespace std;
 
 class Client {
 public:
-	Client(GameState state);
+	Client(GameState* state);
 	void update(Response* response);
 	virtual ~Client();
 private:
-	GameState myState;
+	GameState* myState;
 };

@@ -48,15 +48,15 @@ void TechManagerButton::updateView(sf::RenderWindow* window){
 
 
 	TextToDisplay::displayText(window, "This is my current tech level:", this->font, 20, 0);
-	TextToDisplay::displayText(window, IntToString::intToString(this->techManager->getCurrentLevel()), this->font, 20, 20);
+	TextToDisplay::displayText(window, to_string(this->techManager->getCurrentLevel()), this->font, 20, 20);
 	TextToDisplay::displayText(window, "This is my Highest Avaliable upgrade:", this->font, 20, 40);
 	TextToDisplay::displayText(window, this->techManager->getHighestAvaUpgrade()->getType(), this->font, 20, 60);
 	TextToDisplay::displayText(window, "level:", this->font, 20, 80);
-	TextToDisplay::displayText(window, IntToString::intToString(this->techManager->getHighestAvaUpgrade()->getLevel()), this->font, 20, 100);
+	TextToDisplay::displayText(window, to_string(this->techManager->getHighestAvaUpgrade()->getLevel()), this->font, 20, 100);
 	TextToDisplay::displayText(window, "Cost:", this->font, 20, 120);
-	TextToDisplay::displayText(window, IntToString::intToString(this->techManager->getHighestAvaUpgrade()->getUpgradeCost()), this->font, 20, 140);
+	TextToDisplay::displayText(window, to_string(this->techManager->getHighestAvaUpgrade()->getUpgradeCost()), this->font, 20, 140);
 	TextToDisplay::displayText(window, "Combat bonus:", this->font, 20, 160);
-	TextToDisplay::displayText(window, IntToString::intToString(this->techManager->getHighestAvaUpgrade()->getCombatBonus()), this->font, 20, 180);
+	TextToDisplay::displayText(window, to_string(this->techManager->getHighestAvaUpgrade()->getCombatBonus()), this->font, 20, 180);
 
 
 }
