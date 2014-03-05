@@ -6,5 +6,6 @@ class EndTurnButton : public Button {
 public:
 	EndTurnButton(sf::RenderWindow* window, float scaleFontX, float scaleFontY, int widthpxl, int heightpxl, int x, int y);
 	void onMouseClick();
+	bool isClicked();
 	virtual ~EndTurnButton();
 };

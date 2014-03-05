@@ -15,6 +15,13 @@ void EndTurnButton::onMouseClick() {
 
 }
 
+bool EndTurnButton::isClicked() {
+	if (this->event.type == sf::Event::MouseButtonPressed && this->shape->getGlobalBounds().contains(sf::Mouse::getPosition(*this->currentWindow).x, sf::Mouse::getPosition(*this->currentWindow).y)) {
+		return true;
+	}
+	return false;
+}
+
 EndTurnButton::~EndTurnButton() {
 
 }

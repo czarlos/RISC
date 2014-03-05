@@ -71,6 +71,8 @@ std::vector<Shape*> InitializationUtilities::initializeGame(Board* board, UnitPa
 std::vector<Client*> InitializationUtilities::addClients(GameState* state1, GameState* state2) {
 	Client* client1 = new Client(state1);
 	Client* client2 = new Client(state2);
+	client1->setUserName("Evil_Carlos");
+	client2->setUserName("Carlos");
 
 	vector<Client*> clientList;
 	clientList.push_back(client1);
