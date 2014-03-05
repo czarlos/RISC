@@ -19,6 +19,7 @@ Button::Button(sf::RenderWindow* buttonWindow,float scaleFontX, float scaleFontY
 	buttonText->setScale(scaleFontX, scaleFontY);
 	this->text = buttonText;
 	this->currentWindow = buttonWindow;
+	this->isClicked = false;
 }
 
 void Button::updateButtonStatus(){
@@ -33,6 +34,14 @@ void Button::updateButtonStatus(){
 	(*this->currentWindow).draw(*this->text);
 
 
+}
+
+bool Button::getIsClicked(){
+	return this->isClicked;
+}
+
+void Button::setIsClicked(bool isClicked){
+	this->isClicked;
 }
 
 sf::Shape* Button::getButton() {
