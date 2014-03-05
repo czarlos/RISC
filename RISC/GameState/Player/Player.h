@@ -5,6 +5,8 @@
 #include "../../GameObject/Unit/Unit.h"
 #include "../Managers/ResourceManager.h"
 #include "../Managers/TechnologyManager.h"
+//#include "../../Order/UpgradeOrder.h"
+
 
 using namespace std;
 
@@ -57,6 +59,8 @@ public:
 	TechnologyManager* getTechManager();
 	//get the player's resourceManager
 	ResourceManager* getResourceManager();
+
+	//Order* createUpgradeOrder(UnitType* unitType, Unit* unitToApply);
 
 	//vector<Territory*> getTerritories();
 
