@@ -10,6 +10,7 @@
 #include "GUI\Buttons\Button.h"
 #include "GUI\Utils\PopupWindows.h"
 #include "GUI\Utils\InitializationUtilities.h"
+#include "GUI\Buttons\EndTurnButton.h"
 
 using namespace sf;
 
@@ -26,6 +27,7 @@ int main()
 
 	TechManagerButton* buttonT = new TechManagerButton(&window, .5, .5, 97, 25, 920, 10);
 	ResourceManagerButton* buttonR = new ResourceManagerButton(&window, .5, .5, 130, 25, 780, 10);
+	EndTurnButton *endTurnB = new EndTurnButton(&window, .5, .5, 97, 25, 670, 10);
 
 	buttonT->setTechManager(new TechnologyManager());
 
@@ -61,6 +63,7 @@ int main()
 
 		buttonT->setEvent(event);
 		buttonR->setEvent(event);
+		endTurnB->setEvent(event);
 
 		window.clear();
 		/*Painting starts*/
@@ -86,15 +89,19 @@ int main()
 			FloatRect bounds = binder->getShape()->getGlobalBounds();
 			InitializationUtilities::scrollOverTerritory(&bounds, binder->getShape(), &window);
 
-			if (event.type == Event::MouseButtonPressed && bounds.contains(Mouse::getPosition(window).x, Mouse::getPosition(window).y)) {
+			if (Mouse::isButtonPressed(Mouse::Left) && bounds.contains(Mouse::getPosition(window).x, Mouse::getPosition(window).y)) {
 				cout << bounds.left << " <-left " << bounds.width << " <-width " << bounds.top << " <-top " << bounds.height << " <-height" << endl;
 				cout << Mouse::getPosition(window).x << " " << Mouse::getPosition(window).y << endl;
 				PopupWindows::addInfoPanel(board, binder);
+			}
+			else if (Mouse::isButtonPressed(Mouse::Right) && bounds.contains(Mouse::getPosition(window).x, Mouse::getPosition(window).y)) {
+				PopupWindows::addOrderPanel(board, binder);
 			}
 		}
 		// This is where the button is, bundle it into one draw
 		buttonT->updateButtonStatus();
 		buttonR->updateButtonStatus();
+		endTurnB->updateButtonStatus();
 
 
 		window.display();
@@ -102,6 +109,7 @@ int main()
 
 	delete(buttonT);
 	delete(buttonR);
+	delete(endTurnB);
 	delete(board);
 	delete(up);
 	delete(bp);
