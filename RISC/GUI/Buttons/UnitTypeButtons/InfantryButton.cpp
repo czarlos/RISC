@@ -8,8 +8,9 @@ InfantryButton::InfantryButton(sf::RenderWindow* buttonWindow, float scaleFontX,
 }
 
 void InfantryButton::onMouseClick(){
-	this->calResult = this->techManager->calculateCostToUnlock(new Infantry());
-
+	if (this->event.type == sf::Event::MouseButtonPressed && this->shape->getGlobalBounds().contains(sf::Mouse::getPosition(*this->currentWindow).x, sf::Mouse::getPosition(*this->currentWindow).y)) {
+		this->calResult = this->techManager->calculateCostToUnlock(new Infantry());
+	}
 }
 
 void InfantryButton::setTechManager(TechnologyManager* techManager){
@@ -19,6 +20,8 @@ void InfantryButton::setTechManager(TechnologyManager* techManager){
 int InfantryButton::getCalresult(){
 	return this->calResult;
 }
+
+
 
 InfantryButton::~InfantryButton(){
 

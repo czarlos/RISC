@@ -45,6 +45,9 @@ void Button::setEvent(sf::Event event){
 	this->event = event;
 }
 
+void Button::setTechManager(TechnologyManager* techManager){
+	//implement in child class
+}
 void Button::onMouseClick(){
 	//implement in child class
 
