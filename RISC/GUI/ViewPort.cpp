@@ -8,7 +8,14 @@ ViewPort::ViewPort() {
 }
 
 void ViewPort::showViewPort() {
+	/*Prepare Clients and Server*/
+	GameState* state1 = new GameState();
+	GameState* state2 = new GameState();
+	vector<Client*> clientList = InitializationUtilities::addClients(state1, state2);
+	ServerLogic* server = new ServerLogic(clientList);
 
+
+	/*Display Stuff*/
 	sf::RenderWindow window(sf::VideoMode(1024, 650), "RISC");
 	UnitPainter* up = new UnitPainter(&window);
 	BoardPainter* bp = new BoardPainter(&window);
@@ -17,11 +24,12 @@ void ViewPort::showViewPort() {
 	board->generateFixedBoard();
 	InitializationUtilities::addUnitsToBoard(board);
 
-	//TechManagerButton* buttonT = new TechManagerButton(&window, .5, .5, 97, 25, 920, 10);
+	TechManagerButton* buttonT = new TechManagerButton(&window, .5, .5, 97, 25, 920, 10);
 	ResourceManagerButton* buttonR = new ResourceManagerButton(&window, .5, .5, 130, 25, 780, 10);
 	EndTurnButton *endTurnB = new EndTurnButton(&window, .5, .5, 97, 25, 670, 10);
 
-	//buttonT->setTechManager(new TechnologyManager());
+	buttonT->setTechManager(new TechnologyManager());
+
 
 	// We need to be constantly checking if a unit has been made/deleted and add/remove it
 	vector<Shape*> madeUnits = InitializationUtilities::initializeGame(board, up);
@@ -30,8 +38,9 @@ void ViewPort::showViewPort() {
 	vector<VertexArray*> madeLines;
 	madeLines = InitializationUtilities::addLines(board, bp);
 	string str;
-	Text* text = new Text();
 
+
+	/*Window execute loop*/
 	while (window.isOpen())
 	{
 		sf::Event event;
@@ -41,19 +50,9 @@ void ViewPort::showViewPort() {
 		{
 			if (event.type == sf::Event::Closed)
 				window.close();
-
-			if (event.type == sf::Event::TextEntered)
-			{
-				// Handle ASCII characters only
-				if (event.text.unicode < 128)
-				{
-					str += static_cast<char>(event.text.unicode);
-					text->setString(str);
-				}
-			}
 		}
 
-		//buttonT->setEvent(event);
+		buttonT->setEvent(event);
 		buttonR->setEvent(event);
 		endTurnB->setEvent(event);
 
@@ -91,7 +90,7 @@ void ViewPort::showViewPort() {
 			}
 		}
 		// This is where the button is, bundle it into one draw
-		//buttonT->updateButtonStatus();
+		buttonT->updateButtonStatus();
 		buttonR->updateButtonStatus();
 		endTurnB->updateButtonStatus();
 
@@ -99,7 +98,8 @@ void ViewPort::showViewPort() {
 		window.display();
 	}
 
-	//delete(buttonT);
+	delete(server);
+	delete(buttonT);
 	delete(buttonR);
 	delete(endTurnB);
 	delete(board);
@@ -112,6 +112,9 @@ void ViewPort::showViewPort() {
 	for each (TerritoryBinder* binder in madeTerritories)
 	{
 		delete(binder);
+	}
+	for each (Client* client in clientList) {
+		delete(client);
 	}
 
 }

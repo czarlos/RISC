@@ -12,6 +12,9 @@
 #include "Utils\PopupWindows.h"
 #include "Utils\InitializationUtilities.h"
 #include "Buttons\EndTurnButton.h"
+#include "..\ServerLogic\Client.h"
+#include "..\ServerLogic\ServerLogic.h"
+
 
 class ViewPort {
 public:
