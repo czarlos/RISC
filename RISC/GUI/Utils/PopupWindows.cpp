@@ -104,6 +104,34 @@ string PopupWindows::makeProductionString(TerritoryBinder* binder) {
 	return productionString;
 }
 
+void PopupWindows::addOrderPanel(Board* board, TerritoryBinder* binder) {
+	RenderWindow info(sf::VideoMode(200, 200), "Order Panel");
+	info.setPosition(Vector2i(0, 0));
+	UnitPainter* info_up = new UnitPainter(&info);
+
+	Font* font = new Font();
+	font->loadFromFile("Resources/Fonts/arial.ttf");
+
+	Text* owner = new Text();
+	std::string ownerString = std::string("Owner: ") + binder->getTerritory()->getOwner();
+	makeText(owner, ownerString, font, 10, 10, 14);
+
+	while (info.isOpen()) {
+		sf::Event e;
+		while (info.pollEvent(e))
+		{
+			if (e.type == sf::Event::Closed) {
+				info.close();
+			}
+		}
+		info_up->paintBackground("Resources/carbon.jpg");
+
+		info.draw(*owner);
+
+		info.display();
+	}
+}
+
 PopupWindows::~PopupWindows() {
 
 }
