@@ -33,9 +33,10 @@ void CalcToUnlockButton::onMouseClick(){
 			calcToUnlockInfo.draw(*changText);
 		
 			calcToUnlockInfo.display();		
-			//delete(changText);
 		}
 		this->deleteButtons();
+		delete(changText);
+
 	}
 }
 
