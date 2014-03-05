@@ -6,6 +6,7 @@
 #include <deque>
 #include <ostream>
 #include <iostream>
+#include <iomanip>   
 #include <string>
 #include <queue>
 #include <boost/enable_shared_from_this.hpp>
@@ -38,16 +39,15 @@ private:
 	TCPConnection(boost::asio::io_service &ioserver);	
 
 	void handle_read(const boost::system::error_code& error, size_t bytes_transferred);
-	void handle_write(const boost::system::error_code& error, NetworkMessage * msg);
+	void handle_write(const boost::system::error_code& error, std::shared_ptr<NetworkMessage> msg);
 
-
-	template <typename T, typename Handler>
-	void async_write(std::shared_ptr<T> t, Handler handler)
+	template <typename Handler>
+	void async_write(std::shared_ptr<NetworkMessage> t, Handler handler)
 	{	  
 		// Serialize the data first so we know how large it is.
 		std::ostringstream archive_stream;
 		cereal::BinaryOutputArchive oarchive(archive_stream);
-		oarchive(*t);
+		oarchive(t);
 		outbound_data_ = archive_stream.str();
 
 		// Format the header.
@@ -73,14 +73,12 @@ private:
 
 
 	/// Asynchronously read a data structure from the socket.
-	template <typename T, typename Handler>
-	void async_read(std::shared_ptr<T> t, Handler handler)
+	template <typename Handler>
+	void async_read(std::shared_ptr<NetworkMessage> t, Handler handler)
 	{
 		// Issue a read operation to read exactly the number of bytes in a header.
-		void (TCPConnection::*f)(
-			const boost::system::error_code&,
-			t, boost::tuple<Handler>)
-			= &TCPConnection::handle_read_header<T, Handler>;
+
+		void(TCPConnection::*f)(const boost::system::error_code&, std::shared_ptr<NetworkMessage>, boost::tuple<Handler>) = &TCPConnection::handle_read_header<Handler>;
 
 		boost::asio::async_read(socket_, boost::asio::buffer(inbound_header_),
 			boost::bind(f,
@@ -91,9 +89,9 @@ private:
 	/// Handle a completed read of a message header. The handler is passed using
 	/// a tuple since boost::bind seems to have trouble binding a function object
 	/// created using boost::bind as a parameter.
-	template <typename T, typename Handler>
+	template <typename Handler>
 	void handle_read_header(const boost::system::error_code& e,
-		std::shared_ptr<T> t, boost::tuple<Handler> handler)
+		std::shared_ptr<NetworkMessage> t, boost::tuple<Handler> handler)
 	{
 		if (e)
 		{
@@ -118,7 +116,7 @@ private:
 			void (TCPConnection::*f)(
 				const boost::system::error_code&,
 				NetworkMessageType nm, boost::tuple<Handler>)
-				= &TCPConnection::handle_read_data<T, Handler>;
+				= &TCPConnection::handle_read_data<Handler>;
 			boost::asio::async_read(socket_, boost::asio::buffer(inbound_data_),
 				boost::bind(f, this, boost::asio::placeholders::error, (NetworkMessageType)message_type, handler));
 		}
@@ -126,7 +124,7 @@ private:
 
 
 	/// Handle a completed read of message data.
-	template <typename T, typename Handler>
+	template <typename Handler>
 	void handle_read_data(const boost::system::error_code& e,
 		NetworkMessageType nm, boost::tuple<Handler> handler)
 	{
@@ -204,9 +202,7 @@ public:
 
 	std::string getIPAddress();
 
-
-	template <typename T>
-	void send(std::shared_ptr<T> t) {
+	void send(std::shared_ptr<NetworkMessage> t) {
 		this->async_write(t, boost::bind(&TCPConnection::handle_write, this, boost::asio::placeholders::error, t)); 		
 	}
 

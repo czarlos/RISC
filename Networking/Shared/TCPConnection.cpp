@@ -43,7 +43,7 @@ void TCPConnection::handle_read(const boost::system::error_code &err, std::size_
 	this->bind_read();	
 }
 
-void TCPConnection::handle_write(const boost::system::error_code& error, NetworkMessage * msg)
+void TCPConnection::handle_write(const boost::system::error_code& error, std::shared_ptr<NetworkMessage> msg)
 {	
 	if (!error) {
 
