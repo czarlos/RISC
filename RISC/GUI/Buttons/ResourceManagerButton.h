@@ -7,7 +7,7 @@ public:
 	ResourceManagerButton(sf::RenderWindow*, float, float, int, int, int, int);
 	void onMouseClick();
 	void setResourceManager(ResourceManager*);
-	~ResourceManagerButton();
+	virtual ~ResourceManagerButton();
 
 private:
 	ResourceManager * resourceManager;

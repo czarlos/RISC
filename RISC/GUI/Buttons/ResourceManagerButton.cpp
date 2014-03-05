@@ -9,6 +9,7 @@ void ResourceManagerButton::setResourceManager(ResourceManager* resourceManager)
 }
 
 void ResourceManagerButton::onMouseClick(){
+
 	if (this->event.type == sf::Event::MouseButtonPressed && this->shape->getGlobalBounds().contains(sf::Mouse::getPosition(*this->currentWindow).x, sf::Mouse::getPosition(*this->currentWindow).y)) {
 		sf::RenderWindow techManagerInfo(sf::VideoMode(320, 480), "Resource Manager");
 		UnitPainter* up = new UnitPainter(&techManagerInfo);

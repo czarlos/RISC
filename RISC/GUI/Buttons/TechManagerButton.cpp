@@ -1,5 +1,4 @@
 #include "TechManagerButton.h"
-
 TechManagerButton::TechManagerButton(sf::RenderWindow* buttonWindow, float scaleFontX, float scaleFontY, int widthpxl, int heightpxl, int x, int y) :Button(buttonWindow, scaleFontX, scaleFontY,  widthpxl,  heightpxl,  x, y){
 	this->text->setString("Tech Manager");
 	this->loadFont();
@@ -12,6 +11,11 @@ void TechManagerButton::setTechManager(TechnologyManager* techManager){
 void TechManagerButton::onMouseClick(){
 	if (this->event.type == sf::Event::MouseButtonPressed && this->shape->getGlobalBounds().contains(sf::Mouse::getPosition(*this->currentWindow).x, sf::Mouse::getPosition(*this->currentWindow).y)) {
 		sf::RenderWindow techManagerInfo(sf::VideoMode(320, 480), "Tech Manager");
+		UnitPainter* up = new UnitPainter(&techManagerInfo);
+		techManagerInfo.setPosition(Vector2i(0, 0));
+
+		sf::Text* level = new sf::Text();
+		PopupWindows::makeText(level, "Current Technology Level: ", font, 10, 10, 14);
 
 		UnitPainter* background= new UnitPainter(&techManagerInfo);
 		techManagerInfo.setPosition(Vector2i(0, 0));
@@ -37,6 +41,7 @@ void TechManagerButton::onMouseClick(){
 			 techManagerInfo.display();
 		}
 	}
+
 }
 
 void TechManagerButton::loadFont(){
@@ -46,7 +51,6 @@ void TechManagerButton::loadFont(){
 
 void TechManagerButton::updateView(sf::RenderWindow* window){
 	int endPxl = 0;
-
 	TextToDisplay::displayText(window, "This is my current tech level:", this->font, 0, 0);
 	TextToDisplay::displayText(window, IntToString::intToString(this->techManager->getCurrentLevel()), this->font, 195, 0);
 	TextToDisplay::displayText(window, "This is my current tech points:", this->font, 0, 20);
@@ -65,6 +69,7 @@ void TechManagerButton::updateView(sf::RenderWindow* window){
 	endPxl = endPxl + 20;
 	endPxl = this->displayList(this->techManager->getAllUnavalibleUpgrades(), 20, endPxl, window);
 }
+
 
 int TechManagerButton::displayList(vector<UnitType*>listOfUnits, int pxlApart, int startPxl, sf::RenderWindow* window){
 	int numApart = startPxl;
