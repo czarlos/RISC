@@ -8,6 +8,10 @@ MainView::MainView() {
 }
 
 void MainView::showMainView() {
+	/*Views*/
+	View resource_view(FloatRect(0, 0, (WIDTH / 5), HEIGHT));
+	View game_view(FloatRect(-(160), 0, WIDTH, HEIGHT));
+
 	/*Prepare Clients and Server*/
 	GameState* state1 = new GameState();
 	GameState* state2 = new GameState();
@@ -16,10 +20,11 @@ void MainView::showMainView() {
 
 
 	/*Display Stuff*/
-	sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "RISC");
+	sf::RenderWindow window(sf::VideoMode(WIDTH+(300), HEIGHT), "RISC");
 	UnitPainter* up = new UnitPainter(&window);
 	BoardPainter* bp = new BoardPainter(&window);
 	window.setFramerateLimit(10);
+	window.setView(resource_view);
 
 	Board* board = new Board();
 	board->generateFixedBoard();
@@ -58,6 +63,7 @@ void MainView::showMainView() {
 	auto resource_window = sfg::Window::Create();
 	resource_window->SetTitle("Hello world!");
 	resource_window->Add(box);
+	resource_window->SetRequisition(Vector2f((WIDTH/5), HEIGHT));
 	sfg::Desktop desktop;
 	desktop.Add(resource_window);
 
@@ -139,7 +145,7 @@ void MainView::showMainView() {
 
 		desktop.Update(clock.restart().asSeconds());
 		m_sfgui.Display(window);
-
+		window.setView(game_view);
 		window.display();
 	}
 
