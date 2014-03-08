@@ -1,20 +1,22 @@
 #pragma once
 
-#include <GL/glew.h>
-#include <SFGUI/SFGUI.hpp>
+#include "GL/glew.h"
+#include <cstdlib>
+
 #include <SFML/Graphics.hpp>
 
-const int SCREEN_WIDTH = 800;
-const int SCREEN_HEIGHT = 600;
+// Always include the necessary header files.
+// Including SFGUI/SFGUI.hpp includes everything
+// you can possibly need automatically.
+#include <SFGUI/SFGUI.hpp>
+#include <SFGUI/DejaVuSansFont.hpp>
 
-class HelloWorld {
+class SampleSFGUI {
 public:
 	// Our button click handler.
-	HelloWorld();
 	void OnButtonClick();
 
 	void Run();
-	virtual ~HelloWorld();
 
 private:
 	// Create an SFGUI. This is required before doing anything with SFGUI.

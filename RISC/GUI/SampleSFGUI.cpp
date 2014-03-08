@@ -1,19 +1,25 @@
 #include "SampleSFGUI.h"
 
-HelloWorld::HelloWorld() {
+const int SCREEN_WIDTH = 400;
+const int SCREEN_HEIGHT = 300;
 
+void SampleSFGUI::OnButtonClick() {
+	m_label->SetText("Hello SFGUI, pleased to meet you!");
 }
 
-void HelloWorld::Run() {
+void SampleSFGUI::Run() {
+
 	// Create SFML's window.
 	sf::RenderWindow render_window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), "Hello world!");
+
+
 
 	// Create the label.
 	m_label = sfg::Label::Create("Hello world!");
 
 	// Create a simple button and connect the click signal.
 	auto button = sfg::Button::Create("Greet SFGUI!");
-	button->GetSignal(sfg::Widget::OnLeftClick).Connect(std::bind(&HelloWorld::OnButtonClick, this));
+	button->GetSignal(sfg::Widget::OnLeftClick).Connect(std::bind(&SampleSFGUI::OnButtonClick, this));
 
 	// Create a vertical box layouter with 5 pixels spacing and add the label
 	// and button to it.
@@ -30,6 +36,11 @@ void HelloWorld::Run() {
 	sfg::Desktop desktop;
 	desktop.Add(window);
 
+	sf::ContextSettings settings = render_window.getSettings();
+	std::cout << settings.majorVersion << "." << settings.minorVersion << std::endl;
+
+	//desktop.SetProperty("*", "Arial", "../Resources/Fonts/arial.ttf");
+
 	// We're not using SFML to render anything in this program, so reset OpenGL
 	// states. Otherwise we wouldn't see anything.
 	render_window.resetGLStates();
@@ -39,10 +50,10 @@ void HelloWorld::Run() {
 	sf::Clock clock;
 
 	while (render_window.isOpen()) {
+
 		// Event processing.
 		while (render_window.pollEvent(event)) {
 			desktop.HandleEvent(event);
-
 			// If window is about to be closed, leave program.
 			if (event.type == sf::Event::Closed) {
 				render_window.close();
@@ -57,13 +68,4 @@ void HelloWorld::Run() {
 		m_sfgui.Display(render_window);
 		render_window.display();
 	}
-}
-
-
-void HelloWorld::OnButtonClick() {
-	m_label->SetText("Hello SFGUI, pleased to meet you!");
-}
-
-HelloWorld::~HelloWorld() {
-
 }

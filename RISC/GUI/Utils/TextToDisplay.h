@@ -1,7 +1,7 @@
 
-#include <Window.hpp>
+#include <SFML\Window.hpp>
 #include <SFML\Graphics.hpp>
-#include <Text.hpp>
+#include <SFML\Graphics\Text.hpp>
 #include <iostream>
 #include <string>
 #include "../UnitPainter.h"
