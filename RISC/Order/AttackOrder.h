@@ -4,15 +4,18 @@
 #include "../GameMap/Location.h"
 #include "Order.h"
 #include "../GameObject/CombatObject.h"
+#include "AttackResponse.h"
 
 class AttackOrder : public Order {
 	
-private:
-	Location myLocation;
-	CombatObject myCombatObject;
 public:
-	AttackOrder(Location* destination, CombatObject* obj);
-	void execute(GameState* gameState);
+	//constructor for attackOrder
+	AttackOrder(Location* source, Location* destination);
+	//attack order execute and returns a response
+	Response* execute(GameState* gamestate);
 	~AttackOrder();
 
+private:
+	Location* mySource;
+	Location* myDestination;
 };

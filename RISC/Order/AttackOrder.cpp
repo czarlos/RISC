@@ -1,21 +1,20 @@
-//
-//  AttackOrder.cpp
-//  RISC
-//
-//  Created by Carlos Reyes on 1/18/14.
-//  Copyright (c) 2014 Carlos Reyes. All rights reserved.
-//
-
 #include "AttackOrder.h"
 
-AttackOrder::AttackOrder(Location* destination, CombatObject* obj) : Order(){
-	this->myLocation = *destination;
-	this->myCombatObject = *obj;
+AttackOrder::AttackOrder(Location* source, Location* destination) : Order(){
+	this->mySource = source;
+	this->myDestination = destination;
 }
 
-
-void AttackOrder::execute(GameState* gameState) {
-	
+Response* AttackOrder::execute(GameState* state) {
+	Territory* sourceTerr = state->getTerritoryByLocation(mySource);
+	Territory* destinationTerr = state->getTerritoryByLocation(myDestination);
+	if (sourceTerr!=nullptr && destinationTerr!=nullptr) {
+		Response* response = new AttackResponse(sourceTerr, destinationTerr);
+		return response;
+	}
+	else {
+		return nullptr;
+	}
 }
 
 AttackOrder::~AttackOrder() {

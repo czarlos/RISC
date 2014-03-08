@@ -8,23 +8,45 @@
 
 #include "MovementOrder.h"
 
-MovementOrder::MovementOrder(Location* destination, MovableObject* object) : Order(){
-	this->myDestination = *destination;
-	this->myObject = *object;
+MovementOrder::MovementOrder(Location* destination, Unit* object) : Order(){
+	this->myDestination = destination;
+	this->myObject = object;
+}
+
+
+/* Moves a Movable Object from its current location to
+ * a specified destination location, if the distance to
+ * the desired location is <= its movement range, it moves
+ * the unit, otherwise it does nothing.
+ */
+
+Response* MovementOrder::execute(GameState* state) {
+
+	Location* initialLocation = state->getUnitLocation(myObject);
+	
+	// Check if occupied by enemies
+	string owner = state->getTerritoryByLocation(myDestination)->getOwner();
+	bool occupied = state->getTerritoryByLocation(myDestination)->getTerritoryContents().empty();
+	string me = myObject->getTeamName();
+	
+	if (occupied!=false && owner != me) {
+		return nullptr;
+	}
+
+	// Check if the location exists
+	if (myDestination == nullptr) {
+		return nullptr;
+	}
+
+	if (MathUtilities::findDistance(initialLocation, myDestination)
+		<= myObject->getMovementRange()) {
+		Response* movementResponse = new MovementResponse(this->myObject, this->myDestination);
+		return movementResponse;
+	}
+
+	return nullptr;;
 }
 
 MovementOrder::~MovementOrder() {
-	
-}
 
-void MovementOrder::execute(GameState* gameState) {
-	
-	Board* board = gameState->getBoard();
-	
-	if (MathUtilities::findDistance(board->getObjectLocation(&myObject), &myDestination) <= (double) (myObject.getMovementRange())) {
-		//send the signal to move it
-	}
-	else {
-		//send it not to
-	}
 }

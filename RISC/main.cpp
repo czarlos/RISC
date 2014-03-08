@@ -1,16 +1,16 @@
-#include <iostream>
-#include "GameMap/Board.h"
+#pragma once
+
+#include "GUI\SampleSFGUI.h"
+#include "GUI/MainView.h"
+#include "SFGUI\SFGUI.hpp"
 
 
-int main(int argc, char* argv[]) {
-	std::cout << "Hello there" << std::endl;
-	Board board = Board();
+int main() {
+	//SampleSFGUI example;
+	//example.Run();
 
-
-	board.generateBoard();
-
-
-	while (true) {}
+	MainView* viewport = new MainView();
+	viewport->showMainView();
+	delete(viewport);
 	return 0;
 }
-

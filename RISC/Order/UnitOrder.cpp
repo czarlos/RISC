@@ -14,8 +14,9 @@ UnitOrder::UnitOrder(Location* source, Location* destination, GameObject* object
 	this->myObject = *object;
 }
 
-void UnitOrder::execute(GameState* gameState) {
-	
+Response* UnitOrder::execute(GameState* gamestate) {
+
+	return nullptr;
 }
 
 UnitOrder::~UnitOrder() {

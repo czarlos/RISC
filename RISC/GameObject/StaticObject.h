@@ -2,10 +2,10 @@
 #include <iostream>
 #include "CombatObject.h"
 
-class StaticObject : CombatObject {
+class StaticObject : public CombatObject {
 	
 public:
-	StaticObject(int health, std::vector<Weapon> weaponList, std::string teamName, std::string objID);
+	StaticObject(int health, std::string teamName, std::string objID);
 	~StaticObject();
 };
 

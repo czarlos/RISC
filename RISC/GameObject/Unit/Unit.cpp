@@ -8,31 +8,36 @@
 
 #include "Unit.h"
 
-Unit::Unit(){
-	this->myUnitID = "null";
-	this->myTurnStatus = 0;
+Unit::Unit() {
 }
 
-Unit::Unit(int health, string teamName, string objID, int movementRange) : MovableObject(health, teamName, objID, movementRange) {
-	this->myTurnStatus = 0;
+Unit::Unit(int health, UnitType* unitType, string teamName, string objID, int movementRange) : MovableObject(health, teamName, objID, movementRange) {
+	this->myTurnStatus = false;
+	this->myUnitType = unitType;
 }
 
-Unit::Unit(int health, std::vector<Weapon> weaponList, std::string teamName, std::string objID, int movementRange) : MovableObject(health, weaponList, teamName, objID, movementRange) {
-	this->myTurnStatus = 0;
+bool Unit::getTurnStatus() {
+	return myTurnStatus;
 }
 
-int Unit::getTurnStatus() {
-	return this->myTurnStatus;
+int Unit::getCombatBonus() {
+	return this->myUnitType->getCombatBonus();
 }
 
-void Unit::setDone() {
-	this->myTurnStatus = 1;
+string Unit::getGameObjectID(){
+	return this->myUnitID;
 }
 
-void Unit::setReset() {
-	this->myTurnStatus = 0;
+void Unit::setTurnStatus(bool turnStatus) {
+	this->myTurnStatus = turnStatus;
 }
 
-Unit::~Unit(){
-
+UnitType* Unit::getUnitType() {
+	return myUnitType;
 }
+
+void Unit::setUnitType(UnitType unitType) {
+	this->myUnitType = &unitType;
+}
+
+Unit::~Unit(){}

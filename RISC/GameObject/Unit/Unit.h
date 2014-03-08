@@ -2,18 +2,31 @@
 #include <iostream>
 #include <vector>
 #include "../MovableObject.h"
+#include "UnitType.h"
+
+using namespace std;
 
 class Unit : public MovableObject {
 
 
 private:
-	int myTurnStatus;
+	bool myTurnStatus = false;
 	string myUnitID;
+	UnitType* myUnitType;
+
+
 public:
+	const int RMAX = 20;
 	Unit();
-	Unit(int health, string teamName, string unitID, int movementRange);
-	Unit(int health, vector<Weapon> weaponList, string teamName, string unitID, int movementRange);
-	int getTurnStatus();
+	Unit(int health, UnitType* unitType, string teamName, string unitID, int movementRange);
+	bool getTurnStatus();
+	void setTurnStatus(bool turnStatus);
+	UnitType* getUnitType();
+	void setUnitType(UnitType unitType);
+	string getGameObjectID();
+
+	int getCombatBonus();
+
 	void setDone();
 	void setReset();
 	~Unit();

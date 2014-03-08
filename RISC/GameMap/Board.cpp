@@ -7,11 +7,10 @@ Board::Board(){
 
 	this->gameMap.resize(NUM_OF_TERRITORYS);
 	for (size_t i = 0; i < this->gameMap.size(); i++) {
-		this->gameMap[i] = vector<Edge>();
+		this->gameMap[i] = vector<Edge*>();
 		this->gameMap[i].resize(NUM_OF_TERRITORYS);
 	}
 }
-
 
 void Board::generateBoard(){
 	//randomly generate and place the territory in the matrix
@@ -19,9 +18,8 @@ void Board::generateBoard(){
 	vector<Territory> listOfTerritories = populateListOfTerritories();
 
 	srand((unsigned int) time(NULL));
-	//this->gameMap = list<list<Edge>>();
-	Territory endPointA = Territory();
-	Territory endPointB = Territory();
+	Territory* endPointA = new Territory();
+	Territory* endPointB = new Territory();
 	double edgeWeight;
 
 	for (int i = 0; i < NUM_OF_EDGES; i++){
@@ -29,28 +27,28 @@ void Board::generateBoard(){
 		
 		edgeWeight = MIN_EDGE_WEIGHT + ((double)rand() / RAND_MAX)*(MAX_EDGE_WEIGHT - MIN_EDGE_WEIGHT);
 		int idxA = rand() % NUM_OF_TERRITORYS;
-		cout << idxA << endl;
+		//cout << idxA << endl;
 		advance(iter, idxA);
-		endPointA = (*iter);
+		endPointA = &(*iter);
 
-		//cout << endPointA.getTerritoryID() << endl;
+		//cout << endPointA->getTerritoryID() << endl;
 
 		iter = listOfTerritories.begin();
 		int idxB = rand() % NUM_OF_TERRITORYS;
-		cout << idxB << endl;
+		//cout << idxB << endl;
 
 		advance(iter, idxB);
-		endPointB = *iter;
+		endPointB = &(*iter);
 
-		//cout << endPointB.getTerritoryID() << endl;
+		//cout << endPointB->getTerritoryID() << endl;
 
 
-		if (endPointA.getTerritoryID() == endPointB.getTerritoryID()){
+		if (endPointA->getTerritoryID() == endPointB->getTerritoryID()){
 
 			i--;
 		}
 		else{
-			Edge edge= Edge(endPointA, endPointB, edgeWeight);
+			Edge* edge= new Edge(endPointA, endPointB, edgeWeight);
 
 			this->gameMap[idxA][idxB] = edge;
 			this->gameMap[idxB][idxA] = edge;
@@ -60,8 +58,89 @@ void Board::generateBoard(){
 	//this->printGameMap();
 }
 
+
+void Board::generateFixedBoard(){
+	Territory * a = new Territory("wei", new Location(700, 300));
+	Territory * b = new Territory("let", new Location(500, 300));
+	Territory * c = new Territory("us", new Location(850, 300));
+	Territory * d = new Territory("not", new Location(400, 500));
+	Territory * e = new Territory("do", new Location(200, 500));
+	Territory * f = new Territory("that", new Location(800, 500));
+
+	a->setOwner("Carlos");
+	b->setOwner("Carlos");
+	c->setOwner("Carlos");
+	d->setOwner("Wei");
+	e->setOwner("Wei");
+	f->setOwner("Wei");
+
+
+	Edge* edge1 = new Edge(a,b,20);
+	Edge* edge2 = new Edge(a,c,20);
+	Edge* edge3 = new Edge(a,d, 20);
+	Edge* edge4 = new Edge(a, f, 20);
+	Edge* edge5 = new Edge(a, e, 20);
+	Edge* edge6 = new Edge(c, b, 20);
+	Edge* edge7 = new Edge(c, d, 20);
+	Edge* edge8 = new Edge(c, f, 20);
+	Edge* edge9 = new Edge(c, e, 20);
+	Edge* edge10 = new Edge(e, f, 20);
+	Edge* edge11 = new Edge(e, d, 20);
+	Edge* edge12 = new Edge(e, b, 20);
+	Edge* edge13 = new Edge(f, d, 20);
+	Edge* edge14 = new Edge(f, b, 20);
+	Edge* edge15 = new Edge(d, b, 20);
+
+
+
+	this->gameMap[0][0] = nullptr;
+	this->gameMap[0][1]= edge1;
+	this->gameMap[0][2]= edge2;
+	this->gameMap[0][3]= edge3;
+	//this->gameMap[0][4]= edge4;
+	//this->gameMap[0][5]= edge5;
+	this->gameMap[1][0]= edge1;
+	this->gameMap[1][1] = nullptr;
+	this->gameMap[1][2]= edge6;
+	this->gameMap[1][3]= edge15;
+	this->gameMap[1][4]= edge12;
+	this->gameMap[1][5]= edge14;
+	this->gameMap[2][0]= edge2;
+	this->gameMap[2][1]= edge6;
+	this->gameMap[2][2] = nullptr;
+	this->gameMap[2][3]= edge7;
+	this->gameMap[2][4]= edge9;
+	this->gameMap[2][5]= edge8;
+	this->gameMap[3][0]= edge3;
+	this->gameMap[3][1]= edge15;
+	this->gameMap[3][2]= edge7;
+	this->gameMap[3][3] = nullptr;
+	this->gameMap[3][4]= edge11;
+	this->gameMap[3][5]= edge13;
+	//this->gameMap[4][0]= edge5;
+	this->gameMap[4][1]= edge12;
+	this->gameMap[4][2]= edge9;
+	this->gameMap[4][3]= edge11;
+	this->gameMap[4][4] = nullptr;
+	this->gameMap[4][5]= edge10;
+	//this->gameMap[5][0]= edge4;
+	this->gameMap[5][1]= edge14;
+	this->gameMap[5][2]= edge8;
+	this->gameMap[5][3]= edge13;
+	this->gameMap[5][4]= edge10;
+	this->gameMap[5][5] = nullptr;
+
+
+	
+
+
+}
+
+
+
+
 vector<Territory> Board::populateListOfTerritories(){
-	vector<Location> *assignedLocations = new vector<Location>();
+	vector<Location*> assignedLocations = vector<Location*>();
 	char id = 'a';
 	stringstream ss;
 	string sid;
@@ -78,19 +157,19 @@ vector<Territory> Board::populateListOfTerritories(){
 	return listOfTerritories;
 }
 
-Location Board::generateRandLocation(vector<Location> *assignedLocations){
+Location* Board::generateRandLocation(vector<Location*> assignedLocations){
 
 	double randYCoor;
 	double randXCoor;
 	randXCoor = MIN_EDGE_WEIGHT + ((double)rand() / RAND_MAX)*(MAX_EDGE_WEIGHT - MIN_EDGE_WEIGHT);
 	randYCoor = MIN_EDGE_WEIGHT + ((double)rand() / RAND_MAX)*(MAX_EDGE_WEIGHT - MIN_EDGE_WEIGHT);
-	for (vector<Location>::iterator iter = assignedLocations->begin(); iter != assignedLocations->end(); ++iter){
+	for (vector<Location*>::iterator iter = assignedLocations.begin(); iter != assignedLocations.end(); ++iter){
 		
-		if (iter->getX() == randXCoor && iter->getY() == randYCoor){
+		if ((*iter)->getX() == randXCoor && (*iter)->getY() == randYCoor){
 			return generateRandLocation(assignedLocations);
 		}
 	}
-	return Location(randXCoor, randYCoor);
+	return new Location(randXCoor, randYCoor);
 }
 
 int Board::getNumberOfTerritories(){
@@ -102,28 +181,29 @@ double Board::getBoardSize(){
 }
 
 int Board::getNumberofEdges(){
+	//Note: if multiple edges connect to the same two endpoints,
+	//they are considered to be the same edge
 	return this->numOfEdges;
 }
 
-vector<Territory> *Board::getAdjacentTerritory(Territory *territory){
+vector<Territory*> Board::getAdjacentTerritory(Territory *territory){
 
-	//NOTE: neighborterritories is better to be declare as a pointer because returning a pointer to
-	// the list of territories is much more memory efficient.
-
-	vector<Territory> *neighborTerritories;
-	neighborTerritories = new  vector<Territory>();
+	vector<Territory*> neighborTerritories;
+	neighborTerritories = vector<Territory*>();
 	
-	for (vector<vector<Edge>>::iterator itero = this->gameMap.begin(); itero != this->gameMap.end(); ++itero){
-		for (vector<Edge>::iterator iteri = (*itero).begin(); iteri != (*itero).end(); ++iteri){
-			if ((*iteri).getEndPointATerritory().getTerritoryID() == territory->getTerritoryID()){
-				neighborTerritories->push_back((*iteri).getEndPointBTerritory());
+	for each (vector<Edge*> edgeVector in gameMap)
+	{
+		for each (Edge *edge in edgeVector)
+		{
+			if (edge->getEndPointATerritory()->getTerritoryID() == territory->getTerritoryID())
+			{
+				neighborTerritories.push_back(edge->getEndPointBTerritory());
 			}
-			if ((*iteri).getEndPointBTerritory().getTerritoryID() == territory->getTerritoryID()){
-				neighborTerritories->push_back((*iteri).getEndPointATerritory());
+			if (edge->getEndPointBTerritory()->getTerritoryID() == territory->getTerritoryID()) {
+				neighborTerritories.push_back(edge->getEndPointATerritory());
 			}
 		}
 	}
-
 	return neighborTerritories;
 }
 
@@ -139,51 +219,53 @@ vector<Territory> *Board::getAdjacentTerritory(Territory *territory){
 //}
 
 //NOTE: Possiblity re-do this method
-Territory Board::getTerritory(Location location){
-	Territory desireTerritory;
-	desireTerritory = Territory();
+Territory* Board::getTerritory(Location* location){
+	Territory* desireTerritory;
+	desireTerritory = new Territory();
 
-	for (vector<vector<Edge>>::iterator itero = this->gameMap.begin(); itero != this->gameMap.end(); ++itero){
-		for (vector<Edge>::iterator iteri = (*itero).begin(); iteri != (*itero).end(); ++iteri){
-			if ((*iteri).getEndPointATerritory().getLocation().getX() == location.getX() && (*iteri).getEndPointATerritory().getLocation().getY() == location.getY()){
-				desireTerritory = (*iteri).getEndPointATerritory();
+	for each (vector<Edge*> edgeList in gameMap)
+	{
+		for each (Edge *edge in edgeList)
+		{
+			if (edge->getEndPointATerritory()->getLocation()->getX() == location->getX() && edge->getEndPointATerritory()->getLocation()->getY() == location->getY()) {
+				desireTerritory = edge->getEndPointATerritory();
 			}
-
-			if ((*iteri).getEndPointBTerritory().getLocation().getX() == location.getX() && (*iteri).getEndPointBTerritory().getLocation().getY() == location.getY()){
-				desireTerritory = (*iteri).getEndPointBTerritory();
+			if (edge->getEndPointBTerritory()->getLocation()->getX() == location->getX() && edge->getEndPointBTerritory()->getLocation()->getY() == location->getY()) {
+				desireTerritory = edge->getEndPointBTerritory();
 			}
-
 		}
 	}
+
 	return desireTerritory;
 
 }
 
-vector<Territory> *Board::getAdjacentTerritoryByLocation(Location location){
-	return getAdjacentTerritory(&(getTerritory(location)));
+vector<Territory*> Board::getAdjacentTerritoryByLocation(Location* location){
+	return getAdjacentTerritory(getTerritory(location));
 }
 
-vector<Unit> Board::getUnitListAtLocation(Location location){
+//vector<Unit> Board::getUnitListAtLocation(Location location){
+//
+//	return getTerritory(location).getTerritoryContents();
+//}
 
-	return getTerritory(location).getTerritoryContent();
-}
 
 void Board::printGameMap(){
-	for (vector<vector<Edge>>::iterator itero = this->gameMap.begin(); itero != this->gameMap.end(); itero++){
-		for (vector<Edge>::iterator iteri = (*itero).begin(); iteri != (*itero).end(); iteri++){
-			if ((*iteri).getEndPointATerritory().getTerritoryID() != "null" && (*iteri).getEndPointBTerritory().getTerritoryID() != "null"){
+	for (vector<vector<Edge*>>::iterator itero = this->gameMap.begin(); itero != this->gameMap.end(); itero++){
+		for (vector<Edge*>::iterator iteri = (*itero).begin(); iteri != (*itero).end(); iteri++){
+			if ((*iteri)->getEndPointATerritory()->getTerritoryID() != "null" && (*iteri)->getEndPointBTerritory()->getTerritoryID() != "null"){
 				cout << "this is my A" << endl;
 				cout << "this is the territory name:" << endl;
-				cout << ((*iteri).getEndPointATerritory()).getTerritoryID() << endl;
+				cout << ((*iteri)->getEndPointATerritory())->getTerritoryID() << endl;
 				cout << "this is my location:" << endl;
-				cout << ((*iteri).getEndPointATerritory()).getLocation().getX() << endl;
-				cout << ((*iteri).getEndPointATerritory()).getLocation().getY() << endl;
+				cout << ((*iteri)->getEndPointATerritory())->getLocation()->getX() << endl;
+				cout << ((*iteri)->getEndPointATerritory())->getLocation()->getY() << endl;
 				cout << "this is my B" << endl;
 				cout << "this is the territory name:" << endl;
-				cout << ((*iteri).getEndPointBTerritory()).getTerritoryID() << endl;
+				cout << ((*iteri)->getEndPointBTerritory())->getTerritoryID() << endl;
 				cout << "this is my location:" << endl;
-				cout << ((*iteri).getEndPointBTerritory()).getLocation().getX() << endl;
-				cout << ((*iteri).getEndPointBTerritory()).getLocation().getY() << endl;
+				cout << ((*iteri)->getEndPointBTerritory())->getLocation()->getX() << endl;
+				cout << ((*iteri)->getEndPointBTerritory())->getLocation()->getY() << endl;
 				cout << "------------------------------------------------" << endl;
 			}
 		}
@@ -191,8 +273,8 @@ void Board::printGameMap(){
 
 }
 
-Location* Board::getObjectLocation(GameObject* gameObject) {
-	return NULL;
+vector<vector<Edge*>> Board::getGameMap() {
+	return this->gameMap;
 }
 
 Board::~Board()

@@ -2,16 +2,17 @@
 
 #include <iostream>
 #include "../GameState/GameState.h"
+#include "Response.h"
 
 class Order {
-private:
-	//GameState myState;
 public:
+	//constructor for orders
 	Order();
-	//Order(GameState* state);
-	virtual ~Order() {};
-protected:
-	//virtual void execute(GameState* state) = 0;
-	virtual void execute(GameState* gameState) = 0;
+
+	//execute and returns a response
+	virtual Response* execute(GameState* gamestate);
+	//destructor for orders
+	virtual ~Order();
+
 };
 

@@ -8,21 +8,13 @@
 
 #include "CombatObject.h"
 
-CombatObject::CombatObject(int health, vector<Weapon> weaponList, string teamName, string objID) : PlayerObject(teamName, objID) {
-	this->myHealth = health;
-	this->myWeaponList = weaponList;
-}
-
 CombatObject::CombatObject(int health, string teamName, string objID) : PlayerObject(teamName, objID) {
 	this->myHealth = health;
 }
 
-CombatObject::CombatObject() {
-	
-}
 
-void CombatObject::addWeapon(Weapon weapon) {
-	(this->myWeaponList).push_back(weapon);
+CombatObject::CombatObject() {
+	this->myHealth = 1;
 }
 
 
@@ -30,10 +22,6 @@ void CombatObject::addWeapon(Weapon weapon) {
 
 int CombatObject::getHealth() {
 	return this->myHealth;
-}
-
-std::vector<Weapon> CombatObject::getWeaponsList() {
-	return this->myWeaponList;
 }
 
 CombatObject::~CombatObject() {

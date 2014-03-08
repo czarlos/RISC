@@ -13,15 +13,20 @@
 #include "../GameMap/Location.h"
 #include "../Utilities/MathUtilities.h"
 #include "../GameObject/MovableObject.h"
+#include "../GameState/GameState.h"
 #include "Order.h"
+#include "MovementResponse.h"
 
 class MovementOrder : public Order {
-private:
-	Location myDestination;
-	MovableObject myObject;
-	//void execute(GameState* state);
+
 public:
-	MovementOrder(Location* destination, MovableObject* object);
-	void execute(GameState* gameState);
+	//movement order constructor
+	MovementOrder(Location* destination, Unit* object);
+	//execute of movement
+	Response* execute(GameState* state);
 	~MovementOrder();
+
+private:
+	Location* myDestination;
+	Unit* myObject;
 };

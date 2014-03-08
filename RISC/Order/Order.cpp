@@ -1,12 +1,13 @@
-//
-//  Order.cpp
-//  RISC
-//
-//  Created by Carlos Reyes on 1/18/14.
-//  Copyright (c) 2014 Carlos Reyes. All rights reserved.
-//
-
 #include "Order.h"
 
 Order::Order() {
+
+}
+
+//even though this method is not suppose to be implemented here, there still needs to be a definition of it
+Response* Order::execute(GameState* gamestate){
+	return nullptr;
+}
+
+Order::~Order(){
 }
