@@ -46,8 +46,25 @@ void MainView::showMainView() {
 	currentClient->setTurnStatus(true);
 	int next = 1;
 
+	m_label = sfg::Label::Create("Hello world!");
+	/*Button*/
+	auto button = sfg::Button::Create("Greet SFGUI!");
+	button->GetSignal(sfg::Widget::OnLeftClick).Connect(std::bind(&MainView::OnButtonClick, this));
+	/*Box*/
+	auto box = sfg::Box::Create(sfg::Box::Orientation::VERTICAL, 5.0f);
+	box->Pack(m_label);
+	box->Pack(button, false);
+	/*Resource Window*/
+	auto resource_window = sfg::Window::Create();
+	resource_window->SetTitle("Hello world!");
+	resource_window->Add(box);
+	sfg::Desktop desktop;
+	desktop.Add(resource_window);
 
 	/*Window execute loop*/
+	window.resetGLStates();
+	sf::Event event;
+	sf::Clock clock;
 	while (window.isOpen())
 	{
 		cout << "Current Client is: " << currentClient->getUserName() << endl;
@@ -59,6 +76,7 @@ void MainView::showMainView() {
 
 		while (window.pollEvent(event))
 		{
+			desktop.HandleEvent(event);
 			if (event.type == sf::Event::Closed)
 				window.close();
 		}
@@ -119,6 +137,9 @@ void MainView::showMainView() {
 			currentClient->setTurnStatus(true);
 		}
 
+		desktop.Update(clock.restart().asSeconds());
+		m_sfgui.Display(window);
+
 		window.display();
 	}
 
@@ -141,6 +162,10 @@ void MainView::showMainView() {
 		delete(client);
 	}
 
+}
+
+void MainView::OnButtonClick() {
+	m_label->SetText("Hello SFGUI, pleased to meet you!");
 }
 
 MainView::~MainView() {

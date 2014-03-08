@@ -1,6 +1,5 @@
 #pragma once
 
-#include "GUI\SampleSFGUI.h"
 #include "GUI/MainView.h"
 #include "SFGUI\SFGUI.hpp"
 
