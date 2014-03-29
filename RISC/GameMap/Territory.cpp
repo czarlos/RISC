@@ -10,6 +10,7 @@ Territory::Territory(){
 	this->production = vector<ResourceType*>();
 	this->location = new Location(0, 0);
 	this->contents = vector<Unit *>();
+	this->visible = false;
 	generateResourceProduction();
 }
 
@@ -21,6 +22,7 @@ Territory::Territory(string territoryID){
 	this->production = vector<ResourceType*>();
 	this->location = new Location(0, 0);
 	this->contents = vector<Unit *>();
+	this->visible = false;
 	generateResourceProduction();
 }
 
@@ -33,8 +35,21 @@ Territory::Territory(string territoryID, Location* location)
 	this->maxResourceProduction = MAX_RESOURCE_PRODUCTION;
 	this->production = vector<ResourceType*>();
 	this->contents = vector<Unit*>();
+	this->visible = false;
 	generateResourceProduction();
 }
+
+int Territory::Compare(const Territory& t)const{
+	if (this->territoryID < t.territoryID){
+		return -1;
+	}
+	else if (this->territoryID > t.territoryID){
+		return 1;
+	}
+
+	return 0;
+}
+
 
 void Territory::generateResourceProduction(){
 	vector<ResourceType*> possibleResources = vector<ResourceType*>();
@@ -114,6 +129,15 @@ void Territory::addToProduction(ResourceType* resourceType){
 vector<ResourceType*> Territory::getProduction(){
 	return this->production;
 }
+
+void Territory::setIsVisible(bool visible){
+	this->visible = visible;
+}
+
+bool Territory::isVisible(){
+	return this->visible;
+}
+
 
 Territory::~Territory()
 {

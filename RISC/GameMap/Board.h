@@ -45,6 +45,8 @@ public:
 	vector<Territory*> getAdjacentTerritoryByLocation(Location* location);
 	//returns the game map
 	vector<vector<Edge*>> getGameMap();
+	vector<Territory*> getVisibleTerritories(string playerID);
+
 	~Board();
 
 private:
@@ -54,7 +56,8 @@ private:
 	//populates the list of avaliable territories to use for constructing the board
 	vector<Territory> populateListOfTerritories();
 	//bool checkIfOnBoard(Territory );
-
+	bool checkForSpies(Territory*);
+	bool checkAdjacentVisiblity();
 
 	int numOfEdges = NUM_OF_EDGES;
 	int numOfTerritories = NUM_OF_TERRITORYS;

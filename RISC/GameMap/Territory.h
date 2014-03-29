@@ -64,6 +64,16 @@ public:
 	vector<ResourceType*> getProduction();
 	//add to the territory's production
 	void addToProduction(ResourceType*);
+	void setIsVisible(bool isVisible);
+	bool isVisible();
+	bool checkVisiblity();
+	int Compare(const Territory& t)const;
+	bool operator == (const Territory& t)const{
+		return !Compare(t);
+	}
+	bool operator < (const Territory& t) const{
+		return Compare(t) < 0;
+	}
 
 	~Territory();
 
@@ -75,6 +85,7 @@ private:
 	int maxResourceProduction;
 	vector<ResourceType*> production;
 	vector<Unit*> contents;
+	bool visible;
 
 };
 

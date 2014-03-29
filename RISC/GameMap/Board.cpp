@@ -277,6 +277,19 @@ vector<vector<Edge*>> Board::getGameMap() {
 	return this->gameMap;
 }
 
+vector<Territory*> Board::getVisibleTerritories(string playerID){
+	vector<Territory*> listOfVisibleTerritories = vector<Territory*>();
+	//check for control
+	for each(vector<Edge*> vecOfEdges in this->gameMap){
+		for each(Edge* edges in vecOfEdges){
+
+
+		}
+	}
+
+}
+
+
 Board::~Board()
 {
 }
