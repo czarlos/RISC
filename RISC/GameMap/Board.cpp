@@ -289,6 +289,16 @@ vector<Territory*> Board::getVisibleTerritories(string playerID){
 
 }
 
+bool Board::checkForSpies(Territory* territory){
+	vector<Unit*> territoryContent = territory->getTerritoryContents();
+	for each(Unit* unit in territoryContent){
+		if (unit->getUnitType()->getType == "Spy"){
+			return true;
+		}
+	}
+	return false;
+}
+
 
 Board::~Board()
 {
