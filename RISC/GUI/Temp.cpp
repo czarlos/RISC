@@ -10,12 +10,11 @@ Temp::Temp() {
 void Temp::showMainView() {
 	/*Views*/	
 	View game_view;
-	game_view.setSize(Vector2f(WIDTH / 2, HEIGHT / 2));
 	game_view.reset(FloatRect(0, 0, WIDTH / 2, HEIGHT / 2));
 	game_view.setViewport(FloatRect(0.05f, 0.07f, 0.7f, 0.7f));
 	
 	/*Display Stuff*/
-	sf::RenderWindow window(sf::VideoMode(WIDTH + (WIDTH / 5), HEIGHT), "RISC");
+	sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "RISC");
 	UnitPainter* up = new UnitPainter(&window);
 	window.setFramerateLimit(10);
 
@@ -71,31 +70,27 @@ void Temp::showMainView() {
 
 void Temp::handleScrolling(View* game_view, Vector2f* position) {
 	if (Keyboard::isKeyPressed(Keyboard::Up)) {
-		if (position->y >= 0){
-			yCounter -= 5;
+		if (position->y > 0){
+			position->y -= 15;
 		}
 	}
 	if (Keyboard::isKeyPressed(Keyboard::Down)) {
-		if (position->y <= game_view->getSize().y*0.5){
-			yCounter += 5;
+		if (position->y < game_view->getSize().y){
+			position->y += 15;
 		}
 	}
 	if (Keyboard::isKeyPressed(Keyboard::Left)) {
-		if (position->x >= 0){
-			xCounter -= 5;
+		if (position->x > 0){
+			position->x -= 15;
 		}
 	}
 	if (Keyboard::isKeyPressed(Keyboard::Right)) {
-		if (position->x <= game_view->getSize().x*0.5){
-			xCounter += 5;
+		if (position->x < game_view->getSize().x){
+			position->x += 15;
 		}
 	}
-
-	position->x = xCounter;
-	position->y = yCounter;
 	
-	game_view->setCenter(*position);
-
+	game_view->reset(FloatRect(position->x, position->y, WIDTH/2, HEIGHT/2));
 
 }
 
