@@ -22,7 +22,7 @@ public:
 	//this will return 1-6 depending on the upgrades that are open for the player
 	int getCurrentLevel();
 	//check to see if the upgrade could be done
-	bool isUpgradeAllowed(Unit*,UnitType*);
+	bool isUpgradeAllowed(UnitType*);
 	//give the total cost to get to that upgrade if it is not avaliable
 	//else return 0 meaning the upgrade is avaliable
 	int calculateCostToUnlock(UnitType*);
@@ -40,22 +40,30 @@ public:
 	int getCurrentTechPoint();
 	//get the technology points needed for the next upgrade
 	int getNextUpgradeCost();
+	//**********unlockUpgrade currently is deprecated - dont use***************
 	//this should be call on the manager each turn cycle
 	//it will check the current techpoints deposited into the manager by the player
 	//and make an upgrade avaliable
 	//if some how the techpoints got reduce, it will also lock the upgrades
 	//called private method lockUpgrades() and updateHighestAvaUpgrade()
 	void unlockUpgrade();
+
 	void makeASpy(Unit*);
 	void unMakeASpy(Unit*);
 	bool canIMakeSpy();
 	bool canIUnMakeSpy(Unit*);
 	//return the highestAvaUpgrade
 	UnitType* getHighestAvaUpgrade();
+	
+	bool checkIfNextUgradeAvaliable();
+	void openNextUpgrade();
+
+
 
 	~TechnologyManager();
 
 private:
+	UnitType* findNextUpgrade();
 	//update the highestAvaUpgrade
 	void updateHighestAvaUpgrade();
 	//check to see if the techpoints deposited by the player is enough to support 

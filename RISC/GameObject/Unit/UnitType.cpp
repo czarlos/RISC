@@ -25,7 +25,7 @@ string UnitType::getNextUp(){
 }
 
 string UnitType::getPrevUp(){
-	return this->getNextUp;
+	return this->prevUp;
 }
 
 int UnitType::Compare(const UnitType& u)const{

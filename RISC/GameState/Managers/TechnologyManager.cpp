@@ -60,7 +60,7 @@ void TechnologyManager::unMakeASpy(Unit* unit){
 	}
 }
 
-bool TechnologyManager::isUpgradeAllowed(Unit* unit,UnitType* unitType){
+bool TechnologyManager::isUpgradeAllowed(UnitType* unitType){
 	
 	//check to see if the unitType if avaliable
 	for (vector<UnitType*>::iterator iter = this->possibleUpgrades.begin(); iter != this->possibleUpgrades.end(); iter++){
@@ -68,8 +68,6 @@ bool TechnologyManager::isUpgradeAllowed(Unit* unit,UnitType* unitType){
 			return false;
 		}
 	}
-	// check to see if the unit selected can be even upgraded directly
-
 	return false;
 }
 
@@ -112,6 +110,8 @@ int TechnologyManager::getCurrentTechPoint(){
 	return this->techPoint;
 }
 
+
+//unlockUpgrade currently is deprecated - dont use
 void TechnologyManager::unlockUpgrade(){
 	int pointsToSpent = this->techPoint;
 	int usedTechPoint = 0;
@@ -157,6 +157,42 @@ void TechnologyManager::updateHighestAvaUpgrade(){
 			}
 		}
 	}
+}
+
+//this is for upgrading the upgrades avaliable not units
+bool TechnologyManager::checkIfNextUgradeAvaliable(){
+	UnitType* nextUpgradeType = findNextUpgrade();
+	if (nextUpgradeType != nullptr){
+		if (this->techPoint >= nextUpgradeType->getCostToUnlock()){
+			return true;
+		}
+	}
+	return false;
+
+}
+
+void TechnologyManager::openNextUpgrade(){
+	//double check
+	if (checkIfNextUgradeAvaliable()){
+		UnitType* nextUpgradeType = findNextUpgrade();
+		this-> techPoint = this->techPoint - nextUpgradeType->getCostToUnlock();
+		this->possibleUpgrades.push_back(nextUpgradeType);
+		updateHighestAvaUpgrade();
+	}
+
+}
+
+UnitType* TechnologyManager::findNextUpgrade(){
+
+	string nameOfNextUpgrade = this->highestAvaUpgrade->getNextUp();
+	UnitType* nextUpgradeType = nullptr;
+	for each (UnitType* unitType in this->unavaliableUpgrades){
+		if (unitType->getType() == nameOfNextUpgrade){
+			nextUpgradeType = unitType;
+		}
+	}
+	
+	return nextUpgradeType;
 }
 
 TechnologyManager::~TechnologyManager()
