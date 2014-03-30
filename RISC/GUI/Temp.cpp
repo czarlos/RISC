@@ -9,17 +9,14 @@ Temp::Temp() {
 
 void Temp::showMainView() {
 
+	/*Scrolling Stuff*/
 	View resource_view;
 	resource_view.reset(FloatRect(0, 0, WIDTH, HEIGHT));
 	resource_view.setViewport(FloatRect(0.8f, 0, 0.8f, 1));
+	Vector2f position(0, 0);
 
-	Unit unit(10, &Infantry(), "money", "carlos", 10);
-	unitType = unit.getTeamName();
-
-	/*Views*/
 	View game_view;
 	game_view.reset(FloatRect(0, 0, WIDTH / 2, HEIGHT / 2));
-	//game_view.setViewport(FloatRect(0, 0, 1, 1));
 	game_view.setViewport(FloatRect(0.05f, 0.07f, 0.7f, 0.7f));
 
 	/*Display Stuff*/
@@ -33,18 +30,15 @@ void Temp::showMainView() {
 	bTexture.loadFromFile("Resources/map.jpg");
 	bImage.setTexture(bTexture);
 
-	Vector2f position(0, 0);
-
-	/*SFGUI junk*/
-	m_label = sfg::Label::Create("Resource Manager");
 	/*Button*/
 	auto button = sfg::Button::Create("Real Money");
-	auto button2 = sfg::Button::Create("Real Money");
+	auto button2 = sfg::Button::Create("Fake Money");
 	button->GetSignal(sfg::Widget::OnLeftClick).Connect(std::bind(&Temp::OnButtonClick, this));
 	button2->GetSignal(sfg::Widget::OnLeftClick).Connect(std::bind(&Temp::OnButtonClick, this));
 
 	/*Box*/
 	auto box = sfg::Box::Create(sfg::Box::Orientation::VERTICAL, 5.0f);
+	m_label = sfg::Label::Create("Resource Manager");
 	box->Pack(m_label);
 	box->Pack(button, false);
 	box->Pack(button2, false);
@@ -54,8 +48,6 @@ void Temp::showMainView() {
 	resource_window->SetTitle("Hello world!");
 	resource_window->Add(box);
 	resource_window->SetRequisition(Vector2f(WIDTH / 5, HEIGHT*1.2));
-	//resource_window->SetPosition(Vector2f(WIDTH, 0));
-	sfg::Desktop desktop;
 
 	/*SFML Render Window*/
 	auto sfml_window = sfg::Window::Create();
@@ -63,15 +55,18 @@ void Temp::showMainView() {
 	sfml_window->SetPosition(sf::Vector2f(WIDTH / 5, 0));
 	sfml_window->SetRequisition(Vector2f(WIDTH, HEIGHT));
 
+	/*Canvas for drawing SFML stuff*/
 	auto sfml_canvas = sfg::Canvas::Create();
 	sfml_window->Add(sfml_canvas);
 
-	/*Hood Rat Window*/
+	/*Information Window*/
 	auto information_window = sfg::Window::Create();
 	information_window->SetTitle("Information Window");
 	information_window->SetPosition(Vector2f(WIDTH / 5, HEIGHT));
 	information_window->SetRequisition(Vector2f(WIDTH, (HEIGHT*1.2) - HEIGHT));
 
+	/*Set up whats on the Desktop*/
+	sfg::Desktop desktop;
 	desktop.Add(resource_window);
 	desktop.Add(sfml_window);
 	desktop.Add(information_window);
@@ -97,30 +92,40 @@ void Temp::showMainView() {
 
 		sfml_canvas->Bind();
 		sfml_canvas->Clear(sf::Color(0, 0, 0, 0));
-		handleScrolling(&game_view, &position);
 
 		// Draw the SFML Sprite.
 		sfml_canvas->Draw(bImage);
- 
 		sfml_canvas->Display();
 		sfml_canvas->Unbind();
 
 		window.setActive(true);
-
 		m_sfgui.Display(window);
 
 		window.display();
-
-		/*
-		m_sfgui.Display(window);
-		window.setView(game_view);
-		window.draw(bImage);
-		handleScrolling(&game_view, &position);
-		window.display();
-		*/
 
 	}
 
+}
+
+void Temp::createResourceManager() {
+	/*Button*/
+	auto button = sfg::Button::Create("Real Money");
+	auto button2 = sfg::Button::Create("Fake Money");
+	button->GetSignal(sfg::Widget::OnLeftClick).Connect(std::bind(&Temp::OnButtonClick, this));
+	button2->GetSignal(sfg::Widget::OnLeftClick).Connect(std::bind(&Temp::OnButtonClick, this));
+
+	/*Box*/
+	auto box = sfg::Box::Create(sfg::Box::Orientation::VERTICAL, 5.0f);
+	m_label = sfg::Label::Create("Resource Manager");
+	box->Pack(m_label);
+	box->Pack(button, false);
+	box->Pack(button2, false);
+
+	/*Resource Window*/
+	auto resource_window = sfg::Window::Create();
+	resource_window->SetTitle("Hello world!");
+	resource_window->Add(box);
+	resource_window->SetRequisition(Vector2f(WIDTH / 5, HEIGHT*1.2));
 }
 
 void Temp::handleScrolling(View* game_view, Vector2f* position) {
@@ -150,7 +155,7 @@ void Temp::handleScrolling(View* game_view, Vector2f* position) {
 }
 
 void Temp::OnButtonClick() {
-	m_label->SetText(unitType);
+	m_label->SetText("cash");
 }
 
 Temp::~Temp() {
