@@ -13,6 +13,8 @@ RocketLaunchers::RocketLaunchers():UnitType() {
 	this->myCombatBonus = 3;
 	this->myUpgradeCost = 19;
 	this->costToUnlock = 50;
+	this->nextUp = "Tank";
+	this->prevUp = "AutomaticWeapons";
 
 }
 

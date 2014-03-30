@@ -13,6 +13,8 @@ AutomaticWeapons::AutomaticWeapons() : UnitType() {
 	this->myCombatBonus = 1;
 	this->myUpgradeCost = 3;
 	this->costToUnlock = 20;
+	this->nextUp = "RocketLaunchers";
+	this->prevUp = "Infantry";
 }
 
 AutomaticWeapons::~AutomaticWeapons() {

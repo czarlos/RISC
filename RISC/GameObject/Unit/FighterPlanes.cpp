@@ -13,6 +13,8 @@ FighterPlanes::FighterPlanes():UnitType() {
 	this->myCombatBonus = 15;
 	this->myUpgradeCost = 35;
 	this->costToUnlock = 150;
+	this->nextUp = "";
+	this->prevUp = "ImproveTanks";
 }
 
 FighterPlanes::~FighterPlanes() {

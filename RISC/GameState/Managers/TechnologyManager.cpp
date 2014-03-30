@@ -23,12 +23,21 @@ int TechnologyManager::getCurrentLevel(){
 	return this->highestAvaUpgrade ->getLevel() + 1;
 }
 
-bool TechnologyManager::isUpgradeAllowed(UnitType* unitType){
+bool TechnologyManager::isUpgradeAllowed(Unit* unit,UnitType* unitType){
+	if (unitType->getType() == "Spy"){
+		//if the unit type is a spy, just promote that unit to a
+		//spie
+		return true;
+	}
+	
+	//check to see if the unitType if avaliable
 	for (vector<UnitType*>::iterator iter = this->possibleUpgrades.begin(); iter != this->possibleUpgrades.end(); iter++){
-		if (unitType == (*iter)){
-			return true;
+		if (unitType != (*iter)){
+			return false;
 		}
 	}
+	// check to see if the unit selected can be even upgraded directly
+
 	return false;
 }
 

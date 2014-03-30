@@ -277,16 +277,45 @@ vector<vector<Edge*>> Board::getGameMap() {
 	return this->gameMap;
 }
 
-vector<Territory*> Board::getVisibleTerritories(string playerID){
-	vector<Territory*> listOfVisibleTerritories = vector<Territory*>();
+void Board::updateVisibleTerritories(string playerID){
 	//check for control
 	for each(vector<Edge*> vecOfEdges in this->gameMap){
-		for each(Edge* edges in vecOfEdges){
-
-
+		for each(Edge* edge in vecOfEdges){
+			Territory* tA = edge->getEndPointATerritory();
+			Territory* tB = edge->getEndPointBTerritory();
+			//check TA
+			if (tA->getOwner() == playerID){
+				tA->setIsVisible(true);
+				vector<Territory*> adjTerr = getAdjacentTerritory(tA);
+				for each(Territory* t in adjTerr){
+					//the adjacent territory to the territory's owner is
+					//set to visible
+					t->setIsVisible(true);
+				}
+			}
+			else
+				//check TA
+			if (tB->getOwner() == playerID){
+				tB->setIsVisible(true);
+				vector<Territory*> adjTerr = getAdjacentTerritory(tB);
+				for each(Territory* t in adjTerr){
+					//the adjacent territory to the territory's owner is
+					//set to visible
+					t->setIsVisible(true);
+				}
+			}
+			else
+				//if there is a spy at TA end
+			if (checkForSpies(tA)){
+				tA->setIsVisible(true);
+			}
+			else
+				//check if there spy in TB
+			if (checkForSpies(tB)){
+				tB->setIsVisible(true);
+			}
 		}
 	}
-
 }
 
 bool Board::checkForSpies(Territory* territory){

@@ -22,7 +22,7 @@ public:
 	//this will return 1-6 depending on the upgrades that are open for the player
 	int getCurrentLevel();
 	//check to see if the upgrade could be done
-	bool isUpgradeAllowed(UnitType*);
+	bool isUpgradeAllowed(Unit*,UnitType*);
 	//give the total cost to get to that upgrade if it is not avaliable
 	//else return 0 meaning the upgrade is avaliable
 	int calculateCostToUnlock(UnitType*);
