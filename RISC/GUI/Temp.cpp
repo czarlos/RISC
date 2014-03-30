@@ -35,14 +35,19 @@ void Temp::showMainView() {
 	Vector2f position(0, 0);
 
 	/*SFGUI junk*/
-	m_label = sfg::Label::Create("Hello world!");
+	m_label = sfg::Label::Create("Resource Manager");
 	/*Button*/
-	auto button = sfg::Button::Create("Greet SFGUI!");
+	auto button = sfg::Button::Create("Real Money");
+	auto button2 = sfg::Button::Create("Real Money");
 	button->GetSignal(sfg::Widget::OnLeftClick).Connect(std::bind(&Temp::OnButtonClick, this));
+	button2->GetSignal(sfg::Widget::OnLeftClick).Connect(std::bind(&Temp::OnButtonClick, this));
+
 	/*Box*/
 	auto box = sfg::Box::Create(sfg::Box::Orientation::VERTICAL, 5.0f);
 	box->Pack(m_label);
 	box->Pack(button, false);
+	box->Pack(button2, false);
+	
 	/*Resource Window*/
 	auto resource_window = sfg::Window::Create();
 	resource_window->SetTitle("Hello world!");
@@ -51,18 +56,22 @@ void Temp::showMainView() {
 	//resource_window->SetPosition(Vector2f(WIDTH, 0));
 	sfg::Desktop desktop;
 
-
-
-	/*EXAMPLE TRASH*/
+	/*SFML Render Window*/
 	auto sfml_window = sfg::Window::Create();
-	sfml_window->SetTitle("SFML canvas");
+	sfml_window->SetTitle("SFML Canvas");
 	sfml_window->SetPosition(sf::Vector2f(WIDTH/5, 0));
 	auto sfml_canvas = sfg::Canvas::Create();
-	sfml_window->SetRequisition(Vector2f(WIDTH/2, HEIGHT/2));
+	sfml_window->SetRequisition(Vector2f(WIDTH, HEIGHT));
 
+	/*Hood Rat Window*/
+	auto information_window = sfg::Window::Create();
+	information_window->SetTitle("Information Window");
+	information_window->SetPosition(Vector2f(WIDTH / 5, HEIGHT));
+	information_window->SetRequisition(Vector2f(WIDTH, (HEIGHT*1.2) - HEIGHT));
 
 	desktop.Add(resource_window);
 	desktop.Add(sfml_window);
+	desktop.Add(information_window);
 
 	/*Window execute loop*/
 	window.resetGLStates();
@@ -141,7 +150,7 @@ void Temp::handleScrolling(View* game_view, Vector2f* position) {
 }
 
 void Temp::OnButtonClick() {
-	m_label->SetText("You clicked a button");
+	m_label->SetText("Resources = 0");
 }
 
 Temp::~Temp() {
