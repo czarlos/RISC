@@ -8,13 +8,21 @@ Temp::Temp() {
 }
 
 void Temp::showMainView() {
+
+	View resource_view;
+	resource_view.reset(FloatRect(0, 0, WIDTH, HEIGHT));
+	resource_view.setViewport(FloatRect(0.8f, 0, 0.8f, 1));
+
+
 	/*Views*/	
 	View game_view;
 	game_view.reset(FloatRect(0, 0, WIDTH / 2, HEIGHT / 2));
+	//game_view.setViewport(FloatRect(0, 0, 1, 1));
 	game_view.setViewport(FloatRect(0.05f, 0.07f, 0.7f, 0.7f));
 	
 	/*Display Stuff*/
 	sf::RenderWindow window(sf::VideoMode(WIDTH*1.2, HEIGHT*1.2), "RISC");
+
 	window.setFramerateLimit(20);
 
 
@@ -39,9 +47,22 @@ void Temp::showMainView() {
 	auto resource_window = sfg::Window::Create();
 	resource_window->SetTitle("Hello world!");
 	resource_window->Add(box);
-	resource_window->SetRequisition(Vector2f((WIDTH / 5), HEIGHT));
+	resource_window->SetRequisition(Vector2f(WIDTH/5, HEIGHT*1.2));
+	//resource_window->SetPosition(Vector2f(WIDTH, 0));
 	sfg::Desktop desktop;
+
+
+
+	/*EXAMPLE TRASH*/
+	auto sfml_window = sfg::Window::Create();
+	sfml_window->SetTitle("SFML canvas");
+	sfml_window->SetPosition(sf::Vector2f(WIDTH/5, 0));
+	auto sfml_canvas = sfg::Canvas::Create();
+	sfml_window->SetRequisition(Vector2f(WIDTH/2, HEIGHT/2));
+
+
 	desktop.Add(resource_window);
+	desktop.Add(sfml_window);
 
 	/*Window execute loop*/
 	window.resetGLStates();
@@ -50,6 +71,7 @@ void Temp::showMainView() {
 	{
 		sf::Event event;
 
+		desktop.HandleEvent(event);
 		while (window.pollEvent(event))
 		{
 			desktop.HandleEvent(event);
@@ -57,16 +79,37 @@ void Temp::showMainView() {
 				window.close();
 		}
 
+
+
+		desktop.Update(clock.restart().asSeconds());
+
+		window.clear();
+
+
+		sfml_canvas->Bind();
+		sfml_canvas->Clear(sf::Color(0, 0, 0, 0));
 		handleScrolling(&game_view, &position);
 
-		/*desktop.Update(clock.restart().asSeconds());
-		m_sfgui.Display(window);*/
+		// Draw the SFML Sprite.
+		sfml_canvas->Draw(bImage);
 
-		window.setView(game_view);
-		window.draw(bImage);
+		sfml_canvas->Display();
+		sfml_canvas->Unbind();
+
+		window.setActive(true);
+
+		m_sfgui.Display(window);
 
 		window.display();
-		window.clear();
+
+		/*
+		m_sfgui.Display(window);
+		window.setView(game_view);
+		window.draw(bImage);
+		handleScrolling(&game_view, &position);
+		window.display();
+		*/
+
 	}
 	
 }
@@ -98,7 +141,7 @@ void Temp::handleScrolling(View* game_view, Vector2f* position) {
 }
 
 void Temp::OnButtonClick() {
-	m_label->SetText("Hello SFGUI, pleased to meet you!");
+	m_label->SetText("You clicked a button");
 }
 
 Temp::~Temp() {
