@@ -23,12 +23,44 @@ int TechnologyManager::getCurrentLevel(){
 	return this->highestAvaUpgrade ->getLevel() + 1;
 }
 
-bool TechnologyManager::isUpgradeAllowed(Unit* unit,UnitType* unitType){
-	if (unitType->getType() == "Spy"){
-		//if the unit type is a spy, just promote that unit to a
-		//spie
+bool TechnologyManager::canIMakeSpy(){
+	if (this->techPoint >= 35){
 		return true;
 	}
+	return false;
+}
+
+bool TechnologyManager::canIUnMakeSpy(Unit* unit){
+	if (!(this->techPoint >= 5)){
+		return false;
+	}
+
+	if (!unit->isFriendlyLocation()){
+		return false;
+	}
+	
+	return true;
+}
+
+void TechnologyManager::makeASpy(Unit* unit){
+	//double check
+	if (canIMakeSpy()){
+		this->techPoint = this->techPoint - 35;
+		//note - check if the unit is a spy is in it's types for some reason
+		//changing it to the units directly if there is time
+		unit->getUnitType()->setSpy(true);
+	}
+}
+
+void TechnologyManager::unMakeASpy(Unit* unit){
+	//double check
+	if (canIUnMakeSpy(unit)){
+		this->techPoint = this->techPoint - 5;
+		unit->getUnitType()->setSpy(false);
+	}
+}
+
+bool TechnologyManager::isUpgradeAllowed(Unit* unit,UnitType* unitType){
 	
 	//check to see if the unitType if avaliable
 	for (vector<UnitType*>::iterator iter = this->possibleUpgrades.begin(); iter != this->possibleUpgrades.end(); iter++){

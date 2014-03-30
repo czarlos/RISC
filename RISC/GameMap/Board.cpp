@@ -293,8 +293,7 @@ void Board::updateVisibleTerritories(string playerID){
 					t->setIsVisible(true);
 				}
 			}
-			else
-				//check TA
+				//check TB
 			if (tB->getOwner() == playerID){
 				tB->setIsVisible(true);
 				vector<Territory*> adjTerr = getAdjacentTerritory(tB);
@@ -304,12 +303,10 @@ void Board::updateVisibleTerritories(string playerID){
 					t->setIsVisible(true);
 				}
 			}
-			else
 				//if there is a spy at TA end
 			if (checkForSpies(tA)){
 				tA->setIsVisible(true);
 			}
-			else
 				//check if there spy in TB
 			if (checkForSpies(tB)){
 				tB->setIsVisible(true);
@@ -321,7 +318,7 @@ void Board::updateVisibleTerritories(string playerID){
 bool Board::checkForSpies(Territory* territory){
 	vector<Unit*> territoryContent = territory->getTerritoryContents();
 	for each(Unit* unit in territoryContent){
-		if (unit->getUnitType()->getType == "Spy"){
+		if (unit->getUnitType()->isSpy()){
 			return true;
 		}
 	}

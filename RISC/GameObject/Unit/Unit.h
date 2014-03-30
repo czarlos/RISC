@@ -12,6 +12,7 @@ class Unit : public MovableObject {
 private:
 	bool myTurnStatus = false;
 	string myUnitID;
+	bool friendlyLocation;
 	UnitType* myUnitType;
 
 
@@ -19,6 +20,9 @@ public:
 	const int RMAX = 20;
 	Unit();
 	Unit(int health, UnitType* unitType, string teamName, string unitID, int movementRange);
+	
+	void setIsInFriendlyLocation(bool);
+	bool isFriendlyLocation();
 	bool getTurnStatus();
 	void setTurnStatus(bool turnStatus);
 	UnitType* getUnitType();

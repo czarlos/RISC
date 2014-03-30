@@ -46,6 +46,10 @@ public:
 	//if some how the techpoints got reduce, it will also lock the upgrades
 	//called private method lockUpgrades() and updateHighestAvaUpgrade()
 	void unlockUpgrade();
+	void makeASpy(Unit*);
+	void unMakeASpy(Unit*);
+	bool canIMakeSpy();
+	bool canIUnMakeSpy(Unit*);
 	//return the highestAvaUpgrade
 	UnitType* getHighestAvaUpgrade();
 
