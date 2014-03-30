@@ -52,9 +52,6 @@ void Temp::showMainView() {
 				window.close();
 		}
 
-
-		game_view.setCenter(position);
-
 		handleScrolling(&game_view, &position);
 
 		/*desktop.Update(clock.restart().asSeconds());
@@ -70,6 +67,36 @@ void Temp::showMainView() {
 
 	delete(up);
 	
+}
+
+void Temp::handleScrolling(View* game_view, Vector2f* position) {
+	if (Keyboard::isKeyPressed(Keyboard::Up)) {
+		if (position->y >= 0){
+			yCounter -= 5;
+		}
+	}
+	if (Keyboard::isKeyPressed(Keyboard::Down)) {
+		if (position->y <= game_view->getSize().y*0.5){
+			yCounter += 5;
+		}
+	}
+	if (Keyboard::isKeyPressed(Keyboard::Left)) {
+		if (position->x >= 0){
+			xCounter -= 5;
+		}
+	}
+	if (Keyboard::isKeyPressed(Keyboard::Right)) {
+		if (position->x <= game_view->getSize().x*0.5){
+			xCounter += 5;
+		}
+	}
+
+	position->x = xCounter;
+	position->y = yCounter;
+	
+	game_view->setCenter(*position);
+
+
 }
 
 void Temp::OnButtonClick() {
