@@ -14,9 +14,15 @@ void Temp::showMainView() {
 	game_view.setViewport(FloatRect(0.05f, 0.07f, 0.7f, 0.7f));
 	
 	/*Display Stuff*/
-	sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "RISC");
-	UnitPainter* up = new UnitPainter(&window);
-	window.setFramerateLimit(10);
+	sf::RenderWindow window(sf::VideoMode(WIDTH*1.2, HEIGHT*1.2), "RISC");
+	window.setFramerateLimit(20);
+
+
+	/*BAckground*/
+	Texture bTexture;
+	Sprite bImage;
+	bTexture.loadFromFile("Resources/map.jpg");
+	bImage.setTexture(bTexture);
 
 	Vector2f position(0, 0);
 
@@ -57,14 +63,11 @@ void Temp::showMainView() {
 		m_sfgui.Display(window);*/
 
 		window.setView(game_view);
-		up->paintBackground("Resources/map.jpg");
-	
+		window.draw(bImage);
 
 		window.display();
 		window.clear();
 	}
-
-	delete(up);
 	
 }
 
