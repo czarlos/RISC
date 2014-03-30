@@ -39,6 +39,7 @@ private:
 	const int WIDTH = 1024;
 	const int HEIGHT = 650;
 
+	std::string unitType;
 	// Create an SFGUI. This is required before doing anything with SFGUI.
 	sfg::SFGUI m_sfgui;
 

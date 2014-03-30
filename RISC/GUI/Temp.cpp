@@ -13,20 +13,21 @@ void Temp::showMainView() {
 	resource_view.reset(FloatRect(0, 0, WIDTH, HEIGHT));
 	resource_view.setViewport(FloatRect(0.8f, 0, 0.8f, 1));
 
+	Unit unit(10, &Infantry(), "money", "carlos", 10);
+	unitType = unit.getTeamName();
 
-	/*Views*/	
+	/*Views*/
 	View game_view;
 	game_view.reset(FloatRect(0, 0, WIDTH / 2, HEIGHT / 2));
 	//game_view.setViewport(FloatRect(0, 0, 1, 1));
 	game_view.setViewport(FloatRect(0.05f, 0.07f, 0.7f, 0.7f));
-	
+
 	/*Display Stuff*/
 	sf::RenderWindow window(sf::VideoMode(WIDTH*1.2, HEIGHT*1.2), "RISC");
 
 	window.setFramerateLimit(20);
 
-
-	/*BAckground*/
+	/*Background*/
 	Texture bTexture;
 	Sprite bImage;
 	bTexture.loadFromFile("Resources/map.jpg");
@@ -47,21 +48,23 @@ void Temp::showMainView() {
 	box->Pack(m_label);
 	box->Pack(button, false);
 	box->Pack(button2, false);
-	
+
 	/*Resource Window*/
 	auto resource_window = sfg::Window::Create();
 	resource_window->SetTitle("Hello world!");
 	resource_window->Add(box);
-	resource_window->SetRequisition(Vector2f(WIDTH/5, HEIGHT*1.2));
+	resource_window->SetRequisition(Vector2f(WIDTH / 5, HEIGHT*1.2));
 	//resource_window->SetPosition(Vector2f(WIDTH, 0));
 	sfg::Desktop desktop;
 
 	/*SFML Render Window*/
 	auto sfml_window = sfg::Window::Create();
 	sfml_window->SetTitle("SFML Canvas");
-	sfml_window->SetPosition(sf::Vector2f(WIDTH/5, 0));
-	auto sfml_canvas = sfg::Canvas::Create();
+	sfml_window->SetPosition(sf::Vector2f(WIDTH / 5, 0));
 	sfml_window->SetRequisition(Vector2f(WIDTH, HEIGHT));
+
+	auto sfml_canvas = sfg::Canvas::Create();
+	sfml_window->Add(sfml_canvas);
 
 	/*Hood Rat Window*/
 	auto information_window = sfg::Window::Create();
@@ -88,12 +91,9 @@ void Temp::showMainView() {
 				window.close();
 		}
 
-
-
 		desktop.Update(clock.restart().asSeconds());
 
 		window.clear();
-
 
 		sfml_canvas->Bind();
 		sfml_canvas->Clear(sf::Color(0, 0, 0, 0));
@@ -101,7 +101,7 @@ void Temp::showMainView() {
 
 		// Draw the SFML Sprite.
 		sfml_canvas->Draw(bImage);
-
+ 
 		sfml_canvas->Display();
 		sfml_canvas->Unbind();
 
@@ -120,7 +120,7 @@ void Temp::showMainView() {
 		*/
 
 	}
-	
+
 }
 
 void Temp::handleScrolling(View* game_view, Vector2f* position) {
@@ -144,13 +144,13 @@ void Temp::handleScrolling(View* game_view, Vector2f* position) {
 			position->x += 15;
 		}
 	}
-	
-	game_view->reset(FloatRect(position->x, position->y, WIDTH/2, HEIGHT/2));
+
+	game_view->reset(FloatRect(position->x, position->y, WIDTH / 2, HEIGHT / 2));
 
 }
 
 void Temp::OnButtonClick() {
-	m_label->SetText("Resources = 0");
+	m_label->SetText(unitType);
 }
 
 Temp::~Temp() {
