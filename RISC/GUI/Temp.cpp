@@ -9,33 +9,16 @@ Temp::Temp() {
 
 void Temp::showMainView() {
 
-	/*Scrolling Stuff*/
-	View resource_view;
-	resource_view.reset(FloatRect(0, 0, WIDTH, HEIGHT));
-	resource_view.setViewport(FloatRect(0.8f, 0, 0.8f, 1));
-	Vector2f position(0, 0);
-
-	View game_view;
-	game_view.reset(FloatRect(0, 0, WIDTH / 2, HEIGHT / 2));
-	game_view.setViewport(FloatRect(0.05f, 0.07f, 0.7f, 0.7f));
-
 	/*Display Stuff*/
 	sf::RenderWindow window(sf::VideoMode(WIDTH*1.2, HEIGHT*1.2), "RISC");
-
 	window.setFramerateLimit(20);
 
 	/*Background*/
-	Texture bTexture;
-	Sprite bImage;
-	bTexture.loadFromFile("Resources/map.jpg");
-	bImage.setTexture(bTexture);
+	makeSprite("Resources/map.jpg");
 
-	auto sfml_window = createSFMLWindow();
 	/*Canvas for drawing SFML stuff*/
 	auto sfml_canvas = sfg::Canvas::Create();
-	sfml_window->Add(sfml_canvas);
-
-
+	auto sfml_window = createSFMLWindow(sfml_canvas);
 
 	/*Set up whats on the Desktop*/
 	sfg::Desktop desktop;
@@ -59,20 +42,12 @@ void Temp::showMainView() {
 		}
 
 		desktop.Update(clock.restart().asSeconds());
-
 		window.clear();
 
-		sfml_canvas->Bind();
-		sfml_canvas->Clear(sf::Color(0, 0, 0, 0));
-
-		// Draw the SFML Sprite.
-		sfml_canvas->Draw(bImage);
-		sfml_canvas->Display();
-		sfml_canvas->Unbind();
+		drawSFML(sfml_canvas, &backgroundSprite);
 
 		window.setActive(true);
 		m_sfgui.Display(window);
-
 		window.display();
 
 	}
@@ -108,14 +83,32 @@ std::shared_ptr<sfg::Widget> Temp::createInformationWindow() {
 	information_window->SetTitle("Information Window");
 	information_window->SetPosition(Vector2f(WIDTH / 5, HEIGHT));
 	information_window->SetRequisition(Vector2f(WIDTH, (HEIGHT*1.2) - HEIGHT));
+	return information_window;
 }
 
-std::shared_ptr<sfg::Widget> Temp::createSFMLWindow() {
+std::shared_ptr<sfg::Window> Temp::createSFMLWindow(std::shared_ptr<sfg::Canvas> sfml_canvas) {
 	/*SFML Render Window*/
 	auto sfml_window = sfg::Window::Create();
 	sfml_window->SetTitle("SFML Canvas");
 	sfml_window->SetPosition(sf::Vector2f(WIDTH / 5, 0));
 	sfml_window->SetRequisition(Vector2f(WIDTH, HEIGHT));
+	sfml_window->Add(sfml_canvas);
+	return sfml_window;
+}
+
+void Temp::makeSprite(std::string file) {
+	backgroundTexture.loadFromFile(file);
+	backgroundSprite.setTexture(backgroundTexture);
+}
+
+void Temp::drawSFML(std::shared_ptr<sfg::Canvas> sfml_canvas, Sprite* background) {
+	sfml_canvas->Bind();
+	sfml_canvas->Clear(sf::Color(0, 0, 0, 0));
+
+	// Draw the SFML Sprite.
+	sfml_canvas->Draw(*background);
+	sfml_canvas->Display();
+	sfml_canvas->Unbind();
 }
 
 void Temp::handleScrolling(View* game_view, Vector2f* position) {

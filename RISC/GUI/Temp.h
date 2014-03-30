@@ -30,12 +30,8 @@ public:
 	Temp();
 	void showMainView();
 	void OnButtonClick();
-	void handleScrolling(View* game_view, Vector2f* position);
-	
-	std::shared_ptr<sfg::Widget> createResourceWindow();
-	std::shared_ptr<sfg::Widget> createInformationWindow();
-	std::shared_ptr<sfg::Widget> createSFMLWindow();
-	
+
+
 	virtual ~Temp();
 
 private:
@@ -44,9 +40,17 @@ private:
 	const int WIDTH = 1024;
 	const int HEIGHT = 650;
 
-	// Create an SFGUI. This is required before doing anything with SFGUI.
-	sfg::SFGUI m_sfgui;
+	sf::Texture backgroundTexture;
+	sf::Sprite backgroundSprite;
 
-	// Create the label pointer here to reach it from OnButtonClick().
+	void handleScrolling(View* game_view, Vector2f* position);
+	std::shared_ptr<sfg::Widget> createResourceWindow();
+	std::shared_ptr<sfg::Widget> createInformationWindow();
+	std::shared_ptr<sfg::Window> createSFMLWindow(std::shared_ptr<sfg::Canvas> sfml_canvas);
+	void makeSprite(std::string);
+	void drawSFML(std::shared_ptr<sfg::Canvas> sfml_canvas, Sprite* background);
+
+
+	sfg::SFGUI m_sfgui;
 	sfg::Label::Ptr m_label;
 };
