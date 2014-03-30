@@ -31,7 +31,11 @@ public:
 	void showMainView();
 	void OnButtonClick();
 	void handleScrolling(View* game_view, Vector2f* position);
-	void createResourceManager();
+	
+	std::shared_ptr<sfg::Widget> createResourceWindow();
+	std::shared_ptr<sfg::Widget> createInformationWindow();
+	std::shared_ptr<sfg::Widget> createSFMLWindow();
+	
 	virtual ~Temp();
 
 private:

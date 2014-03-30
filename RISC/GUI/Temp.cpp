@@ -30,46 +30,18 @@ void Temp::showMainView() {
 	bTexture.loadFromFile("Resources/map.jpg");
 	bImage.setTexture(bTexture);
 
-	/*Button*/
-	auto button = sfg::Button::Create("Real Money");
-	auto button2 = sfg::Button::Create("Fake Money");
-	button->GetSignal(sfg::Widget::OnLeftClick).Connect(std::bind(&Temp::OnButtonClick, this));
-	button2->GetSignal(sfg::Widget::OnLeftClick).Connect(std::bind(&Temp::OnButtonClick, this));
-
-	/*Box*/
-	auto box = sfg::Box::Create(sfg::Box::Orientation::VERTICAL, 5.0f);
-	m_label = sfg::Label::Create("Resource Manager");
-	box->Pack(m_label);
-	box->Pack(button, false);
-	box->Pack(button2, false);
-
-	/*Resource Window*/
-	auto resource_window = sfg::Window::Create();
-	resource_window->SetTitle("Hello world!");
-	resource_window->Add(box);
-	resource_window->SetRequisition(Vector2f(WIDTH / 5, HEIGHT*1.2));
-
-	/*SFML Render Window*/
-	auto sfml_window = sfg::Window::Create();
-	sfml_window->SetTitle("SFML Canvas");
-	sfml_window->SetPosition(sf::Vector2f(WIDTH / 5, 0));
-	sfml_window->SetRequisition(Vector2f(WIDTH, HEIGHT));
-
+	auto sfml_window = createSFMLWindow();
 	/*Canvas for drawing SFML stuff*/
 	auto sfml_canvas = sfg::Canvas::Create();
 	sfml_window->Add(sfml_canvas);
 
-	/*Information Window*/
-	auto information_window = sfg::Window::Create();
-	information_window->SetTitle("Information Window");
-	information_window->SetPosition(Vector2f(WIDTH / 5, HEIGHT));
-	information_window->SetRequisition(Vector2f(WIDTH, (HEIGHT*1.2) - HEIGHT));
+
 
 	/*Set up whats on the Desktop*/
 	sfg::Desktop desktop;
-	desktop.Add(resource_window);
+	desktop.Add(createResourceWindow());
 	desktop.Add(sfml_window);
-	desktop.Add(information_window);
+	desktop.Add(createInformationWindow());
 
 	/*Window execute loop*/
 	window.resetGLStates();
@@ -107,7 +79,7 @@ void Temp::showMainView() {
 
 }
 
-void Temp::createResourceManager() {
+std::shared_ptr<sfg::Widget> Temp::createResourceWindow() {
 	/*Button*/
 	auto button = sfg::Button::Create("Real Money");
 	auto button2 = sfg::Button::Create("Fake Money");
@@ -126,6 +98,24 @@ void Temp::createResourceManager() {
 	resource_window->SetTitle("Hello world!");
 	resource_window->Add(box);
 	resource_window->SetRequisition(Vector2f(WIDTH / 5, HEIGHT*1.2));
+
+	return resource_window;
+}
+
+std::shared_ptr<sfg::Widget> Temp::createInformationWindow() {
+	/*Information Window*/
+	auto information_window = sfg::Window::Create();
+	information_window->SetTitle("Information Window");
+	information_window->SetPosition(Vector2f(WIDTH / 5, HEIGHT));
+	information_window->SetRequisition(Vector2f(WIDTH, (HEIGHT*1.2) - HEIGHT));
+}
+
+std::shared_ptr<sfg::Widget> Temp::createSFMLWindow() {
+	/*SFML Render Window*/
+	auto sfml_window = sfg::Window::Create();
+	sfml_window->SetTitle("SFML Canvas");
+	sfml_window->SetPosition(sf::Vector2f(WIDTH / 5, 0));
+	sfml_window->SetRequisition(Vector2f(WIDTH, HEIGHT));
 }
 
 void Temp::handleScrolling(View* game_view, Vector2f* position) {
