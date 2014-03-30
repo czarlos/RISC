@@ -9,8 +9,8 @@ MainView::MainView() {
 
 void MainView::showMainView() {
 	/*Views*/
-	View resource_view(FloatRect(0, 0, (WIDTH / 5), HEIGHT));
-	View game_view(FloatRect(-(160), 0, WIDTH, HEIGHT));
+	View resource_view(FloatRect(WIDTH, 0, (WIDTH / 5), HEIGHT));
+	View game_view(FloatRect(0, 0, WIDTH+(WIDTH/5), HEIGHT));
 
 	/*Prepare Clients and Server*/
 	GameState* state1 = new GameState();
@@ -20,7 +20,7 @@ void MainView::showMainView() {
 
 
 	/*Display Stuff*/
-	sf::RenderWindow window(sf::VideoMode(WIDTH+(300), HEIGHT), "RISC");
+	sf::RenderWindow window(sf::VideoMode(WIDTH + (WIDTH / 5), HEIGHT), "RISC");
 	UnitPainter* up = new UnitPainter(&window);
 	BoardPainter* bp = new BoardPainter(&window);
 	window.setFramerateLimit(10);
@@ -93,12 +93,11 @@ void MainView::showMainView() {
 
 		window.clear();
 		/*Painting starts*/
-
 		//First draw the background
+		window.setView(game_view);
 		up->paintBackground("Resources/map.jpg");
 		//Then draw the board
 		bp->paintBoard(board, madeTerritories);
-
 		//Then the lines
 		for each (VertexArray* line in madeLines) {
 			window.draw(*line);
