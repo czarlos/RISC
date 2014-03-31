@@ -11,7 +11,6 @@ GameManager::GameManager() {
 void GameManager::setUpState() {
 	/*Prepare Clients and Server*/
 	
-	ServerLogic* server = new ServerLogic(myClientList);
 
 	/*Set up board*/
 	Board* board = new Board();
@@ -30,6 +29,10 @@ void GameManager::setUpState() {
 }
 
 void GameManager::endTurn() {
+	/*Sends order queue*/
+	server->handleQueue(myOrderQueue);
+
+	/*Changes possesion*/
 	if (myCurrentClient < myNumberOfClients-1) {
 		myCurrentClient ++;
 	}
@@ -38,9 +41,29 @@ void GameManager::endTurn() {
 	}
 }
 
+void GameManager::addOrder(Order* order) {
+	myOrderQueue.push(order);
+}
+
+void GameManager::removeLastOrder() {
+	myOrderQueue.pop();
+}
+
+Order* GameManager::retrieveLastOrder() {
+	return myOrderQueue.front();
+}
+
 string GameManager::getCurrentClient() {
 	cout << myCurrentClient << endl;
 	return "Current Player: " + myClientList.at(myCurrentClient)->getUserName();
+}
+
+Order* GameManager::getWorkingOrder() {
+	return myWorkingOrder;
+}
+
+void GameManager::setWorkingOrder(Order* order) {
+	myWorkingOrder = order;
 }
 
 GameManager::~GameManager() {

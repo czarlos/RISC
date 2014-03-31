@@ -14,8 +14,19 @@ UnitType::UnitType() {
 	this->myCombatBonus = 0;
 	this->myUpgradeCost = 0;
 	this->costToUnlock = 0;
+	this->spy = false;
+	this->nextUp = "";
+	this->prevUp = "";
 
 } 
+
+string UnitType::getNextUp(){
+	return this->nextUp;
+}
+
+string UnitType::getPrevUp(){
+	return this->prevUp;
+}
 
 int UnitType::Compare(const UnitType& u)const{
 	if (this->type < u.type){
@@ -26,6 +37,14 @@ int UnitType::Compare(const UnitType& u)const{
 	}
 
 	return 0;
+}
+
+bool UnitType::isSpy(){
+	return this->spy;
+}
+
+void UnitType::setSpy(bool spy){
+	this->spy = spy;
 }
 
 int UnitType::getCostToUnlock(){

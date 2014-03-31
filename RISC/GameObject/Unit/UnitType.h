@@ -24,6 +24,10 @@ public:
 	int getUpgradeCost();
 	int getCombatBonus();
 	int getCostToUnlock();
+	bool isSpy();
+	void setSpy(bool);
+	string getNextUp();
+	string getPrevUp();
 	string getType();
 	int getLevel();
 	virtual ~UnitType();
@@ -34,5 +38,8 @@ protected:
 	int costToUnlock;
 	int myUpgradeCost;
 	int myCombatBonus;
+	bool spy;
+	string prevUp;
+	string nextUp;
 
 };

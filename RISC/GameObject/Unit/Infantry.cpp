@@ -13,6 +13,8 @@ Infantry::Infantry():UnitType(){
 	this->myCombatBonus = 0;
 	this->myUpgradeCost = 0;
 	this->costToUnlock = 0;
+	this->nextUp = "AutomaticWeapons";
+	this->prevUp = "";
 }
 
 Infantry::~Infantry() {

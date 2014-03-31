@@ -13,6 +13,8 @@ ImprovedTanks::ImprovedTanks() : UnitType() {
 	this->myCombatBonus = 12;
 	this->myUpgradeCost = 25;
 	this->costToUnlock = 120;
+	this->nextUp = "FighterPlanes";
+	this->prevUp = "Tank";
 
 }
 

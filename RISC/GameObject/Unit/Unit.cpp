@@ -16,6 +16,14 @@ Unit::Unit(int health, UnitType* unitType, string teamName, string objID, int mo
 	this->myUnitType = unitType;
 }
 
+void Unit::setIsInFriendlyLocation(bool friendlyLocation){
+	this->friendlyLocation = friendlyLocation;
+}
+
+bool Unit::isFriendlyLocation(){
+	return this->friendlyLocation;
+}
+
 bool Unit::getTurnStatus() {
 	return myTurnStatus;
 }
@@ -36,8 +44,8 @@ UnitType* Unit::getUnitType() {
 	return myUnitType;
 }
 
-void Unit::setUnitType(UnitType unitType) {
-	this->myUnitType = &unitType;
+void Unit::setUnitType(UnitType* unitType) {
+	this->myUnitType = unitType;
 }
 
 Unit::~Unit(){}

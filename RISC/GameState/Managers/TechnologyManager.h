@@ -40,14 +40,25 @@ public:
 	int getCurrentTechPoint();
 	//get the technology points needed for the next upgrade
 	int getNextUpgradeCost();
+	//**********unlockUpgrade currently is deprecated - dont use***************
 	//this should be call on the manager each turn cycle
 	//it will check the current techpoints deposited into the manager by the player
 	//and make an upgrade avaliable
 	//if some how the techpoints got reduce, it will also lock the upgrades
 	//called private method lockUpgrades() and updateHighestAvaUpgrade()
 	void unlockUpgrade();
+
+	void makeASpy(Unit*);
+	void unMakeASpy(Unit*);
+	bool canIMakeSpy();
+	bool canIUnMakeSpy(Unit*);
 	//return the highestAvaUpgrade
 	UnitType* getHighestAvaUpgrade();
+	UnitType* findNextUpgrade();
+	bool checkIfNextUgradeAvaliable();
+	void openNextUpgrade();
+	void setTechPoint(int);
+	void setPossibleUpgrades(vector<UnitType*>);
 
 	~TechnologyManager();
 

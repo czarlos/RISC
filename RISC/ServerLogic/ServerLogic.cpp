@@ -16,6 +16,10 @@ void ServerLogic::handleOrder(Order* order, GameState* state) {
 	}
 }
 
+void ServerLogic::handleQueue(std::queue<Order*> orderQueue) {
+
+}
+
 ServerLogic::~ServerLogic() {
 
 }

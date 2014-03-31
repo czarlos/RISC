@@ -13,6 +13,8 @@ Tanks::Tanks() : UnitType(){
 	this->myCombatBonus = 6;
 	this->myUpgradeCost = 25;
 	this->costToUnlock = 80;
+	this->nextUp = "ImproveTanks";
+	this->prevUp = "RocketLaunchers";
 }
 
 Tanks::~Tanks() {

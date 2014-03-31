@@ -136,6 +136,10 @@ void Temp::drawSFML(std::shared_ptr<sfg::Canvas> sfml_canvas, Sprite* background
 
 	// Draw the SFML Sprite.
 	sfml_canvas->Draw(*background);
+	sf::RectangleShape rect(Vector2f(10, 10));
+	rect.setPosition(Vector2f(50, 50));
+	sfml_canvas->Draw(rect);
+
 	sfml_canvas->Display();
 	sfml_canvas->Unbind();
 }
@@ -171,7 +175,7 @@ void Temp::createOrderSelectionBoxes(std::shared_ptr<sfg::Box> box) {
 	m_radio_button1 = sfg::RadioButton::Create("Move");
 	m_radio_button2 = sfg::RadioButton::Create("Attack", m_radio_button1->GetGroup());
 	m_radio_button3 = sfg::RadioButton::Create("Upgrade", m_radio_button1->GetGroup());
-	m_radio_button4 = sfg::RadioButton::Create("Move", m_radio_button1->GetGroup());
+	m_radio_button4 = sfg::RadioButton::Create("Add Unit", m_radio_button1->GetGroup());
 	
 	m_radio_button1->GetSignal(sfg::ToggleButton::OnToggle).Connect(std::bind(&Temp::ButtonSelect, this));
 	m_radio_button2->GetSignal(sfg::ToggleButton::OnToggle).Connect(std::bind(&Temp::ButtonSelect, this));
@@ -232,26 +236,33 @@ void Temp::EndTurnClick() {
 
 void Temp::SetTextClick() {
 	entry_label->SetText(m_entry->GetText());
+	//Prepare # of Units, checkbox must be checked
 }
 
 void Temp::SendOrderClick() {
 	//send order to queue
 	//add to the dropdown menu to be edited
+	gameManager->addOrder(gameManager->getWorkingOrder());
 	queue_box->AppendItem("NEXT ORDER SON");
 }
 
 void Temp::ButtonSelect() {
 	if (m_radio_button1->IsActive()) {
-		//Do this
+		//Move
+		//gameManager->setWorkingOrder(MovementOrder());
 	}
 	else if (m_radio_button2->IsActive()) {
-		//Do that
+		//Attack
+		//gameManager->setWorkingOrder(AttackOrder());
+
 	}
 	else if (m_radio_button3->IsActive()) {
-		//Do the other thing
+		//Upgrade
+		//gameManager->setWorkingOrder(UpgradeOrder());
 	}
 	else if (m_radio_button4->IsActive()) {
-		//Do the other thing
+		//Add unit
+		//gameManager->setWorkingOrder(AddUnitOrder());
 	}
 }
 

@@ -23,10 +23,49 @@ int TechnologyManager::getCurrentLevel(){
 	return this->highestAvaUpgrade ->getLevel() + 1;
 }
 
+bool TechnologyManager::canIMakeSpy(){
+	if (this->techPoint >= 35){
+		return true;
+	}
+	return false;
+}
+
+bool TechnologyManager::canIUnMakeSpy(Unit* unit){
+	if (!(this->techPoint >= 5)){
+		return false;
+	}
+
+	if (!unit->isFriendlyLocation()){
+		return false;
+	}
+	
+	return true;
+}
+//logic moved to orders -- deprecated
+void TechnologyManager::makeASpy(Unit* unit){
+	//double check
+	if (canIMakeSpy()){
+		this->techPoint = this->techPoint - 35;
+		//note - check if the unit is a spy is in it's types for some reason
+		//changing it to the units directly if there is time
+		unit->getUnitType()->setSpy(true);
+	}
+}
+//logic move to orders -- deprecated
+void TechnologyManager::unMakeASpy(Unit* unit){
+	//double check
+	if (canIUnMakeSpy(unit)){
+		this->techPoint = this->techPoint - 5;
+		unit->getUnitType()->setSpy(false);
+	}
+}
+
 bool TechnologyManager::isUpgradeAllowed(UnitType* unitType){
+	
+	//check to see if the unitType if avaliable
 	for (vector<UnitType*>::iterator iter = this->possibleUpgrades.begin(); iter != this->possibleUpgrades.end(); iter++){
-		if (unitType == (*iter)){
-			return true;
+		if (unitType != (*iter)){
+			return false;
 		}
 	}
 	return false;
@@ -71,6 +110,7 @@ int TechnologyManager::getCurrentTechPoint(){
 	return this->techPoint;
 }
 
+//unlockUpgrade currently is deprecated - dont use
 void TechnologyManager::unlockUpgrade(){
 	int pointsToSpent = this->techPoint;
 	int usedTechPoint = 0;
@@ -116,6 +156,50 @@ void TechnologyManager::updateHighestAvaUpgrade(){
 			}
 		}
 	}
+}
+
+bool TechnologyManager::checkIfNextUgradeAvaliable(){
+	UnitType* nextUpgradeType = findNextUpgrade();
+	if (nextUpgradeType != nullptr){
+		if (this->techPoint >= nextUpgradeType->getCostToUnlock()){
+			return true;
+		}
+	}
+	return false;
+
+}
+
+//logic for this method has been moved to upgrade Order - deprecated
+void TechnologyManager::openNextUpgrade(){
+	//double check
+	if (checkIfNextUgradeAvaliable()){
+		UnitType* nextUpgradeType = findNextUpgrade();
+		this-> techPoint = this->techPoint - nextUpgradeType->getCostToUnlock();
+		this->possibleUpgrades.push_back(nextUpgradeType);
+		updateHighestAvaUpgrade();
+	}
+
+}
+
+UnitType* TechnologyManager::findNextUpgrade(){
+
+	string nameOfNextUpgrade = this->highestAvaUpgrade->getNextUp();
+	UnitType* nextUpgradeType = nullptr;
+	for each (UnitType* unitType in this->unavaliableUpgrades){
+		if (unitType->getType() == nameOfNextUpgrade){
+			nextUpgradeType = unitType;
+		}
+	}
+	
+	return nextUpgradeType;
+}
+
+void TechnologyManager::setTechPoint(int amount){
+	this->techPoint = amount;
+}
+
+void TechnologyManager::setPossibleUpgrades(vector<UnitType*> possibleUpgrades){
+	this->possibleUpgrades = possibleUpgrades;
 }
 
 TechnologyManager::~TechnologyManager()

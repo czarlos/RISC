@@ -23,21 +23,29 @@
 #include "Buttons\EndTurnButton.h"
 #include "..\ServerLogic\Client.h"
 #include "..\ServerLogic\ServerLogic.h"
+#include <queue>
 
 
 class GameManager {
 public:
 	GameManager();
 
-	void endTurn();
 	std::string getCurrentClient();
-
+	void endTurn();
+	void addOrder(Order* order);
+	void removeLastOrder();
+	Order* retrieveLastOrder();
+	Order* getWorkingOrder();
+	void setWorkingOrder(Order* order);
 	virtual ~GameManager();
 
 private:
 	int myCurrentClient;
 	int myNumberOfClients;
+	Order* myWorkingOrder;
 
+	ServerLogic* server;
+	std::queue<Order*> myOrderQueue;
 	vector<Client*> myClientList;
 
 	void setUpState();

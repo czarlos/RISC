@@ -23,7 +23,14 @@
 #include "Buttons\EndTurnButton.h"
 #include "..\ServerLogic\Client.h"
 #include "..\ServerLogic\ServerLogic.h"
+
+#include "..\Order\MovementOrder.h"
+#include "..\Order\AttackOrder.h"
+#include "..\Order\UpgradeOrder.h"
+#include "..\Order\AddUnitOrder.h"
+
 #include "GameManger.h"
+
 
 
 class Temp {
