@@ -10,7 +10,7 @@ void Temp::showMainView() {
 
 
 	/*Display Stuff*/
-	sf::RenderWindow window(sf::VideoMode(WIDTH*1.2, HEIGHT*1.2), "RISC");
+	sf::RenderWindow window(sf::VideoMode(WIDTH*1.25, HEIGHT*1.2), "RISC");
 	window.setFramerateLimit(20);
 
 	/*Background*/
@@ -58,22 +58,38 @@ std::shared_ptr<sfg::Widget> Temp::createResourceWindow() {
 	/*Button*/
 	auto button = sfg::Button::Create("Real Money");
 	auto endTurn = sfg::Button::Create("End Turn");
+	auto setText = sfg::Button::Create("Send Order");
 	button->GetSignal(sfg::Widget::OnLeftClick).Connect(std::bind(&Temp::OnButtonClick, this));
 	endTurn->GetSignal(sfg::Widget::OnLeftClick).Connect(std::bind(&Temp::EndTurnClick, this));
+	setText->GetSignal(sfg::Widget::OnLeftClick).Connect(std::bind(&Temp::SetTextClick, this));
 
 	/*Box*/
 	auto box = sfg::Box::Create(sfg::Box::Orientation::VERTICAL, 5.0f);
-	//cout << m_label->GetAbsolutePosition().x << endl;
 	m_label = sfg::Label::Create(gameManager->getCurrentClient());
-	box->Pack(m_label);
+
+	entry_label = sfg::Label::Create();
+	entry_label->SetText("not yet");
+	m_entry = sfg::Entry::Create();
+	m_entry->SetRequisition(sf::Vector2f(10.f, 0.f));
+
 	box->Pack(button, false);
+	box->Pack(m_entry);
+
+
 	box->Pack(endTurn, false);
+	box->Pack(setText, false);
+	box->Pack(m_label, false);
+	box->Pack(sfg::Label::Create("This is a newly created window, \n from runtime, interactively."), false);
+	box->Pack(sfg::Label::Create("You can move me around, try it!"), false);
+	box->Pack(sfg::Label::Create("Or click the button below \n to destroy me. :-("), false);
+	box->Pack(entry_label, false);
+	//box->Pack(m_label);
 
 	/*Resource Window*/
 	auto resource_window = sfg::Window::Create();
 	resource_window->SetTitle("Hello world!");
 	resource_window->Add(box);
-	resource_window->SetRequisition(Vector2f(WIDTH / 5, HEIGHT*1.2));
+	resource_window->SetRequisition(Vector2f(WIDTH / 4, HEIGHT*1.2));
 
 	return resource_window;
 }
@@ -82,7 +98,7 @@ std::shared_ptr<sfg::Widget> Temp::createInformationWindow() {
 	/*Information Window*/
 	auto information_window = sfg::Window::Create();
 	information_window->SetTitle("Information Window");
-	information_window->SetPosition(Vector2f(WIDTH / 5, HEIGHT));
+	information_window->SetPosition(Vector2f(WIDTH / 4, HEIGHT));
 	information_window->SetRequisition(Vector2f(WIDTH, (HEIGHT*1.2) - HEIGHT));
 	return information_window;
 }
@@ -91,7 +107,7 @@ std::shared_ptr<sfg::Window> Temp::createSFMLWindow(std::shared_ptr<sfg::Canvas>
 	/*SFML Render Window*/
 	auto sfml_window = sfg::Window::Create();
 	sfml_window->SetTitle("SFML Canvas");
-	sfml_window->SetPosition(sf::Vector2f(WIDTH / 5, 0));
+	sfml_window->SetPosition(sf::Vector2f(WIDTH / 4, 0));
 	sfml_window->SetRequisition(Vector2f(WIDTH, HEIGHT));
 	sfml_window->Add(sfml_canvas);
 	return sfml_window;
@@ -145,6 +161,10 @@ void Temp::OnButtonClick() {
 void Temp::EndTurnClick() {
 	gameManager->endTurn();
 	m_label->SetText(gameManager->getCurrentClient());
+}
+
+void Temp::SetTextClick() {
+	entry_label->SetText(m_entry->GetText());
 }
 
 Temp::~Temp() {

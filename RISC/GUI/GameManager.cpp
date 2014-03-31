@@ -40,7 +40,7 @@ void GameManager::endTurn() {
 
 string GameManager::getCurrentClient() {
 	cout << myCurrentClient << endl;
-	return myClientList.at(myCurrentClient)->getUserName();
+	return "Current Player: " + myClientList.at(myCurrentClient)->getUserName();
 }
 
 GameManager::~GameManager() {

@@ -30,8 +30,10 @@ class Temp {
 public:
 	Temp();
 	void showMainView();
+
 	void OnButtonClick();
 	void EndTurnClick();
+	void SetTextClick();
 
 	virtual ~Temp();
 
@@ -55,4 +57,8 @@ private:
 
 	sfg::SFGUI m_sfgui;
 	sfg::Label::Ptr m_label;
+	
+	sfg::Entry::Ptr m_entry;
+	sfg::Label::Ptr entry_label;
+
 };
