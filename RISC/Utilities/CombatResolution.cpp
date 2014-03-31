@@ -1,36 +1,74 @@
 #include "../Utilities/CombatResolution.h"
 
 
-string CombatResolution::combatResolution(string playerAName, string playerBName, vector<Unit*> playerAUnits, vector<Unit*> playerBUnits){
+CombatResults* CombatResolution::combatResolution(string playerAName, string playerBName, vector<Unit*> playerAUnits, vector<Unit*> playerBUnits){
 	//Note: B is the defending player
 	//		A is the attacking player
+	//		this is strong vs. strong (because strong att vs weak def, and strong def vs weak att doesn't 
+	//		make sense since there will only be the strongs left over
 	playerAUnits = mergeSortUnits(playerAUnits);
 	playerBUnits = mergeSortUnits(playerBUnits);
-	queue<Unit*> playerAUnitQ;
-	queue<Unit*> playerBUnitQ;
-
+	queue<Unit*> playerAUnitQ = turnToQueue(playerAUnits);
+	queue<Unit*> playerBUnitQ = turnToQueue(playerBUnits);
 
 	srand((unsigned int)time(NULL));
-	while (!playerAUnits.empty() || !playerBUnits.empty()){
-		Unit* playerAUnit = findHighestLvlUnit(playerAUnits);
-		Unit* playerBUnit = findHighestLvlUnit(playerBUnits);
+	while (!playerAUnitQ.empty() || !playerBUnitQ.empty()){
+
+		int playerAUnitBonus = playerAUnitQ.front()->getUnitType()->getCombatBonus();
+		int playerBUnitBonus = playerBUnitQ.front()->getUnitType()->getCombatBonus();
+
 		int playerADice = rand() % 20 + 1;
 		int playerBDice = rand() % 20 + 1;
 
-
-
-
+		if ((playerAUnitBonus + playerADice) > (playerBUnitBonus + playerBDice)){
+			//player B lost
+			playerBUnitQ.pop();
+		}
+		else if ((playerAUnitBonus + playerADice) < (playerBUnitBonus + playerBDice)) {
+			//player A lost
+			playerAUnitQ.pop();
+		}
+		else{
+			//if tie
+			if (playerAUnitBonus > playerBUnitBonus){
+				//playerB lost
+				playerBUnitQ.pop();
+			}else if (playerAUnitBonus < playerBUnitBonus){
+				//player A lost
+				playerAUnitQ.pop();
+			}
+			else{
+				//if tie
+				//player A lost
+				playerAUnitQ.pop();
+			}
+		}
 	}
 
-
-	return "";
+	CombatResults* result = new CombatResults(playerAName, playerBName, deQueue(playerAUnitQ), deQueue(playerBUnitQ));
+	//it returns a combat result object that holds the results of the battle
+	return result;
 }
 
 queue<Unit*> CombatResolution::turnToQueue(vector<Unit*> listOfUnits){
 	queue<Unit*> unitQ;
-
-
+	for each(Unit* unit in listOfUnits){
+		unitQ.push(unit);
+	}
 	return unitQ;
+}
+
+vector<Unit*> CombatResolution::deQueue(queue<Unit*> unitQ){
+	vector<Unit*> listOfUnits;
+
+	while (!unitQ.empty()){
+
+		listOfUnits.push_back(unitQ.front());
+		unitQ.pop();
+	}
+
+	return listOfUnits;
+
 }
 
 // this is sorting form highest to lowest units
