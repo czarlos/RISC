@@ -59,7 +59,7 @@ private:
 	std::shared_ptr<sfg::Widget> createInformationWindow();
 	std::shared_ptr<sfg::Window> createSFMLWindow(std::shared_ptr<sfg::Canvas> sfml_canvas);
 	void makeSprite(std::string);
-	void drawSFML(std::shared_ptr<sfg::Canvas> sfml_canvas, Sprite* background);
+	void drawSFML(std::shared_ptr<sfg::Canvas> sfml_canvas, Sprite* background, RenderWindow* window);
 	
 	/*Within Resource Window*/
 	void createOrderSelectionBoxes(std::shared_ptr<sfg::Box> box);

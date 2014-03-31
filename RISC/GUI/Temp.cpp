@@ -48,7 +48,7 @@ void Temp::showMainView() {
 
 		window.clear();
 
-		drawSFML(sfml_canvas, &backgroundSprite);
+		drawSFML(sfml_canvas, &backgroundSprite, &window);
 
 		window.setActive(true);
 		m_sfgui.Display(window);
@@ -139,7 +139,7 @@ void Temp::makeSprite(std::string file) {
 	backgroundSprite.setTexture(backgroundTexture);
 }
 
-void Temp::drawSFML(std::shared_ptr<sfg::Canvas> sfml_canvas, Sprite* background) {
+void Temp::drawSFML(std::shared_ptr<sfg::Canvas> sfml_canvas, Sprite* background, RenderWindow* window) {
 	sfml_canvas->Bind();
 	sfml_canvas->Clear(sf::Color(0, 0, 0, 0));
 
@@ -148,6 +148,24 @@ void Temp::drawSFML(std::shared_ptr<sfg::Canvas> sfml_canvas, Sprite* background
 	
 	//Draw the territories
 	drawTerritories(sfml_canvas);
+
+	float adjustedX = Mouse::getPosition(*window).x - sfml_canvas->GetAbsolutePosition().x;
+	float adjustedY = Mouse::getPosition(*window).y - sfml_canvas->GetAbsolutePosition().y;
+
+	for each (TerritoryBinder* binder in gameManager->getMadeTerritories())
+	{
+		FloatRect bounds = binder->getShape()->getGlobalBounds();
+		InitializationUtilities::scrollOverTerritory(&bounds, binder->getShape(), adjustedX, adjustedY);
+		
+		if (Mouse::isButtonPressed(Mouse::Left) && bounds.contains(adjustedX, adjustedY)) {
+			//cout << bounds.left << " <-left " << bounds.width << " <-width " << bounds.top << " <-top " << bounds.height << " <-height" << endl;
+			//cout << Mouse::getPosition(window).x << " " << adjustedY << endl;
+			cout << "cash" << endl;
+		}
+		else if (Mouse::isButtonPressed(Mouse::Right) && bounds.contains(adjustedX, adjustedY)) {
+			cout << "Money" << endl;
+		}
+	}
 	
 	//sf::RectangleShape rect(Vector2f(10, 10));
 	//rect.setPosition(Vector2f(50, 50));

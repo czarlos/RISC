@@ -112,7 +112,7 @@ void MainView::showMainView() {
 		for each (TerritoryBinder* binder in madeTerritories)
 		{
 			FloatRect bounds = binder->getShape()->getGlobalBounds();
-			InitializationUtilities::scrollOverTerritory(&bounds, binder->getShape(), &window);
+			//InitializationUtilities::scrollOverTerritory(&bounds, binder->getShape(), &window);
 
 			if (Mouse::isButtonPressed(Mouse::Left) && bounds.contains(Mouse::getPosition(window).x, Mouse::getPosition(window).y)) {
 				cout << bounds.left << " <-left " << bounds.width << " <-width " << bounds.top << " <-top " << bounds.height << " <-height" << endl;
