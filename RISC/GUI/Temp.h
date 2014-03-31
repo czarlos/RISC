@@ -34,6 +34,7 @@ public:
 	void OnButtonClick();
 	void EndTurnClick();
 	void SetTextClick();
+	void SendOrderClick();
 
 	virtual ~Temp();
 
@@ -56,6 +57,7 @@ private:
 	/*Within Resource Window*/
 	void createOrderSelectionBoxes(std::shared_ptr<sfg::Box> box);
 	void createDropdownMenu(std::shared_ptr<sfg::Box> box);
+	void createDropdownQueue(std::shared_ptr<sfg::Box> box);
 
 	void ButtonSelect();
 	sfg::RadioButton::Ptr m_radio_button1;
@@ -67,6 +69,9 @@ private:
 	sfg::ComboBox::Ptr m_combo_box;
 	sfg::Label::Ptr m_sel_label;
 
+	void OnOrderSelect();
+	sfg::ComboBox::Ptr queue_box;
+	sfg::Label::Ptr selection_label;
 
 
 	GameManager* gameManager = new GameManager();

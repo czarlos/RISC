@@ -59,15 +59,17 @@ std::shared_ptr<sfg::Widget> Temp::createResourceWindow() {
 	/*Button*/
 	auto button = sfg::Button::Create("Real Money");
 	auto endTurn = sfg::Button::Create("End Turn");
-	auto setText = sfg::Button::Create("Send Order");
+	auto setText = sfg::Button::Create("Set Number of Units");
+	auto sendOrder = sfg::Button::Create("Send Order");
 	button->GetSignal(sfg::Widget::OnLeftClick).Connect(std::bind(&Temp::OnButtonClick, this));
 	endTurn->GetSignal(sfg::Widget::OnLeftClick).Connect(std::bind(&Temp::EndTurnClick, this));
 	setText->GetSignal(sfg::Widget::OnLeftClick).Connect(std::bind(&Temp::SetTextClick, this));
+	sendOrder->GetSignal(sfg::Widget::OnLeftClick).Connect(std::bind(&Temp::SendOrderClick, this));
 
 	/*Box*/
 	auto box = sfg::Box::Create(sfg::Box::Orientation::VERTICAL, 5.0f);
 	m_label = sfg::Label::Create(gameManager->getCurrentClient());
-	entry_label = sfg::Label::Create("Order Sender Input");	
+	entry_label = sfg::Label::Create("");	
 	m_entry = sfg::Entry::Create();
 	box->Pack(sfg::Label::Create("\nCONTROL WINDOW"), false);
 	box->Pack(button, false);
@@ -77,15 +79,19 @@ std::shared_ptr<sfg::Widget> Temp::createResourceWindow() {
 	box->Pack(sfg::Label::Create("Or click the button below \n to destroy me. :-("), false);
 	box->Pack(sfg::Separator::Create(), false);
 	box->Pack(sfg::Label::Create("\nORDERS"), false);
-
 	/*Create and Pack Radio Buttons*/
 	createOrderSelectionBoxes(box);
 	/*Create and Pack Dropdown Menu*/
+	box->Pack(sfg::Label::Create("Select Upgrade"), false);
 	createDropdownMenu(box);
 
 	box->Pack(setText, false);
 	box->Pack(m_entry, false);
 	box->Pack(entry_label, false);
+
+	box->Pack(sendOrder, false);
+	box->Pack(sfg::Separator::Create(), false);
+	createDropdownQueue(box);
 
 
 	/*Resource Window*/
@@ -195,6 +201,24 @@ void Temp::createDropdownMenu(std::shared_ptr<sfg::Box> box) {
 
 }
 
+void Temp::createDropdownQueue(std::shared_ptr<sfg::Box> box) {
+	/*Combo Box*/
+	selection_label = sfg::Label::Create(L"Please select an item!");
+
+	queue_box = sfg::ComboBox::Create();
+	queue_box->AppendItem("-");
+	queue_box->AppendItem("Order1");
+	queue_box->AppendItem("Order2");
+	queue_box->AppendItem("Order3");
+	queue_box->AppendItem("Order4");
+	queue_box->AppendItem("Order5");
+	queue_box->AppendItem("Order6");
+
+	queue_box->GetSignal(sfg::ComboBox::OnSelect).Connect(std::bind(&Temp::OnOrderSelect, this));
+
+	box->Pack(queue_box, false);
+}
+
 void Temp::OnButtonClick() {
 	//m_label->SetText(gameManager->getUnitText());
 }
@@ -206,6 +230,11 @@ void Temp::EndTurnClick() {
 
 void Temp::SetTextClick() {
 	entry_label->SetText(m_entry->GetText());
+}
+
+void Temp::SendOrderClick() {
+	//send order to queue
+	//add to the dropdown menu to be edited
 }
 
 void Temp::ButtonSelect() {
@@ -229,6 +258,14 @@ void Temp::OnComboSelect() {
 	sstr << "item " << m_combo_box->GetSelectedItem() << " selected with text \"" << static_cast<std::string>(m_combo_box->GetSelectedText()) << "\"";
 	m_sel_label->SetText(sstr.str());
 	//SEND BACK STRING DATA
+}
+
+void Temp::OnOrderSelect() {
+	std::stringstream sstr;
+
+	sstr << "item " << queue_box->GetSelectedItem() << " selected with text \"" << static_cast<std::string>(queue_box->GetSelectedText()) << "\"";
+	selection_label->SetText(sstr.str());
+	//Also, make sure that this can be edited
 }
 
 Temp::~Temp() {
