@@ -41,7 +41,7 @@ bool TechnologyManager::canIUnMakeSpy(Unit* unit){
 	
 	return true;
 }
-
+//logic moved to orders -- deprecated
 void TechnologyManager::makeASpy(Unit* unit){
 	//double check
 	if (canIMakeSpy()){
@@ -51,7 +51,7 @@ void TechnologyManager::makeASpy(Unit* unit){
 		unit->getUnitType()->setSpy(true);
 	}
 }
-
+//logic move to orders -- deprecated
 void TechnologyManager::unMakeASpy(Unit* unit){
 	//double check
 	if (canIUnMakeSpy(unit)){
@@ -158,7 +158,6 @@ void TechnologyManager::updateHighestAvaUpgrade(){
 	}
 }
 
-//this is for upgrading the upgrades avaliable not units
 bool TechnologyManager::checkIfNextUgradeAvaliable(){
 	UnitType* nextUpgradeType = findNextUpgrade();
 	if (nextUpgradeType != nullptr){
@@ -193,6 +192,14 @@ UnitType* TechnologyManager::findNextUpgrade(){
 	}
 	
 	return nextUpgradeType;
+}
+
+void TechnologyManager::setTechPoint(int amount){
+	this->techPoint = amount;
+}
+
+void TechnologyManager::setPossibleUpgrades(vector<UnitType*> possibleUpgrades){
+	this->possibleUpgrades = possibleUpgrades;
 }
 
 TechnologyManager::~TechnologyManager()

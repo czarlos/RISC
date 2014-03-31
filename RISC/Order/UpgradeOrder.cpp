@@ -80,7 +80,17 @@ Response* UpgradeOrder::execute(GameState* state) {
 }
 
 Response* UpgradeOrder::makeASpy(){
+	int updatedTechPoint;
+	Unit* updatedUnit;
+	if (this->techManager->canIMakeSpy()){
+		updatedTechPoint = techManager->getCurrentTechPoint() - 35;
+		//note - check if the unit is a spy is in it's types for some reason
+		//changing it to the units directly if there is time
+		updatedUnit = this->unit;
+		updatedUnit->getUnitType()->setSpy(this->makeSpy);
+	}
 
+	return new UpgradeResponse(updatedUnit, updatedTechPoint);
 
 }
 

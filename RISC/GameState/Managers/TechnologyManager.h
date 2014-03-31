@@ -57,8 +57,8 @@ public:
 	UnitType* findNextUpgrade();
 	bool checkIfNextUgradeAvaliable();
 	void openNextUpgrade();
-
-
+	void setTechPoint(int);
+	void setPossibleUpgrades(vector<UnitType*>);
 
 	~TechnologyManager();
 
