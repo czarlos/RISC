@@ -59,6 +59,12 @@ private:
 	sfg::RadioButton::Ptr m_radio_button3;
 	sfg::RadioButton::Ptr m_radio_button4;
 
+	void OnComboSelect();
+	sfg::ComboBox::Ptr m_combo_box;
+	sfg::Label::Ptr m_sel_label;
+
+
+
 	GameManager* gameManager = new GameManager();
 
 	sfg::SFGUI m_sfgui;

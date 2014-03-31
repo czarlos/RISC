@@ -74,18 +74,34 @@ std::shared_ptr<sfg::Widget> Temp::createResourceWindow() {
 	m_radio_button3->GetSignal(sfg::ToggleButton::OnToggle).Connect(std::bind(&Temp::ButtonSelect, this));
 	m_radio_button4->GetSignal(sfg::ToggleButton::OnToggle).Connect(std::bind(&Temp::ButtonSelect, this));
 
+
+	m_combo_box = sfg::ComboBox::Create();
+	m_combo_box->AppendItem("-");
+	m_combo_box->AppendItem("Infantry");
+	m_combo_box->AppendItem("Automatic Weapons");
+	m_combo_box->AppendItem("Rocket Launchers");
+	m_combo_box->AppendItem("Tanks");
+	m_combo_box->AppendItem("Improved Tanks");
+	m_combo_box->AppendItem("Fighter Planes");
+
+
+
+	m_sel_label = sfg::Label::Create(L"Please select an item!");
+	m_combo_box->GetSignal(sfg::ComboBox::OnSelect).Connect(std::bind(&Temp::OnComboSelect, this));
+
+
 	/*Box*/
 	auto box = sfg::Box::Create(sfg::Box::Orientation::VERTICAL, 5.0f);
 	m_label = sfg::Label::Create(gameManager->getCurrentClient());
 	entry_label = sfg::Label::Create("Order Sender Input");	
 	m_entry = sfg::Entry::Create();
-
 	box->Pack(sfg::Label::Create("\nCONTROL WINDOW"), false);
 	box->Pack(button, false);
 	box->Pack(endTurn, false);
 	box->Pack(m_label, false);
 	box->Pack(sfg::Label::Create("You can move me around, try it!"), false);
 	box->Pack(sfg::Label::Create("Or click the button below \n to destroy me. :-("), false);
+	box->Pack(sfg::Separator::Create(), false);
 	box->Pack(sfg::Label::Create("\nORDERS"), false);
 
 	box->Pack(m_radio_button1, false);
@@ -97,10 +113,13 @@ std::shared_ptr<sfg::Widget> Temp::createResourceWindow() {
 	box->Pack(m_entry, false);
 	box->Pack(entry_label, false);
 
+	box->Pack(m_combo_box, false);
+
 	/*Resource Window*/
 	auto resource_window = sfg::Window::Create();
-	resource_window->SetTitle("Hello world!");
+	//resource_window->SetTitle("Hello world!");
 	resource_window->Add(box);
+	//resource_window->AddWithViewport(box);
 	resource_window->SetRequisition(Vector2f(WIDTH / 4, HEIGHT*1.2));
 
 	return resource_window;
@@ -192,6 +211,14 @@ void Temp::ButtonSelect() {
 	else if (m_radio_button4->IsActive()) {
 		//Do the other thing
 	}
+}
+
+void Temp::OnComboSelect() {
+	std::stringstream sstr;
+
+	sstr << "Item " << m_combo_box->GetSelectedItem() << " selected with text \"" << static_cast<std::string>(m_combo_box->GetSelectedText()) << "\"";
+	m_sel_label->SetText(sstr.str());
+	//SEND BACK STRING DATA
 }
 
 Temp::~Temp() {
