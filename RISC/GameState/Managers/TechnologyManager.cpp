@@ -110,7 +110,6 @@ int TechnologyManager::getCurrentTechPoint(){
 	return this->techPoint;
 }
 
-
 //unlockUpgrade currently is deprecated - dont use
 void TechnologyManager::unlockUpgrade(){
 	int pointsToSpent = this->techPoint;

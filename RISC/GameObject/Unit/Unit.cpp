@@ -44,8 +44,8 @@ UnitType* Unit::getUnitType() {
 	return myUnitType;
 }
 
-void Unit::setUnitType(UnitType unitType) {
-	this->myUnitType = &unitType;
+void Unit::setUnitType(UnitType* unitType) {
+	this->myUnitType = unitType;
 }
 
 Unit::~Unit(){}

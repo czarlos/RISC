@@ -63,10 +63,12 @@ Response* UpgradeOrder::execute(GameState* state) {
 
 	if (this->convertingUpgrade){
 		//make in to a spy or turn back into a reg unit and modify return response
+		returnResponse = makeASpy();
 	}
 
 	if (this->unitUpgrading){
 		//check the list of units to upgrade and modify return response
+		returnResponse = upgradeUnits();
 	}
 
 	if (this->unlocking){
@@ -75,6 +77,27 @@ Response* UpgradeOrder::execute(GameState* state) {
 	}
 
 	return returnResponse;
+}
+
+Response* UpgradeOrder::makeASpy(){
+
+
+}
+
+Response* UpgradeOrder::upgradeUnits(){
+	//this method assumes that the units in the list are already checked
+	//to be upgradable
+	int updatedTechPt = this->techManager->getCurrentTechPoint();
+	vector<Unit*> updatedUnits = vector<Unit*>();
+
+	if (this->techManager->isUpgradeAllowed(this->myUnitType)){
+		for each(Unit* unit in this->listOfUnitsToUpgrade){
+			Unit* modifiedUnit = unit;
+			modifiedUnit->setUnitType(this->myUnitType);
+			updatedUnits.push_back(modifiedUnit);
+		}
+	}
+	return new UpgradeResponse(updatedUnits, updatedTechPt);
 }
 
 Response* UpgradeOrder::unlockNextUpgrade(){

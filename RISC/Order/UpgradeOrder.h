@@ -29,7 +29,9 @@ private:
 	bool unitUpgrading; // true/false this is to upgrade the units
 	bool convertingUpgrade; // to or false this is to convert and unit to a spy
 	bool makeSpy;
+	Response* makeASpy();
 	Response* unlockNextUpgrade();
+	Response* upgradeUnits();
 	TechnologyManager* techManager;
 	vector<Unit*> listOfUnitsToUpgrade;
 	Unit* unit;

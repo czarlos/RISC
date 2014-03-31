@@ -26,7 +26,7 @@ public:
 	bool getTurnStatus();
 	void setTurnStatus(bool turnStatus);
 	UnitType* getUnitType();
-	void setUnitType(UnitType unitType);
+	void setUnitType(UnitType* unitType);
 	string getGameObjectID();
 
 	int getCombatBonus();
