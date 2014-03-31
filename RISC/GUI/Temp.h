@@ -53,11 +53,16 @@ private:
 	void makeSprite(std::string);
 	void drawSFML(std::shared_ptr<sfg::Canvas> sfml_canvas, Sprite* background);
 
+	void ButtonSelect();
+	sfg::RadioButton::Ptr m_radio_button1;
+	sfg::RadioButton::Ptr m_radio_button2;
+	sfg::RadioButton::Ptr m_radio_button3;
+	sfg::RadioButton::Ptr m_radio_button4;
+
 	GameManager* gameManager = new GameManager();
 
 	sfg::SFGUI m_sfgui;
 	sfg::Label::Ptr m_label;
-	
 	sfg::Entry::Ptr m_entry;
 	sfg::Label::Ptr entry_label;
 

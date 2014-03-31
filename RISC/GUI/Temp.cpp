@@ -11,7 +11,7 @@ void Temp::showMainView() {
 
 	/*Display Stuff*/
 	sf::RenderWindow window(sf::VideoMode(WIDTH*1.25, HEIGHT*1.2), "RISC");
-	window.setFramerateLimit(20);
+	window.setFramerateLimit(40);
 
 	/*Background*/
 	makeSprite("Resources/map.jpg");
@@ -42,6 +42,7 @@ void Temp::showMainView() {
 		}
 
 		desktop.Update(clock.restart().asSeconds());
+
 		window.clear();
 
 		drawSFML(sfml_canvas, &backgroundSprite);
@@ -63,27 +64,38 @@ std::shared_ptr<sfg::Widget> Temp::createResourceWindow() {
 	endTurn->GetSignal(sfg::Widget::OnLeftClick).Connect(std::bind(&Temp::EndTurnClick, this));
 	setText->GetSignal(sfg::Widget::OnLeftClick).Connect(std::bind(&Temp::SetTextClick, this));
 
+	/*Radio Buttons*/
+	m_radio_button1 = sfg::RadioButton::Create("Move");
+	m_radio_button2 = sfg::RadioButton::Create("Attack", m_radio_button1->GetGroup());
+	m_radio_button3 = sfg::RadioButton::Create("Upgrade", m_radio_button1->GetGroup());
+	m_radio_button4 = sfg::RadioButton::Create("Move", m_radio_button1->GetGroup());
+	m_radio_button1->GetSignal( sfg::ToggleButton::OnToggle ).Connect( std::bind( &Temp::ButtonSelect, this ) );
+	m_radio_button2->GetSignal( sfg::ToggleButton::OnToggle ).Connect( std::bind( &Temp::ButtonSelect, this ) );
+	m_radio_button3->GetSignal(sfg::ToggleButton::OnToggle).Connect(std::bind(&Temp::ButtonSelect, this));
+	m_radio_button4->GetSignal(sfg::ToggleButton::OnToggle).Connect(std::bind(&Temp::ButtonSelect, this));
+
 	/*Box*/
 	auto box = sfg::Box::Create(sfg::Box::Orientation::VERTICAL, 5.0f);
 	m_label = sfg::Label::Create(gameManager->getCurrentClient());
-
-	entry_label = sfg::Label::Create();
-	entry_label->SetText("not yet");
+	entry_label = sfg::Label::Create("Order Sender Input");	
 	m_entry = sfg::Entry::Create();
-	m_entry->SetRequisition(sf::Vector2f(10.f, 0.f));
 
+	box->Pack(sfg::Label::Create("\nCONTROL WINDOW"), false);
 	box->Pack(button, false);
-	box->Pack(m_entry);
-
-
 	box->Pack(endTurn, false);
-	box->Pack(setText, false);
 	box->Pack(m_label, false);
-	box->Pack(sfg::Label::Create("This is a newly created window, \n from runtime, interactively."), false);
 	box->Pack(sfg::Label::Create("You can move me around, try it!"), false);
 	box->Pack(sfg::Label::Create("Or click the button below \n to destroy me. :-("), false);
+	box->Pack(sfg::Label::Create("\nORDERS"), false);
+
+	box->Pack(m_radio_button1, false);
+	box->Pack(m_radio_button2, false);
+	box->Pack(m_radio_button3, false);
+	box->Pack(m_radio_button4, false);
+
+	box->Pack(setText, false);
+	box->Pack(m_entry, false);
 	box->Pack(entry_label, false);
-	//box->Pack(m_label);
 
 	/*Resource Window*/
 	auto resource_window = sfg::Window::Create();
@@ -165,6 +177,21 @@ void Temp::EndTurnClick() {
 
 void Temp::SetTextClick() {
 	entry_label->SetText(m_entry->GetText());
+}
+
+void Temp::ButtonSelect() {
+	if (m_radio_button1->IsActive()) {
+		//Do this
+	}
+	else if (m_radio_button2->IsActive()) {
+		//Do that
+	}
+	else if (m_radio_button3->IsActive()) {
+		//Do the other thing
+	}
+	else if (m_radio_button4->IsActive()) {
+		//Do the other thing
+	}
 }
 
 Temp::~Temp() {
