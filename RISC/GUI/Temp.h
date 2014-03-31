@@ -83,7 +83,10 @@ private:
 
 	GameManager* gameManager = new GameManager();
 
-	sfg::Label::Ptr territory_label;
+	sfg::Label::Ptr territory_id_label;
+	sfg::Label::Ptr territory_units_label;
+	sfg::Label::Ptr territory_resources_label;
+
 	void clickTerritory(float adjustedX, float adjustedY);
 	void drawTerritories(std::shared_ptr<sfg::Canvas> sfml_canvas);
 

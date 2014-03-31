@@ -122,9 +122,16 @@ std::shared_ptr<sfg::Widget> Temp::createInformationWindow() {
 	information_window->SetPosition(Vector2f(WIDTH / 4, HEIGHT));
 	information_window->SetRequisition(Vector2f(WIDTH, (HEIGHT*1.2) - HEIGHT));
 
-	auto box = sfg::Box::Create(sfg::Box::Orientation::HORIZONTAL, 5.0f);
-	territory_label = sfg::Label::Create("");
-	box->Pack(territory_label, false);
+	auto box = sfg::Box::Create(sfg::Box::Orientation::VERTICAL, 5.0f);
+	territory_id_label = sfg::Label::Create("");
+	territory_units_label = sfg::Label::Create("");
+	territory_resources_label = sfg::Label::Create("");
+
+	box->Pack(territory_id_label, false);
+	box->Pack(sfg::Separator::Create(), false);
+	box->Pack(territory_units_label, false);
+	box->Pack(sfg::Separator::Create(), false);
+	box->Pack(territory_resources_label, false);
 
 	information_window->Add(box);
 
@@ -157,6 +164,7 @@ void Temp::drawSFML(std::shared_ptr<sfg::Canvas> sfml_canvas, Sprite* background
 	//Draw the territories
 	drawTerritories(sfml_canvas);
 
+	/*Clicking the territory produces some result*/
 	float adjustedX = Mouse::getPosition(*window).x - sfml_canvas->GetAbsolutePosition().x;
 	float adjustedY = Mouse::getPosition(*window).y - sfml_canvas->GetAbsolutePosition().y;
 	clickTerritory(adjustedX, adjustedY);
@@ -261,12 +269,19 @@ void Temp::clickTerritory(float adjustedX, float adjustedY) {
 		InitializationUtilities::scrollOverTerritory(&bounds, binder->getShape(), adjustedX, adjustedY);
 
 		if (Mouse::isButtonPressed(Mouse::Left) && bounds.contains(adjustedX, adjustedY)) {
-			string text = "";
+			string id = "Territory ID: ";
+			string units = "Units: ";
+			string resources = "Resources: ";
+
 			for each (Unit* u in binder->getTerritory()->getTerritoryContents()) {
-				text += u->getUnitType()->getType() + " ";
+				units += u->getUnitType()->getType() + " ";
 			}
-			territory_label->SetText(text);
-			//Send to information window
+			for each (ResourceType* rt in binder->getTerritory()->getProduction()) {
+				resources += rt->getResourceName() + " ";
+			}
+			territory_id_label->SetText(id + binder->getTerritory()->getTerritoryID());
+			territory_units_label->SetText(units);
+			territory_resources_label->SetText(resources);
 		}
 		else if (Mouse::isButtonPressed(Mouse::Right) && bounds.contains(adjustedX, adjustedY)) {
 			//send to information window
