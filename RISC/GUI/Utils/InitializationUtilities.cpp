@@ -5,7 +5,7 @@ InitializationUtilities::InitializationUtilities() {
 }
 
 void InitializationUtilities::scrollOverTerritory(FloatRect* bounds, Shape* terrShape, float adjustedX, float adjustedY) {
-	cout << adjustedX << " " << adjustedY << endl;
+	//cout << adjustedX << " " << adjustedY << endl;
 	//cout << bounds->left << " " << bounds->width << endl;
 	if (bounds->contains(adjustedX, adjustedY)) {
 		terrShape->setFillColor(Color(255, 10, 10, 15));

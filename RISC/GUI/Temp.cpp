@@ -84,8 +84,8 @@ std::shared_ptr<sfg::Widget> Temp::createResourceWindow() {
 	box->Pack(button, false);
 	box->Pack(endTurn, false);
 	box->Pack(m_label, false);
-	box->Pack(sfg::Label::Create("You can move me around, try it!"), false);
-	box->Pack(sfg::Label::Create("Or click the button below \n to destroy me. :-("), false);
+	box->Pack(sfg::Label::Create("I guess this is kinda fun"), false);
+	box->Pack(sfg::Label::Create("I'd be chill to put some \n helpful info here"), false);
 	box->Pack(sfg::Separator::Create(), false);
 	box->Pack(sfg::Label::Create("\nORDERS"), false);
 	/*Create and Pack Radio Buttons*/
@@ -121,6 +121,14 @@ std::shared_ptr<sfg::Widget> Temp::createInformationWindow() {
 	information_window->SetTitle("Information Window");
 	information_window->SetPosition(Vector2f(WIDTH / 4, HEIGHT));
 	information_window->SetRequisition(Vector2f(WIDTH, (HEIGHT*1.2) - HEIGHT));
+
+	auto box = sfg::Box::Create(sfg::Box::Orientation::HORIZONTAL, 5.0f);
+	territory_label = sfg::Label::Create("");
+	box->Pack(territory_label, false);
+
+	information_window->Add(box);
+
+
 	return information_window;
 }
 
@@ -151,25 +159,7 @@ void Temp::drawSFML(std::shared_ptr<sfg::Canvas> sfml_canvas, Sprite* background
 
 	float adjustedX = Mouse::getPosition(*window).x - sfml_canvas->GetAbsolutePosition().x;
 	float adjustedY = Mouse::getPosition(*window).y - sfml_canvas->GetAbsolutePosition().y;
-
-	for each (TerritoryBinder* binder in gameManager->getMadeTerritories())
-	{
-		FloatRect bounds = binder->getShape()->getGlobalBounds();
-		InitializationUtilities::scrollOverTerritory(&bounds, binder->getShape(), adjustedX, adjustedY);
-		
-		if (Mouse::isButtonPressed(Mouse::Left) && bounds.contains(adjustedX, adjustedY)) {
-			//cout << bounds.left << " <-left " << bounds.width << " <-width " << bounds.top << " <-top " << bounds.height << " <-height" << endl;
-			//cout << Mouse::getPosition(window).x << " " << adjustedY << endl;
-			cout << "cash" << endl;
-		}
-		else if (Mouse::isButtonPressed(Mouse::Right) && bounds.contains(adjustedX, adjustedY)) {
-			cout << "Money" << endl;
-		}
-	}
-	
-	//sf::RectangleShape rect(Vector2f(10, 10));
-	//rect.setPosition(Vector2f(50, 50));
-	//sfml_canvas->Draw(rect);
+	clickTerritory(adjustedX, adjustedY);
 
 	sfml_canvas->Display();
 	sfml_canvas->Unbind();
@@ -260,6 +250,27 @@ void Temp::drawTerritories(std::shared_ptr<sfg::Canvas> sfml_canvas) {
 	for each (TerritoryBinder* binder in gameManager->getMadeTerritories())
 	{
 		sfml_canvas->Draw(*binder->getShape());
+	}
+}
+
+void Temp::clickTerritory(float adjustedX, float adjustedY) {
+
+	for each (TerritoryBinder* binder in gameManager->getMadeTerritories())
+	{
+		FloatRect bounds = binder->getShape()->getGlobalBounds();
+		InitializationUtilities::scrollOverTerritory(&bounds, binder->getShape(), adjustedX, adjustedY);
+
+		if (Mouse::isButtonPressed(Mouse::Left) && bounds.contains(adjustedX, adjustedY)) {
+			string text = "";
+			for each (Unit* u in binder->getTerritory()->getTerritoryContents()) {
+				text += u->getUnitType()->getType() + " ";
+			}
+			territory_label->SetText(text);
+			//Send to information window
+		}
+		else if (Mouse::isButtonPressed(Mouse::Right) && bounds.contains(adjustedX, adjustedY)) {
+			//send to information window
+		}
 	}
 }
 

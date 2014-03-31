@@ -34,12 +34,11 @@ public:
 
 protected:
 	int level;
-	string type;
 	int costToUnlock;
 	int myUpgradeCost;
 	int myCombatBonus;
 	bool spy;
 	string prevUp;
 	string nextUp;
-
+	string type;
 };
