@@ -25,6 +25,27 @@ int OrderManager::numOfOrderCount(){
 	return (int) this->possibleOrders.size();
 }
 
+Order* OrderManager::accessOrderAtIndex(int index){
+	return this->possibleOrders.at(index);
+}
+
+void OrderManager::removeOrderAtIndex(int index){
+	this->possibleOrders.erase(this->possibleOrders.begin() + index);
+}
+
+queue<Order*> OrderManager::getOrderQ(){
+	queue<Order*> orderQ;
+
+	for each(Order* order in possibleOrders){
+		orderQ.push(order);
+	}
+
+	return orderQ;
+
+}
+
+
+
 OrderManager::~OrderManager(){
 
 }
