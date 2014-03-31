@@ -1,4 +1,3 @@
-#pragma once
 #include "Temp.h"
 
 using namespace sf;
@@ -8,6 +7,7 @@ Temp::Temp() {
 }
 
 void Temp::showMainView() {
+
 
 	/*Display Stuff*/
 	sf::RenderWindow window(sf::VideoMode(WIDTH*1.2, HEIGHT*1.2), "RISC");
@@ -51,22 +51,23 @@ void Temp::showMainView() {
 		window.display();
 
 	}
-
+	delete(gameManager);
 }
 
 std::shared_ptr<sfg::Widget> Temp::createResourceWindow() {
 	/*Button*/
 	auto button = sfg::Button::Create("Real Money");
-	auto button2 = sfg::Button::Create("Fake Money");
+	auto endTurn = sfg::Button::Create("End Turn");
 	button->GetSignal(sfg::Widget::OnLeftClick).Connect(std::bind(&Temp::OnButtonClick, this));
-	button2->GetSignal(sfg::Widget::OnLeftClick).Connect(std::bind(&Temp::OnButtonClick, this));
+	endTurn->GetSignal(sfg::Widget::OnLeftClick).Connect(std::bind(&Temp::EndTurnClick, this));
 
 	/*Box*/
 	auto box = sfg::Box::Create(sfg::Box::Orientation::VERTICAL, 5.0f);
-	m_label = sfg::Label::Create("Resource Manager");
+	//cout << m_label->GetAbsolutePosition().x << endl;
+	m_label = sfg::Label::Create(gameManager->getCurrentClient());
 	box->Pack(m_label);
 	box->Pack(button, false);
-	box->Pack(button2, false);
+	box->Pack(endTurn, false);
 
 	/*Resource Window*/
 	auto resource_window = sfg::Window::Create();
@@ -138,7 +139,12 @@ void Temp::handleScrolling(View* game_view, Vector2f* position) {
 }
 
 void Temp::OnButtonClick() {
-	m_label->SetText("cash");
+	//m_label->SetText(gameManager->getUnitText());
+}
+
+void Temp::EndTurnClick() {
+	gameManager->endTurn();
+	m_label->SetText(gameManager->getCurrentClient());
 }
 
 Temp::~Temp() {
