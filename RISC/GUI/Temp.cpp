@@ -13,6 +13,9 @@ void Temp::showMainView() {
 	sf::RenderWindow window(sf::VideoMode(WIDTH*1.25, HEIGHT*1.2), "RISC");
 	window.setFramerateLimit(40);
 
+	/*Set Up Some Preconfigured Settings*/
+	gameManager->setUpState();
+
 	/*Background*/
 	makeSprite("Resources/map.jpg");
 
@@ -53,6 +56,12 @@ void Temp::showMainView() {
 
 	}
 	delete(gameManager);
+	for each (TerritoryBinder* binder in gameManager->getMadeTerritories())
+	{
+		delete(binder->getShape());
+		delete(binder->getTerritory());
+		delete(binder);
+	}
 }
 
 std::shared_ptr<sfg::Widget> Temp::createResourceWindow() {
@@ -136,9 +145,13 @@ void Temp::drawSFML(std::shared_ptr<sfg::Canvas> sfml_canvas, Sprite* background
 
 	// Draw the SFML Sprite.
 	sfml_canvas->Draw(*background);
-	sf::RectangleShape rect(Vector2f(10, 10));
-	rect.setPosition(Vector2f(50, 50));
-	sfml_canvas->Draw(rect);
+	
+	//Draw the territories
+	drawTerritories(sfml_canvas);
+	
+	//sf::RectangleShape rect(Vector2f(10, 10));
+	//rect.setPosition(Vector2f(50, 50));
+	//sfml_canvas->Draw(rect);
 
 	sfml_canvas->Display();
 	sfml_canvas->Unbind();
@@ -223,6 +236,13 @@ void Temp::createDropdownQueue(std::shared_ptr<sfg::Box> box) {
 	queue_box->GetSignal(sfg::ComboBox::OnSelect).Connect(std::bind(&Temp::OnOrderSelect, this));
 
 	box->Pack(queue_box, false);
+}
+
+void Temp::drawTerritories(std::shared_ptr<sfg::Canvas> sfml_canvas) {
+	for each (TerritoryBinder* binder in gameManager->getMadeTerritories())
+	{
+		sfml_canvas->Draw(*binder->getShape());
+	}
 }
 
 void Temp::OnButtonClick() {

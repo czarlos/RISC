@@ -11,16 +11,15 @@ GameManager::GameManager() {
 void GameManager::setUpState() {
 	/*Prepare Clients and Server*/
 	
-
 	/*Set up board*/
-	Board* board = new Board();
+	board = new Board();
 	board->generateFixedBoard();
 	InitializationUtilities::addUnitsToBoard(board);
+	
+	/*Make Rectangles for all of the places on the board*/
+	BoardPainter* bp = new BoardPainter();
+	myMadeTerritories = bp->makeBoard(board);
 
-	// We need to be constantly checking if a unit has been made/deleted and add/remove it
-	vector<TerritoryBinder*> madeTerritories;
-	vector<VertexArray*> madeLines;
-	string str;
 
 	// Initialize first client
 	Client* currentClient = myClientList.at(0);
@@ -64,6 +63,10 @@ Order* GameManager::getWorkingOrder() {
 
 void GameManager::setWorkingOrder(Order* order) {
 	myWorkingOrder = order;
+}
+
+vector<TerritoryBinder*> GameManager::getMadeTerritories() {
+	return myMadeTerritories;
 }
 
 GameManager::~GameManager() {

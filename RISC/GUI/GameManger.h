@@ -37,6 +37,9 @@ public:
 	Order* retrieveLastOrder();
 	Order* getWorkingOrder();
 	void setWorkingOrder(Order* order);
+	void setUpState();
+
+	vector<TerritoryBinder*> getMadeTerritories();
 	virtual ~GameManager();
 
 private:
@@ -44,10 +47,11 @@ private:
 	int myNumberOfClients;
 	Order* myWorkingOrder;
 
+	Board* board;
+	vector<TerritoryBinder*> myMadeTerritories;
+
+
 	ServerLogic* server;
 	std::queue<Order*> myOrderQueue;
 	vector<Client*> myClientList;
-
-	void setUpState();
-
 };
