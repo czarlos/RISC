@@ -5,7 +5,7 @@
 #include<stdlib.h>
 #include<time.h>
 #include "../GameObject/Unit/Unit.h"
-
+#include <queue>
 
 using namespace std;
 
@@ -13,10 +13,10 @@ class CombatResolution{
 
 public:
 	static string combatResolution(string playerAName, string playerBname, vector<Unit*> playerAUnits, vector<Unit*> playerBUnits);
-	static vector<Unit*>mergeSort(vector<Unit*>);
 
 private:
+	static queue<Unit*> turnToQueue(vector<Unit*>);
 	static vector<Unit*> merge(vector<Unit*>, vector<Unit*>);
+	static vector<Unit*>mergeSortUnits(vector<Unit*>);
 	static Unit* findHighestLvlUnit(vector<Unit*>);
-
 };

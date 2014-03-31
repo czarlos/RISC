@@ -4,6 +4,11 @@
 string CombatResolution::combatResolution(string playerAName, string playerBName, vector<Unit*> playerAUnits, vector<Unit*> playerBUnits){
 	//Note: B is the defending player
 	//		A is the attacking player
+	playerAUnits = mergeSortUnits(playerAUnits);
+	playerBUnits = mergeSortUnits(playerBUnits);
+	queue<Unit*> playerAUnitQ;
+	queue<Unit*> playerBUnitQ;
+
 
 	srand((unsigned int)time(NULL));
 	while (!playerAUnits.empty() || !playerBUnits.empty()){
@@ -19,6 +24,13 @@ string CombatResolution::combatResolution(string playerAName, string playerBName
 
 
 	return "";
+}
+
+queue<Unit*> CombatResolution::turnToQueue(vector<Unit*> listOfUnits){
+	queue<Unit*> unitQ;
+
+
+	return unitQ;
 }
 
 // this is sorting form highest to lowest units
@@ -53,7 +65,7 @@ vector<Unit*> CombatResolution::merge(vector<Unit*> left, vector<Unit*> right){
 }
 
 
-vector<Unit*> CombatResolution::mergeSort(vector<Unit*> listOfUnits){
+vector<Unit*> CombatResolution::mergeSortUnits(vector<Unit*> listOfUnits){
 	if (listOfUnits.size() <= 1){
 		return listOfUnits;
 	}
@@ -69,8 +81,8 @@ vector<Unit*> CombatResolution::mergeSort(vector<Unit*> listOfUnits){
 		right.push_back(listOfUnits.at(i));
 	}
 
-	left = mergeSort(left);
-	right = mergeSort(right);
+	left = mergeSortUnits(left);
+	right = mergeSortUnits(right);
 	result = merge(left, right);
 
 	return result;
