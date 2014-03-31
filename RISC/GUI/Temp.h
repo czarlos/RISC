@@ -52,6 +52,10 @@ private:
 	std::shared_ptr<sfg::Window> createSFMLWindow(std::shared_ptr<sfg::Canvas> sfml_canvas);
 	void makeSprite(std::string);
 	void drawSFML(std::shared_ptr<sfg::Canvas> sfml_canvas, Sprite* background);
+	
+	/*Within Resource Window*/
+	void createOrderSelectionBoxes(std::shared_ptr<sfg::Box> box);
+	void createDropdownMenu(std::shared_ptr<sfg::Box> box);
 
 	void ButtonSelect();
 	sfg::RadioButton::Ptr m_radio_button1;

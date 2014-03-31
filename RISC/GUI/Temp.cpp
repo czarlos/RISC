@@ -64,32 +64,6 @@ std::shared_ptr<sfg::Widget> Temp::createResourceWindow() {
 	endTurn->GetSignal(sfg::Widget::OnLeftClick).Connect(std::bind(&Temp::EndTurnClick, this));
 	setText->GetSignal(sfg::Widget::OnLeftClick).Connect(std::bind(&Temp::SetTextClick, this));
 
-	/*Radio Buttons*/
-	m_radio_button1 = sfg::RadioButton::Create("Move");
-	m_radio_button2 = sfg::RadioButton::Create("Attack", m_radio_button1->GetGroup());
-	m_radio_button3 = sfg::RadioButton::Create("Upgrade", m_radio_button1->GetGroup());
-	m_radio_button4 = sfg::RadioButton::Create("Move", m_radio_button1->GetGroup());
-	m_radio_button1->GetSignal( sfg::ToggleButton::OnToggle ).Connect( std::bind( &Temp::ButtonSelect, this ) );
-	m_radio_button2->GetSignal( sfg::ToggleButton::OnToggle ).Connect( std::bind( &Temp::ButtonSelect, this ) );
-	m_radio_button3->GetSignal(sfg::ToggleButton::OnToggle).Connect(std::bind(&Temp::ButtonSelect, this));
-	m_radio_button4->GetSignal(sfg::ToggleButton::OnToggle).Connect(std::bind(&Temp::ButtonSelect, this));
-
-
-	m_combo_box = sfg::ComboBox::Create();
-	m_combo_box->AppendItem("-");
-	m_combo_box->AppendItem("Infantry");
-	m_combo_box->AppendItem("Automatic Weapons");
-	m_combo_box->AppendItem("Rocket Launchers");
-	m_combo_box->AppendItem("Tanks");
-	m_combo_box->AppendItem("Improved Tanks");
-	m_combo_box->AppendItem("Fighter Planes");
-
-
-
-	m_sel_label = sfg::Label::Create(L"Please select an item!");
-	m_combo_box->GetSignal(sfg::ComboBox::OnSelect).Connect(std::bind(&Temp::OnComboSelect, this));
-
-
 	/*Box*/
 	auto box = sfg::Box::Create(sfg::Box::Orientation::VERTICAL, 5.0f);
 	m_label = sfg::Label::Create(gameManager->getCurrentClient());
@@ -104,16 +78,15 @@ std::shared_ptr<sfg::Widget> Temp::createResourceWindow() {
 	box->Pack(sfg::Separator::Create(), false);
 	box->Pack(sfg::Label::Create("\nORDERS"), false);
 
-	box->Pack(m_radio_button1, false);
-	box->Pack(m_radio_button2, false);
-	box->Pack(m_radio_button3, false);
-	box->Pack(m_radio_button4, false);
+	/*Create and Pack Radio Buttons*/
+	createOrderSelectionBoxes(box);
+	/*Create and Pack Dropdown Menu*/
+	createDropdownMenu(box);
 
 	box->Pack(setText, false);
 	box->Pack(m_entry, false);
 	box->Pack(entry_label, false);
 
-	box->Pack(m_combo_box, false);
 
 	/*Resource Window*/
 	auto resource_window = sfg::Window::Create();
@@ -185,6 +158,43 @@ void Temp::handleScrolling(View* game_view, Vector2f* position) {
 
 }
 
+void Temp::createOrderSelectionBoxes(std::shared_ptr<sfg::Box> box) {
+	/*Radio Buttons*/
+	m_radio_button1 = sfg::RadioButton::Create("Move");
+	m_radio_button2 = sfg::RadioButton::Create("Attack", m_radio_button1->GetGroup());
+	m_radio_button3 = sfg::RadioButton::Create("Upgrade", m_radio_button1->GetGroup());
+	m_radio_button4 = sfg::RadioButton::Create("Move", m_radio_button1->GetGroup());
+	
+	m_radio_button1->GetSignal(sfg::ToggleButton::OnToggle).Connect(std::bind(&Temp::ButtonSelect, this));
+	m_radio_button2->GetSignal(sfg::ToggleButton::OnToggle).Connect(std::bind(&Temp::ButtonSelect, this));
+	m_radio_button3->GetSignal(sfg::ToggleButton::OnToggle).Connect(std::bind(&Temp::ButtonSelect, this));
+	m_radio_button4->GetSignal(sfg::ToggleButton::OnToggle).Connect(std::bind(&Temp::ButtonSelect, this));
+
+	box->Pack(m_radio_button1, false);
+	box->Pack(m_radio_button2, false);
+	box->Pack(m_radio_button3, false);
+	box->Pack(m_radio_button4, false);
+}
+
+void Temp::createDropdownMenu(std::shared_ptr<sfg::Box> box) {
+	/*Combo Box*/
+	m_sel_label = sfg::Label::Create(L"Please select an item!");
+	
+	m_combo_box = sfg::ComboBox::Create();
+	m_combo_box->AppendItem("-");
+	m_combo_box->AppendItem("Infantry");
+	m_combo_box->AppendItem("Automatic Weapons");
+	m_combo_box->AppendItem("Rocket Launchers");
+	m_combo_box->AppendItem("Tanks");
+	m_combo_box->AppendItem("Improved Tanks");
+	m_combo_box->AppendItem("Fighter Planes");
+	
+	m_combo_box->GetSignal(sfg::ComboBox::OnSelect).Connect(std::bind(&Temp::OnComboSelect, this));
+
+	box->Pack(m_combo_box, false);
+
+}
+
 void Temp::OnButtonClick() {
 	//m_label->SetText(gameManager->getUnitText());
 }
@@ -216,7 +226,7 @@ void Temp::ButtonSelect() {
 void Temp::OnComboSelect() {
 	std::stringstream sstr;
 
-	sstr << "Item " << m_combo_box->GetSelectedItem() << " selected with text \"" << static_cast<std::string>(m_combo_box->GetSelectedText()) << "\"";
+	sstr << "item " << m_combo_box->GetSelectedItem() << " selected with text \"" << static_cast<std::string>(m_combo_box->GetSelectedText()) << "\"";
 	m_sel_label->SetText(sstr.str());
 	//SEND BACK STRING DATA
 }
