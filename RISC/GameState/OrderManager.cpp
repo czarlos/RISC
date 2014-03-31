@@ -1,19 +1,28 @@
 #include"../GameState/OrderManager.h"
 
 OrderManager::OrderManager(){
+	this->possibleOrders = vector<Order*>();
 
 }
 
-UpgradeOrder* OrderManager::makeUnlockUpgradeOrder(TechnologyManager* techManager){
-	return new UpgradeOrder(techManager);
+void OrderManager::makeUnlockUpgradeOrder(TechnologyManager* techManager){
+	this->possibleOrders.push_back(new UpgradeOrder(techManager));
 }
 
-UpgradeOrder* OrderManager::makeUpgradeUnitOrder(vector<Unit*> listOfUnitsToUpgrade, UnitType* upgradeToUnitType, TechnologyManager* techManager){
-	return new UpgradeOrder(listOfUnitsToUpgrade, upgradeToUnitType, techManager);
+void OrderManager::makeUpgradeUnitOrder(vector<Unit*> listOfUnitsToUpgrade, UnitType* upgradeToUnitType, TechnologyManager* techManager){
+	this->possibleOrders.push_back(new UpgradeOrder(listOfUnitsToUpgrade, upgradeToUnitType, techManager));
 }
 
-UpgradeOrder* OrderManager::makeSpyUpgradeOrder(Unit* selectedUnit, bool isSpy, TechnologyManager* techManager){
-	return new UpgradeOrder(selectedUnit, isSpy, techManager);
+void OrderManager::makeSpyUpgradeOrder(Unit* selectedUnit, bool isSpy, TechnologyManager* techManager){
+	this->possibleOrders.push_back(new UpgradeOrder(selectedUnit, isSpy, techManager));
+}
+
+vector<Order*> OrderManager::getPossibleOrders(){
+	return this->possibleOrders;
+}
+
+int OrderManager::numOfOrderCount(){
+	return (int) this->possibleOrders.size();
 }
 
 OrderManager::~OrderManager(){

@@ -7,13 +7,20 @@ using namespace std;
 class OrderManager{
 public:
 	OrderManager();
-	UpgradeOrder* makeUnlockUpgradeOrder(TechnologyManager*);
-	UpgradeOrder* makeUpgradeUnitOrder(vector<Unit*>, UnitType*, TechnologyManager*);
-	UpgradeOrder* makeSpyUpgradeOrder(Unit*, bool, TechnologyManager*);
+	void makeUnlockUpgradeOrder(TechnologyManager*);
+	void makeUpgradeUnitOrder(vector<Unit*>, UnitType*, TechnologyManager*);
+	void makeSpyUpgradeOrder(Unit*, bool, TechnologyManager*);
 	//... all the other possible orders
+	int numOfOrderCount();
+	vector<Order*> getPossibleOrders();
+	Order* accessOrderAtIndex(int);
+	void removeOrderAtIndex(int);
+
+
+
 	~OrderManager();
 private:
-	
+	vector<Order*> possibleOrders;
 
 
 };
