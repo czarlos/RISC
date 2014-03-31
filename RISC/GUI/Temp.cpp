@@ -91,6 +91,8 @@ std::shared_ptr<sfg::Widget> Temp::createResourceWindow() {
 
 	box->Pack(sendOrder, false);
 	box->Pack(sfg::Separator::Create(), false);
+	box->Pack(sfg::Label::Create("ORDER EDITOR"), false);
+	box->Pack(sfg::Label::Create("Queue"), false);
 	createDropdownQueue(box);
 
 
@@ -235,6 +237,7 @@ void Temp::SetTextClick() {
 void Temp::SendOrderClick() {
 	//send order to queue
 	//add to the dropdown menu to be edited
+	queue_box->AppendItem("NEXT ORDER SON");
 }
 
 void Temp::ButtonSelect() {
