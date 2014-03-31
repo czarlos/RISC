@@ -12,6 +12,8 @@ class Unit : public MovableObject {
 private:
 	bool myTurnStatus = false;
 	string myUnitID;
+	int catchRate;
+	int turnInEnemTerr;
 	bool friendlyLocation;
 	UnitType* myUnitType;
 
@@ -21,6 +23,10 @@ public:
 	Unit();
 	Unit(int health, UnitType* unitType, string teamName, string unitID, int movementRange);
 	
+	//for spy catching
+	void resetCatchRate();
+	void increaseCatchRate();
+
 	void setIsInFriendlyLocation(bool);
 	bool isFriendlyLocation();
 	bool getTurnStatus();

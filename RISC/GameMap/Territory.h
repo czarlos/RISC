@@ -74,6 +74,8 @@ public:
 	bool operator < (const Territory& t) const{
 		return Compare(t) < 0;
 	}
+	
+	vector<Unit*> getListOfSpies();
 
 	~Territory();
 
@@ -84,6 +86,7 @@ private:
 	int maxCapacity;
 	int maxResourceProduction;
 	vector<ResourceType*> production;
+	vector<Unit*> spies;
 	vector<Unit*> contents;
 	bool visible;
 

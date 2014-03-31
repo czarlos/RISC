@@ -87,7 +87,12 @@ Location* Territory::getLocation(){
 }
 
 void Territory::addToContent(Unit* itemToAdd){
-	this->contents.push_back(itemToAdd);
+	if (itemToAdd->getUnitType()->isSpy()){
+		this->spies.push_back(itemToAdd);
+	}
+	else{
+		this->contents.push_back(itemToAdd);
+	}
 }
 
 void Territory::removeFromContent(Unit* itemToRemove){
@@ -138,6 +143,9 @@ bool Territory::isVisible(){
 	return this->visible;
 }
 
+vector<Unit*> Territory::getListOfSpies(){
+	return this->spies;
+}
 
 Territory::~Territory()
 {
