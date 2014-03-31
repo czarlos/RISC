@@ -171,6 +171,7 @@ bool TechnologyManager::checkIfNextUgradeAvaliable(){
 
 }
 
+//logic for this method has been moved to upgrade Order - deprecated
 void TechnologyManager::openNextUpgrade(){
 	//double check
 	if (checkIfNextUgradeAvaliable()){

@@ -54,7 +54,7 @@ public:
 	bool canIUnMakeSpy(Unit*);
 	//return the highestAvaUpgrade
 	UnitType* getHighestAvaUpgrade();
-	
+	UnitType* findNextUpgrade();
 	bool checkIfNextUgradeAvaliable();
 	void openNextUpgrade();
 
@@ -63,7 +63,6 @@ public:
 	~TechnologyManager();
 
 private:
-	UnitType* findNextUpgrade();
 	//update the highestAvaUpgrade
 	void updateHighestAvaUpgrade();
 	//check to see if the techpoints deposited by the player is enough to support 
