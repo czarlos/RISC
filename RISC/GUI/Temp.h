@@ -89,6 +89,7 @@ private:
 
 	void clickTerritory(float adjustedX, float adjustedY);
 	void drawTerritories(std::shared_ptr<sfg::Canvas> sfml_canvas);
+	void drawConnections(std::shared_ptr<sfg::Canvas> sfml_canvas);
 
 	sfg::SFGUI m_sfgui;
 	sfg::Label::Ptr m_label;

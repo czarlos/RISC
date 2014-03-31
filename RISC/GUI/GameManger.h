@@ -40,6 +40,7 @@ public:
 	void setUpState();
 
 	vector<TerritoryBinder*> getMadeTerritories();
+	vector<VertexArray*> getMadeLines();
 	virtual ~GameManager();
 
 private:
@@ -49,6 +50,7 @@ private:
 
 	Board* board;
 	vector<TerritoryBinder*> myMadeTerritories;
+	vector<VertexArray*> myMadeLines;
 
 
 	ServerLogic* server;

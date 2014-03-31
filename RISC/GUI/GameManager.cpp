@@ -19,6 +19,7 @@ void GameManager::setUpState() {
 	/*Make Rectangles for all of the places on the board*/
 	BoardPainter* bp = new BoardPainter();
 	myMadeTerritories = bp->makeBoard(board);
+	myMadeLines = InitializationUtilities::addLines(board, bp);
 
 
 	// Initialize first client
@@ -67,6 +68,10 @@ void GameManager::setWorkingOrder(Order* order) {
 
 vector<TerritoryBinder*> GameManager::getMadeTerritories() {
 	return myMadeTerritories;
+}
+
+vector<VertexArray*> GameManager::getMadeLines() {
+	return myMadeLines;
 }
 
 GameManager::~GameManager() {

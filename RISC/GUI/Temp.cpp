@@ -69,7 +69,7 @@ std::shared_ptr<sfg::Widget> Temp::createResourceWindow() {
 	auto button = sfg::Button::Create("Real Money");
 	auto endTurn = sfg::Button::Create("End Turn");
 	auto setText = sfg::Button::Create("Set Number of Units");
-	auto sendOrder = sfg::Button::Create("Send Order");
+	auto sendOrder = sfg::Button::Create("Commit Order");
 	button->GetSignal(sfg::Widget::OnLeftClick).Connect(std::bind(&Temp::OnButtonClick, this));
 	endTurn->GetSignal(sfg::Widget::OnLeftClick).Connect(std::bind(&Temp::EndTurnClick, this));
 	setText->GetSignal(sfg::Widget::OnLeftClick).Connect(std::bind(&Temp::SetTextClick, this));
@@ -161,7 +161,8 @@ void Temp::drawSFML(std::shared_ptr<sfg::Canvas> sfml_canvas, Sprite* background
 	// Draw the SFML Sprite.
 	sfml_canvas->Draw(*background);
 	
-	//Draw the territories
+	//Draw the territories and connections
+	drawConnections(sfml_canvas);
 	drawTerritories(sfml_canvas);
 
 	/*Clicking the territory produces some result*/
@@ -258,6 +259,12 @@ void Temp::drawTerritories(std::shared_ptr<sfg::Canvas> sfml_canvas) {
 	for each (TerritoryBinder* binder in gameManager->getMadeTerritories())
 	{
 		sfml_canvas->Draw(*binder->getShape());
+	}
+}
+
+void Temp::drawConnections(std::shared_ptr<sfg::Canvas> sfml_canvas) {
+	for each (VertexArray* line in gameManager->getMadeLines()) {
+		sfml_canvas->Draw(*line);
 	}
 }
 
