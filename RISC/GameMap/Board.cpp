@@ -220,8 +220,7 @@ Territory* Board::getTerritory(Location* location){
 		for each (Edge *edge in edgeList)
 		{
 			//checking for nullptrs, very important
-			if (edge)
-			{
+			if (edge) {
 				if (edge->getEndPointATerritory()->getLocation()->getX() == location->getX() && edge->getEndPointATerritory()->getLocation()->getY() == location->getY()) {
 					desiredTerritory = edge->getEndPointATerritory();
 				}

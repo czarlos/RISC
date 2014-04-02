@@ -321,27 +321,20 @@ void Temp::SendOrderClick() {
 void Temp::ButtonSelect() {
 
 	if (m_radio_button1->IsActive()) {
-		//Move
-		//cout << gameManager->getDestination()->getX() << " " << gameManager->getDestination()->getY() << endl;
-		//cout << gameManager->getWorkingUnits().at(0) << endl;
-		cout << "money0 " << gameManager->getBoard()  << endl;
-		cout << "money1 " << gameManager->getLocation()  << endl;
-		cout << "money2" << gameManager->getBoard()->getTerritory(gameManager->getLocation()) << endl;
-		cout << "#winner" << endl;
 		vector<Unit*> unitList = gameManager->getBoard()->getTerritory(gameManager->getLocation())->getTerritoryContents();
-		cout << "money3" << endl;
 		vector<Unit*> movedList;
 		int counter = gameManager->getWorkingNumberOfUnits();
 		for each (Unit* unit in unitList)
 		{
-			if (counter != 0 && unit->getUnitType()->getType() == gameManager->getUnitType())
-			{
-				cout << "yes" << endl;
-				movedList.push_back(unit);
-				counter--;
+			//"if unit" checks for nullptrs and ignores them
+			if (unit) {
+				if ( counter != 0 && unit->getUnitType()->getType() == gameManager->getUnitType() )
+				{
+					movedList.push_back(unit);
+					counter--;
+				}
 			}
 		}
-
 		gameManager->setWorkingOrder(&MovementOrder(gameManager->getDestination(), movedList));
 	}
 	else if (m_radio_button2->IsActive()) {
@@ -361,10 +354,10 @@ void Temp::ButtonSelect() {
 
 void Temp::OnComboSelect() {
 	std::stringstream sstr;
+	sstr << static_cast<std::string>(m_combo_box->GetSelectedText());
 
-	sstr << "item " << m_combo_box->GetSelectedItem() << " selected with text \"" << static_cast<std::string>(m_combo_box->GetSelectedText()) << "\"";
 	m_sel_label->SetText(sstr.str());
-	//SEND BACK STRING DATA
+
 	gameManager->setUnitType(sstr.str());
 }
 
