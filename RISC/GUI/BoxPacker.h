@@ -14,14 +14,25 @@
 #include "BoardPainter.h"
 #include "..\GameMap\Board.h"
 #include "..\GameObject\Unit\Tanks.h"
+#include "GameManger.h"
 
 class BoxPacker {
 public:
-	BoxPacker();
-	static void packMovementOrder(std::shared_ptr<sfg::Box> box);
-	static void packAttackOrder(std::shared_ptr<sfg::Box> box);
-	static void packUpgradeOrder(std::shared_ptr<sfg::Box> box);
-	static void packAddUnitOrder(std::shared_ptr<sfg::Box> box);
+	BoxPacker(std::shared_ptr<sfg::Box> box, GameManager* gameManager, std::shared_ptr<sfg::Window> window);
+	void packMovementOrder();
+	void packAttackOrder();
+	void packUpgradeOrder();
+	void packAddUnitOrder();
+
+	void MovementButtonCheck();
 
 	virtual ~BoxPacker();
+
+private:
+	std::shared_ptr<sfg::Box> myBox;
+	GameManager* myGameManager;
+	std::shared_ptr<sfg::Window> myWindow;
+	sfg::CheckButton::Ptr send_all_button;
+	sfg::CheckButton::Ptr other_button;
+
 };

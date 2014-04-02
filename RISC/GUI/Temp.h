@@ -68,7 +68,7 @@ private:
 	int old_radio_box_number;
 	
 	/*Within Resource Window*/
-	void createOrderSelectionBoxes(std::shared_ptr<sfg::Box> box);
+	void createOrderSelectionBoxes(std::shared_ptr<sfg::Box> box, std::shared_ptr<sfg::Window> window);
 	void createDropdownMenu(std::shared_ptr<sfg::Box> box);
 	void createDropdownQueue(std::shared_ptr<sfg::Box> box);
 

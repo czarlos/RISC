@@ -14,11 +14,12 @@
 #include "BoardPainter.h"
 #include "..\GameMap\Board.h"
 #include "..\GameObject\Unit\Tanks.h"
+#include "GameManger.h"
 
 class CreateMenu {
 public:
 	CreateMenu();
-	static void createOrderSelectionBoxes(std::shared_ptr<sfg::Box> box);
-	static void createDropdownMenu(std::shared_ptr<sfg::Box> box);
+	static void createOrderSelectionBoxes(std::shared_ptr<sfg::Box> box, GameManager* gameManager);
+	static void createDropdownMenu(std::shared_ptr<sfg::Box> box, GameManager* gameManager);
 	virtual ~CreateMenu();
 };

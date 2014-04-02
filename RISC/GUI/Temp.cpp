@@ -66,6 +66,9 @@ void Temp::showMainView() {
 }
 
 std::shared_ptr<sfg::Widget> Temp::createResourceWindow() {
+	auto resource_window = sfg::Window::Create();
+
+
 	/*Button*/
 	auto endTurn = sfg::Button::Create("End Turn");
 	auto setText = sfg::Button::Create("Set Number of Units");
@@ -87,7 +90,7 @@ std::shared_ptr<sfg::Widget> Temp::createResourceWindow() {
 	box->Pack(sfg::Separator::Create(), false);
 	box->Pack(sfg::Label::Create("\nORDERS"), false);
 	/*Create and Pack Radio Buttons*/
-	createOrderSelectionBoxes(box);
+	createOrderSelectionBoxes(box, resource_window);
 	/*Create and Pack Dropdown Menu*/
 	box->Pack(sfg::Label::Create("Select Upgrade"), false);
 	createDropdownMenu(box);
@@ -104,7 +107,7 @@ std::shared_ptr<sfg::Widget> Temp::createResourceWindow() {
 
 
 	/*Resource Window*/
-	auto resource_window = sfg::Window::Create();
+	//auto resource_window = sfg::Window::Create();
 	//resource_window->SetTitle("Hello world!");
 	resource_window->Add(box);
 	//resource_window->AddWithViewport(box);
@@ -206,7 +209,7 @@ void Temp::handleScrolling(View* game_view, Vector2f* position) {
 
 }
 
-void Temp::createOrderSelectionBoxes(std::shared_ptr<sfg::Box> box) {
+void Temp::createOrderSelectionBoxes(std::shared_ptr<sfg::Box> box, std::shared_ptr<sfg::Window> window) {
 	/*Radio Buttons*/
 	movement_radio_button = sfg::RadioButton::Create("Move");
 	attack_radio_button = sfg::RadioButton::Create("Attack", movement_radio_button->GetGroup());
@@ -223,25 +226,26 @@ void Temp::createOrderSelectionBoxes(std::shared_ptr<sfg::Box> box) {
 	box->Pack(upgrade_radio_button, false);
 	box->Pack(add_unit_radio_button, false);
 
+	BoxPacker boxPacker(box, gameManager, window);
 	if (radio_box_number == 1) {
 
-		BoxPacker::packMovementOrder(box);
+		boxPacker.packMovementOrder();
 		movement_radio_button->SetActive(true);
 	}
 	else if (radio_box_number == 2) {
 
-		BoxPacker::packAttackOrder(box);
+		boxPacker.packAttackOrder();
 		attack_radio_button->SetActive(true);
 
 	}
 	else if (radio_box_number == 3) {
 
-		BoxPacker::packUpgradeOrder(box);
+		boxPacker.packUpgradeOrder();
 		upgrade_radio_button->SetActive(true);
 	}
 	else if (radio_box_number == 3) {
 
-		BoxPacker::packAddUnitOrder(box);
+		boxPacker.packAddUnitOrder();
 		add_unit_radio_button->SetActive(true);
 	}
 }
