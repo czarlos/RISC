@@ -58,14 +58,6 @@ string GameManager::getCurrentClient() {
 	return "Current Player: " + myClientList.at(myCurrentClient)->getUserName();
 }
 
-Order* GameManager::getWorkingOrder() {
-	return myWorkingOrder;
-}
-
-void GameManager::setWorkingOrder(Order* order) {
-	myWorkingOrder = order;
-}
-
 vector<TerritoryBinder*> GameManager::getMadeTerritories() {
 	return myMadeTerritories;
 }
@@ -120,6 +112,50 @@ void GameManager::setUnitType(string unitType) {
 
 Board* GameManager::getBoard() {
 	return board;
+}
+
+Order* GameManager::getWorkingOrder() {
+	return myWorkingOrder;
+}
+
+void GameManager::setWorkingOrder(Order* order) {
+	myWorkingOrder = order;
+}
+
+MovementOrder* GameManager::getMovementOrder() {
+	return myMovementOrder;
+}
+
+AttackOrder* GameManager::getAttackOrder() {
+	return myAttackOrder;
+}
+
+UpgradeOrder* GameManager::getUpgradeOrder() {
+	return myUpgradeOrder;
+}
+
+AddUnitOrder* GameManager::getAddUnitOrder() {
+	return myAddUnitOrder;
+}
+
+void GameManager::setMovementOrder(MovementOrder* order) {
+	myMovementOrder = order;
+	myWorkingOrder = order;
+}
+
+void GameManager::setAttackOrder(AttackOrder* order) {
+	myAttackOrder = order;
+	myWorkingOrder = order;
+}
+
+void GameManager::setUpgradeOrder(UpgradeOrder* order) {
+	myUpgradeOrder = order;
+	myWorkingOrder = order;
+}
+
+void GameManager::setAddUnitOrder(AddUnitOrder* order) {
+	myAddUnitOrder = order;
+	myWorkingOrder = order;
 }
 
 GameManager::~GameManager() {

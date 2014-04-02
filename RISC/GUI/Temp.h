@@ -30,6 +30,7 @@
 #include "..\Order\AddUnitOrder.h"
 
 #include "GameManger.h"
+#include "BoxPacker.h"
 
 
 
@@ -61,16 +62,21 @@ private:
 	void makeSprite(std::string);
 	void drawSFML(std::shared_ptr<sfg::Canvas> sfml_canvas, Sprite* background, RenderWindow* window);
 	
+	/*For updates to gui*/
+	void paintUpdates(sfg::Desktop* desktop);
+	int radio_box_number;
+	int old_radio_box_number;
+	
 	/*Within Resource Window*/
 	void createOrderSelectionBoxes(std::shared_ptr<sfg::Box> box);
 	void createDropdownMenu(std::shared_ptr<sfg::Box> box);
 	void createDropdownQueue(std::shared_ptr<sfg::Box> box);
 
 	void ButtonSelect();
-	sfg::RadioButton::Ptr m_radio_button1;
-	sfg::RadioButton::Ptr m_radio_button2;
-	sfg::RadioButton::Ptr m_radio_button3;
-	sfg::RadioButton::Ptr m_radio_button4;
+	sfg::RadioButton::Ptr movement_radio_button;
+	sfg::RadioButton::Ptr attack_radio_button;
+	sfg::RadioButton::Ptr upgrade_radio_button;
+	sfg::RadioButton::Ptr add_unit_radio_button;
 
 	void OnComboSelect();
 	sfg::ComboBox::Ptr m_combo_box;

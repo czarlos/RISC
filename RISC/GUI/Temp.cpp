@@ -48,6 +48,7 @@ void Temp::showMainView() {
 
 		window.clear();
 
+		paintUpdates(&desktop);
 		drawSFML(sfml_canvas, &backgroundSprite, &window);
 
 		window.setActive(true);
@@ -171,6 +172,14 @@ void Temp::drawSFML(std::shared_ptr<sfg::Canvas> sfml_canvas, Sprite* background
 	sfml_canvas->Unbind();
 }
 
+void Temp::paintUpdates(sfg::Desktop* desktop) {
+	if (radio_box_number != old_radio_box_number) {
+		cout << "repainting" << endl;
+		desktop->Add(createResourceWindow());
+		old_radio_box_number = radio_box_number;
+	}
+}
+
 void Temp::handleScrolling(View* game_view, Vector2f* position) {
 	if (Keyboard::isKeyPressed(Keyboard::Up)) {
 		if (position->y > 0){
@@ -199,20 +208,42 @@ void Temp::handleScrolling(View* game_view, Vector2f* position) {
 
 void Temp::createOrderSelectionBoxes(std::shared_ptr<sfg::Box> box) {
 	/*Radio Buttons*/
-	m_radio_button1 = sfg::RadioButton::Create("Move");
-	m_radio_button2 = sfg::RadioButton::Create("Attack", m_radio_button1->GetGroup());
-	m_radio_button3 = sfg::RadioButton::Create("Upgrade", m_radio_button1->GetGroup());
-	m_radio_button4 = sfg::RadioButton::Create("Add Unit", m_radio_button1->GetGroup());
-	
-	m_radio_button1->GetSignal(sfg::ToggleButton::OnToggle).Connect(std::bind(&Temp::ButtonSelect, this));
-	m_radio_button2->GetSignal(sfg::ToggleButton::OnToggle).Connect(std::bind(&Temp::ButtonSelect, this));
-	m_radio_button3->GetSignal(sfg::ToggleButton::OnToggle).Connect(std::bind(&Temp::ButtonSelect, this));
-	m_radio_button4->GetSignal(sfg::ToggleButton::OnToggle).Connect(std::bind(&Temp::ButtonSelect, this));
+	movement_radio_button = sfg::RadioButton::Create("Move");
+	attack_radio_button = sfg::RadioButton::Create("Attack", movement_radio_button->GetGroup());
+	upgrade_radio_button = sfg::RadioButton::Create("Upgrade", movement_radio_button->GetGroup());
+	add_unit_radio_button = sfg::RadioButton::Create("Add Unit", movement_radio_button->GetGroup());
 
-	box->Pack(m_radio_button1, false);
-	box->Pack(m_radio_button2, false);
-	box->Pack(m_radio_button3, false);
-	box->Pack(m_radio_button4, false);
+	movement_radio_button->GetSignal(sfg::ToggleButton::OnToggle).Connect(std::bind(&Temp::ButtonSelect, this));
+	attack_radio_button->GetSignal(sfg::ToggleButton::OnToggle).Connect(std::bind(&Temp::ButtonSelect, this));
+	upgrade_radio_button->GetSignal(sfg::ToggleButton::OnToggle).Connect(std::bind(&Temp::ButtonSelect, this));
+	add_unit_radio_button->GetSignal(sfg::ToggleButton::OnToggle).Connect(std::bind(&Temp::ButtonSelect, this));
+
+	box->Pack(movement_radio_button, false);
+	box->Pack(attack_radio_button, false);
+	box->Pack(upgrade_radio_button, false);
+	box->Pack(add_unit_radio_button, false);
+
+	if (radio_box_number == 1) {
+
+		BoxPacker::packMovementOrder(box);
+		movement_radio_button->SetActive(true);
+	}
+	else if (radio_box_number == 2) {
+
+		BoxPacker::packAttackOrder(box);
+		attack_radio_button->SetActive(true);
+
+	}
+	else if (radio_box_number == 3) {
+
+		BoxPacker::packUpgradeOrder(box);
+		upgrade_radio_button->SetActive(true);
+	}
+	else if (radio_box_number == 3) {
+
+		BoxPacker::packAddUnitOrder(box);
+		add_unit_radio_button->SetActive(true);
+	}
 }
 
 void Temp::createDropdownMenu(std::shared_ptr<sfg::Box> box) {
@@ -320,33 +351,43 @@ void Temp::SendOrderClick() {
 
 void Temp::ButtonSelect() {
 
-	if (m_radio_button1->IsActive()) {
-		vector<Unit*> unitList = gameManager->getBoard()->getTerritory(gameManager->getLocation())->getTerritoryContents();
-		vector<Unit*> movedList;
-		int counter = gameManager->getWorkingNumberOfUnits();
-		for each (Unit* unit in unitList)
-		{
-			//"if unit" checks for nullptrs and ignores them
-			if (unit) {
-				if ( counter != 0 && unit->getUnitType()->getType() == gameManager->getUnitType() )
-				{
-					movedList.push_back(unit);
-					counter--;
-				}
-			}
-		}
-		gameManager->setWorkingOrder(&MovementOrder(gameManager->getDestination(), movedList));
+	if (movement_radio_button->IsActive()) {
+		radio_box_number = 1;
+
+		//vector<Unit*> unitList = gameManager->getBoard()->getTerritory(gameManager->getLocation())->getTerritoryContents();
+		//vector<Unit*> movedList;
+		//int counter = gameManager->getWorkingNumberOfUnits();
+		//for each (Unit* unit in unitList)
+		//{
+		//	//"if unit" checks for nullptrs and ignores them
+		//	if (unit) {
+		//		if ( counter != 0 && unit->getUnitType()->getType() == gameManager->getUnitType() )
+		//		{
+		//			movedList.push_back(unit);
+		//			counter--;
+		//		}
+		//	}
+		//}
+		////gameManager->setMovementOrder(&MovementOrder());
+		//gameManager->setWorkingOrder(&MovementOrder(gameManager->getDestination(), movedList));
+		
 	}
-	else if (m_radio_button2->IsActive()) {
+	else if (attack_radio_button->IsActive()) {
+		radio_box_number = 2;
+
 		//Attack
 		//gameManager->setWorkingOrder(AttackOrder());
 
 	}
-	else if (m_radio_button3->IsActive()) {
+	else if (upgrade_radio_button->IsActive()) {
+		radio_box_number = 3;
+
 		//Upgrade
 		//gameManager->setWorkingOrder(UpgradeOrder());
 	}
-	else if (m_radio_button4->IsActive()) {
+	else if (add_unit_radio_button->IsActive()) {
+		radio_box_number = 4;
+
 		//Add unit
 		//gameManager->setWorkingOrder(AddUnitOrder());
 	}

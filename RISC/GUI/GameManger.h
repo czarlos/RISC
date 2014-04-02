@@ -15,15 +15,17 @@
 #include "BoardPainter.h"
 #include "..\GameMap\Board.h"
 #include "..\GameObject\Unit\Tanks.h"
-#include "Buttons\TechManagerButton.h"
-#include "Buttons\ResourceManagerButton.h"
-#include "Buttons\Button.h"
 #include "Utils\PopupWindows.h"
 #include "Utils\InitializationUtilities.h"
 #include "Buttons\EndTurnButton.h"
 #include "..\ServerLogic\Client.h"
 #include "..\ServerLogic\ServerLogic.h"
 #include <queue>
+#include "..\Order\MovementOrder.h"
+#include "..\Order\AttackOrder.h"
+#include "..\Order\UpgradeOrder.h"
+#include "..\Order\AddUnitOrder.h"
+
 
 
 class GameManager {
@@ -35,8 +37,19 @@ public:
 	void addOrder(Order* order);
 	void removeLastOrder();
 	Order* retrieveLastOrder();
+	
+	/*Should have its own namespace*/
 	Order* getWorkingOrder();
+	MovementOrder* getMovementOrder();
+	AttackOrder* getAttackOrder();
+	UpgradeOrder* getUpgradeOrder();
+	AddUnitOrder* getAddUnitOrder();
 	void setWorkingOrder(Order* order);
+	void setMovementOrder(MovementOrder* order);
+	void setAttackOrder(AttackOrder* order);
+	void setUpgradeOrder(UpgradeOrder* order);
+	void setAddUnitOrder(AddUnitOrder* order);
+	
 	void setUpState();
 
 	Location* getDestination();
@@ -60,8 +73,15 @@ public:
 private:
 	int myCurrentClient;
 	int myNumberOfClients;
+	
+	/*Should have its own namespace*/
 	Order* myWorkingOrder;
+	MovementOrder* myMovementOrder;
+	AttackOrder* myAttackOrder;
+	UpgradeOrder* myUpgradeOrder;
+	AddUnitOrder* myAddUnitOrder;
 
+	
 	GameState* state1;
 	GameState* state2;
 
