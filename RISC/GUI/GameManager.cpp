@@ -1,8 +1,8 @@
 #include "GameManger.h"
 
 GameManager::GameManager() {
-	GameState* state1 = new GameState();
-	GameState* state2 = new GameState();
+	state1 = new GameState();
+	state2 = new GameState();
 	myClientList = InitializationUtilities::addClients(state1, state2);
 	myNumberOfClients = myClientList.size();
 	myCurrentClient = 0;
@@ -30,7 +30,7 @@ void GameManager::setUpState() {
 
 void GameManager::endTurn() {
 	/*Sends order queue*/
-	server->handleQueue(myOrderQueue);
+	server->handleQueue(myOrderQueue, state1);
 
 	/*Changes possesion*/
 	if (myCurrentClient < myNumberOfClients-1) {
@@ -72,6 +72,54 @@ vector<TerritoryBinder*> GameManager::getMadeTerritories() {
 
 vector<VertexArray*> GameManager::getMadeLines() {
 	return myMadeLines;
+}
+
+void GameManager::setWorkingUnits(vector<Unit*> unitList) {
+	myWorkingUnits = unitList;
+}
+
+void GameManager::addUnitToWorkingList(Unit* unit) {
+	myWorkingUnits.push_back(unit);
+}
+
+vector<Unit*> GameManager::getWorkingUnits() {
+	return myWorkingUnits;
+}
+
+int GameManager::getWorkingNumberOfUnits() {
+	return myWorkingNumberOfUnits;
+}
+
+void GameManager::setWorkingNumberOfUnits(int number) {
+	myWorkingNumberOfUnits = number;
+}
+
+Location* GameManager::getLocation() {
+	return myLocation;
+}
+
+void GameManager::setLocation(Location* location) {
+	myLocation = location;
+}
+
+Location* GameManager::getDestination() {
+	return myDestination;
+}
+
+void GameManager::setDestination(Location* destination) {
+	myDestination = destination;
+}
+
+string GameManager::getUnitType() {
+	return myUnitType;
+}
+
+void GameManager::setUnitType(string unitType) {
+	myUnitType = unitType;
+}
+
+Board* GameManager::getBoard() {
+	return board;
 }
 
 GameManager::~GameManager() {

@@ -9,8 +9,8 @@ Edge::Edge(){
 
 Edge::Edge(Territory* endPointA, Territory* endPointB, double edgeWeight)
 {
-	this-> endPointA = endPointA;
-	this-> endPointB = endPointB;
+	this->endPointA = endPointA;
+	this->endPointB = endPointB;
 	this->edgeWeight = edgeWeight;
 
 }

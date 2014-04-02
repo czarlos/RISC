@@ -80,7 +80,6 @@ private:
 	sfg::ComboBox::Ptr queue_box;
 	sfg::Label::Ptr selection_label;
 
-
 	GameManager* gameManager = new GameManager();
 
 	sfg::Label::Ptr territory_id_label;

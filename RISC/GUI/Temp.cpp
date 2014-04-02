@@ -66,11 +66,9 @@ void Temp::showMainView() {
 
 std::shared_ptr<sfg::Widget> Temp::createResourceWindow() {
 	/*Button*/
-	auto button = sfg::Button::Create("Real Money");
 	auto endTurn = sfg::Button::Create("End Turn");
 	auto setText = sfg::Button::Create("Set Number of Units");
 	auto sendOrder = sfg::Button::Create("Commit Order");
-	button->GetSignal(sfg::Widget::OnLeftClick).Connect(std::bind(&Temp::OnButtonClick, this));
 	endTurn->GetSignal(sfg::Widget::OnLeftClick).Connect(std::bind(&Temp::EndTurnClick, this));
 	setText->GetSignal(sfg::Widget::OnLeftClick).Connect(std::bind(&Temp::SetTextClick, this));
 	sendOrder->GetSignal(sfg::Widget::OnLeftClick).Connect(std::bind(&Temp::SendOrderClick, this));
@@ -81,7 +79,6 @@ std::shared_ptr<sfg::Widget> Temp::createResourceWindow() {
 	entry_label = sfg::Label::Create("");	
 	m_entry = sfg::Entry::Create();
 	box->Pack(sfg::Label::Create("\nCONTROL WINDOW"), false);
-	box->Pack(button, false);
 	box->Pack(endTurn, false);
 	box->Pack(m_label, false);
 	box->Pack(sfg::Label::Create("I guess this is kinda fun"), false);
@@ -289,9 +286,12 @@ void Temp::clickTerritory(float adjustedX, float adjustedY) {
 			territory_id_label->SetText(id + binder->getTerritory()->getTerritoryID());
 			territory_units_label->SetText(units);
 			territory_resources_label->SetText(resources);
+			//This is the current location
+			gameManager->setLocation(binder->getTerritory()->getLocation());
 		}
 		else if (Mouse::isButtonPressed(Mouse::Right) && bounds.contains(adjustedX, adjustedY)) {
-			//send to information window
+			//This is now the destination target
+			gameManager->setDestination(binder->getTerritory()->getLocation());
 		}
 	}
 }
@@ -307,7 +307,8 @@ void Temp::EndTurnClick() {
 
 void Temp::SetTextClick() {
 	entry_label->SetText(m_entry->GetText());
-	//Prepare # of Units, checkbox must be checked
+	string nums = m_entry->GetText();
+	gameManager->setWorkingNumberOfUnits(std::stoi(nums));
 }
 
 void Temp::SendOrderClick() {
@@ -318,9 +319,30 @@ void Temp::SendOrderClick() {
 }
 
 void Temp::ButtonSelect() {
+
 	if (m_radio_button1->IsActive()) {
 		//Move
-		//gameManager->setWorkingOrder(MovementOrder());
+		//cout << gameManager->getDestination()->getX() << " " << gameManager->getDestination()->getY() << endl;
+		//cout << gameManager->getWorkingUnits().at(0) << endl;
+		cout << "money0 " << gameManager->getBoard()  << endl;
+		cout << "money1 " << gameManager->getLocation()  << endl;
+		cout << "money2" << gameManager->getBoard()->getTerritory(gameManager->getLocation()) << endl;
+		cout << "#winner" << endl;
+		vector<Unit*> unitList = gameManager->getBoard()->getTerritory(gameManager->getLocation())->getTerritoryContents();
+		cout << "money3" << endl;
+		vector<Unit*> movedList;
+		int counter = gameManager->getWorkingNumberOfUnits();
+		for each (Unit* unit in unitList)
+		{
+			if (counter != 0 && unit->getUnitType()->getType() == gameManager->getUnitType())
+			{
+				cout << "yes" << endl;
+				movedList.push_back(unit);
+				counter--;
+			}
+		}
+
+		gameManager->setWorkingOrder(&MovementOrder(gameManager->getDestination(), movedList));
 	}
 	else if (m_radio_button2->IsActive()) {
 		//Attack
@@ -343,6 +365,7 @@ void Temp::OnComboSelect() {
 	sstr << "item " << m_combo_box->GetSelectedItem() << " selected with text \"" << static_cast<std::string>(m_combo_box->GetSelectedText()) << "\"";
 	m_sel_label->SetText(sstr.str());
 	//SEND BACK STRING DATA
+	gameManager->setUnitType(sstr.str());
 }
 
 void Temp::OnOrderSelect() {

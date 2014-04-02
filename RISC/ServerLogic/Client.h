@@ -10,7 +10,7 @@ using namespace std;
 class Client {
 public:
 	Client(GameState* state);
-	void update(Response* response);
+	void update(Response response);
 	bool getTurnStatus();
 	string getUserName();
 	void setUserName(string userName);

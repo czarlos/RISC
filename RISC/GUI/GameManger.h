@@ -39,8 +39,22 @@ public:
 	void setWorkingOrder(Order* order);
 	void setUpState();
 
+	Location* getDestination();
+	Location* getLocation();
 	vector<TerritoryBinder*> getMadeTerritories();
 	vector<VertexArray*> getMadeLines();
+	vector<Unit*> getWorkingUnits();
+	int getWorkingNumberOfUnits();
+	string getUnitType();
+	Board* getBoard();
+
+	void setWorkingNumberOfUnits(int number);
+	void setDestination(Location* destination);
+	void setLocation(Location* location);
+	void setWorkingUnits(vector<Unit*> unitList);
+	void addUnitToWorkingList(Unit* unit);
+	void setUnitType(string unitType);
+
 	virtual ~GameManager();
 
 private:
@@ -48,10 +62,19 @@ private:
 	int myNumberOfClients;
 	Order* myWorkingOrder;
 
+	GameState* state1;
+	GameState* state2;
+
+	Location* myLocation;
+	Location* myDestination;
+
 	Board* board;
 	vector<TerritoryBinder*> myMadeTerritories;
 	vector<VertexArray*> myMadeLines;
 
+	vector<Unit*> myWorkingUnits;
+	int myWorkingNumberOfUnits = 0;
+	string myUnitType;
 
 	ServerLogic* server;
 	std::queue<Order*> myOrderQueue;

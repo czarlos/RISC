@@ -5,9 +5,9 @@ Client::Client(GameState* state) {
 	this->myTurnStatus = false;
 }
 
-void Client::update(Response* response) {
+void Client::update(Response response) {
 	// Logical update
-	response->executeResponse((this->myState));
+	response.executeResponse((this->myState));
 }
 
 bool Client::getTurnStatus() {

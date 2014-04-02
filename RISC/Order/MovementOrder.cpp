@@ -8,9 +8,13 @@
 
 #include "MovementOrder.h"
 
-MovementOrder::MovementOrder(Location* destination, Unit* object) : Order(){
+MovementOrder::MovementOrder() {
+
+}
+
+MovementOrder::MovementOrder(Location* destination, vector<Unit*> objectList) : Order(){
 	this->myDestination = destination;
-	this->myObject = object;
+	this->myObjectList = objectList;
 }
 
 
@@ -21,30 +25,41 @@ MovementOrder::MovementOrder(Location* destination, Unit* object) : Order(){
  */
 
 Response* MovementOrder::execute(GameState* state) {
+	for each (Unit* unit in myObjectList)
+	{
 
-	Location* initialLocation = state->getUnitLocation(myObject);
-	
-	// Check if occupied by enemies
-	string owner = state->getTerritoryByLocation(myDestination)->getOwner();
-	bool occupied = state->getTerritoryByLocation(myDestination)->getTerritoryContents().empty();
-	string me = myObject->getTeamName();
-	
-	if (occupied!=false && owner != me) {
-		return nullptr;
+		Location* initialLocation = state->getUnitLocation(unit);
+
+		// Check if occupied by enemies
+		string owner = state->getTerritoryByLocation(myDestination)->getOwner();
+		bool occupied = state->getTerritoryByLocation(myDestination)->getTerritoryContents().empty();
+		string me = unit->getTeamName();
+
+		if (occupied != false && owner != me) {
+			return nullptr;
+		}
+
+		// Check if the location exists
+		if (myDestination == nullptr) {
+			return nullptr;
+		}
+
+		if (MathUtilities::findDistance(initialLocation, myDestination)
+			<= unit->getMovementRange()) {
+			Response* movementResponse = new MovementResponse(unit, this->myDestination);
+			return movementResponse;
+		}
+
 	}
-
-	// Check if the location exists
-	if (myDestination == nullptr) {
-		return nullptr;
-	}
-
-	if (MathUtilities::findDistance(initialLocation, myDestination)
-		<= myObject->getMovementRange()) {
-		Response* movementResponse = new MovementResponse(this->myObject, this->myDestination);
-		return movementResponse;
-	}
-
 	return nullptr;;
+}
+
+void MovementOrder::setDestination(Location* destination) {
+	myDestination = destination;
+}
+
+void MovementOrder::setObjectList(vector<Unit*> objectList) {
+	myObjectList = objectList;
 }
 
 MovementOrder::~MovementOrder() {
