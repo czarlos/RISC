@@ -44,8 +44,10 @@ void Temp::showMainView() {
 				window.close();
 		}
 
-		desktop.Update(clock.restart().asSeconds());
-
+		if (clock.getElapsedTime().asMicroseconds() >= 5000) {
+			desktop.Update(static_cast<float>(clock.getElapsedTime().asMicroseconds()) / 1000000.f);
+			clock.restart();
+		}
 		window.clear();
 
 		paintUpdates(&desktop);
@@ -79,6 +81,9 @@ std::shared_ptr<sfg::Widget> Temp::createResourceWindow() {
 
 	/*Box*/
 	auto box = sfg::Box::Create(sfg::Box::Orientation::VERTICAL, 5.0f);
+
+	myBoxPacker = new BoxPacker(box, gameManager, resource_window);
+
 	m_label = sfg::Label::Create(gameManager->getCurrentClient());
 	entry_label = sfg::Label::Create("");	
 	m_entry = sfg::Entry::Create();
@@ -91,9 +96,10 @@ std::shared_ptr<sfg::Widget> Temp::createResourceWindow() {
 	box->Pack(sfg::Label::Create("\nORDERS"), false);
 	/*Create and Pack Radio Buttons*/
 	createOrderSelectionBoxes(box, resource_window);
+
 	/*Create and Pack Dropdown Menu*/
 	box->Pack(sfg::Label::Create("Select Upgrade"), false);
-	createDropdownMenu(box);
+	myBoxPacker->createDropdownMenu();
 
 	box->Pack(setText, false);
 	box->Pack(m_entry, false);
@@ -226,47 +232,27 @@ void Temp::createOrderSelectionBoxes(std::shared_ptr<sfg::Box> box, std::shared_
 	box->Pack(upgrade_radio_button, false);
 	box->Pack(add_unit_radio_button, false);
 
-	BoxPacker boxPacker(box, gameManager, window);
 	if (radio_box_number == 1) {
 
-		boxPacker.packMovementOrder();
+		myBoxPacker->packMovementOrder();
 		movement_radio_button->SetActive(true);
 	}
 	else if (radio_box_number == 2) {
 
-		boxPacker.packAttackOrder();
+		myBoxPacker->packAttackOrder();
 		attack_radio_button->SetActive(true);
 
 	}
 	else if (radio_box_number == 3) {
 
-		boxPacker.packUpgradeOrder();
+		myBoxPacker->packUpgradeOrder();
 		upgrade_radio_button->SetActive(true);
 	}
 	else if (radio_box_number == 3) {
 
-		boxPacker.packAddUnitOrder();
+		myBoxPacker->packAddUnitOrder();
 		add_unit_radio_button->SetActive(true);
 	}
-}
-
-void Temp::createDropdownMenu(std::shared_ptr<sfg::Box> box) {
-	/*Combo Box*/
-	m_sel_label = sfg::Label::Create(L"Please select an item!");
-	
-	m_combo_box = sfg::ComboBox::Create();
-	m_combo_box->AppendItem("-");
-	m_combo_box->AppendItem("Infantry");
-	m_combo_box->AppendItem("Automatic Weapons");
-	m_combo_box->AppendItem("Rocket Launchers");
-	m_combo_box->AppendItem("Tanks");
-	m_combo_box->AppendItem("Improved Tanks");
-	m_combo_box->AppendItem("Fighter Planes");
-	
-	m_combo_box->GetSignal(sfg::ComboBox::OnSelect).Connect(std::bind(&Temp::OnComboSelect, this));
-
-	box->Pack(m_combo_box, false);
-
 }
 
 void Temp::createDropdownQueue(std::shared_ptr<sfg::Box> box) {
@@ -395,15 +381,6 @@ void Temp::ButtonSelect() {
 		//Add unit
 		//gameManager->setWorkingOrder(AddUnitOrder());
 	}
-}
-
-void Temp::OnComboSelect() {
-	std::stringstream sstr;
-	sstr << static_cast<std::string>(m_combo_box->GetSelectedText());
-
-	m_sel_label->SetText(sstr.str());
-
-	gameManager->setUnitType(sstr.str());
 }
 
 void Temp::OnOrderSelect() {

@@ -24,15 +24,33 @@ public:
 	void packUpgradeOrder();
 	void packAddUnitOrder();
 
+
 	void MovementButtonCheck();
+	void InfantryButtonCheck();
+	void AutomaticWeaponsButtonCheck();
+	void RocketLaunchersButtonCheck();
+	void TanksButtonCheck();
+	void ImprovedTanksButtonCheck();
+	void FighterPlanesButtonCheck();
+
+	void OnDropDownSelect();
+	void createDropdownMenu();
 
 	virtual ~BoxPacker();
 
 private:
+	sfg::ComboBox::Ptr myComboBox;
 	std::shared_ptr<sfg::Box> myBox;
 	GameManager* myGameManager;
 	std::shared_ptr<sfg::Window> myWindow;
-	sfg::CheckButton::Ptr send_all_button;
-	sfg::CheckButton::Ptr other_button;
+
+	sfg::CheckButton::Ptr infantry_button;
+	sfg::CheckButton::Ptr automatic_weapons_button;
+	sfg::CheckButton::Ptr rocket_launcher_button;
+	sfg::CheckButton::Ptr tanks_button;
+	sfg::CheckButton::Ptr improved_tanks_button;
+	sfg::CheckButton::Ptr fighter_planes_button;
+
+
 
 };

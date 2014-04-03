@@ -69,7 +69,6 @@ private:
 	
 	/*Within Resource Window*/
 	void createOrderSelectionBoxes(std::shared_ptr<sfg::Box> box, std::shared_ptr<sfg::Window> window);
-	void createDropdownMenu(std::shared_ptr<sfg::Box> box);
 	void createDropdownQueue(std::shared_ptr<sfg::Box> box);
 
 	void ButtonSelect();
@@ -77,10 +76,6 @@ private:
 	sfg::RadioButton::Ptr attack_radio_button;
 	sfg::RadioButton::Ptr upgrade_radio_button;
 	sfg::RadioButton::Ptr add_unit_radio_button;
-
-	void OnComboSelect();
-	sfg::ComboBox::Ptr m_combo_box;
-	sfg::Label::Ptr m_sel_label;
 
 	void OnOrderSelect();
 	sfg::ComboBox::Ptr queue_box;
@@ -95,6 +90,9 @@ private:
 	void clickTerritory(float adjustedX, float adjustedY);
 	void drawTerritories(std::shared_ptr<sfg::Canvas> sfml_canvas);
 	void drawConnections(std::shared_ptr<sfg::Canvas> sfml_canvas);
+
+
+	BoxPacker* myBoxPacker;
 
 	sfg::SFGUI m_sfgui;
 	sfg::Label::Ptr m_label;

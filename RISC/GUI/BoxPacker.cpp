@@ -11,22 +11,31 @@ void BoxPacker::packMovementOrder() {
 	//SOURCE?
 	//UNITIDs
 
+	infantry_button = sfg::CheckButton::Create("Infantry");
+	automatic_weapons_button = sfg::CheckButton::Create("Automatic Weapons");
+	rocket_launcher_button = sfg::CheckButton::Create("Rocket Launchers");
+	tanks_button = sfg::CheckButton::Create("Tanks");
+	improved_tanks_button = sfg::CheckButton::Create("Improved Tanks");
+	fighter_planes_button = sfg::CheckButton::Create("Fighter Planes");
 
-	send_all_button = sfg::CheckButton::Create("Check me");
-	other_button = sfg::CheckButton::Create("Check me");
+	infantry_button->GetSignal(sfg::ToggleButton::OnToggle).Connect(std::bind(&BoxPacker::InfantryButtonCheck, this));
+	automatic_weapons_button->GetSignal(sfg::ToggleButton::OnToggle).Connect(std::bind(&BoxPacker::AutomaticWeaponsButtonCheck, this));
+	rocket_launcher_button->GetSignal(sfg::ToggleButton::OnToggle).Connect(std::bind(&BoxPacker::RocketLaunchersButtonCheck, this));
+	tanks_button->GetSignal(sfg::ToggleButton::OnToggle).Connect(std::bind(&BoxPacker::TanksButtonCheck, this));
+	improved_tanks_button->GetSignal(sfg::ToggleButton::OnToggle).Connect(std::bind(&BoxPacker::ImprovedTanksButtonCheck, this));
+	fighter_planes_button->GetSignal(sfg::ToggleButton::OnToggle).Connect(std::bind(&BoxPacker::FighterPlanesButtonCheck, this));
 
 
-	// Since a CheckButton is also a ToggleButton we can use
-	// ToggleButton signals to handle events for CheckButtons.
-	send_all_button->GetSignal(sfg::ToggleButton::OnToggle).Connect(std::bind(&BoxPacker::MovementButtonCheck, this));
-
-	// Add the CheckButton to the Box
 	myBox->Pack(sfg::Separator::Create(), false);
-	myBox->Pack(send_all_button, false);
-	myBox->Pack(other_button, false);
+	
+	myBox->Pack(infantry_button, false);
+	myBox->Pack(automatic_weapons_button, false);
+	myBox->Pack(rocket_launcher_button, false);
+	myBox->Pack(tanks_button, false);
+	myBox->Pack(improved_tanks_button, false);
+	myBox->Pack(fighter_planes_button, false);
+
 	myBox->Pack(sfg::Separator::Create(), false);
-
-
 }
 
 void BoxPacker::packAttackOrder() {
@@ -36,7 +45,7 @@ void BoxPacker::packAttackOrder() {
 }
 
 void BoxPacker::packUpgradeOrder() {
-	//UNITID
+	//UNITTYPE
 	//SOURCE
 }
 
@@ -45,20 +54,55 @@ void BoxPacker::packAddUnitOrder() {
 	//UNITTYPE
 	//QUANTITY
 
-
-
-
 	vector<Unit*> units(myGameManager->getBoard()->getTerritory(myGameManager->getLocation())->getTerritoryContents());
+}
+
+void BoxPacker::createDropdownMenu() {
+	/*Combo Box*/
+
+	myComboBox = sfg::ComboBox::Create();
+	myComboBox->AppendItem("-");
+	myComboBox->AppendItem("Infantry");
+	myComboBox->AppendItem("Automatic Weapons");
+	myComboBox->AppendItem("Rocket Launchers");
+	myComboBox->AppendItem("Tanks");
+	myComboBox->AppendItem("Improved Tanks");
+	myComboBox->AppendItem("Fighter Planes");
+
+	myComboBox->GetSignal(sfg::ComboBox::OnSelect).Connect(std::bind(&BoxPacker::OnDropDownSelect, this));
+
+	myBox->Pack(myComboBox, false);
+
+}
+
+void BoxPacker::OnDropDownSelect() {
+	std::stringstream sstr;
+	sstr << static_cast<std::string>(myComboBox->GetSelectedText());
+
+	myGameManager->setUnitType(sstr.str());
 }
 
 void BoxPacker::MovementButtonCheck() {
 
-	//if (send_all_button->IsActive()) {
-	//	myWindow->SetStyle(myWindow->GetStyle() ^ sfg::Window::BACKGROUND);
-	//}
-	//else {
-	//	myWindow->SetStyle(myWindow->GetStyle() | sfg::Window::BACKGROUND);
-	//}
+}
+
+void BoxPacker::InfantryButtonCheck() {
+
+}
+void BoxPacker::AutomaticWeaponsButtonCheck() {
+
+}
+void BoxPacker::RocketLaunchersButtonCheck() {
+
+}
+void BoxPacker::TanksButtonCheck() {
+
+}
+void BoxPacker::ImprovedTanksButtonCheck() {
+
+}
+void BoxPacker::FighterPlanesButtonCheck() {
+
 }
 
 BoxPacker::~BoxPacker() {
