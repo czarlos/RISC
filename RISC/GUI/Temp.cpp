@@ -36,7 +36,6 @@ void Temp::showMainView() {
 	{
 		sf::Event event;
 
-		desktop.HandleEvent(event);
 		while (window.pollEvent(event))
 		{
 			desktop.HandleEvent(event);
