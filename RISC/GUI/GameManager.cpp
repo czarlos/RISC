@@ -42,15 +42,15 @@ void GameManager::endTurn() {
 }
 
 void GameManager::addOrder(Order* order) {
-	myOrderQueue.push(order);
+	myOrderQueue.push_back(order);
 }
 
 void GameManager::removeLastOrder() {
-	myOrderQueue.pop();
+	myOrderQueue.erase(myOrderQueue.begin() + 0);
 }
 
 Order* GameManager::retrieveLastOrder() {
-	return myOrderQueue.front();
+	return myOrderQueue.at(0);
 }
 
 string GameManager::getCurrentClient() {
@@ -156,6 +156,10 @@ void GameManager::setUpgradeOrder(UpgradeOrder* order) {
 void GameManager::setAddUnitOrder(AddUnitOrder* order) {
 	myAddUnitOrder = order;
 	myWorkingOrder = order;
+}
+
+vector<Order*>  GameManager::getOrderQueue() {
+	return myOrderQueue;
 }
 
 GameManager::~GameManager() {

@@ -16,11 +16,13 @@ void ServerLogic::handleOrder(Order* order, GameState* state) {
 	}
 }
 
-void ServerLogic::handleQueue(std::queue<Order*> orderQueue, GameState* state) {
+void ServerLogic::handleQueue(vector<Order*> orderQueue, GameState* state) {
 	while (!orderQueue.empty()) {
 		Response response = *(orderQueue.front()->execute(state));
-		orderQueue.pop();
 		
+		//Remove first element
+		orderQueue.erase(orderQueue.begin() + 0);
+
 		for each (Client* client in myClientList) {
 			client->update(response);
 		}

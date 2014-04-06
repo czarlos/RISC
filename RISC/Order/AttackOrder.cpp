@@ -17,6 +17,10 @@ Response* AttackOrder::execute(GameState* state) {
 	}
 }
 
+string AttackOrder::getName() {
+	return myName;
+}
+
 AttackOrder::~AttackOrder() {
 	
 }

@@ -54,6 +54,11 @@ Response* MovementOrder::execute(GameState* state) {
 	return nullptr;;
 }
 
+string MovementOrder::getName() {
+	return myName;
+}
+
+
 void MovementOrder::setDestination(Location* destination) {
 	myDestination = destination;
 }

@@ -13,7 +13,7 @@ class ServerLogic {
 public:
 	ServerLogic(vector<Client*> clientList);
 	void handleOrder(Order* order, GameState* state);
-	void handleQueue(std::queue<Order*> orderQueue, GameState* state);
+	void handleQueue(vector<Order*> orderQueue, GameState* state);
 	virtual ~ServerLogic();
 private:
 	vector<Client*> myClientList;

@@ -13,9 +13,11 @@ public:
 	AttackOrder(Location* source, Location* destination);
 	//attack order execute and returns a response
 	Response* execute(GameState* gamestate);
+	string getName();
 	~AttackOrder();
 
 private:
 	Location* mySource;
 	Location* myDestination;
+	string myName = "AttackOrder";
 };

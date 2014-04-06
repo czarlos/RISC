@@ -127,5 +127,9 @@ Response* UpgradeOrder::unlockNextUpgrade(){
 	return 	new UpgradeResponse(updatedPossUps,updatedTechPtAmt);
 }
 
+string UpgradeOrder::getName() {
+	return myName;
+}
+
 UpgradeOrder::~UpgradeOrder() {
 }

@@ -9,5 +9,9 @@ Response* Order::execute(GameState* gamestate){
 	return nullptr;
 }
 
+string Order::getName() {
+	return nullptr;
+}
+
 Order::~Order(){
 }

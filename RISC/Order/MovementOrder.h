@@ -29,9 +29,12 @@ public:
 	void setDestination(Location* destination);
 	void setObjectList(vector<Unit*> objectList);
 
+	string getName();
+
 	~MovementOrder();
 
 private:
 	Location* myDestination;
 	vector<Unit*> myObjectList;
+	string myName = "MovementOrder";
 };

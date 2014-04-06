@@ -86,33 +86,32 @@ std::shared_ptr<sfg::Widget> Temp::createResourceWindow() {
 	m_label = sfg::Label::Create(gameManager->getCurrentClient());
 	entry_label = sfg::Label::Create("");	
 	m_entry = sfg::Entry::Create();
-	box->Pack(sfg::Label::Create("\nCONTROL WINDOW"), false);
-	box->Pack(endTurn, false);
+
 	box->Pack(m_label, false);
-	box->Pack(sfg::Label::Create("I guess this is kinda fun"), false);
-	box->Pack(sfg::Label::Create("I'd be chill to put some \n helpful info here"), false);
+
 	box->Pack(sfg::Separator::Create(), false);
 	box->Pack(sfg::Label::Create("\nORDERS"), false);
 	/*Create and Pack Radio Buttons*/
 	createOrderSelectionBoxes(box, resource_window);
 
 	/*Create and Pack Dropdown Menu*/
-	box->Pack(sfg::Label::Create("Select Upgrade"), false);
-	myBoxPacker->createDropdownMenu();
+	//box->Pack(sfg::Label::Create("Select Upgrade"), false);
+	//myBoxPacker->createDropdownMenu();
 
-	box->Pack(setText, false);
-	box->Pack(m_entry, false);
-	box->Pack(entry_label, false);
+	//box->Pack(setText, false);
+	//box->Pack(m_entry, false);
+	//box->Pack(entry_label, false);
 
 	box->Pack(sendOrder, false);
 	box->Pack(sfg::Separator::Create(), false);
 	box->Pack(sfg::Label::Create("ORDER EDITOR"), false);
 	box->Pack(sfg::Label::Create("Queue"), false);
 	createDropdownQueue(box);
-
+	box->Pack(sfg::Separator::Create());
+	/*End Turn Button*/
+	box->Pack(endTurn, false);
 
 	/*Resource Window*/
-	//auto resource_window = sfg::Window::Create();
 	//resource_window->SetTitle("Hello world!");
 	resource_window->Add(box);
 	//resource_window->AddWithViewport(box);
@@ -247,7 +246,7 @@ void Temp::createOrderSelectionBoxes(std::shared_ptr<sfg::Box> box, std::shared_
 		myBoxPacker->packUpgradeOrder();
 		upgrade_radio_button->SetActive(true);
 	}
-	else if (radio_box_number == 3) {
+	else if (radio_box_number == 4) {
 
 		myBoxPacker->packAddUnitOrder();
 		add_unit_radio_button->SetActive(true);
@@ -259,13 +258,6 @@ void Temp::createDropdownQueue(std::shared_ptr<sfg::Box> box) {
 	selection_label = sfg::Label::Create(L"Please select an item!");
 
 	queue_box = sfg::ComboBox::Create();
-	queue_box->AppendItem("-");
-	queue_box->AppendItem("Order1");
-	queue_box->AppendItem("Order2");
-	queue_box->AppendItem("Order3");
-	queue_box->AppendItem("Order4");
-	queue_box->AppendItem("Order5");
-	queue_box->AppendItem("Order6");
 
 	queue_box->GetSignal(sfg::ComboBox::OnSelect).Connect(std::bind(&Temp::OnOrderSelect, this));
 
@@ -335,7 +327,14 @@ void Temp::SendOrderClick() {
 	//send order to queue
 	//add to the dropdown menu to be edited
 	gameManager->addOrder(gameManager->getWorkingOrder());
-	queue_box->AppendItem("NEXT ORDER SON");
+
+	for each (Order* order in gameManager->getOrderQueue())
+	{
+		//cout << "this money" << endl;
+		//cout << order->getName() << endl;
+		//queue_box->AppendItem(order->getName());
+	}
+
 }
 
 void Temp::ButtonSelect() {

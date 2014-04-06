@@ -18,6 +18,10 @@ Response* AddUnitOrder::execute(GameState* state) {
 	return response;
 }
 
+string AddUnitOrder::getName() {
+	return myName;
+}
+
 AddUnitOrder::~AddUnitOrder() {
 
 }

@@ -60,6 +60,7 @@ public:
 	int getWorkingNumberOfUnits();
 	string getUnitType();
 	Board* getBoard();
+	vector<Order*> getOrderQueue();
 
 	void setWorkingNumberOfUnits(int number);
 	void setDestination(Location* destination);
@@ -97,6 +98,6 @@ private:
 	string myUnitType;
 
 	ServerLogic* server;
-	std::queue<Order*> myOrderQueue;
+	vector<Order*> myOrderQueue;
 	vector<Client*> myClientList;
 };

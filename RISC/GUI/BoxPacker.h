@@ -51,6 +51,15 @@ private:
 	sfg::CheckButton::Ptr improved_tanks_button;
 	sfg::CheckButton::Ptr fighter_planes_button;
 
+	sfg::Entry::Ptr infantry_entry;
+	sfg::Entry::Ptr automatic_weapons_entry;
+	sfg::Entry::Ptr rocket_launcher_entry;
+	sfg::Entry::Ptr tanks_entry;
+	sfg::Entry::Ptr improved_tanks_entry;
+	sfg::Entry::Ptr fighter_planes_entry;
 
+	sfg::Entry::Ptr add_unit_entry;
+
+	void unitSelection();
 
 };

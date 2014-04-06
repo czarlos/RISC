@@ -21,6 +21,7 @@ public:
 	bool getUnlocking();
 	bool getUnitUpgrading();
 	bool getConvertingUpgrade();
+	string getName();
 	Response* execute(GameState* state);
 	~UpgradeOrder();
 
@@ -35,5 +36,6 @@ private:
 	TechnologyManager* techManager;
 	vector<Unit*> listOfUnitsToUpgrade;
 	Unit* unit;
+	string myName = "UpgradeOrder";
 	UnitType* myUnitType;
 };
