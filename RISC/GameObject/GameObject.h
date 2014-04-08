@@ -9,6 +9,7 @@ public:
 	GameObject();
 	GameObject(string objID);
 	string getGameObjectID();
+	void setObjectID(string id);
 	virtual ~GameObject();
 
 private:

@@ -7,6 +7,10 @@
 
 #include "UpgradeOrder.h"
 
+UpgradeOrder::UpgradeOrder() : Order() {
+
+}
+
 UpgradeOrder::UpgradeOrder(vector<Unit*> listOfUnitsToUpgrade, UnitType* unitType,TechnologyManager* techManager) : Order() {
 	this->listOfUnitsToUpgrade = listOfUnitsToUpgrade;
 	this->techManager = techManager;
@@ -17,7 +21,7 @@ UpgradeOrder::UpgradeOrder(vector<Unit*> listOfUnitsToUpgrade, UnitType* unitTyp
 	this->makeSpy = false;
 }
 
-UpgradeOrder::UpgradeOrder(Unit* unit, bool isSpy, TechnologyManager* techManager){
+UpgradeOrder::UpgradeOrder(Unit* unit, bool isSpy, TechnologyManager* techManager) : Order() {
 	this->unit = unit;
 	this->unlocking = false;
 	this->unitUpgrading = false;
@@ -26,7 +30,7 @@ UpgradeOrder::UpgradeOrder(Unit* unit, bool isSpy, TechnologyManager* techManage
 	this->techManager = techManager;
 }
 
-UpgradeOrder::UpgradeOrder(TechnologyManager* techManager){
+UpgradeOrder::UpgradeOrder(TechnologyManager* techManager) : Order() {
 	this->unlocking = true;
 	this->unitUpgrading = false;
 	this->convertingUpgrade = false;

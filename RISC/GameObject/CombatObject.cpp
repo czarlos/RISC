@@ -24,6 +24,10 @@ int CombatObject::getHealth() {
 	return this->myHealth;
 }
 
+void CombatObject::setHealth(int health) {
+	this->myHealth = health;
+}
+
 CombatObject::~CombatObject() {
 	
 }

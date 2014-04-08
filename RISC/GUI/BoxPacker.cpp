@@ -41,6 +41,9 @@ void BoxPacker::packAddUnitOrder() {
 	createDropdownMenu();
 	myBox->Pack(add_unit_entry, false);
 
+	//Sets the Order
+	myGameManager->setWorkingOrder(myGameManager->getAddUnitOrder());
+
 }
 
 void BoxPacker::createDropdownMenu() {
@@ -114,11 +117,13 @@ void BoxPacker::OnDropDownSelect() {
 }
 
 void BoxPacker::MovementButtonCheck() {
-
+	
 }
 
 void BoxPacker::InfantryButtonCheck() {
-
+	Unit* infantry = new Unit();
+	myGameManager->getAddUnitOrder()->setDestination();
+	myGameManager->getAddUnitOrder()->setUnit();
 }
 void BoxPacker::AutomaticWeaponsButtonCheck() {
 

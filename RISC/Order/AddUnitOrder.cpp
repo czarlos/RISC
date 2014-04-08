@@ -1,6 +1,10 @@
 #include "AddUnitOrder.h"
 
-AddUnitOrder::AddUnitOrder(Territory* destination, Unit* unit) : Order(){
+AddUnitOrder::AddUnitOrder() : Order() {
+
+}
+
+AddUnitOrder::AddUnitOrder(Territory* destination, Unit* unit) : Order() {
 	this->myUnit = unit;
 	this->myDestination = destination;
 }
@@ -20,6 +24,14 @@ Response* AddUnitOrder::execute(GameState* state) {
 
 string AddUnitOrder::getName() {
 	return myName;
+}
+
+void AddUnitOrder::setDestination(Territory* destination) {
+	myDestination = destination;
+}
+
+void AddUnitOrder::setUnit(Unit* unit) {
+	myUnit = unit;
 }
 
 AddUnitOrder::~AddUnitOrder() {

@@ -9,6 +9,7 @@ using namespace std;
 class UpgradeOrder : public Order {
 public:
 	//for upgrading units
+	UpgradeOrder();
 	UpgradeOrder(vector<Unit*>, UnitType*,TechnologyManager*);
 	//for making/unmaking spies
 	UpgradeOrder(Unit*, bool, TechnologyManager*);

@@ -14,6 +14,10 @@ string GameObject::getGameObjectID() {
 	return this->objID;
 }
 
+void GameObject::setObjectID(string id) {
+	this->objID = id;
+}
+
 GameObject::~GameObject()
 {
 }

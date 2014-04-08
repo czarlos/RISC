@@ -8,7 +8,7 @@
 
 #include "MovementOrder.h"
 
-MovementOrder::MovementOrder() {
+MovementOrder::MovementOrder() : Order() {
 
 }
 

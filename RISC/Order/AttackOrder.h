@@ -10,6 +10,7 @@ class AttackOrder : public Order {
 	
 public:
 	//constructor for attackOrder
+	AttackOrder();
 	AttackOrder(Location* source, Location* destination);
 	//attack order execute and returns a response
 	Response* execute(GameState* gamestate);

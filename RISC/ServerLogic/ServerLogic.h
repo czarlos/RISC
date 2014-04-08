@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "..\Order\Order.h"
+#include "..\Order\MovementOrder.h"
 #include "..\Order\Response.h"
 #include "Client.h"
 #include <queue>

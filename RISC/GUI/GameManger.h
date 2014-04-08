@@ -77,10 +77,10 @@ private:
 	
 	/*Should have its own namespace*/
 	Order* myWorkingOrder;
-	MovementOrder* myMovementOrder;
-	AttackOrder* myAttackOrder;
-	UpgradeOrder* myUpgradeOrder;
-	AddUnitOrder* myAddUnitOrder;
+	MovementOrder* myMovementOrder = new MovementOrder();
+	AttackOrder* myAttackOrder = new AttackOrder();
+	UpgradeOrder* myUpgradeOrder = new UpgradeOrder();
+	AddUnitOrder* myAddUnitOrder = new AddUnitOrder();
 
 	
 	GameState* state1;

@@ -10,9 +10,12 @@
 class AddUnitOrder : public Order {
 
 public:
+	AddUnitOrder();
 	AddUnitOrder(Territory* destination, Unit* unit);
 	Response* execute(GameState* gamestate);
 	string getName();
+	void setDestination(Territory* destination);
+	void setUnit(Unit* unit);
 	~AddUnitOrder();
 
 private:

@@ -1,5 +1,9 @@
 #include "AttackOrder.h"
 
+AttackOrder::AttackOrder() {
+
+}
+
 AttackOrder::AttackOrder(Location* source, Location* destination) : Order(){
 	this->mySource = source;
 	this->myDestination = destination;

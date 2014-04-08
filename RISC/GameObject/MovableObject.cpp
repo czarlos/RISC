@@ -21,6 +21,10 @@ int MovableObject::getMovementRange() {
 	return this->myMovementRange;
 }
 
+void MovableObject::setMovementRange(int range) {
+	myMovementRange = range;
+}
+
 MovableObject::~MovableObject() {
 	
 }
