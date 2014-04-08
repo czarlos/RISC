@@ -25,6 +25,10 @@ string AttackOrder::getName() {
 	return myName;
 }
 
+void AttackOrder::setSource(Location* source) {
+	this->mySource = source;
+}
+
 AttackOrder::~AttackOrder() {
 	
 }

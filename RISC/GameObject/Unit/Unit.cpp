@@ -12,7 +12,7 @@ Unit::Unit() : MovableObject() {
 	setHealth(10);
 	setUnitType(new Infantry());
 	setTeamName("none");
-	setUnitID("none");
+	setObjectID("none");
 	setMovementRange(1);
 }
 

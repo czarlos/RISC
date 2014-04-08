@@ -16,6 +16,8 @@ public:
 	//for unlocking next upgrades
 	UpgradeOrder(TechnologyManager*);
 
+	UpgradeOrder(Location* destination, UnitType* unitType, TechnologyManager* techManager);
+
 	void isUnlocking(bool);
 	void isUnitUpgrading(bool);
 	void isConvertingUpgrade(bool);
@@ -23,6 +25,7 @@ public:
 	bool getUnitUpgrading();
 	bool getConvertingUpgrade();
 	string getName();
+	void setDestination(Location* location);
 	Response* execute(GameState* state);
 	~UpgradeOrder();
 
@@ -39,4 +42,5 @@ private:
 	Unit* unit;
 	string myName = "UpgradeOrder";
 	UnitType* myUnitType;
+	Location* myLocation;
 };

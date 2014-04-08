@@ -38,6 +38,16 @@ UpgradeOrder::UpgradeOrder(TechnologyManager* techManager) : Order() {
 	this->techManager = techManager;
 }
 
+UpgradeOrder::UpgradeOrder(Location* location, UnitType* unitType, TechnologyManager* techManager) : Order() {
+	this->myLocation = location;
+	this->unit = unit;
+	this->unlocking = false;
+	this->unitUpgrading = false;
+	this->convertingUpgrade = true;
+	this->makeSpy = false;
+	this->techManager = techManager;
+}
+
 void UpgradeOrder::isUnlocking(bool unlocking){
 	this->unlocking = unlocking;
 }

@@ -121,9 +121,12 @@ void BoxPacker::MovementButtonCheck() {
 }
 
 void BoxPacker::InfantryButtonCheck() {
-	Unit* infantry = new Unit();
-	myGameManager->getAddUnitOrder()->setDestination();
-	myGameManager->getAddUnitOrder()->setUnit();
+	Unit* unit = new Unit();
+	unit->setUnitType(new Infantry());
+	unit->setTeamName(myGameManager->getCurrentClient());
+	
+
+	myGameManager->getAddUnitOrder()->setUnit(unit);
 }
 void BoxPacker::AutomaticWeaponsButtonCheck() {
 

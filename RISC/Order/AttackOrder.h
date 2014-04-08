@@ -15,6 +15,7 @@ public:
 	//attack order execute and returns a response
 	Response* execute(GameState* gamestate);
 	string getName();
+	void setSource(Location* source);
 	~AttackOrder();
 
 private:
