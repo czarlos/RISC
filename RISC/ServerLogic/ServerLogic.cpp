@@ -18,6 +18,7 @@ void ServerLogic::handleOrder(Order* order, GameState* state) {
 
 void ServerLogic::handleQueue(vector<Order*> orderQueue, GameState* state) {
 	while (!orderQueue.empty()) {
+		cout << orderQueue.front()->getName() << endl;
 		Response* response = orderQueue.front()->execute(state);
 		
 		//Remove first element

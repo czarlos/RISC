@@ -145,5 +145,9 @@ string UpgradeOrder::getName() {
 	return myName;
 }
 
+void UpgradeOrder::setDestination(Location* location) {
+	myLocation = location;
+}
+
 UpgradeOrder::~UpgradeOrder() {
 }

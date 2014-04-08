@@ -125,23 +125,42 @@ void BoxPacker::InfantryButtonCheck() {
 	unit->setUnitType(new Infantry());
 	unit->setTeamName(myGameManager->getCurrentClient());
 	
-
 	myGameManager->getAddUnitOrder()->setUnit(unit);
 }
 void BoxPacker::AutomaticWeaponsButtonCheck() {
+	Unit* unit = new Unit();
+	unit->setUnitType(new AutomaticWeapons());
+	unit->setTeamName(myGameManager->getCurrentClient());
 
+	myGameManager->getAddUnitOrder()->setUnit(unit);
 }
 void BoxPacker::RocketLaunchersButtonCheck() {
+	Unit* unit = new Unit();
+	unit->setUnitType(new RocketLaunchers());
+	unit->setTeamName(myGameManager->getCurrentClient());
 
+	myGameManager->getAddUnitOrder()->setUnit(unit);
 }
 void BoxPacker::TanksButtonCheck() {
+	Unit* unit = new Unit();
+	unit->setUnitType(new Tanks());
+	unit->setTeamName(myGameManager->getCurrentClient());
 
+	myGameManager->getAddUnitOrder()->setUnit(unit);
 }
 void BoxPacker::ImprovedTanksButtonCheck() {
+	Unit* unit = new Unit();
+	unit->setUnitType(new ImprovedTanks());
+	unit->setTeamName(myGameManager->getCurrentClient());
 
+	myGameManager->getAddUnitOrder()->setUnit(unit);
 }
 void BoxPacker::FighterPlanesButtonCheck() {
+	Unit* unit = new Unit();
+	unit->setUnitType(new FighterPlanes());
+	unit->setTeamName(myGameManager->getCurrentClient());
 
+	myGameManager->getAddUnitOrder()->setUnit(unit);
 }
 
 BoxPacker::~BoxPacker() {
