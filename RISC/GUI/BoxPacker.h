@@ -24,7 +24,6 @@ public:
 	void packUpgradeOrder();
 	void packAddUnitOrder();
 
-
 	void MovementButtonCheck();
 	void InfantryButtonCheck();
 	void AutomaticWeaponsButtonCheck();
@@ -35,6 +34,8 @@ public:
 
 	void OnDropDownSelect();
 	void createDropdownMenu();
+	void createDropdownQueue(std::shared_ptr<sfg::Box> box);
+	void addToOrderQueue(string str);
 
 	virtual ~BoxPacker();
 
@@ -62,4 +63,7 @@ private:
 
 	void unitSelection();
 
+	void OnOrderSelect();
+	sfg::ComboBox::Ptr queue_box;
+	sfg::Label::Ptr selection_label;
 };

@@ -15,12 +15,8 @@
 #include "BoardPainter.h"
 #include "..\GameMap\Board.h"
 #include "..\GameObject\Unit\Tanks.h"
-#include "Buttons\TechManagerButton.h"
-#include "Buttons\ResourceManagerButton.h"
-#include "Buttons\Button.h"
-#include "Utils\PopupWindows.h"
+
 #include "Utils\InitializationUtilities.h"
-#include "Buttons\EndTurnButton.h"
 #include "..\ServerLogic\Client.h"
 #include "..\ServerLogic\ServerLogic.h"
 
@@ -39,10 +35,9 @@ public:
 	Temp();
 	void showMainView();
 
-	void OnButtonClick();
 	void EndTurnClick();
 	void SetTextClick();
-	void SendOrderClick();
+	void CommitOrderClick();
 
 	virtual ~Temp();
 
@@ -69,17 +64,12 @@ private:
 	
 	/*Within Resource Window*/
 	void createOrderSelectionBoxes(std::shared_ptr<sfg::Box> box, std::shared_ptr<sfg::Window> window);
-	void createDropdownQueue(std::shared_ptr<sfg::Box> box);
 
 	void ButtonSelect();
 	sfg::RadioButton::Ptr movement_radio_button;
 	sfg::RadioButton::Ptr attack_radio_button;
 	sfg::RadioButton::Ptr upgrade_radio_button;
 	sfg::RadioButton::Ptr add_unit_radio_button;
-
-	void OnOrderSelect();
-	sfg::ComboBox::Ptr queue_box;
-	sfg::Label::Ptr selection_label;
 
 	GameManager* gameManager = new GameManager();
 

@@ -7,8 +7,6 @@ Temp::Temp() {
 }
 
 void Temp::showMainView() {
-
-
 	/*Display Stuff*/
 	sf::RenderWindow window(sf::VideoMode(WIDTH*1.25, HEIGHT*1.2), "RISC");
 	window.setFramerateLimit(40);
@@ -57,13 +55,7 @@ void Temp::showMainView() {
 		window.display();
 
 	}
-	delete(gameManager);
-	for each (TerritoryBinder* binder in gameManager->getMadeTerritories())
-	{
-		delete(binder->getShape());
-		delete(binder->getTerritory());
-		delete(binder);
-	}
+
 }
 
 std::shared_ptr<sfg::Widget> Temp::createResourceWindow() {
@@ -76,7 +68,7 @@ std::shared_ptr<sfg::Widget> Temp::createResourceWindow() {
 	auto sendOrder = sfg::Button::Create("Commit Order");
 	endTurn->GetSignal(sfg::Widget::OnLeftClick).Connect(std::bind(&Temp::EndTurnClick, this));
 	setText->GetSignal(sfg::Widget::OnLeftClick).Connect(std::bind(&Temp::SetTextClick, this));
-	sendOrder->GetSignal(sfg::Widget::OnLeftClick).Connect(std::bind(&Temp::SendOrderClick, this));
+	sendOrder->GetSignal(sfg::Widget::OnLeftClick).Connect(std::bind(&Temp::CommitOrderClick, this));
 
 	/*Box*/
 	auto box = sfg::Box::Create(sfg::Box::Orientation::VERTICAL, 5.0f);
@@ -94,19 +86,11 @@ std::shared_ptr<sfg::Widget> Temp::createResourceWindow() {
 	/*Create and Pack Radio Buttons*/
 	createOrderSelectionBoxes(box, resource_window);
 
-	/*Create and Pack Dropdown Menu*/
-	//box->Pack(sfg::Label::Create("Select Upgrade"), false);
-	//myBoxPacker->createDropdownMenu();
-
-	//box->Pack(setText, false);
-	//box->Pack(m_entry, false);
-	//box->Pack(entry_label, false);
-
 	box->Pack(sendOrder, false);
 	box->Pack(sfg::Separator::Create(), false);
 	box->Pack(sfg::Label::Create("ORDER EDITOR"), false);
 	box->Pack(sfg::Label::Create("Queue"), false);
-	createDropdownQueue(box);
+	myBoxPacker->createDropdownQueue(box);
 	box->Pack(sfg::Separator::Create());
 	/*End Turn Button*/
 	box->Pack(endTurn, false);
@@ -253,17 +237,6 @@ void Temp::createOrderSelectionBoxes(std::shared_ptr<sfg::Box> box, std::shared_
 	}
 }
 
-void Temp::createDropdownQueue(std::shared_ptr<sfg::Box> box) {
-	/*Combo Box*/
-	selection_label = sfg::Label::Create(L"Please select an item!");
-
-	queue_box = sfg::ComboBox::Create();
-
-	queue_box->GetSignal(sfg::ComboBox::OnSelect).Connect(std::bind(&Temp::OnOrderSelect, this));
-
-	box->Pack(queue_box, false);
-}
-
 void Temp::drawTerritories(std::shared_ptr<sfg::Canvas> sfml_canvas) {
 	for each (TerritoryBinder* binder in gameManager->getMadeTerritories())
 	{
@@ -308,10 +281,6 @@ void Temp::clickTerritory(float adjustedX, float adjustedY) {
 	}
 }
 
-void Temp::OnButtonClick() {
-	//m_label->SetText(gameManager->getUnitText());
-}
-
 void Temp::EndTurnClick() {
 	gameManager->endTurn();
 	m_label->SetText(gameManager->getCurrentClient());
@@ -323,72 +292,34 @@ void Temp::SetTextClick() {
 	gameManager->setWorkingNumberOfUnits(std::stoi(nums));
 }
 
-void Temp::SendOrderClick() {
-	//send order to queue
-	//add to the dropdown menu to be edited
+void Temp::CommitOrderClick() {
 	gameManager->addOrder(gameManager->getWorkingOrder());
 
-	for each (Order* order in gameManager->getOrderQueue())
-	{
-		//cout << "this money" << endl;
-		//cout << order->getName() << endl;
-		//queue_box->AppendItem(order->getName());
-	}
-
+	myBoxPacker->addToOrderQueue(gameManager->getWorkingOrder()->getName());
 }
 
 void Temp::ButtonSelect() {
 
 	if (movement_radio_button->IsActive()) {
 		radio_box_number = 1;
-
-		//vector<Unit*> unitList = gameManager->getBoard()->getTerritory(gameManager->getLocation())->getTerritoryContents();
-		//vector<Unit*> movedList;
-		//int counter = gameManager->getWorkingNumberOfUnits();
-		//for each (Unit* unit in unitList)
-		//{
-		//	//"if unit" checks for nullptrs and ignores them
-		//	if (unit) {
-		//		if ( counter != 0 && unit->getUnitType()->getType() == gameManager->getUnitType() )
-		//		{
-		//			movedList.push_back(unit);
-		//			counter--;
-		//		}
-		//	}
-		//}
-		////gameManager->setMovementOrder(&MovementOrder());
-		//gameManager->setWorkingOrder(&MovementOrder(gameManager->getDestination(), movedList));
-		
 	}
 	else if (attack_radio_button->IsActive()) {
 		radio_box_number = 2;
-
-		//Attack
-		//gameManager->setWorkingOrder(AttackOrder());
-
 	}
 	else if (upgrade_radio_button->IsActive()) {
 		radio_box_number = 3;
-
-		//Upgrade
-		//gameManager->setWorkingOrder(UpgradeOrder());
 	}
 	else if (add_unit_radio_button->IsActive()) {
 		radio_box_number = 4;
-
-		//Add unit
-		//gameManager->setWorkingOrder(AddUnitOrder());
 	}
 }
 
-void Temp::OnOrderSelect() {
-	std::stringstream sstr;
-
-	sstr << "item " << queue_box->GetSelectedItem() << " selected with text \"" << static_cast<std::string>(queue_box->GetSelectedText()) << "\"";
-	selection_label->SetText(sstr.str());
-	//Also, make sure that this can be edited
-}
-
 Temp::~Temp() {
-
+	delete(gameManager);
+	for each (TerritoryBinder* binder in gameManager->getMadeTerritories())
+	{
+		delete(binder->getShape());
+		delete(binder->getTerritory());
+		delete(binder);
+	}
 }

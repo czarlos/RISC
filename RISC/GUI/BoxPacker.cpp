@@ -7,27 +7,17 @@ BoxPacker::BoxPacker(std::shared_ptr<sfg::Box> box, GameManager* gameManager, st
 }
 
 void BoxPacker::packMovementOrder() {
-	//DESTINATION?
-	//SOURCE?
-	//UNITIDs
 	unitSelection();
-
 	myGameManager->setWorkingOrder(myGameManager->getMovementOrder());
 }
 
 void BoxPacker::packAttackOrder() {
-	//DESTINATION?
-	//SOURCE?
-	//UNITIDs
 	unitSelection();
-
 	myGameManager->setWorkingOrder(myGameManager->getAttackOrder());
 
 }
 
 void BoxPacker::packUpgradeOrder() {
-	//UNITTYPE
-	//SOURCE
 	add_unit_entry = sfg::Entry::Create();
 	myBox->Pack(sfg::Label::Create("Select Unit To Upgrade"), false);
 	createDropdownMenu();
@@ -62,6 +52,30 @@ void BoxPacker::createDropdownMenu() {
 	myComboBox->GetSignal(sfg::ComboBox::OnSelect).Connect(std::bind(&BoxPacker::OnDropDownSelect, this));
 
 	myBox->Pack(myComboBox, false);
+
+}
+
+void BoxPacker::createDropdownQueue(std::shared_ptr<sfg::Box> box) {
+	/*Combo Box*/
+	selection_label = sfg::Label::Create(L"Please select an item!");
+
+	queue_box = sfg::ComboBox::Create();
+
+	queue_box->GetSignal(sfg::ComboBox::OnSelect).Connect(std::bind(&BoxPacker::OnOrderSelect, this));
+
+	box->Pack(queue_box, false);
+}
+
+void BoxPacker::OnOrderSelect() {
+	std::stringstream sstr;
+
+	sstr << "item " << queue_box->GetSelectedItem() << " selected with text \"" << static_cast<std::string>(queue_box->GetSelectedText()) << "\"";
+	selection_label->SetText(sstr.str());
+	//Also, make sure that this can be edited
+}
+
+void BoxPacker::addToOrderQueue(string str) {
+	queue_box->AppendItem(myGameManager->getWorkingOrder()->getName());
 
 }
 
