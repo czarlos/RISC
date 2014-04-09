@@ -9,12 +9,18 @@
 #include "MovementOrder.h"
 
 MovementOrder::MovementOrder() : Order() {
-
+	
 }
 
 MovementOrder::MovementOrder(Location* destination, vector<Unit*> objectList) : Order(){
 	this->myDestination = destination;
 	this->myObjectList = objectList;
+}
+
+MovementOrder::MovementOrder(Location* source, Location* destination, vector<Unit*> unitList) : Order() {
+	this->mySource = source;
+	this->myDestination = destination;
+	this->myObjectList = unitList;
 }
 
 
@@ -36,12 +42,12 @@ Response* MovementOrder::execute(GameState* state) {
 		string me = unit->getTeamName();
 
 		if (occupied != false && owner != me) {
-			return nullptr;
+			return new SpoofResponse();
 		}
 
 		// Check if the location exists
 		if (myDestination == nullptr) {
-			return nullptr;
+			return new SpoofResponse();
 		}
 
 		if (MathUtilities::findDistance(initialLocation, myDestination)
@@ -51,13 +57,16 @@ Response* MovementOrder::execute(GameState* state) {
 		}
 
 	}
-	return nullptr;;
+	return new SpoofResponse();
 }
 
 string MovementOrder::getName() {
 	return myName;
 }
 
+void MovementOrder::setSource(Location* source) {
+	mySource = source;
+}
 
 void MovementOrder::setDestination(Location* destination) {
 	myDestination = destination;

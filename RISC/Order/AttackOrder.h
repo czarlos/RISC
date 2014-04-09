@@ -5,6 +5,7 @@
 #include "Order.h"
 #include "../GameObject/CombatObject.h"
 #include "AttackResponse.h"
+#include "SpoofResponse.h"
 
 class AttackOrder : public Order {
 	
@@ -16,6 +17,7 @@ public:
 	Response* execute(GameState* gamestate);
 	string getName();
 	void setSource(Location* source);
+	void setDestination(Location* destination);
 	~AttackOrder();
 
 private:

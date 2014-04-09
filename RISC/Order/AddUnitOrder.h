@@ -6,6 +6,7 @@
 #include "../GameObject/CombatObject.h"
 #include "AddUnitOrder.h"
 #include "AddUnitResponse.h"
+#include "SpoofResponse.h"
 
 class AddUnitOrder : public Order {
 

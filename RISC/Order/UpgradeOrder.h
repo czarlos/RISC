@@ -3,7 +3,9 @@
 #include "../GameObject/Unit/Unit.h"
 #include "Order.h"
 #include "../GameState/Managers/TechnologyManager.h"
-#include "../Order/UpgradeResponse.h"
+#include "UpgradeResponse.h"
+#include "SpoofResponse.h"
+
 using namespace std;
 
 class UpgradeOrder : public Order {

@@ -11,6 +11,8 @@ void BoxPacker::packMovementOrder() {
 	//SOURCE?
 	//UNITIDs
 	unitSelection();
+
+	myGameManager->setWorkingOrder(myGameManager->getMovementOrder());
 }
 
 void BoxPacker::packAttackOrder() {
@@ -19,7 +21,7 @@ void BoxPacker::packAttackOrder() {
 	//UNITIDs
 	unitSelection();
 
-
+	myGameManager->setWorkingOrder(myGameManager->getAttackOrder());
 
 }
 
@@ -31,7 +33,7 @@ void BoxPacker::packUpgradeOrder() {
 	createDropdownMenu();
 	myBox->Pack(add_unit_entry, false);
 
-
+	myGameManager->setWorkingOrder(myGameManager->getUpgradeOrder());
 }
 
 void BoxPacker::packAddUnitOrder() {

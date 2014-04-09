@@ -16,6 +16,7 @@
 #include "../GameState/GameState.h"
 #include "Order.h"
 #include "MovementResponse.h"
+#include "SpoofResponse.h"
 
 class MovementOrder : public Order {
 
@@ -23,10 +24,12 @@ public:
 	//movement order constructor
 	MovementOrder();
 	MovementOrder(Location* destination, vector<Unit*> objectList);
+	MovementOrder(Location* source, Location* destination, vector<Unit*> unitList);
 	//execute of movement
 	Response* execute(GameState* state);
 
 	void setDestination(Location* destination);
+	void setSource(Location* source);
 	void setObjectList(vector<Unit*> objectList);
 
 	string getName();
@@ -34,6 +37,7 @@ public:
 	~MovementOrder();
 
 private:
+	Location* mySource;
 	Location* myDestination;
 	vector<Unit*> myObjectList;
 	string myName = "MovementOrder";

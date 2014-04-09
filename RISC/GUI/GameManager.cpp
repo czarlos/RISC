@@ -94,7 +94,7 @@ void GameManager::setLocation(Location* location) {
 	this->myAddUnitOrder->setDestination(board->getTerritory(location));
 	this->myAttackOrder->setSource(location);
 	this->myUpgradeOrder->setDestination(location);
-	this->myMovementOrder->setDestination(location);
+	this->myMovementOrder->setSource(location);
 	
 	myLocation = location;
 }
@@ -104,6 +104,9 @@ Location* GameManager::getDestination() {
 }
 
 void GameManager::setDestination(Location* destination) {
+	this->myAttackOrder->setDestination(destination);
+	this->myMovementOrder->setDestination(destination);
+
 	myDestination = destination;
 }
 

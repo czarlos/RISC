@@ -1,6 +1,6 @@
 #include "AttackOrder.h"
 
-AttackOrder::AttackOrder() {
+AttackOrder::AttackOrder() : Order() {
 
 }
 
@@ -17,7 +17,7 @@ Response* AttackOrder::execute(GameState* state) {
 		return response;
 	}
 	else {
-		return nullptr;
+		return new SpoofResponse();
 	}
 }
 
@@ -27,6 +27,10 @@ string AttackOrder::getName() {
 
 void AttackOrder::setSource(Location* source) {
 	this->mySource = source;
+}
+
+void AttackOrder::setDestination(Location* destination) {
+	this->myDestination = destination;
 }
 
 AttackOrder::~AttackOrder() {

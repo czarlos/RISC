@@ -73,24 +73,30 @@ bool UpgradeOrder::getConvertingUpgrade(){
 }
 
 Response* UpgradeOrder::execute(GameState* state) {
-	Response* returnResponse = new Response();
+
+	if (!this->myLocation) {
+		return new SpoofResponse();
+	}
 
 	if (this->convertingUpgrade){
 		//make in to a spy or turn back into a reg unit and modify return response
-		returnResponse = makeASpy();
+		return makeASpy();
 	}
 
-	if (this->unitUpgrading){
+	else if (this->unitUpgrading){
 		//check the list of units to upgrade and modify return response
-		returnResponse = upgradeUnits();
+		return upgradeUnits();
 	}
 
-	if (this->unlocking){
+	else if (this->unlocking){
 		//unlock the next upgrade in the TechManager and modify return response
-		returnResponse = unlockNextUpgrade();
+		return unlockNextUpgrade();
 	}
 
-	return returnResponse;
+	else {
+		return new SpoofResponse();
+	}
+
 }
 
 Response* UpgradeOrder::makeASpy(){
@@ -138,7 +144,7 @@ Response* UpgradeOrder::unlockNextUpgrade(){
 		//techmanager, make sure to update its highest avaliable upgrade using
 		//the call above from tech manager
 	}
-	return 	new UpgradeResponse(updatedPossUps,updatedTechPtAmt);
+	return new UpgradeResponse(updatedPossUps,updatedTechPtAmt);
 }
 
 string UpgradeOrder::getName() {
