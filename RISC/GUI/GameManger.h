@@ -70,6 +70,7 @@ public:
 
 	Unit* getWorkingUnit();
 	void setWorkingUnit(Unit* unit);
+	UnitType* getWorkingUnitType();
 
 	virtual ~GameManager();
 
@@ -95,6 +96,7 @@ private:
 	vector<TerritoryBinder*> myMadeTerritories;
 	vector<VertexArray*> myMadeLines;
 
+	UnitType* myWorkingUnitType;
 	vector<Unit*> myWorkingUnits;
 	int myWorkingNumberOfUnits = 0;
 	string myUnitType;

@@ -16,7 +16,7 @@ Response* AttackOrder::execute(GameState* state) {
 	if (sourceTerr && destinationTerr && !myUnitList.empty()) {
 		for each (Territory* territory in state->getBoard()->getAdjacentTerritory(sourceTerr)) {
 			if (territory == destinationTerr) {
-				return new AttackResponse(sourceTerr, destinationTerr);
+				return new AttackResponse(sourceTerr, destinationTerr, myUnitList);
 			}
 		}
 	}

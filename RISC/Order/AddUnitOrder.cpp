@@ -4,8 +4,8 @@ AddUnitOrder::AddUnitOrder() : Order() {
 
 }
 
-AddUnitOrder::AddUnitOrder(Territory* destination, Unit* unit) : Order() {
-	this->myUnit = unit;
+AddUnitOrder::AddUnitOrder(Territory* destination, vector<Unit*> unitList) : Order() {
+	this->myUnitList = unitList;
 	this->myDestination = destination;
 }
 
@@ -15,13 +15,13 @@ Response* AddUnitOrder::execute(GameState* state) {
 		return new SpoofResponse();
 	}
 
-	if (!myUnit) {
+	if (myUnitList.empty()) {
 		return new SpoofResponse();
 	}
 
 	/*There needs to be a valid check that this territory belongs to this owner*/
 
- 	Response* response = new AddUnitResponse(myDestination, myUnit);
+	Response* response = new AddUnitResponse(myDestination, myUnitList);
 	return response;
 }
 
@@ -33,9 +33,10 @@ void AddUnitOrder::setDestination(Territory* destination) {
 	myDestination = destination;
 }
 
-void AddUnitOrder::setUnit(Unit* unit) {
-	myUnit = unit;
+void AddUnitOrder::setUnitList(vector<Unit*> unitList) {
+	myUnitList = unitList;
 }
+
 
 AddUnitOrder::~AddUnitOrder() {
 

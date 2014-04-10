@@ -12,7 +12,7 @@ UpgradeOrder::UpgradeOrder() : Order() {
 }
 
 UpgradeOrder::UpgradeOrder(vector<Unit*> listOfUnitsToUpgrade, UnitType* unitType,TechnologyManager* techManager) : Order() {
-	this->listOfUnitsToUpgrade = listOfUnitsToUpgrade;
+	this->myUnitList = listOfUnitsToUpgrade;
 	this->techManager = techManager;
 	this->myUnitType = unitType;
 	this->unlocking = false;
@@ -122,7 +122,7 @@ Response* UpgradeOrder::upgradeUnits(){
 	vector<Unit*> updatedUnits = vector<Unit*>();
 
 	if (this->techManager->isUpgradeAllowed(this->myUnitType)){
-		for each(Unit* unit in this->listOfUnitsToUpgrade){
+		for each(Unit* unit in this->myUnitList){
 			Unit* modifiedUnit = unit;
 			modifiedUnit->setUnitType(this->myUnitType);
 			updatedUnits.push_back(modifiedUnit);
@@ -153,6 +153,10 @@ string UpgradeOrder::getName() {
 
 void UpgradeOrder::setDestination(Location* location) {
 	myLocation = location;
+}
+
+void UpgradeOrder::setUnitList(vector<Unit*> unitList) {
+	myUnitList = unitList;
 }
 
 UpgradeOrder::~UpgradeOrder() {

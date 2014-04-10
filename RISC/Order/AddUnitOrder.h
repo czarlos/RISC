@@ -12,15 +12,16 @@ class AddUnitOrder : public Order {
 
 public:
 	AddUnitOrder();
-	AddUnitOrder(Territory* destination, Unit* unit);
+	AddUnitOrder(Territory* destination, vector<Unit*> unitList);
 	Response* execute(GameState* gamestate);
 	string getName();
 	void setDestination(Territory* destination);
-	void setUnit(Unit* unit);
+	void setQuantity(int quantity);
+	void setUnitList(vector<Unit*> unitList);
 	~AddUnitOrder();
 
 private:
-	Unit* myUnit;
+	vector<Unit*> myUnitList;
 	Territory* myDestination;
 	string myName = "AddUnitOrder";
 };

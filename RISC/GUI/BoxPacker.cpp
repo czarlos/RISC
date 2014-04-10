@@ -33,10 +33,48 @@ void BoxPacker::packAddUnitOrder() {
 	createDropdownMenu();
 	myBox->Pack(add_unit_entry, false);
 
-	//Sets the Order
-	myGameManager->getAddUnitOrder()->setUnit(myGameManager->getWorkingUnit());
+	//Units set in commit order
 	myGameManager->setWorkingOrder(myGameManager->getAddUnitOrder());
 
+}
+
+vector<Unit*> BoxPacker::buildUnitList() {
+	vector<Unit*> unitList;
+	for (int i = 0; i < myGameManager->getWorkingNumberOfUnits(); i++) {
+		if (myGameManager->getUnitType() == "Infantry") {
+			Unit* infantry = new Unit();
+			infantry->setUnitType(new Infantry());
+			unitList.push_back(infantry);
+		}
+		else if (myGameManager->getUnitType() == "Automatic Weapons") {
+			Unit* automatic_weapons = new Unit();
+			automatic_weapons->setUnitType(new AutomaticWeapons());
+			unitList.push_back(automatic_weapons);
+
+		}
+		else if (myGameManager->getUnitType() == "Rocket Launchers") {
+			Unit* rocket_launchers = new Unit();
+			rocket_launchers->setUnitType(new RocketLaunchers());
+			unitList.push_back(rocket_launchers);
+		}
+		else if (myGameManager->getUnitType() == "Tanks") {
+			Unit* tanks = new Unit();
+			tanks->setUnitType(new Tanks());
+			unitList.push_back(tanks);
+		}
+		else if (myGameManager->getUnitType() == "Improved Tanks") {
+			Unit* improved_tanks = new Unit();
+			improved_tanks->setUnitType(new ImprovedTanks());
+			unitList.push_back(improved_tanks);
+		}
+		else if (myGameManager->getUnitType() == "Fighter Planes") {
+			Unit* fighter_planes = new Unit();
+			fighter_planes->setUnitType(new FighterPlanes());
+			unitList.push_back(fighter_planes);
+		}
+
+	}
+	return unitList;
 }
 
 void BoxPacker::createDropdownMenu() {
@@ -129,83 +167,26 @@ void BoxPacker::OnDropDownSelect() {
 	std::stringstream sstr;
 	sstr << static_cast<std::string>(myComboBox->GetSelectedText());
 
-	if (sstr.str() == "Infantry") {
-		Unit* infantry = new Unit();
-		infantry->setUnitType(new Infantry());
-		myGameManager->setWorkingUnit(infantry);
-	}
-	else if (sstr.str() == "Automatic Weapons") {
-		Unit* automatic_weapons = new Unit();
-		automatic_weapons->setUnitType(new AutomaticWeapons());
-		myGameManager->setWorkingUnit(automatic_weapons);
-
-	}
-	else if (sstr.str() == "Rocket Launchers") {
-		Unit* rocket_launchers = new Unit();
-		rocket_launchers->setUnitType(new RocketLaunchers());
-		myGameManager->setWorkingUnit(rocket_launchers);
-	}
-	else if (sstr.str() == "Tanks") {
-		Unit* tanks = new Unit();
-		tanks->setUnitType(new Tanks());
-		myGameManager->setWorkingUnit(tanks);
-	}
-	else if (sstr.str() == "Improved Tanks") {
-		Unit* improved_tanks = new Unit();
-		improved_tanks->setUnitType(new ImprovedTanks());
-		myGameManager->setWorkingUnit(improved_tanks);
-	}
-	else if (sstr.str() == "Fighter Planes") {
-		Unit* fighter_planes = new Unit();
-		fighter_planes->setUnitType(new FighterPlanes());
-		myGameManager->setWorkingUnit(fighter_planes);
-	}
-
 	myGameManager->setUnitType(sstr.str());
 }
 
-
 void BoxPacker::InfantryButtonCheck() {
-	Unit* unit = new Unit();
-	unit->setUnitType(new Infantry());
-	unit->setTeamName(myGameManager->getCurrentClient());
-	
-	myGameManager->getAddUnitOrder()->setUnit(unit);
+	myGameManager->setUnitType("Infantry");
 }
 void BoxPacker::AutomaticWeaponsButtonCheck() {
-	Unit* unit = new Unit();
-	unit->setUnitType(new AutomaticWeapons());
-	unit->setTeamName(myGameManager->getCurrentClient());
-
-	myGameManager->getAddUnitOrder()->setUnit(unit);
+	myGameManager->setUnitType("Automatic Weapons");
 }
 void BoxPacker::RocketLaunchersButtonCheck() {
-	Unit* unit = new Unit();
-	unit->setUnitType(new RocketLaunchers());
-	unit->setTeamName(myGameManager->getCurrentClient());
-
-	myGameManager->getAddUnitOrder()->setUnit(unit);
+	myGameManager->setUnitType("Rocket Launchers");
 }
 void BoxPacker::TanksButtonCheck() {
-	Unit* unit = new Unit();
-	unit->setUnitType(new Tanks());
-	unit->setTeamName(myGameManager->getCurrentClient());
-
-	myGameManager->getAddUnitOrder()->setUnit(unit);
+	myGameManager->setUnitType("Tanks");
 }
 void BoxPacker::ImprovedTanksButtonCheck() {
-	Unit* unit = new Unit();
-	unit->setUnitType(new ImprovedTanks());
-	unit->setTeamName(myGameManager->getCurrentClient());
-
-	myGameManager->getAddUnitOrder()->setUnit(unit);
+	myGameManager->setUnitType("Improved Tanks");
 }
 void BoxPacker::FighterPlanesButtonCheck() {
-	Unit* unit = new Unit();
-	unit->setUnitType(new FighterPlanes());
-	unit->setTeamName(myGameManager->getCurrentClient());
-
-	myGameManager->getAddUnitOrder()->setUnit(unit);
+	myGameManager->setUnitType("Fighter Planes");
 }
 
 BoxPacker::~BoxPacker() {

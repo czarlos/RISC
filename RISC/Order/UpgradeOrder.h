@@ -28,6 +28,7 @@ public:
 	bool getConvertingUpgrade();
 	string getName();
 	void setDestination(Location* location);
+	void setUnitList(vector<Unit*> unitList);
 	Response* execute(GameState* state);
 	~UpgradeOrder();
 
@@ -40,9 +41,9 @@ private:
 	Response* unlockNextUpgrade();
 	Response* upgradeUnits();
 	TechnologyManager* techManager;
-	vector<Unit*> listOfUnitsToUpgrade;
 	Unit* unit;
 	string myName = "UpgradeOrder";
 	UnitType* myUnitType;
+	vector<Unit*> myUnitList;
 	Location* myLocation;
 };

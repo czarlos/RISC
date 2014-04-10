@@ -7,11 +7,11 @@ using namespace std;
 
 class AddUnitResponse : public Response {
 public:
-	AddUnitResponse(Territory* destination, Unit* unit);
+	AddUnitResponse(Territory* destination, vector<Unit*> unitList);
 	void executeResponse(GameState* state);
 	virtual ~AddUnitResponse();
 private:
-	Unit* myUnit;
+	vector<Unit*> myUnitList;
 	Territory* myDestination;
 
 };

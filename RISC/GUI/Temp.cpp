@@ -294,6 +294,12 @@ void Temp::SetTextClick() {
 
 void Temp::CommitOrderClick() {
 	gameManager->addOrder(gameManager->getWorkingOrder());
+	string nums = m_entry->GetText();
+	gameManager->setWorkingNumberOfUnits(std::stoi(nums));
+	
+	//Set Units Lists
+	gameManager->getAddUnitOrder()->setUnitList(myBoxPacker->buildUnitList());
+	gameManager->getUpgradeOrder()->setUnitList(myBoxPacker->buildUnitList());
 
 	myBoxPacker->addToOrderQueue(gameManager->getWorkingOrder()->getName());
 }

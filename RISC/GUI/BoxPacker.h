@@ -36,6 +36,8 @@ public:
 	void createDropdownQueue(std::shared_ptr<sfg::Box> box);
 	void addToOrderQueue(string str);
 
+	vector<Unit*> buildUnitList();
+
 	virtual ~BoxPacker();
 
 private:
@@ -61,7 +63,6 @@ private:
 	sfg::Entry::Ptr add_unit_entry;
 
 	void unitSelection();
-
 	void OnOrderSelect();
 	sfg::ComboBox::Ptr queue_box;
 	sfg::Label::Ptr selection_label;
