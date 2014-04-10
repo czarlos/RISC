@@ -7,7 +7,7 @@
 
 class PlayerObject : public GameObject {
 private:
-	string myTeamName;
+	string myTeamName = "default";
 	
 public:
 	PlayerObject();

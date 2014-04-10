@@ -15,14 +15,11 @@ Response* AddUnitOrder::execute(GameState* state) {
 		return new SpoofResponse();
 	}
 
-	//if (!myUnit) {
-	//	return new SpoofResponse();
-	//}
+	if (!myUnit) {
+		return new SpoofResponse();
+	}
 
-	//string me = myUnit->getTeamName();
-	//if (myDestination->getOwner() != me) {
-	//	return new SpoofResponse();
-	//}
+	/*There needs to be a valid check that this territory belongs to this owner*/
 
  	Response* response = new AddUnitResponse(myDestination, myUnit);
 	return response;
