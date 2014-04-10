@@ -48,31 +48,21 @@ public:
 	void setUnitPosition(Unit* unit, Location* newLocation);
 	
 
+	void setBoard(Board* board);
 
 
-
-	//Notes: Below are Unnesscary @ carlos -> lets discuss wendesday night
-
-	//vector<GameObject*>* getGameObjectsByLocation(Location* location);
-	//Territory* getTerritory(string id);
 	Territory* getTerritoryByLocation(Location* location);
 	Location* getUnitLocation(Unit* unit);
 	Territory* getUnitTerritory(Unit* unit);
 	vector<Unit*> getUnitList(Location* location);
 	Location* getLocation(Territory* territory);
-	//Player* getPlayer(string teamName);
-	//vector<Territory*> getPlayerTerritories(string teamName);
-	//vector<Unit*> getPlayerUnits(Player* player);
-	//void addUnit(Unit* unit, Location* location);
-	//void setObjectLocation(GameObject* object, Location* location);
-	//void execute();
 
 	~GameState();
 
 private:
 	map <string, vector<Player*>> mapOfTeams;
 	vector<Player*> playerList;
-	Board* board;
+	Board* myBoard;
 	string nameOfGame;
 	string serverInfo; //thinking it is a string
 	string id;

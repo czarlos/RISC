@@ -17,6 +17,10 @@ void GameManager::setUpState() {
 	board->generateFixedBoard();
 	InitializationUtilities::addUnitsToBoard(board);
 	
+	/*Add board to states*/
+	state1->setBoard(board);
+	state2->setBoard(board);
+
 	/*Make Rectangles for all of the places on the board*/
 	BoardPainter* bp = new BoardPainter();
 	myMadeTerritories = bp->makeBoard(board);
