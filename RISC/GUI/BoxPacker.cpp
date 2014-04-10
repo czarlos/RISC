@@ -132,23 +132,34 @@ void BoxPacker::OnDropDownSelect() {
 
 	if (sstr.str() == "Infantry") {
 		Unit* infantry = new Unit();
-		infantry->setUnitType(new Infantry);
+		infantry->setUnitType(new Infantry());
 		myGameManager->setWorkingUnit(infantry);
 	}
 	else if (sstr.str() == "Automatic Weapons") {
+		Unit* automatic_weapons = new Unit();
+		automatic_weapons->setUnitType(new AutomaticWeapons());
+		myGameManager->setWorkingUnit(automatic_weapons);
 
 	}
 	else if (sstr.str() == "Rocket Launchers") {
-
+		Unit* rocket_launchers = new Unit();
+		rocket_launchers->setUnitType(new RocketLaunchers());
+		myGameManager->setWorkingUnit(rocket_launchers);
 	}
 	else if (sstr.str() == "Tanks") {
-
+		Unit* tanks = new Unit();
+		tanks->setUnitType(new Tanks());
+		myGameManager->setWorkingUnit(tanks);
 	}
 	else if (sstr.str() == "Improved Tanks") {
-
+		Unit* improved_tanks = new Unit();
+		improved_tanks->setUnitType(new ImprovedTanks());
+		myGameManager->setWorkingUnit(improved_tanks);
 	}
 	else if (sstr.str() == "Fighter Planes") {
-
+		Unit* fighter_planes = new Unit();
+		fighter_planes->setUnitType(new FighterPlanes());
+		myGameManager->setWorkingUnit(fighter_planes);
 	}
 
 	myGameManager->setUnitType(sstr.str());
