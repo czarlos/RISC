@@ -38,6 +38,11 @@ void BoxPacker::packAddUnitOrder() {
 
 }
 
+int BoxPacker::getEntryValue() {
+	string str = add_unit_entry->GetText();
+	return std::stoi(str);
+}
+
 vector<Unit*> BoxPacker::buildUnitList() {
 	vector<Unit*> unitList;
 	for (int i = 0; i < myGameManager->getWorkingNumberOfUnits(); i++) {

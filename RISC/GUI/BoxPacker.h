@@ -37,6 +37,7 @@ public:
 	void addToOrderQueue(string str);
 
 	vector<Unit*> buildUnitList();
+	int getEntryValue();
 
 	virtual ~BoxPacker();
 
