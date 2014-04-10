@@ -77,7 +77,6 @@ void BoxPacker::OnOrderSelect() {
 
 void BoxPacker::addToOrderQueue(string str) {
 	queue_box->AppendItem(myGameManager->getWorkingOrder()->getName());
-
 }
 
 void BoxPacker::unitSelection() {

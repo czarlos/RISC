@@ -1,5 +1,4 @@
 #pragma once
-
 #include <iostream>
 #include "../GameMap/Location.h"
 #include "Order.h"
@@ -10,18 +9,18 @@
 class AttackOrder : public Order {
 	
 public:
-	//constructor for attackOrder
 	AttackOrder();
-	AttackOrder(Location* source, Location* destination);
-	//attack order execute and returns a response
+	AttackOrder(Location* source, Location* destination, vector<Unit*> unitList);
 	Response* execute(GameState* gamestate);
 	string getName();
-	void setSource(Location* source);
 	void setDestination(Location* destination);
+	void setSource(Location* source);
+	void setUnitList(vector<Unit*> unitList);
 	~AttackOrder();
 
 private:
-	Location* mySource;
 	Location* myDestination;
+	Location* mySource;
+	vector<Unit*> myUnitList;
 	string myName = "AttackOrder";
 };

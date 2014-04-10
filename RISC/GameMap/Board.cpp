@@ -182,18 +182,19 @@ int Board::getNumberofEdges(){
 vector<Territory*> Board::getAdjacentTerritory(Territory *territory){
 
 	vector<Territory*> neighborTerritories;
-	neighborTerritories = vector<Territory*>();
 	
 	for each (vector<Edge*> edgeVector in gameMap)
 	{
 		for each (Edge *edge in edgeVector)
 		{
-			if (edge->getEndPointATerritory()->getTerritoryID() == territory->getTerritoryID())
-			{
-				neighborTerritories.push_back(edge->getEndPointBTerritory());
-			}
-			if (edge->getEndPointBTerritory()->getTerritoryID() == territory->getTerritoryID()) {
-				neighborTerritories.push_back(edge->getEndPointATerritory());
+			if (edge) {
+				if (edge->getEndPointATerritory()->getTerritoryID() == territory->getTerritoryID())
+				{
+					neighborTerritories.push_back(edge->getEndPointBTerritory());
+				}
+				if (edge->getEndPointBTerritory()->getTerritoryID() == territory->getTerritoryID()) {
+					neighborTerritories.push_back(edge->getEndPointATerritory());
+				}
 			}
 		}
 	}

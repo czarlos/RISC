@@ -1,6 +1,6 @@
 #include "AttackResponse.h"
 
-AttackResponse::AttackResponse(Territory* source, Territory* destination) : Response(){
+AttackResponse::AttackResponse(Territory* source, Territory* destination) : Response() {
 	this->mySource = source;
 	this->myDestination = destination;
 	this->mySourceVector = source->getTerritoryContents();
@@ -9,8 +9,6 @@ AttackResponse::AttackResponse(Territory* source, Territory* destination) : Resp
 
 void AttackResponse::executeResponse(GameState* state) {
 	
-	// We're going to need to sort the stacks
-
 	// Setup starts
 	stack<Unit*> sourceStack;
 	stack<Unit*> destinationStack;
@@ -81,8 +79,6 @@ void AttackResponse::executeResponse(GameState* state) {
 			sourceStack.pop();
 		}
 	}
-
-
 
 }
 
