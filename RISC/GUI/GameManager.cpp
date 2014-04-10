@@ -6,6 +6,7 @@ GameManager::GameManager() {
 	myClientList = InitializationUtilities::addClients(state1, state2);
 	myNumberOfClients = myClientList.size();
 	myCurrentClient = 0;
+	server = new ServerLogic(myClientList);
 }
 
 void GameManager::setUpState() {
@@ -31,7 +32,6 @@ void GameManager::setUpState() {
 void GameManager::endTurn() {
 	/*Sends order queue*/
 	server->handleQueue(myOrderQueue, state1);
-
 	/*Changes possesion*/
 	if (myCurrentClient < myNumberOfClients-1) {
 		myCurrentClient ++;
@@ -169,6 +169,15 @@ void GameManager::setAddUnitOrder(AddUnitOrder* order) {
 vector<Order*>  GameManager::getOrderQueue() {
 	return myOrderQueue;
 }
+
+Unit* GameManager::getWorkingUnit() {
+	return myWorkingUnit;
+}
+
+void GameManager::setWorkingUnit(Unit* unit) {
+	myWorkingUnit = unit;
+}
+
 
 GameManager::~GameManager() {
 

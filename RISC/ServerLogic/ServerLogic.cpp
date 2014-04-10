@@ -20,11 +20,12 @@ void ServerLogic::handleQueue(vector<Order*> orderQueue, GameState* state) {
 	while (!orderQueue.empty()) {
 		cout << orderQueue.front()->getName() << endl;
 		Response* response = orderQueue.front()->execute(state);
-		
 		//Remove first element
 		orderQueue.erase(orderQueue.begin() + 0);
+		cout << "this" << endl;
 
 		for each (Client* client in myClientList) {
+			cout << "that" << endl;
 			client->update(*response);
 		}
 	}

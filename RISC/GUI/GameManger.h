@@ -68,6 +68,9 @@ public:
 	void addUnitToWorkingList(Unit* unit);
 	void setUnitType(string unitType);
 
+	Unit* getWorkingUnit();
+	void setWorkingUnit(Unit* unit);
+
 	virtual ~GameManager();
 
 private:
@@ -95,6 +98,8 @@ private:
 	vector<Unit*> myWorkingUnits;
 	int myWorkingNumberOfUnits = 0;
 	string myUnitType;
+
+	Unit* myWorkingUnit;
 
 	ServerLogic* server;
 	vector<Order*> myOrderQueue;

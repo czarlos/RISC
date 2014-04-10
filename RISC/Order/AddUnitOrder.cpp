@@ -10,18 +10,21 @@ AddUnitOrder::AddUnitOrder(Territory* destination, Unit* unit) : Order() {
 }
 
 Response* AddUnitOrder::execute(GameState* state) {
-	if (!state->getLocation(myDestination)) {
-		return new SpoofResponse();
-	}
-	if (!myUnit) {
-		return new SpoofResponse();
-	}
 
-	string me = myUnit->getTeamName();
-	if (myDestination->getOwner() != me) {
-		return new SpoofResponse();
-	}
-	Response* response = new AddUnitResponse(myDestination, myUnit);
+	//if (!state->getLocation(myDestination)) {
+	//	return new SpoofResponse();
+	//}
+
+	//if (!myUnit) {
+	//	return new SpoofResponse();
+	//}
+
+	//string me = myUnit->getTeamName();
+	//if (myDestination->getOwner() != me) {
+	//	return new SpoofResponse();
+	//}
+
+ 	Response* response = new AddUnitResponse(myDestination, myUnit);
 	return response;
 }
 

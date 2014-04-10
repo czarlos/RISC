@@ -24,7 +24,6 @@ public:
 	void packUpgradeOrder();
 	void packAddUnitOrder();
 
-	void MovementButtonCheck();
 	void InfantryButtonCheck();
 	void AutomaticWeaponsButtonCheck();
 	void RocketLaunchersButtonCheck();

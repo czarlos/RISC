@@ -34,6 +34,7 @@ void BoxPacker::packAddUnitOrder() {
 	myBox->Pack(add_unit_entry, false);
 
 	//Sets the Order
+	myGameManager->getAddUnitOrder()->setUnit(myGameManager->getWorkingUnit());
 	myGameManager->setWorkingOrder(myGameManager->getAddUnitOrder());
 
 }
@@ -129,12 +130,30 @@ void BoxPacker::OnDropDownSelect() {
 	std::stringstream sstr;
 	sstr << static_cast<std::string>(myComboBox->GetSelectedText());
 
+	if (sstr.str() == "Infantry") {
+		Unit* infantry = new Unit();
+		infantry->setUnitType(new Infantry);
+		myGameManager->setWorkingUnit(infantry);
+	}
+	else if (sstr.str() == "Automatic Weapons") {
+
+	}
+	else if (sstr.str() == "Rocket Launchers") {
+
+	}
+	else if (sstr.str() == "Tanks") {
+
+	}
+	else if (sstr.str() == "Improved Tanks") {
+
+	}
+	else if (sstr.str() == "Fighter Planes") {
+
+	}
+
 	myGameManager->setUnitType(sstr.str());
 }
 
-void BoxPacker::MovementButtonCheck() {
-	
-}
 
 void BoxPacker::InfantryButtonCheck() {
 	Unit* unit = new Unit();
