@@ -1,25 +1,24 @@
 #include "AttackResponse.h"
 
-AttackResponse::AttackResponse(Territory* source, Territory* destination) : Response() {
+AttackResponse::AttackResponse(Territory* source, Territory* destination, vector<Unit*> unitList) : Response() {
 	this->mySource = source;
 	this->myDestination = destination;
-	this->mySourceVector = source->getTerritoryContents();
+	this->mySourceVector = unitList;
 	this->myDestinationVector = destination->getTerritoryContents();
 }
 
 void AttackResponse::executeResponse(GameState* state) {
 	
-	// Setup starts
+	/*Setup Starts*/
 	stack<Unit*> sourceStack;
 	stack<Unit*> destinationStack;
-
 	for (size_t i = 0; i < mySourceVector.size(); i++) {
 		sourceStack.push(mySourceVector.at(i));
 	}
 	for (size_t x = 0; x < myDestinationVector.size(); x++) {
 		destinationStack.push(myDestinationVector.at(x));
 	}
-	// Setup Ends
+	/*Setup Ends*/
 
 
 	while (!sourceStack.empty() && !destinationStack.empty()) {
@@ -30,7 +29,7 @@ void AttackResponse::executeResponse(GameState* state) {
 		int unitOneBonus = unitOne->getCombatBonus();
 		int unitTwoBonus = unitTwo->getCombatBonus();
 
-		// Dice Rolling
+		/*Dice Rolling*/
 		int rollOne;
 		srand(time(0));
 		rollOne = rand() % 20 + 1;

@@ -83,14 +83,16 @@ Location* GameState::getUnitLocation(Unit* u) {
 	{
 		for each (Edge * edge in edgeVec)
 		{
-			for each (Unit* unit in edge->getEndPointATerritory()->getTerritoryContents()) {
-				if (unit == u) {
-					return edge->getEndPointATerritory()->getLocation();
+			if (edge) {
+				for each (Unit* unit in edge->getEndPointATerritory()->getTerritoryContents()) {
+					if (unit == u) {
+						return edge->getEndPointATerritory()->getLocation();
+					}
 				}
-			}
-			for each (Unit* unit in edge->getEndPointBTerritory()->getTerritoryContents()) {
-				if (unit == u) {
-					return edge->getEndPointBTerritory()->getLocation();
+				for each (Unit* unit in edge->getEndPointBTerritory()->getTerritoryContents()) {
+					if (unit == u) {
+						return edge->getEndPointBTerritory()->getLocation();
+					}
 				}
 			}
 		}

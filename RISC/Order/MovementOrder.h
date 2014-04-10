@@ -23,14 +23,14 @@ class MovementOrder : public Order {
 public:
 	//movement order constructor
 	MovementOrder();
-	MovementOrder(Location* destination, vector<Unit*> objectList);
+	MovementOrder(Location* destination, vector<Unit*> unitList);
 	MovementOrder(Location* source, Location* destination, vector<Unit*> unitList);
 	//execute of movement
 	Response* execute(GameState* state);
 
 	void setDestination(Location* destination);
 	void setSource(Location* source);
-	void setObjectList(vector<Unit*> objectList);
+	void setObjectList(vector<Unit*> unitList);
 
 	string getName();
 
@@ -39,6 +39,6 @@ public:
 private:
 	Location* mySource;
 	Location* myDestination;
-	vector<Unit*> myObjectList;
+	vector<Unit*> myUnitList;
 	string myName = "MovementOrder";
 };
