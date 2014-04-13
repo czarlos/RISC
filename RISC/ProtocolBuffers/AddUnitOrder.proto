@@ -2,6 +2,6 @@ import "Territory.proto";
 import "Unit.proto";
 
 message AddUnitOrder {
-	required Territory myDestination = 1;
-	repeated Unit myUnitList = 2;
+	required Territory destination = 1;
+	repeated Unit unitList = 2;
 }

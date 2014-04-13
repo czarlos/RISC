@@ -1,0 +1,8 @@
+import "Unit.proto";
+import "UnitType.proto";
+
+message TechnologyManager {
+	required int32 technologyPoints = 1;
+	repeated UnitType possibleUpgrades = 2;
+	repeated UnitType unavailableUpgrades = 3;
+}

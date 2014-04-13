@@ -1,0 +1,13 @@
+import "Unit.proto"
+import "UnitType.proto"
+import "TechnologyManager.proto"
+
+message UpgradeOrder {
+	repeated Unit unitsToUpgrade = 1;
+	required UnitType unitType = 2;
+	required TechnologyManager technologyManager = 3;
+	required bool unlocking = 4;
+	required bool unitUpgrading = 5;
+	required bool convertingUpgrade = 6;
+	required bool makeSpy = 7;
+}

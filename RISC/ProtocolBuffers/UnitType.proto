@@ -1,11 +1,11 @@
 
 message UnitType {
-	required int32 myLevel = 1;
-	required string myType = 2;
-	required int32 myCombatBonus = 3;
-	required int32 myUpgradeCost = 4;
-	required int32 myCostToUnlock = 5;
-	required bool isSpy = 6;
-	required string myNextType = 7;
-	required string myPreviousType = 8;
+	required int32 level = 1;
+	required string type = 2;
+	required int32 combatBonus = 3;
+	required int32 upgradeCost = 4;
+	required int32 costToUnlock = 5;
+	required bool spy = 6;
+	required string nextType = 7;
+	required string previousType = 8;
 }
