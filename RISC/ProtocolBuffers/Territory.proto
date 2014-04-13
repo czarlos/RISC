@@ -1,18 +1,18 @@
 import "Unit.proto";
-import "ResouceType.proto";
+import "Location.proto";
 
 message Territory {
 	optional string myTerritoryID = 1;
 	optional string owner = 2;
-	optional int myMaxResourceProduction = 3;
-	optional int myMaxCapacity = 4;
+	optional int32 myMaxResourceProduction = 3;
+	optional int32 myMaxCapacity = 4;
 	
 	message ResourceType {
 		required string myResourceName = 1;
 	}
 
 	repeated ResourceType myProduction = 5;
-	required myLocation = 6;
-	repeated Unit  myContents = 7;
+	required Location myLocation = 6;
+	repeated Unit myContents = 7;
 	required bool isVisible = 8;
 }
