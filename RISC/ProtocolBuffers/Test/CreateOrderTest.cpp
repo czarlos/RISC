@@ -6,6 +6,7 @@
 #include <string>
 #include "../UnitType.pb.h"
 #include <vector>
+#include "../SerializationUtilities.h"
 
 using namespace std;
 
@@ -68,31 +69,4 @@ string serializeOrder() {
 
 		addUnitOrder.add_unitlist(unitBuffer);
 	}
-}
-
-Buffer::UnitType getUnitType(Unit*) {
-	string unitType = Unit->getUnitType->getType();
-	
-	Buffers::UnitType unitTypeBuffer;
-	
-	if (unitType == "Infantry") {
-		
-	}
-	else if (unitType == "Automatic Weapons") {
-	
-	}
-	else if (unitType == "Rocket Launchers") {
-	
-	}
-	else if (unitType == "Tanks") {
-	
-	}
-	else if (unitType == "Improved Tanks") {
-	
-	}
-	else if (unitType == "Fighter Planes") {
-	
-	}
-
-	return unitTypeBuffer;
 }
