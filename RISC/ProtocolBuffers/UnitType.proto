@@ -1,9 +1,11 @@
-import "UnitType.proto";
 
-message Unit {
-	required int32 myHealth = 1;
-	required UnitType myUnitType = 2;
-	required string myTeamName = 3;
-	required int32 myUnitID = 4;
-	required int32 myMovementRange = 5;
+message UnitType {
+	required int32 myLevel = 1;
+	required string myType = 2;
+	required int32 myCombatBonus = 3;
+	required int32 myUpgradeCost = 4;
+	required int32 myCostToUnlock = 5;
+	required bool isSpy = 6;
+	required string myNextType = 7;
+	required string myPreviousType = 8;
 }
