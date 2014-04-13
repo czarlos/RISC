@@ -1,3 +1,4 @@
+package Buffers;
 
 message UnitType {
 	required int32 level = 1;
