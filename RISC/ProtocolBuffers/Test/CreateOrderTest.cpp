@@ -57,16 +57,7 @@ string serializeOrder() {
 	
 	//unitList
 	for each (Unit* unit in myUnitList) {
-		//Make a Unit
-		//Add it
-		Buffers::Unit unitBuffer;
-		unitBuffer.set_health()
-		unitBuffer.set_unittype();
-		unitBuffer.set_teamname();
-		unitBuffer.set_unitid();
-		unitBuffer.set_movementrange();		
-
-
+		Buffers::Unit* unitBuffer = SerializationUtilities::createUnitBuffer();
 		addUnitOrder.add_unitlist(unitBuffer);
 	}
 }
