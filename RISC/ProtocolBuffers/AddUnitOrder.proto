@@ -1,0 +1,7 @@
+import "Territory.proto";
+import "Unit.proto";
+
+message AddUnitOrder {
+	required Territory myDestination = 1;
+	repeated Unit myUnitList = 2;
+}

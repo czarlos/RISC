@@ -1,0 +1,4 @@
+message Location {
+	requried double myX = 1;
+	required double myY = 2;
+}
