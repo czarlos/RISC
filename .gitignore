@@ -49,3 +49,6 @@ Release\
 .project
 .cproject
 Debug/
+
+#Protocol Buffers
+*.pb.*

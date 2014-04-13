@@ -1,6 +1,6 @@
-import "Unit.proto"
-import "UnitType.proto"
-import "TechnologyManager.proto"
+import "Unit.proto";
+import "UnitType.proto";
+import "TechnologyManager.proto";
 
 message UpgradeOrder {
 	repeated Unit unitsToUpgrade = 1;
