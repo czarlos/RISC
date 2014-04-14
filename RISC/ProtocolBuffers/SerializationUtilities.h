@@ -8,8 +8,8 @@ class SerializationUtilities {
 
 public:
 	SerializationUtilities();
-	Buffers::UnitType getUnitType(Unit* unit);
-	void createUnitBuffer(Unit* unit, Buffers::Unit* unitBuffer);
+	static Buffers::UnitType getUnitType(Unit* unit);
+	static void createUnitBuffer(Unit* unit, Buffers::Unit* unitBuffer);
 	virtual ~SerializationUtilities();
 };
 

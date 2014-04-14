@@ -6,12 +6,18 @@
 #include <string>
 #include "../UnitType.pb.h"
 #include <vector>
+#include <string>
 #include "../SerializationUtilities.h"
 #include "../Unit.pb.h"
 #include "../AddUnitOrder.pb.h"
+#include "../Location.pb.h"
 #include "../Territory.pb.h"
+#include "../../GameState/Managers/Resource/ResourceType.h"
+#include "../../GameMap/Territory.h"
 
 using namespace std;
+
+string serializeAndSendOrder(Territory* myDestination, Territory* myTerritory);
 
 int main(int argc, char* argv[]) {
 	GOOGLE_PROTOBUF_VERIFY_VERSION;
@@ -46,42 +52,57 @@ int main(int argc, char* argv[]) {
 }
 
 /*Add Unit Order*/
-// string serializeAndSendOrder() {
-// 	Buffers::AddUnitOrder addUnitOrder;
-	
-// 	/*Make Territory Buffer*/
-// 	Buffers::Territory territory;
-// 	territory.set_territoryid(myTerritory->getTerritoryID());
-// 	territory.set_owner(myTerritory->getOwner());
-// 	territory.set_maxresourceproduction(myTerritory->getMaxResourceProduction());
-// 	territory.set_maxcapacity(myTerritory->getMaxCapacity());
-// 	territory.set_location(myTerritory.getLocation());
-// 	territory.set_visibility(myTerritory.isVisible());
-// 	for each (ResourceType* resource in myTerritory->getProduction()) {
-// 		Buffers::Territory::ResourceType* resource_type = territory.add_production();
-// 		resource_type->set_resourcename(resource->getResourceName());
-// 	}
-// 	for each (Unit* unit in myDestination->getUnitList()) {
-// 		Buffers::Unit* unitBuffer = territory.add_contents();
-// 		SerializationUtilities::createUnitBuffer(unit, unitBuffer);
-// 	}
+string serializeAndSendOrder(Territory* myDestination, Territory* myTerritory) {
+	GOOGLE_PROTOBUF_VERIFY_VERSION;
 
-// 	/*Make UnitList*/	
-// 	for each (Unit* unit in myUnitList) {
-// 		Buffers::Unit* unitBuffer = addUnitOrder.add_unitlist();
-// 		SerializationUtilities::createUnitBuffer(unit, unitBuffer);
-// 	}
+	/*USELESS*/
+	vector<Unit*> myUnitList;
+	myDestination = new Territory();
+	myTerritory = new Territory();
 	
-// 	/*Serializing the data*/
-// 	string serialized_data;
-// 	if (!addUnitOrder.SerializeToString(&serialized_data)) {
-// 		cerr << "Failed to write data stream." << endl;
-// 		return -1;	
-// 	}
+	Buffers::AddUnitOrder addUnitOrder;	
+	/*Make Territory Buffer*/
+	Buffers::Territory territory;
+	territory.set_territoryid(myTerritory->getTerritoryID());
+	territory.set_owner(myTerritory->getOwner());
+	territory.set_maxresourceproduction(myTerritory->getMaxResourceProduction());
+	territory.set_maxcapacity(myTerritory->getMaxCapacity());
 	
-// 	cout << "much code, very serialized" << endl;
+	//Make Location
+	Buffers::Location* locationBuffer = new Buffers::Location();
+	locationBuffer->set_x(myTerritory->getLocation()->getX());
+	locationBuffer->set_y(myTerritory->getLocation()->getY());
+
+	territory.set_allocated_location(locationBuffer);
 	
-// 	return serialized_data;
+
+	territory.set_visible(myTerritory->isVisible());
+	for (ResourceType* resource : myTerritory->getProduction()) {
+		Buffers::Territory::ResourceType* resource_type = territory.add_production();
+		resource_type->set_resourcename(resource->getResourceName());
+	}
+	for (Unit* unit : myDestination->getTerritoryContents()) {
+		Buffers::Unit* unitBuffer = territory.add_contents();
+		SerializationUtilities::createUnitBuffer(unit, unitBuffer);
+	}
+
+	/*Make UnitList*/	
+	for (Unit* unit : myUnitList) {
+		Buffers::Unit* unitBuffer = addUnitOrder.add_unitlist();
+		SerializationUtilities::createUnitBuffer(unit, unitBuffer);
+	}
 	
-// }
+	/*Serializing the data*/
+	string serialized_data;
+	{
+		if (!addUnitOrder.SerializeToString(&serialized_data)) {
+			cerr << "Failed to write data stream." << endl;
+			return nullptr;	
+		}
+	}
+	cout << "much code, very serialized" << endl;
+	
+	return serialized_data;
+	// return "this";
+}
 

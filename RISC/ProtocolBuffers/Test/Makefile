@@ -13,4 +13,4 @@ protoc_file: UnitType.proto Unit.proto Location.proto Territory.proto AddUnitOrd
 
 create_order_test: CreateOrderTest.cpp
 	pkg-config --cflags protobuf  # fails if protobuf is not installed
-	c++ -std=c++11 CreateOrderTest.cpp ../UnitType.pb.cc ../Unit.pb.cc ../Location.pb.cc ../Territory.pb.cc ../AddUnitOrder.pb.cc -o create_order_test `pkg-config --cflags --libs protobuf`
+	g++ -std=c++11 CreateOrderTest.cpp  ../UnitType.pb.cc ../Unit.pb.cc ../Location.pb.cc ../Territory.pb.cc ../AddUnitOrder.pb.cc -o create_order_test `pkg-config --cflags --libs protobuf`

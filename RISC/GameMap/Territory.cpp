@@ -138,6 +138,10 @@ bool Territory::isVisible(){
 	return this->visible;
 }
 
+int Territory::getMaxResourceProduction() {
+	return this->maxResourceProduction;
+}
+
 
 Territory::~Territory()
 {
