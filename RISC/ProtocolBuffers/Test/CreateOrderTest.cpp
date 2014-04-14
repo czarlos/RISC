@@ -7,10 +7,9 @@
 #include "../UnitType.pb.h"
 #include <vector>
 #include "../SerializationUtilities.h"
-// #include "../Unit.pb.h"
-// #include "../AddUnitOrder.pb.h"
-// #include "../Territory.pb.h"
-// #include "../ResourceType.pb.h"
+#include "../Unit.pb.h"
+#include "../AddUnitOrder.pb.h"
+#include "../Territory.pb.h"
 
 using namespace std;
 
