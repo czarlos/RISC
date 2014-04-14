@@ -11,5 +11,5 @@ public:
 	Buffers::UnitType getUnitType(Unit* unit);
 	void createUnitBuffer(Unit* unit, Buffers::Unit* unitBuffer);
 	virtual ~SerializationUtilities();
-}
+};
 

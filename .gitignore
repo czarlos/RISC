@@ -52,3 +52,6 @@ Debug/
 
 #Protocol Buffers
 *.pb.*
+
+#Swap Files
+*.swp
