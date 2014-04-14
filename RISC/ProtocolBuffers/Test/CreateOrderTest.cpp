@@ -43,21 +43,29 @@ int main(int argc, char* argv[]) {
 }
 
 /*Add Unit Order*/
-string serializeOrder() {
+string serializeAndSendOrder() {
 	Buffers::AddUnitOrder addUnitOrder;
-	//destination
-	myTerritory->getTerritoryID();
-	myTerritory->getOwner();
-	myTerritory->getMaxResourceProduction();
-	myTerritory->getMaxCapacity();
-	myTerritory->getProduction(); //Vector
-	myTerritory->getLocation();
-	myTerritory->getContents();//Vector
-	myTerritory->isVisible();
 	
-	//unitList
+	/*Make Territory Buffer*/
+	Buffers::Territory territory;
+	territory.set_territoryid(myTerritory->getTerritoryID());
+	territory.set_owner(myTerritory->getOwner());
+	territory.set_maxresourceproduction(myTerritory->getMaxResourceProduction());
+	territory.set_maxcapacity(myTerritory->getMaxCapacity());
+	territory.set_location(myTerritory.getLocation());
+	territory.set_visibility(myTerritory.isVisible());
+	for each (ResourceType* resource in myTerritory->getProduction()) {
+		Buffers::Territory::ResourceType* resource_type = territory.add_production();
+		resource_type->set_resourcename(resource->getResourceName());
+	}
+	for each (Unit* unit in myDestination->getUnitList()) {
+		Buffers::Unit* unitBuffer = territory.add_contents();
+		SerializationUtilities::createUnitBuffer(unit, unitBuffer);
+	}
+
+	/*Make UnitList*/	
 	for each (Unit* unit in myUnitList) {
-		Buffers::Unit* unitBuffer = SerializationUtilities::createUnitBuffer();
-		addUnitOrder.add_unitlist(unitBuffer);
+		Buffers::Unit* unitBuffer = addUnitOrder.add_unitlist();
+		SerializationUtilities::createUnitBuffer(unit, unitBuffer);
 	}
 }

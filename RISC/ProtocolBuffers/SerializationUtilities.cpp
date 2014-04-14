@@ -74,14 +74,12 @@ Buffers::UnitType* SerializationUtilities::getUnitType(Unit* unit) {
     return unitTypeBuffer;
 }
 
-Buffers::Unit* SerializationUtilities::createUnitBuffer(Unit* unit) {
-	Buffers::Unit* unitBuffer = new Buffers::Unit();
+void SerializationUtilities::createUnitBuffer(Unit* unit, Buffers::Unit* unitBuffer) {
 	unitBuffer->set_health(unit->getHealth());
 	unitBuffer->set_allocated_unittype(getUnitType(unit));
 	unitBuffer->set_teamname(unit->getTeamName());
 	unitBuffer->set_unitid(unit->getUnitID());
 	unitBuffer->set_movementrange(unit->getMovementRange());
-	return unitBuffer;
 }
 
 SerializationUtilities::~SerializationUtilities() {
