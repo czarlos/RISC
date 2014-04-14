@@ -36,6 +36,7 @@ string serializeAndSendOrder() {
 	Location* myDestination = new Location();
 	Location* mySource = new Location();
 	UnitType* myUnitType = new UnitType();
+	TechnologyManager* myTechManager = new TechnologyManager();
 	
 	vector<Unit*> myUnitList;
 	
@@ -52,6 +53,8 @@ string serializeAndSendOrder() {
 	movementOrder.set_allocated_unittype(unitTypeBuffer);
 
 	/*Set Technology Manager*/
+	Buffers::TechnologyManager* techManagerBuffer = SerializationUtilities::createTechnologyManagerBuffer(myTechManager);
+	movementOrder.set_allocated_technologymanager(techManagerBuffer);
 
 	/*Set Unlocking*/
 	movementOrder.set_unlocking(unlocking);
@@ -65,11 +68,6 @@ string serializeAndSendOrder() {
 	/*Set Spy*/
 	movementOrder.set_makespy(makeSpy)
 
-
-
-	movementOrder.set_allocated_source(SerializationUtilities::createLocationBuffer(mySource));
-	movementOrder.set_allocated_destination(SerializationUtilities::createLocationBuffer(myDestination));
-	
 	/*Serializing the data*/
 	string serialized_data;
 	{

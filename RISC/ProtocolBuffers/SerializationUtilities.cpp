@@ -150,24 +150,24 @@ Buffers::TechnologyManager* SerializationUtilities::createTechnologyManagerBuffe
     
     for (UnitType* ut : technology->getCurrentPossibleUpgrade()) {
         Buffers::UnitType* unitTypeBuffer = tmb->add_possibleupgrades();
-        tmb->set_allocated_possibleupgrades();
+        SerializationUtilities::createUnitTypeBuffer(ut, unitTypeBuffer);
     }
     
     for (UnitType* ut : technology->getAllUnavalibleUpgrades()) {
         Buffers::UnitType* unitTypeBuffer = tmb->add_unavailableupgrades();
-        tmb->set_allocated_unavailableupgrades();
+        SerializationUtilities::createUnitTypeBuffer(ut, unitTypeBuffer);
     }
 }
 
 void SerializationUtilities::createUnitTypeBuffer(UnitType* unitType, Buffers::UnitType* unitTypeBuffer) {
-    unitTypeBuffer->set_level();
-    unitTypeBuffer->set_type();
-    unitTypeBuffer->set_combatbonus();
-    unitTypeBuffer->set_upgeradecost();
-    unitTypeBuffer->set_costtounlock();
-    unitTypeBuffer->set_spy();
-    unitTypeBuffer->set_nexttype();
-    unitTypeBuffer->set_previoustype();
+    unitTypeBuffer->set_level(unitType->getLevel());
+    unitTypeBuffer->set_type(unitType->getType());
+    unitTypeBuffer->set_combatbonus(unitType->getCombatBonus());
+    unitTypeBuffer->set_upgradecost(unitType->getUpgradeCost());
+    unitTypeBuffer->set_costtounlock(unitType->getCostToUnlock());
+    unitTypeBuffer->set_spy(unitType->isSpy());
+    unitTypeBuffer->set_nexttype(unitType->getNextUp());
+    unitTypeBuffer->set_previoustype(unitType->getPrevUp());
 }
 
 void SerializationUtilities::createUnitBuffer(Unit* unit, Buffers::Unit* unitBuffer) {

@@ -15,6 +15,8 @@ public:
 	static Buffers::UnitType* getUnitType(Unit* unit);
 	static Buffers::UnitType* getUnitType(UnitType* unit);
 	static void createUnitBuffer(Unit* unit, Buffers::Unit* unitBuffer);
+	static Buffers::TechnologyManager* createTechnologyManagerBuffer(TechnologyManager* technology);
+	static void createUnitTypeBuffer(UnitType* unitType, Buffers::UnitType* unitTypeBuffer)
 	static Buffers::Territory* createTerritoryBuffer(Territory* myTerritory);
 	static Buffers::Location* createLocationBuffer(Location* location);
 	virtual ~SerializationUtilities();
