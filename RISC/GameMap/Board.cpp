@@ -183,9 +183,9 @@ vector<Territory*> Board::getAdjacentTerritory(Territory *territory){
 
 	vector<Territory*> neighborTerritories;
 	
-	for each (vector<Edge*> edgeVector in gameMap)
+	for (vector<Edge*> edgeVector : gameMap)
 	{
-		for each (Edge *edge in edgeVector)
+		for (Edge *edge : edgeVector)
 		{
 			if (edge) {
 				if (edge->getEndPointATerritory()->getTerritoryID() == territory->getTerritoryID())
@@ -215,10 +215,10 @@ vector<Territory*> Board::getAdjacentTerritory(Territory *territory){
 //NOTE: Possiblity re-do this method
 Territory* Board::getTerritory(Location* location){
 	Territory* desiredTerritory = nullptr;
-	for each (vector<Edge*> edgeList in gameMap)
+	for (vector<Edge*> edgeList : gameMap)
 	{
 
-		for each (Edge *edge in edgeList)
+		for (Edge *edge : edgeList)
 		{
 			//checking for nullptrs, very important
 			if (edge) {
@@ -274,15 +274,15 @@ vector<vector<Edge*>> Board::getGameMap() {
 
 void Board::updateVisibleTerritories(string playerID){
 	//check for control
-	for each(vector<Edge*> vecOfEdges in this->gameMap){
-		for each(Edge* edge in vecOfEdges){
+	for (vector<Edge*> vecOfEdges : this->gameMap){
+		for (Edge* edge : vecOfEdges){
 			Territory* tA = edge->getEndPointATerritory();
 			Territory* tB = edge->getEndPointBTerritory();
 			//check TA
 			if (tA->getOwner() == playerID){
 				tA->setIsVisible(true);
 				vector<Territory*> adjTerr = getAdjacentTerritory(tA);
-				for each(Territory* t in adjTerr){
+				for (Territory* t : adjTerr){
 					//the adjacent territory to the territory's owner is
 					//set to visible
 					t->setIsVisible(true);
@@ -292,7 +292,7 @@ void Board::updateVisibleTerritories(string playerID){
 			if (tB->getOwner() == playerID){
 				tB->setIsVisible(true);
 				vector<Territory*> adjTerr = getAdjacentTerritory(tB);
-				for each(Territory* t in adjTerr){
+				for (Territory* t : adjTerr){
 					//the adjacent territory to the territory's owner is
 					//set to visible
 					t->setIsVisible(true);
@@ -312,7 +312,7 @@ void Board::updateVisibleTerritories(string playerID){
 
 bool Board::checkForSpies(Territory* territory){
 	vector<Unit*> territoryContent = territory->getTerritoryContents();
-	for each(Unit* unit in territoryContent){
+	for (Unit* unit : territoryContent){
 		if (unit->getUnitType()->isSpy()){
 			return true;
 		}

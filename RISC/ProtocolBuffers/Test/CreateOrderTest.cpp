@@ -10,10 +10,13 @@
 #include "../SerializationUtilities.h"
 #include "../Unit.pb.h"
 #include "../AddUnitOrder.pb.h"
+#include "../MovementOrder.pb.h"
 #include "../Location.pb.h"
 #include "../Territory.pb.h"
 #include "../../GameState/Managers/Resource/ResourceType.h"
 #include "../../GameMap/Territory.h"
+#include "../../GameMap/Location.h"
+
 
 using namespace std;
 
@@ -25,54 +28,52 @@ int main(int argc, char* argv[]) {
 
 }
 
-/*Add Unit Order*/
+/*Move Order*/
 string serializeAndSendOrder() {
 	GOOGLE_PROTOBUF_VERIFY_VERSION;
 
 	/*USELESS*/
-	Territory* myDestination = new Territory();
-	Territory* myTerritory = new Territory();
+	Location* myDestination = new Location();
+	Location* mySource = new Location();
+	UnitType* myUnitType = new UnitType();
+	
 	vector<Unit*> myUnitList;
-	myDestination = new Territory();
-	myTerritory = new Territory();
 	
-	Buffers::AddUnitOrder addUnitOrder;	
-	/*Make Territory Buffer*/
-	Buffers::Territory* territory = new Buffers::Territory();
-	territory->set_territoryid(myTerritory->getTerritoryID());
-	territory->set_owner(myTerritory->getOwner());
-	territory->set_maxresourceproduction(myTerritory->getMaxResourceProduction());
-	territory->set_maxcapacity(myTerritory->getMaxCapacity());
+	Buffers::MovementOrder movementOrder;	
 	
-	//Make Location
-	Buffers::Location* locationBuffer = new Buffers::Location();
-	locationBuffer->set_x(myTerritory->getLocation()->getX());
-	locationBuffer->set_y(myTerritory->getLocation()->getY());
-	territory->set_allocated_location(locationBuffer);
-	
-
-	territory->set_visible(myTerritory->isVisible());
-	for (ResourceType* resource : myTerritory->getProduction()) {
-		Buffers::Territory::ResourceType* resource_type = territory->add_production();
-		resource_type->set_resourcename(resource->getResourceName());
-	}
-	for (Unit* unit : myDestination->getTerritoryContents()) {
-		Buffers::Unit* unitBuffer = territory->add_contents();
-		SerializationUtilities::createUnitBuffer(unit, unitBuffer);
-	}
-	
-	addUnitOrder.set_allocated_destination(territory);
-	
-	/*Make UnitList*/	
+	/*Set UnitList*/
 	for (Unit* unit : myUnitList) {
-		Buffers::Unit* unitBuffer = addUnitOrder.add_unitlist();
+		Buffers::Unit* unitBuffer = movementOrder.add_unitlist();
 		SerializationUtilities::createUnitBuffer(unit, unitBuffer);
 	}
+
+	/*Set Unit Type*/
+	Buffers::UnitType* unitTypeBuffer = SerializationUtilities::getUnitType(myUnitType);
+	movementOrder.set_allocated_unittype(unitTypeBuffer);
+
+	/*Set Technology Manager*/
+
+	/*Set Unlocking*/
+	movementOrder.set_unlocking(unlocking);
+
+	/*Set Upgrading*/
+	movementOrder.set_unitupgrading(unitUpgrading);
+
+	/*Set Converting Upgrading*/
+	movementOrder.set_convertingupgrade(convertingUpgrade);
+
+	/*Set Spy*/
+	movementOrder.set_makespy(makeSpy)
+
+
+
+	movementOrder.set_allocated_source(SerializationUtilities::createLocationBuffer(mySource));
+	movementOrder.set_allocated_destination(SerializationUtilities::createLocationBuffer(myDestination));
 	
 	/*Serializing the data*/
 	string serialized_data;
 	{
-		if (!addUnitOrder.SerializeToString(&serialized_data)) {
+		if (!movementOrder.SerializeToString(&serialized_data)) {
 			cerr << "Failed to write data stream." << endl;
 			return nullptr;	
 		}

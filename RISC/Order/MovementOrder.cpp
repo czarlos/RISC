@@ -62,7 +62,32 @@ Response* MovementOrder::execute(GameState* state) {
 string MovementOrder::getName() {
 	return myName;
 }
+void MovementOrder::serialzeAndSend() {
+	GOOGLE_PROTOBUF_VERIFY_VERSION;
+	
+	vector<Unit*> myUnitList;
+	
+	Buffers::MovementOrder movementOrder;	
+	
+	movementOrder.set_allocated_source(SerializationUtilities::createLocationBuffer(mySource));
+	movementOrder.set_allocated_destination(SerializationUtilities::createLocationBuffer(myDestination));
+	
+	/*Make UnitList*/	
+	for (Unit* unit : myUnitList) {
+		Buffers::Unit* unitBuffer = movementOrder.add_unitlist();
+		SerializationUtilities::createUnitBuffer(unit, unitBuffer);
+	}
+	
+	/*Serializing the data*/
+	string serialized_data;
+	{
+		if (!movementOrder.SerializeToString(&serialized_data)) {
+			cerr << "Failed to write data stream." << endl;
+			return nullptr;	
+		}
+	}
 
+}
 void MovementOrder::setSource(Location* source) {
 	mySource = source;
 }

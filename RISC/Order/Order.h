@@ -11,9 +11,9 @@ public:
 
 	//execute and returns a response
 	virtual Response* execute(GameState* gamestate);
+	virtual void serializeAndSend();
 	virtual string getName();
 	//destructor for orders
 	virtual ~Order();
-
 };
 

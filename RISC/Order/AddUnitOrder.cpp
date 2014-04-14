@@ -29,6 +29,30 @@ string AddUnitOrder::getName() {
 	return myName;
 }
 
+void AddUnitOrder::serializeAndSend() {
+	GOOGLE_PROTOBUF_VERIFY_VERSION;
+	
+	Buffers::AddUnitOrder addUnitOrder;	
+	
+	addUnitOrder.set_allocated_destination(SerializationUtilities::createTerritoryBuffer(myDestination));
+	
+	/*Make UnitList*/	
+	for (Unit* unit : myUnitList) {
+		Buffers::Unit* unitBuffer = addUnitOrder.add_unitlist();
+		SerializationUtilities::createUnitBuffer(unit, unitBuffer);
+	}
+	
+	/*Serializing the data*/
+	string serialized_data;
+	{
+		if (!addUnitOrder.SerializeToString(&serialized_data)) {
+			cerr << "Failed to write data stream." << endl;
+			return nullptr;	
+		}
+	}
+
+}
+
 void AddUnitOrder::setDestination(Territory* destination) {
 	myDestination = destination;
 }
