@@ -7,6 +7,10 @@
 #include "../UnitType.pb.h"
 #include <vector>
 #include "../SerializationUtilities.h"
+#include "../Unit.pb.h"
+#include "../AddUnitOrder.pb.h"
+#include "../Territory.pb.h"
+#include "../ResourceType.pb.h"
 
 using namespace std;
 
@@ -68,4 +72,16 @@ string serializeAndSendOrder() {
 		Buffers::Unit* unitBuffer = addUnitOrder.add_unitlist();
 		SerializationUtilities::createUnitBuffer(unit, unitBuffer);
 	}
+	
+	/*Serializing the data*/
+	string serialized_data;
+	if (!addUnitOrder.SerializeToString(&serialized_data)) {
+		cerr << "Failed to write data stream." << endl;
+		return -1;	
+	}
+	
+	cout << "much code, very serialized" << endl;
+	
+	return serialized_data;
+	
 }
