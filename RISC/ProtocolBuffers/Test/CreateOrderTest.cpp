@@ -11,6 +11,7 @@
 #include "../Unit.pb.h"
 #include "../AddUnitOrder.pb.h"
 #include "../MovementOrder.pb.h"
+#include "../UpgradeOrder.pb.h"
 #include "../Location.pb.h"
 #include "../Territory.pb.h"
 #include "../../GameState/Managers/Resource/ResourceType.h"
@@ -40,38 +41,38 @@ string serializeAndSendOrder() {
 	
 	vector<Unit*> myUnitList;
 	
-	Buffers::MovementOrder movementOrder;	
+	Buffers::UpgradeOrder upgradeOrder;	
 	
 	/*Set UnitList*/
 	for (Unit* unit : myUnitList) {
-		Buffers::Unit* unitBuffer = movementOrder.add_unitlist();
+		Buffers::Unit* unitBuffer = upgradeOrder.add_unitstoupgrade();
 		SerializationUtilities::createUnitBuffer(unit, unitBuffer);
 	}
 
 	/*Set Unit Type*/
 	Buffers::UnitType* unitTypeBuffer = SerializationUtilities::getUnitType(myUnitType);
-	movementOrder.set_allocated_unittype(unitTypeBuffer);
+	upgradeOrder.set_allocated_unittype(unitTypeBuffer);
 
 	/*Set Technology Manager*/
 	Buffers::TechnologyManager* techManagerBuffer = SerializationUtilities::createTechnologyManagerBuffer(myTechManager);
-	movementOrder.set_allocated_technologymanager(techManagerBuffer);
+	upgradeOrder.set_allocated_technologymanager(techManagerBuffer);
 
 	/*Set Unlocking*/
-	movementOrder.set_unlocking(unlocking);
+	upgradeOrder.set_unlocking(unlocking);
 
 	/*Set Upgrading*/
-	movementOrder.set_unitupgrading(unitUpgrading);
+	upgradeOrder.set_unitupgrading(unitUpgrading);
 
 	/*Set Converting Upgrading*/
-	movementOrder.set_convertingupgrade(convertingUpgrade);
+	upgradeOrder.set_convertingupgrade(convertingUpgrade);
 
 	/*Set Spy*/
-	movementOrder.set_makespy(makeSpy)
+	upgradeOrder.set_makespy(makeSpy);
 
 	/*Serializing the data*/
 	string serialized_data;
 	{
-		if (!movementOrder.SerializeToString(&serialized_data)) {
+		if (!upgradeOrder.SerializeToString(&serialized_data)) {
 			cerr << "Failed to write data stream." << endl;
 			return nullptr;	
 		}
