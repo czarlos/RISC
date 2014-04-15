@@ -6,6 +6,8 @@
 #include "AttackResponse.h"
 #include "SpoofResponse.h"
 #include "../ProtocolBuffers/SerializationUtilities.h"
+#include "../ProtocolBuffers/AttackOrder.pb.h"
+#include "../ProtocolBuffers/Unit.pb.h"
 
 class AttackOrder : public Order {
 	

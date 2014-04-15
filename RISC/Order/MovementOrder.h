@@ -18,6 +18,8 @@
 #include "MovementResponse.h"
 #include "SpoofResponse.h"
 #include "../ProtocolBuffers/SerializationUtilities.h"
+#include "../ProtocolBuffers/Unit.pb.h"
+#include "../ProtocolBuffers/MovementOrder.pb.h"
 
 class MovementOrder : public Order {
 

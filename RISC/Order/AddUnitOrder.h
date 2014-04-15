@@ -8,6 +8,9 @@
 #include "AddUnitResponse.h"
 #include "SpoofResponse.h"
 #include "../ProtocolBuffers/SerializationUtilities.h"
+#include "../ProtocolBuffers/AddUnitOrder.pb.h"
+#include "../ProtocolBuffers/Unit.pb.h"
+
 
 class AddUnitOrder : public Order {
 

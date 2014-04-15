@@ -151,6 +151,55 @@ string UpgradeOrder::getName() {
 	return myName;
 }
 
+void UpgradeOrder::serializeAndSend() {
+	GOOGLE_PROTOBUF_VERIFY_VERSION;
+
+	/*USELESS*/
+	Location* myDestination = new Location();
+	Location* mySource = new Location();
+	UnitType* myUnitType = new UnitType();
+	TechnologyManager* myTechManager = new TechnologyManager();
+	
+	vector<Unit*> myUnitList;
+	
+	Buffers::UpgradeOrder upgradeOrder;	
+	
+	/*Set UnitList*/
+	for (Unit* unit : myUnitList) {
+		Buffers::Unit* unitBuffer = upgradeOrder.add_unitstoupgrade();
+		SerializationUtilities::createUnitBuffer(unit, unitBuffer);
+	}
+
+	/*Set Unit Type*/
+	Buffers::UnitType* unitTypeBuffer = SerializationUtilities::getUnitType(myUnitType);
+	upgradeOrder.set_allocated_unittype(unitTypeBuffer);
+
+	/*Set Technology Manager*/
+	Buffers::TechnologyManager* techManagerBuffer = SerializationUtilities::createTechnologyManagerBuffer(myTechManager);
+	upgradeOrder.set_allocated_technologymanager(techManagerBuffer);
+
+	/*Set Unlocking*/
+	upgradeOrder.set_unlocking(unlocking);
+
+	/*Set Upgrading*/
+	upgradeOrder.set_unitupgrading(unitUpgrading);
+
+	/*Set Converting Upgrading*/
+	upgradeOrder.set_convertingupgrade(convertingUpgrade);
+
+	/*Set Spy*/
+	upgradeOrder.set_makespy(makeSpy);
+
+	/*Serializing the data*/
+	string serialized_data;
+	{
+		if (!upgradeOrder.SerializeToString(&serialized_data)) {
+			cerr << "Failed to write data stream." << endl;
+			return nullptr;	
+		}
+	}
+}
+
 void UpgradeOrder::setDestination(Location* location) {
 	myLocation = location;
 }

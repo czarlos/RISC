@@ -34,7 +34,7 @@ void AttackOrder::serializeAndSendOrder() {
 	
 	vector<Unit*> myUnitList;
 	
-	Buffers::MovementOrder movementOrder;	
+	Buffers::AttackOrder attackOrder;	
 	
 	movementOrder.set_allocated_source(SerializationUtilities::createLocationBuffer(mySource));
 	movementOrder.set_allocated_destination(SerializationUtilities::createLocationBuffer(myDestination));

@@ -5,6 +5,12 @@
 #include "../GameState/Managers/TechnologyManager.h"
 #include "UpgradeResponse.h"
 #include "SpoofResponse.h"
+#include "../ProtocolBuffers/SerializationUtilities.h"
+#include "../ProtocolBuffers/UpgradeOrder.pb.h"
+#include "../ProtocolBuffers/Unit.pb.h"
+#include "../ProtocolBuffers/UnitType.pb.h"
+#include "../ProtocolBuffers/TechnologyManager.pb.h"
+
 
 using namespace std;
 
@@ -27,6 +33,9 @@ public:
 	bool getUnitUpgrading();
 	bool getConvertingUpgrade();
 	string getName();
+
+	void serializeAndSend();
+
 	void setDestination(Location* location);
 	void setUnitList(vector<Unit*> unitList);
 	Response* execute(GameState* state);
