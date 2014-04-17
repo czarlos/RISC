@@ -145,3 +145,76 @@ boost::signals2::connection TCPConnection::doOnClientDisconnected(const OnClient
 	return onClientDisconnected.connect(slot);
 }
 
+void TCPConnection::async_write(NetworkMessageType nm, std::string * data) 
+{
+	// outbound_data_ = data.str() ?
+
+	std::ostringstream header_stream;
+	header_stream << std::setw(sizeof(char)) << nm;
+	header_stream << std::setw(HEADER_LENGTH - sizeof(char)) << std::hex << outbound_data_.size();
+
+	if (!header_stream || header_stream.str().size() != HEADER_LENGTH) {
+		// Something went wrong, inform the caller.
+		return;
+	}
+
+	outbound_header_ = header_stream.str();
+	std::vector<boost::asio::const_buffer> buffers;
+	buffers.push_back(boost::asio::buffer(outbound_header_));
+	buffers.push_back(boost::asio::buffer(outbound_data_));
+	boost::asio::async_write(socket, buffers, boost::bind(&TCPConnection::handle_write, this, boost::asio::placeholders::error, t));
+}
+
+
+void TCPConnection::async_read() 
+{
+	void (TCPConnection::*f)(
+		const boost::system::error_code&)
+	= &TCPConnection::handle_read_header;
+
+	boost::asio::async_read(socket_, boost::asio::buffer(inbound_header_),
+		boost::bind(f, this, boost::asio::placeholders::error)
+		);
+}
+void TCPConnection::handle_read_header(const boost::system::error_code& e) 
+{
+	if (e) {
+		// some kind of error
+		return;
+	} 
+	else {
+		// Determine length of serialized data
+		std::istringstream is(std::string(inbound_header_, HEADER_LENGTH));
+		std::size_t inbound_data_size = 0;
+		char message_type = 0;
+
+		if (!(is >> message_type >> std::hex >> inbound_data_size))
+		{
+			// Header is not valid
+			return;
+		}
+
+		// Otherwise call asynchronous data read to receive all the data
+		inbound_data_.resize(inbound_data_size);
+
+		void (TCPConnection::*f)(
+			const::boost::system::error_code&, NetworkMessageType
+			) = &TCPConnection::handle_read_data;
+
+		boost::asio::async_read(socket_, boost::asio::buffer(inbound_data_),
+			boost::bind(f, this, boost::asio::placeholders::error, (NetworkMessageType)message_type));
+	}
+}
+void TCPConnection::handle_read_data(const boost::system::error_code& e, NetworkMessageType nm) 
+{
+	if (e) {
+		// error occured
+		return;
+	}
+	else {
+		// we now have message type and data
+		// turn them into something that can be stored together for processing
+		// turn it into GPB here?
+	}
+}
+
