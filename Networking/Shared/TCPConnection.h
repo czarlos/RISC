@@ -14,6 +14,7 @@
 
 
 #define EOT '\4'
+#define HEADER_LENGTH 8
 
 using boost::asio::ip::tcp;
 
@@ -32,19 +33,16 @@ private:
 
 	TCPConnection(boost::asio::io_service &ioserver);
 	
-	void handle_write(const boost::system::error_code& error, size_t bytes_transferred, NetworkMessage * msg);
+	void handle_write(const boost::system::error_code& error, std::string * write_header, std::string * write_data);
 	void handle_read(const boost::system::error_code& error, size_t bytes_transferred);
 
 	void bind_read();
 
-	void write(char * data, size_t size, NetworkMessage * msg);
-	void write(std::string data);
-
-	void async_write(std::string * data);
+	void async_write(NetworkMessageType nm, std::string * data);
 
 	void async_read();
 	void handle_read_header(const boost::system::error_code& e);
-	void handle_read_data(const boost::system::error_code& e);
+	void handle_read_data(const boost::system::error_code& e, NetworkMessageType nm);
 
 
 
@@ -70,7 +68,7 @@ public:
 	void print();
 
 	std::string getIPAddress();
-	
+
 	void send(std::string * msg);
 	void send(void * msg);
 
