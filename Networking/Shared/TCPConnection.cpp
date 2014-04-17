@@ -23,18 +23,9 @@ void TCPConnection::bind_read()
 }
 
 void TCPConnection::handle_read(const boost::system::error_code &err, void * message) {
-	if (err == boost::asio::error::eof) {
-		return;
-	}
-	else if (err) {
-		if (err == boost::asio::error::connection_reset)
-		{
-			std::cout << "Socket closing: " << this->getIPAddress() << std::endl;			
-			this->close();
+	if (err) {
+		if (!this->handle_socket_error(err)) {
 			return;
-		}
-		else {
-			throw boost::system::system_error(err);
 		}
 	}
 
@@ -47,6 +38,12 @@ void TCPConnection::handle_read(const boost::system::error_code &err, void * mes
 
 void TCPConnection::handle_write(const boost::system::error_code& error, std::string * write_header, std::string * write_data)
 {	
+	if (error) {
+		if (!this->handle_socket_error(err)) {
+			return;
+		}
+	}
+
 	if (!error) {
 		// free buffers
 		delete write_header;
@@ -177,8 +174,9 @@ void TCPConnection::async_read()
 void TCPConnection::handle_read_header(const boost::system::error_code& e, char * read_header, std::vector<char> * read_data) 
 {
 	if (e) {
-		// some kind of error
-		return;
+		if (!this->handle_socket_error(err)) {
+			return;
+		}
 	} 
 	else {
 		// Determine length of serialized data
@@ -209,9 +207,9 @@ void TCPConnection::handle_read_header(const boost::system::error_code& e, char 
 void TCPConnection::handle_read_data(const boost::system::error_code& e, NetworkMessageType nm,  std::vector<char> * read_data) 
 {
 	if (e) {
-
-		// handle this error
-		return;
+		if (!this->handle_socket_error(e)) {
+			return;
+		}
 	}
 	else {
 
