@@ -44,7 +44,7 @@ private:
 	void handle_read_header(const boost::system::error_code& e);
 	void handle_read_data(const boost::system::error_code& e, NetworkMessageType nm);
 
-
+	bool handle_socket_error(const boost:system::error_code& e);
 
 	tcp::socket socket_;
 	OnMessageReceived onMessageReceived;

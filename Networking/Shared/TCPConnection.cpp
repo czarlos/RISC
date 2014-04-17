@@ -22,7 +22,7 @@ void TCPConnection::bind_read()
 	this->async_read();
 }
 
-void TCPConnection::handle_read(const boost::system::error_code &err, std::size_t bytes_transferred) {
+void TCPConnection::handle_read(const boost::system::error_code &err, void * message) {
 	if (err == boost::asio::error::eof) {
 		return;
 	}
@@ -38,11 +38,8 @@ void TCPConnection::handle_read(const boost::system::error_code &err, std::size_
 		}
 	}
 
-	// turn data into GPB?
-	
-	NetworkMessage * nm = NetworkMessageFactory::parseMessage(&recv_buffer, bytes_transferred);
-	if (nm != NULL) {
-		recvQueue.push_back(nm);
+	if (message) {
+		recvQueue.push_back(message);
 		onMessageReceived(this);
 	}
 	this->bind_read();	
@@ -212,16 +209,42 @@ void TCPConnection::handle_read_header(const boost::system::error_code& e, char 
 void TCPConnection::handle_read_data(const boost::system::error_code& e, NetworkMessageType nm,  std::vector<char> * read_data) 
 {
 	if (e) {
-		// error occured
+
+		// handle this error
 		return;
 	}
 	else {
+
+		void * message = nullptr;
+
 		// we now have message type and data (read_data)
 		// turn them into something that can be stored together for processing
 		// turn it into GPB here?
 
 		free read_data;
 	}
-	this->handle_read(e, 10 /* size */ );
+	this->handle_read(e, message /* size */ );
+}
+
+bool TCPConnection::handle_socket_error(const boost:system::error_code& e)
+{
+	if (e) {
+		if (err == boost::asio::error::eof) {
+			// reached end of file - what does this mean?
+			return false;
+		}
+
+		if (err == boost::asio::error::connection_reset)
+		{
+			// other side closed connetion
+			std::cout << "Socket closing: " << this->getIPAddress() << std::endl;			
+			this->close();
+			return false;
+		}
+
+		// otherwise, what's up?
+		throw boost::system::system_error(err);
+		return true;
+	}
 }
 
