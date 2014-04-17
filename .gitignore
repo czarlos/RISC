@@ -45,3 +45,5 @@ Release/
 Release\
 
 
+*.sublime-project
+*.sublime-workspace
