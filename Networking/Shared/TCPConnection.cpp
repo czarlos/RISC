@@ -19,8 +19,7 @@ TCPConnection::pointer TCPConnection::create(boost::asio::io_service &io_service
 
 void TCPConnection::bind_read()
 {
-	boost::asio::async_read_until(socket_, recv_buffer, EOT, boost::bind(&TCPConnection::handle_read, this,
-		boost::asio::placeholders::error, boost::asio::placeholders::bytes_transferred));
+	this->async_read();
 }
 
 void TCPConnection::handle_read(const boost::system::error_code &err, std::size_t bytes_transferred) {
@@ -38,6 +37,8 @@ void TCPConnection::handle_read(const boost::system::error_code &err, std::size_
 			throw boost::system::system_error(err);
 		}
 	}
+
+	// turn data into GPB?
 	
 	NetworkMessage * nm = NetworkMessageFactory::parseMessage(&recv_buffer, bytes_transferred);
 	if (nm != NULL) {
@@ -47,32 +48,16 @@ void TCPConnection::handle_read(const boost::system::error_code &err, std::size_
 	this->bind_read();	
 }
 
-void TCPConnection::handle_write(const boost::system::error_code& error, size_t bytes_transferred, NetworkMessage * msg)
+void TCPConnection::handle_write(const boost::system::error_code& error, std::string * write_header, std::string * write_data)
 {	
 	if (!error) {
-		// std::cout << "Bytes Transferred: " << bytes_transferred << std::endl;
-		for (network_message_queue::iterator i = sendQueue.begin(); i != sendQueue.end(); i++) {
-
-			// this may no longer work
-			NetworkMessage * f = *i;			
-			if (f == msg) {
-				sendQueue.erase(i);
-				// std::cout << "Removed message from Queue" << std::endl;
-				break;
-			}
-		}		
+		// free buffers
+		delete write_header;
+		delete write_data;
 	}	
 	else {
-	std::cout << "Error: " << error.message() << std::endl;
+		std::cout << "Error: " << error.message() << std::endl;
 	}
-}
-
-void TCPConnection::write(char * data, size_t size, NetworkMessage * msg)
-{
-	boost::asio::async_write(socket_, boost::asio::buffer(data, size),
-		boost::bind(&TCPConnection::handle_write, this,
-		boost::asio::placeholders::error,
-		boost::asio::placeholders::bytes_transferred, msg));
 }
 
 void TCPConnection::send(NetworkMessage * msg)
@@ -80,6 +65,9 @@ void TCPConnection::send(NetworkMessage * msg)
 	if (!socket_.is_open()) {
 		return;
 	}
+
+	// TODO: async_write
+
 	size_t size;
 	char ** send = new char*[1];
 	msg->encode(send, &size);
@@ -147,7 +135,12 @@ boost::signals2::connection TCPConnection::doOnClientDisconnected(const OnClient
 
 void TCPConnection::async_write(NetworkMessageType nm, std::string * data) 
 {
-	// outbound_data_ = data.str() ?
+	// create temp buffers for the message
+	std::string * write_header = new std::string();
+	std::string * write_data = new std::string();
+
+	// TODO: need to check this
+	write_data = data->str();
 
 	std::ostringstream header_stream;
 	header_stream << std::setw(sizeof(char)) << nm;
@@ -158,25 +151,33 @@ void TCPConnection::async_write(NetworkMessageType nm, std::string * data)
 		return;
 	}
 
-	outbound_header_ = header_stream.str();
+	write_header = header_stream.str();
+
 	std::vector<boost::asio::const_buffer> buffers;
 	buffers.push_back(boost::asio::buffer(outbound_header_));
 	buffers.push_back(boost::asio::buffer(outbound_data_));
-	boost::asio::async_write(socket, buffers, boost::bind(&TCPConnection::handle_write, this, boost::asio::placeholders::error, t));
+
+	boost::asio::async_write(socket, buffers, 
+		boost::bind(&TCPConnection::handle_write, this, 
+			boost::asio::placeholders::error, write_header, write_data));
 }
 
 
 void TCPConnection::async_read() 
 {
-	void (TCPConnection::*f)(
-		const boost::system::error_code&)
-	= &TCPConnection::handle_read_header;
 
-	boost::asio::async_read(socket_, boost::asio::buffer(inbound_header_),
-		boost::bind(f, this, boost::asio::placeholders::error)
+	/// Holds an inbound header.
+	char * read_header = new char[HEADER_LENGTH];
+	/// Holds the inbound data.
+	std::vector<char> * read_data = new std::vector<char>();
+
+	// read into the header buffer (will only read that number of bytes)
+	// then calls handle_read_header to process the header
+	boost::asio::async_read(socket_, boost::asio::buffer(read_header),
+		boost::bind(&TCPConnection::handle_read_header, this, boost::asio::placeholders::error, read_header, read_data)
 		);
 }
-void TCPConnection::handle_read_header(const boost::system::error_code& e) 
+void TCPConnection::handle_read_header(const boost::system::error_code& e, char * read_header, std::vector<char> * read_data) 
 {
 	if (e) {
 		// some kind of error
@@ -184,7 +185,7 @@ void TCPConnection::handle_read_header(const boost::system::error_code& e)
 	} 
 	else {
 		// Determine length of serialized data
-		std::istringstream is(std::string(inbound_header_, HEADER_LENGTH));
+		std::istringstream is(std::string(read_header, HEADER_LENGTH));
 		std::size_t inbound_data_size = 0;
 		char message_type = 0;
 
@@ -195,26 +196,32 @@ void TCPConnection::handle_read_header(const boost::system::error_code& e)
 		}
 
 		// Otherwise call asynchronous data read to receive all the data
-		inbound_data_.resize(inbound_data_size);
+		read_data.resize(inbound_data_size);
+
+		// free the header as we no longer need it
+		delete read_header;
 
 		void (TCPConnection::*f)(
-			const::boost::system::error_code&, NetworkMessageType
+			const::boost::system::error_code&, NetworkMessageType,  std::vector<char> *
 			) = &TCPConnection::handle_read_data;
 
 		boost::asio::async_read(socket_, boost::asio::buffer(inbound_data_),
-			boost::bind(f, this, boost::asio::placeholders::error, (NetworkMessageType)message_type));
+			boost::bind(f, this, boost::asio::placeholders::error, (NetworkMessageType)message_type), read_data);
 	}
 }
-void TCPConnection::handle_read_data(const boost::system::error_code& e, NetworkMessageType nm) 
+void TCPConnection::handle_read_data(const boost::system::error_code& e, NetworkMessageType nm,  std::vector<char> * read_data) 
 {
 	if (e) {
 		// error occured
 		return;
 	}
 	else {
-		// we now have message type and data
+		// we now have message type and data (read_data)
 		// turn them into something that can be stored together for processing
 		// turn it into GPB here?
+
+		free read_data;
 	}
+	this->handle_read(e, 10 /* size */ );
 }
 
