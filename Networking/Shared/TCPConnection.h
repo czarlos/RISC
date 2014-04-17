@@ -38,6 +38,15 @@ private:
 	void bind_read();
 
 	void write(char * data, size_t size, NetworkMessage * msg);
+	void write(std::string data);
+
+	void async_write(std::string * data);
+
+	void async_read();
+	void handle_read_header(const boost::system::error_code& e);
+	void handle_read_data(const boost::system::error_code& e);
+
+
 
 	tcp::socket socket_;
 	OnMessageReceived onMessageReceived;
@@ -61,7 +70,9 @@ public:
 	void print();
 
 	std::string getIPAddress();
-	void send(NetworkMessage * msg);
+	
+	void send(std::string * msg);
+	void send(void * msg);
 
 	network_message_queue * getMessages();
 
