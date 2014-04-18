@@ -22,7 +22,7 @@ void TCPConnection::bind_read()
 	this->async_read();
 }
 
-void TCPConnection::handle_read(const boost::system::error_code &err, void * message) {
+void TCPConnection::handle_read(const boost::system::error_code &err, Message * message) {
 	if (err) {
 		if (!this->handle_socket_error(err)) {
 			return;
@@ -213,7 +213,7 @@ void TCPConnection::handle_read_data(const boost::system::error_code& e, Network
 	}
 	else {
 
-		void * message = nullptr;
+		Message * message = nullptr;
 
 		// we now have message type and data (read_data)
 		// turn them into something that can be stored together for processing

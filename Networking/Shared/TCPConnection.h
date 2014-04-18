@@ -98,7 +98,7 @@ private:
 	 * @param err ASIO socket error from reading the data
 	 * @param message The returned Google Protocol Buffer
 	 */
-	void handle_read(const boost::system::error_code &err, void * message);
+	void handle_read(const boost::system::error_code &err, Message * message);
 
 	/**
 	 * Handles any ASIO socket errors. Called from all the other methods 
@@ -133,7 +133,7 @@ public:
 	std::string getIPAddress();
 
 	void send(std::string * msg);
-	void send(void * msg);
+	void send(Message * msg);
 
 	network_message_queue * getMessages();
 
