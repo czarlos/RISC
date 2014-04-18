@@ -13,7 +13,6 @@
 #include "NetworkMessageFactory.h"
 
 
-#define EOT '\4'
 #define HEADER_LENGTH 8
 
 using boost::asio::ip::tcp;
