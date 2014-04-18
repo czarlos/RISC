@@ -9,19 +9,21 @@ NetworkMessageFactory::~NetworkMessageFactory()
 {
 }
 
-NetworkMessage * NetworkMessageFactory::parseMessage(boost::asio::streambuf * da, size_t bytes)
-{
-	char type;
-	da->sgetn(&type, sizeof(type));
-	da->sungetc();
 
-	Creator * c = NetworkMessageFactory::getCreator((NetworkMessageType)type);
+static NetworkMessage * parseMessage(NetworkMessageType nm) 
+{
+	Creator * c = NetworkMessageFactory::getCreator(nm);
 	if (c != NULL) {
-		return c->create(da, bytes);
+		return c->create();
 	}
-	// read the stream
-	da->consume(bytes);
 	return (NetworkMessage *)NULL;
+}
+
+static NetworkMessage * parseMessage(NetworkMessageType nm, std::string * data)
+{
+	NetworkMessage * msg = NetworkMessage::parseMessage(nm);
+	msg->ParseFromString(data);
+	return msg;
 }
 
 void NetworkMessageFactory::registerMessageType(NetworkMessageType n, Creator * creator)
