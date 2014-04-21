@@ -1,0 +1,6 @@
+package Buffers;
+
+message ChatOrder {
+	requried string username = 1;
+	required string message = 2;
+}
