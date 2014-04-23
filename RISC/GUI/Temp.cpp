@@ -113,12 +113,26 @@ std::shared_ptr<sfg::Widget> Temp::createInformationWindow() {
 
 	auto box = sfg::Box::Create(sfg::Box::Orientation::VERTICAL, 5.0f);
 	territory_id_label = sfg::Label::Create("");
-	territory_units_label = sfg::Label::Create("");
+	//territory_units_label = sfg::Label::Create("");
+	infantry_label = sfg::Label::Create("");
+	automatic_weapons_label = sfg::Label::Create("");
+	rocket_launchers_label = sfg::Label::Create("");
+	tanks_label = sfg::Label::Create("");
+	improved_tanks_label = sfg::Label::Create("");
+	fighter_planes_label = sfg::Label::Create("");
+
 	territory_resources_label = sfg::Label::Create("");
 
 	box->Pack(territory_id_label, false);
 	box->Pack(sfg::Separator::Create(), false);
-	box->Pack(territory_units_label, false);
+	//box->Pack(territory_units_label, false);
+	box->Pack(infantry_label);
+	box->Pack(automatic_weapons_label);
+	box->Pack(rocket_launchers_label);
+	box->Pack(tanks_label);
+	box->Pack(improved_tanks_label);
+	box->Pack(fighter_planes_label);
+
 	box->Pack(sfg::Separator::Create(), false);
 	box->Pack(territory_resources_label, false);
 
@@ -258,21 +272,7 @@ void Temp::clickTerritory(float adjustedX, float adjustedY) {
 		InitializationUtilities::scrollOverTerritory(&bounds, binder->getShape(), adjustedX, adjustedY);
 
 		if (Mouse::isButtonPressed(Mouse::Left) && bounds.contains(adjustedX, adjustedY)) {
-			string id = "Territory ID: ";
-			string units = "Units: ";
-			string resources = "Resources: ";
-
-			for each (Unit* u in binder->getTerritory()->getTerritoryContents()) {
-				units += u->getUnitType()->getType() + " ";
-			}
-			for each (ResourceType* rt in binder->getTerritory()->getProduction()) {
-				resources += rt->getResourceName() + " ";
-			}
-			territory_id_label->SetText(id + binder->getTerritory()->getTerritoryID());
-			territory_units_label->SetText(units);
-			territory_resources_label->SetText(resources);
-			//This is the current location
-			gameManager->setLocation(binder->getTerritory()->getLocation());
+			InformationDisplay::displayTerritoryInformation(infantry_label, automatic_weapons_label, rocket_launchers_label, tanks_label, improved_tanks_label, fighter_planes_label, binder);
 		}
 		else if (Mouse::isButtonPressed(Mouse::Right) && bounds.contains(adjustedX, adjustedY)) {
 			//This is now the destination target

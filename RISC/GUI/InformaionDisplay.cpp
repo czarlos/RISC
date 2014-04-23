@@ -5,7 +5,6 @@ InformationDisplay::InformationDisplay() {
 
 void InformationDisplay::displayTerritoryInformation(sfg::Label::Ptr infantry, sfg::Label::Ptr automatic_weapons, 
 	sfg::Label::Ptr rocket_launchers, sfg::Label::Ptr tanks, sfg::Label::Ptr improved_tanks, sfg::Label::Ptr fighter_planes, TerritoryBinder* binder) {
-
 	infantry->SetText(Constants::INFANTRY + ": " + countUnitType(binder, Constants::INFANTRY));
 	automatic_weapons->SetText(Constants::AUTOMATIC_WEAPONS + ": " + countUnitType(binder, Constants::AUTOMATIC_WEAPONS));
 	rocket_launchers->SetText(Constants::ROCKET_LAUNCHERS + ": " + countUnitType(binder, Constants::ROCKET_LAUNCHERS));

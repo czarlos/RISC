@@ -28,6 +28,8 @@
 #include "GameManger.h"
 #include "BoxPacker.h"
 
+#include "InformationDisplay.h"
+
 
 
 class Temp {
@@ -76,6 +78,13 @@ private:
 	sfg::Label::Ptr territory_id_label;
 	sfg::Label::Ptr territory_units_label;
 	sfg::Label::Ptr territory_resources_label;
+
+	sfg::Label::Ptr infantry_label;
+	sfg::Label::Ptr automatic_weapons_label;
+	sfg::Label::Ptr rocket_launchers_label;
+	sfg::Label::Ptr tanks_label;
+	sfg::Label::Ptr improved_tanks_label;
+	sfg::Label::Ptr fighter_planes_label;
 
 	void clickTerritory(float adjustedX, float adjustedY);
 	void drawTerritories(std::shared_ptr<sfg::Canvas> sfml_canvas);
