@@ -6,11 +6,13 @@
 #include <deque>
 #include <iostream>
 #include <string>
+#include <iomanip>
 #include <queue>
 #include <boost/enable_shared_from_this.hpp>
 #include <boost/signals2.hpp>
 #include "../Shared/NetworkMessage.h"
 #include "NetworkMessageFactory.h"
+#include <google\protobuf\message.h>
 
 
 #define HEADER_LENGTH 8
@@ -18,9 +20,9 @@
 using boost::asio::ip::tcp;
 
 class TCPConnection : public boost::enable_shared_from_this<TCPConnection>
-{
+{	
 private:
-	typedef std::deque<NetworkMessage *> network_message_queue;
+	typedef std::deque<google::protobuf::Message *> network_message_queue;
 
 	typedef boost::signals2::signal<void (TCPConnection * conn) > OnMessageReceived;
 	typedef boost::signals2::signal<void(TCPConnection * conn) > OnClientDisconnected;
@@ -76,7 +78,7 @@ private:
 	 * 
 	 * @param e ASIO socket error from reading the header.
 	 */
-	void handle_read_header(const boost::system::error_code& e);
+	void handle_read_header(const boost::system::error_code& e, char * read_header, std::vector<char> * read_data);
 
 	/**
 	 * Processes the data that was read in by the previous call to async_read.
@@ -88,8 +90,8 @@ private:
 	 * @param e ASIO socket error from reading the data.
 	 * @param nm The network message type that was read from the header.
 	 */
-	void handle_read_data(const boost::system::error_code& e, NetworkMessageType nm);
-
+	void handle_read_data(const boost::system::error_code& e, NetworkMessageType nm, std::vector<char> * read_data);
+	
 	/**
 	 * The final step in message processing. Checks for any other errors and 
 	 * adds the GPB to the queue.
@@ -98,7 +100,7 @@ private:
 	 * @param err ASIO socket error from reading the data
 	 * @param message The returned Google Protocol Buffer
 	 */
-	void handle_read(const boost::system::error_code &err, Message * message);
+	void handle_read(const boost::system::error_code &err, google::protobuf::Message * message);
 
 	/**
 	 * Handles any ASIO socket errors. Called from all the other methods 
@@ -107,7 +109,7 @@ private:
 	 * @param  e ASIO socket error
 	 * @return True if it handled the message and can continue. False if it's a critical error.
 	 */
-	bool handle_socket_error(const boost:system::error_code& e);
+	bool handle_socket_error(const boost::system::error_code& e);
 
 	tcp::socket socket_;
 	OnMessageReceived onMessageReceived;
@@ -133,7 +135,7 @@ public:
 	std::string getIPAddress();
 
 	void send(std::string * msg);
-	void send(Message * msg);
+	void send(google::protobuf::Message * msg);
 
 	network_message_queue * getMessages();
 
