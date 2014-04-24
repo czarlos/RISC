@@ -19,9 +19,10 @@ public:
 	InformationDisplay();
 	static void displayTerritoryInformation(sfg::Label::Ptr infantry, sfg::Label::Ptr automatic_weapons,
 	sfg::Label::Ptr rocket_launchers, sfg::Label::Ptr tanks, sfg::Label::Ptr improved_tanks, sfg::Label::Ptr fighter_planes, TerritoryBinder* binder);
+	static void displayResourceInformation(sfg::Label::Ptr food_resource_label, sfg::Label::Ptr technology_resource_label, TerritoryBinder* binder);
 	virtual ~InformationDisplay();
 
 private:
 	static string countUnitType(TerritoryBinder* binder, string name);
-
+	static string countResourceType(TerritoryBinder* binder, string name);
 };

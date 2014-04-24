@@ -6,3 +6,6 @@ const std::string Constants::ROCKET_LAUNCHERS = "RocketLaunchers";
 const std::string Constants::TANKS = "Tanks";
 const std::string Constants::IMPROVED_TANKS = "Improved Tanks";
 const std::string Constants::FIGHTER_PLANES = "Fighter_Planes";
+
+const std::string Constants::FOOD = "Food";
+const std::string Constants::TECH = "Technology";
