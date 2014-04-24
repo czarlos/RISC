@@ -49,6 +49,11 @@ private:
 	const int WIDTH = 1024;
 	const int HEIGHT = 650;
 
+	const int WINDOW_WIDTH = 1536;
+	const int WINDOW_HEIGHT = 1000;
+
+	const int SFML_WINDOW_HEIGHT = 825;
+
 	sf::Texture backgroundTexture;
 	sf::Sprite backgroundSprite;
 
@@ -56,6 +61,7 @@ private:
 	std::shared_ptr<sfg::Widget> createResourceWindow();
 	std::shared_ptr<sfg::Widget> createInformationWindow();
 	std::shared_ptr<sfg::Window> createSFMLWindow(std::shared_ptr<sfg::Canvas> sfml_canvas);
+	std::shared_ptr<sfg::Widget> createTerritoryInformationWIndow();
 	void makeSprite(std::string);
 	void drawSFML(std::shared_ptr<sfg::Canvas> sfml_canvas, Sprite* background, RenderWindow* window);
 	

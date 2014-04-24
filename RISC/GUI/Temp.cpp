@@ -8,7 +8,7 @@ Temp::Temp() {
 
 void Temp::showMainView() {
 	/*Display Stuff*/
-	sf::RenderWindow window(sf::VideoMode(WIDTH*1.25, HEIGHT*1.2), "RISC");
+	sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "RISC");
 	window.setFramerateLimit(40);
 
 	/*Set Up Some Preconfigured Settings*/
@@ -26,6 +26,7 @@ void Temp::showMainView() {
 	desktop.Add(createResourceWindow());
 	desktop.Add(sfml_window);
 	desktop.Add(createInformationWindow());
+	desktop.Add(createTerritoryInformationWIndow());
 
 	/*Window execute loop*/
 	window.resetGLStates();
@@ -99,7 +100,7 @@ std::shared_ptr<sfg::Widget> Temp::createResourceWindow() {
 	//resource_window->SetTitle("Hello world!");
 	resource_window->Add(box);
 	//resource_window->AddWithViewport(box);
-	resource_window->SetRequisition(Vector2f(WIDTH / 4, HEIGHT*1.2));
+	resource_window->SetRequisition(Vector2f(WIDTH / 4, WINDOW_HEIGHT));
 
 	return resource_window;
 }
@@ -108,8 +109,17 @@ std::shared_ptr<sfg::Widget> Temp::createInformationWindow() {
 	/*Information Window*/
 	auto information_window = sfg::Window::Create();
 	information_window->SetTitle("Information Window");
-	information_window->SetPosition(Vector2f(WIDTH / 4, HEIGHT));
-	information_window->SetRequisition(Vector2f(WIDTH, (HEIGHT*1.2) - HEIGHT));
+	information_window->SetPosition(Vector2f(WIDTH / 4, SFML_WINDOW_HEIGHT));
+	information_window->SetRequisition(Vector2f(WIDTH, WINDOW_HEIGHT-SFML_WINDOW_HEIGHT));
+
+	return information_window;
+}
+
+std::shared_ptr<sfg::Widget> Temp::createTerritoryInformationWIndow() {
+	auto territory_information_window = sfg::Window::Create();
+	territory_information_window->SetTitle("Territory Information Window");
+	territory_information_window->SetPosition(Vector2f(WIDTH + (WIDTH / 4), 0));
+	territory_information_window->SetRequisition(Vector2f(WIDTH / 4, WINDOW_HEIGHT));
 
 	auto box = sfg::Box::Create(sfg::Box::Orientation::VERTICAL, 5.0f);
 	territory_id_label = sfg::Label::Create("");
@@ -138,10 +148,8 @@ std::shared_ptr<sfg::Widget> Temp::createInformationWindow() {
 	box->Pack(food_resource_label, false);
 	box->Pack(technology_resource_label, false);
 
-	information_window->Add(box);
-
-
-	return information_window;
+	territory_information_window->Add(box);
+	return territory_information_window;
 }
 
 std::shared_ptr<sfg::Window> Temp::createSFMLWindow(std::shared_ptr<sfg::Canvas> sfml_canvas) {
@@ -149,7 +157,7 @@ std::shared_ptr<sfg::Window> Temp::createSFMLWindow(std::shared_ptr<sfg::Canvas>
 	auto sfml_window = sfg::Window::Create();
 	sfml_window->SetTitle("SFML Canvas");
 	sfml_window->SetPosition(sf::Vector2f(WIDTH / 4, 0));
-	sfml_window->SetRequisition(Vector2f(WIDTH, HEIGHT));
+	sfml_window->SetRequisition(Vector2f(WIDTH, SFML_WINDOW_HEIGHT));
 	sfml_window->Add(sfml_canvas);
 	return sfml_window;
 }
