@@ -86,6 +86,9 @@ private:
 	sfg::Label::Ptr improved_tanks_label;
 	sfg::Label::Ptr fighter_planes_label;
 
+	sfg::Label::Ptr food_resource_label;
+	sfg::Label::Ptr technology_resource_label;
+
 	void clickTerritory(float adjustedX, float adjustedY);
 	void drawTerritories(std::shared_ptr<sfg::Canvas> sfml_canvas);
 	void drawConnections(std::shared_ptr<sfg::Canvas> sfml_canvas);

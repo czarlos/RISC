@@ -120,6 +120,9 @@ std::shared_ptr<sfg::Widget> Temp::createInformationWindow() {
 	improved_tanks_label = sfg::Label::Create("");
 	fighter_planes_label = sfg::Label::Create("");
 
+	food_resource_label = sfg::Label::Create("");
+	technology_resource_label = sfg::Label::Create("");
+
 	territory_resources_label = sfg::Label::Create("");
 
 	box->Pack(territory_id_label, false);
@@ -132,7 +135,8 @@ std::shared_ptr<sfg::Widget> Temp::createInformationWindow() {
 	box->Pack(fighter_planes_label, false);
 
 	box->Pack(sfg::Separator::Create(), false);
-	box->Pack(territory_resources_label, false);
+	box->Pack(food_resource_label, false);
+	box->Pack(technology_resource_label, false);
 
 	information_window->Add(box);
 
@@ -272,6 +276,7 @@ void Temp::clickTerritory(float adjustedX, float adjustedY) {
 		if (Mouse::isButtonPressed(Mouse::Left) && bounds.contains(adjustedX, adjustedY)) {
 			territory_id_label->SetText("Territory ID: " + binder->getTerritory()->getTerritoryID());
 			InformationDisplay::displayTerritoryInformation(infantry_label, automatic_weapons_label, rocket_launchers_label, tanks_label, improved_tanks_label, fighter_planes_label, binder);
+			InformationDisplay::displayResourceInformation(food_resource_label, technology_resource_label, binder);
 		}
 		else if (Mouse::isButtonPressed(Mouse::Right) && bounds.contains(adjustedX, adjustedY)) {
 			//This is now the destination target
