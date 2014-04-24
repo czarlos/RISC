@@ -36,12 +36,36 @@ void GameManager::setUpState() {
 void GameManager::endTurn() {
 	/*Sends order queue*/
 	server->handleQueue(myOrderQueue, state1);
+	this->clear();
 	/*Changes possesion*/
 	if (myCurrentClient < myNumberOfClients-1) {
 		myCurrentClient ++;
 	}
 	else {
 		myCurrentClient = 0;
+	}
+}
+
+void GameManager::clear() {
+	myWorkingOrder = nullptr;
+	myMovementOrder = new MovementOrder();
+	myAttackOrder = new AttackOrder();
+	myUpgradeOrder = new UpgradeOrder();
+	myAddUnitOrder = new AddUnitOrder();
+	myLocation = nullptr;
+	myDestination = nullptr;
+
+	myWorkingUnitType = nullptr;
+	
+	for (Unit* u : myWorkingUnits) {
+		u = nullptr;
+	}	
+
+	myWorkingNumberOfUnits = 0;
+	myUnitType = "";
+	myWorkingUnit = nullptr;
+	for (Order* order : myOrderQueue) {
+		order = nullptr;
 	}
 }
 

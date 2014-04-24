@@ -6,6 +6,7 @@ MovementResponse::MovementResponse(Unit* unit, Location* desiredLocation) : Resp
 }
 
 void MovementResponse::executeResponse(GameState* state) {
+	cout << "it really should be executing here" << endl;
 	state->setUnitPosition(this->myUnit, this->myDesiredLocation);
 }
 

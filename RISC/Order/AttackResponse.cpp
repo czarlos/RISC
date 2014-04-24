@@ -8,7 +8,6 @@ AttackResponse::AttackResponse(Territory* source, Territory* destination, vector
 }
 
 void AttackResponse::executeResponse(GameState* state) {
-	
 	/*Setup Starts*/
 	stack<Unit*> sourceStack;
 	stack<Unit*> destinationStack;

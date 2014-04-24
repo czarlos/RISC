@@ -72,6 +72,8 @@ public:
 	void setWorkingUnit(Unit* unit);
 	UnitType* getWorkingUnitType();
 
+	void clear();
+
 	virtual ~GameManager();
 
 private:

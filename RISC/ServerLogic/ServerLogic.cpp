@@ -21,12 +21,10 @@ void ServerLogic::handleQueue(vector<Order*> orderQueue, GameState* state) {
 		Response* response = orderQueue.front()->execute(state);
 		//Remove first element
 		orderQueue.erase(orderQueue.begin() + 0);
-
 		for each (Client* client in myClientList) {
 			client->update(response);
 		}
 	}
-
 }
 
 ServerLogic::~ServerLogic() {

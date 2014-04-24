@@ -123,6 +123,8 @@ std::shared_ptr<sfg::Widget> Temp::createTerritoryInformationWIndow() {
 
 	auto box = sfg::Box::Create(sfg::Box::Orientation::VERTICAL, 5.0f);
 	territory_id_label = sfg::Label::Create("");
+	territory_owner_label = sfg::Label::Create("");
+
 	infantry_label = sfg::Label::Create("");
 	automatic_weapons_label = sfg::Label::Create("");
 	rocket_launchers_label = sfg::Label::Create("");
@@ -136,6 +138,7 @@ std::shared_ptr<sfg::Widget> Temp::createTerritoryInformationWIndow() {
 	territory_resources_label = sfg::Label::Create("");
 
 	box->Pack(territory_id_label, false);
+	box->Pack(territory_owner_label, false);
 	box->Pack(sfg::Separator::Create(), false);
 	box->Pack(infantry_label, false);
 	box->Pack(automatic_weapons_label, false);
@@ -283,8 +286,11 @@ void Temp::clickTerritory(float adjustedX, float adjustedY) {
 
 		if (Mouse::isButtonPressed(Mouse::Left) && bounds.contains(adjustedX, adjustedY)) {
 			territory_id_label->SetText("Territory ID: " + binder->getTerritory()->getTerritoryID());
+			territory_owner_label->SetText("Owner: " + binder->getTerritory()->getOwner());
 			InformationDisplay::displayTerritoryInformation(infantry_label, automatic_weapons_label, rocket_launchers_label, tanks_label, improved_tanks_label, fighter_planes_label, binder);
 			InformationDisplay::displayResourceInformation(food_resource_label, technology_resource_label, binder);
+			
+			gameManager->setLocation(binder->getTerritory()->getLocation());
 		}
 		else if (Mouse::isButtonPressed(Mouse::Right) && bounds.contains(adjustedX, adjustedY)) {
 			//This is now the destination target

@@ -71,7 +71,7 @@ void GameState::setUnitPosition(Unit* unit, Location* location) {
 	// 2. Put desired unit in desired territory
 	Territory* terr = this->getTerritoryByLocation(location);
 	terr->addToContent(unit);
-	
+	cout << "SETTING POSITION OF UNIT" << endl;
 }
 
 Territory* GameState::getUnitTerritory(Unit* unit) {

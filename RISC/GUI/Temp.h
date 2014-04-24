@@ -84,6 +84,7 @@ private:
 	sfg::Label::Ptr territory_id_label;
 	sfg::Label::Ptr territory_units_label;
 	sfg::Label::Ptr territory_resources_label;
+	sfg::Label::Ptr territory_owner_label;
 
 	sfg::Label::Ptr infantry_label;
 	sfg::Label::Ptr automatic_weapons_label;
