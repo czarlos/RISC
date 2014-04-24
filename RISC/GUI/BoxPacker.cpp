@@ -179,19 +179,19 @@ void BoxPacker::InfantryButtonCheck() {
 	myGameManager->setUnitType("Infantry");
 }
 void BoxPacker::AutomaticWeaponsButtonCheck() {
-	myGameManager->setUnitType("Automatic Weapons");
+	myGameManager->setUnitType("AutomaticWeapons");
 }
 void BoxPacker::RocketLaunchersButtonCheck() {
-	myGameManager->setUnitType("Rocket Launchers");
+	myGameManager->setUnitType("RocketLaunchers");
 }
 void BoxPacker::TanksButtonCheck() {
 	myGameManager->setUnitType("Tanks");
 }
 void BoxPacker::ImprovedTanksButtonCheck() {
-	myGameManager->setUnitType("Improved Tanks");
+	myGameManager->setUnitType("ImprovedTanks");
 }
 void BoxPacker::FighterPlanesButtonCheck() {
-	myGameManager->setUnitType("Fighter Planes");
+	myGameManager->setUnitType("FighterPlanes");
 }
 
 BoxPacker::~BoxPacker() {

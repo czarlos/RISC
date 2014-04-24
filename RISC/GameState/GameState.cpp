@@ -79,12 +79,12 @@ Territory* GameState::getUnitTerritory(Unit* unit) {
 }
 
 Location* GameState::getUnitLocation(Unit* u) {
-	for each (vector<Edge*> edgeVec in myBoard->getGameMap())
+	for (vector<Edge*> edgeVec : myBoard->getGameMap())
 	{
-		for each (Edge * edge in edgeVec)
+		for (Edge * edge : edgeVec)
 		{
 			if (edge) {
-				for each (Unit* unit in edge->getEndPointATerritory()->getTerritoryContents()) {
+				for (Unit* unit : edge->getEndPointATerritory()->getTerritoryContents()) {
 					if (unit == u) {
 						return edge->getEndPointATerritory()->getLocation();
 					}
@@ -101,9 +101,9 @@ Location* GameState::getUnitLocation(Unit* u) {
 }
 
 vector<Unit*> GameState::getUnitList(Location* location) {
-	for each (vector<Edge*> edgeVec in myBoard->getGameMap())
+	for (vector<Edge*> edgeVec : myBoard->getGameMap())
 	{
-		for each (Edge* edge in edgeVec)
+		for (Edge* edge : edgeVec)
 		{
 
 			if (location == edge->getEndPointATerritory()->getLocation()) {
@@ -120,9 +120,9 @@ vector<Unit*> GameState::getUnitList(Location* location) {
 
 Location* GameState::getLocation(Territory* terr) {
 	Location* desiredLocation = nullptr;
-	for each (vector<Edge*> edgeVec in myBoard->getGameMap())
+	for (vector<Edge*> edgeVec : myBoard->getGameMap())
 	{
-		for each (Edge *edge in edgeVec)
+		for (Edge *edge : edgeVec)
 		{
 			if (edge) {
 				if (terr == edge->getEndPointATerritory()) {
