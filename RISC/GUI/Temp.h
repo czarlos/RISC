@@ -96,6 +96,9 @@ private:
 	sfg::Label::Ptr food_resource_label;
 	sfg::Label::Ptr technology_resource_label;
 
+	sfg::Label::Ptr source_territory_label;
+	sfg::Label::Ptr destination_territory_label;
+
 	void clickTerritory(float adjustedX, float adjustedY);
 	void drawTerritories(std::shared_ptr<sfg::Canvas> sfml_canvas);
 	void drawConnections(std::shared_ptr<sfg::Canvas> sfml_canvas);
