@@ -74,6 +74,9 @@ public:
 	bool operator < (const Territory& t) const{
 		return Compare(t) < 0;
 	}
+	void destory();
+	string getTeam();
+	void setTeam(string);
 	
 	vector<Unit*> getListOfSpies();
 
@@ -82,6 +85,7 @@ public:
 private:
 	string territoryID;
 	string owner;
+	string team;
 	Location* location;
 	int maxCapacity;
 	int maxResourceProduction;
@@ -89,6 +93,7 @@ private:
 	vector<Unit*> spies;
 	vector<Unit*> contents;
 	bool visible;
+	bool isDestory;
 
 };
 

@@ -5,17 +5,20 @@
 Territory::Territory(){
 	this->territoryID = "";
 	this->owner = "";
+	this->team = "";
 	this->maxResourceProduction = MAX_RESOURCE_PRODUCTION;
 	this->maxCapacity = MAX_CAPACITY;
 	this->production = vector<ResourceType*>();
 	this->location = new Location(0, 0);
 	this->contents = vector<Unit *>();
 	this->visible = false;
+	this->isDestory = false;
 	generateResourceProduction();
 }
 
 Territory::Territory(string territoryID){
 	this->owner = "";
+	this->team = "";
 	this->territoryID = territoryID;
 	this->maxCapacity = MAX_CAPACITY;
 	this->maxResourceProduction = MAX_RESOURCE_PRODUCTION;
@@ -23,6 +26,7 @@ Territory::Territory(string territoryID){
 	this->location = new Location(0, 0);
 	this->contents = vector<Unit *>();
 	this->visible = false;
+	this->isDestory = false;
 	generateResourceProduction();
 }
 
@@ -30,12 +34,14 @@ Territory::Territory(string territoryID, Location* location)
 {
 	this->territoryID = territoryID;
 	this->owner = "";
+	this->team = "";
 	this->location = location;
 	this->maxCapacity = MAX_CAPACITY;
 	this->maxResourceProduction = MAX_RESOURCE_PRODUCTION;
 	this->production = vector<ResourceType*>();
 	this->contents = vector<Unit*>();
 	this->visible = false;
+	this->isDestory = false;
 	generateResourceProduction();
 }
 
@@ -145,6 +151,18 @@ bool Territory::isVisible(){
 
 vector<Unit*> Territory::getListOfSpies(){
 	return this->spies;
+}
+
+void Territory::destory(){
+	this->isDestory = true;
+}
+
+string Territory::getTeam(){
+	return this->team;
+}
+
+void Territory::setTeam(string team){
+	this->team = team;
 }
 
 Territory::~Territory()
