@@ -327,7 +327,8 @@ void Temp::CommitOrderClick() {
 	gameManager->getAddUnitOrder()->setUnitList(myBoxPacker->buildUnitList());
 	gameManager->getUpgradeOrder()->setUnitList(myBoxPacker->buildUnitList());
 
-	myBoxPacker->addToOrderQueue(gameManager->getWorkingOrder()->getName());
+	cout << gameManager->getWorkingOrder()->getName() << endl;
+	//myBoxPacker->addToOrderQueue(gameManager->getWorkingOrder()->getName());
 }
 
 void Temp::ButtonSelect() {

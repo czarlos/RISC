@@ -21,10 +21,7 @@ Response* AddUnitOrder::execute(GameState* state) {
 	}
 
 	/*There needs to be a valid check that this territory belongs to this owner*/
-	cout << "adding a response" << endl;
-	for (Unit* u : myUnitList) {
-		cout << u->getUnitType()->getType() << endl;
-	}
+
 	Response* response = new AddUnitResponse(myDestination, myUnitList);
 	return response;
 }

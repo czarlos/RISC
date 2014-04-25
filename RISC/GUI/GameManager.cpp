@@ -3,10 +3,11 @@
 GameManager::GameManager() {
 	state1 = new GameState();
 	state2 = new GameState();
+	serverState = new GameState();
 	myClientList = InitializationUtilities::addClients(state1, state2);
 	myNumberOfClients = myClientList.size();
 	myCurrentClient = 0;
-	server = new ServerLogic(myClientList);
+	server = new ServerLogic(myClientList, serverState);
 }
 
 void GameManager::setUpState() {
@@ -20,6 +21,7 @@ void GameManager::setUpState() {
 	/*Add board to states*/
 	state1->setBoard(board);
 	state2->setBoard(board);
+	serverState->setBoard(board);
 
 	/*Make Rectangles for all of the places on the board*/
 	BoardPainter* bp = new BoardPainter();
@@ -35,8 +37,16 @@ void GameManager::setUpState() {
 
 void GameManager::endTurn() {
 	/*Sends order queue*/
-	server->handleQueue(myOrderQueue, state1);
+	server->handleQueue(myOrderQueue);
+
+	//for (Order* order : myOrderQueue) {
+	//	cout << "Order " << order->getName() << endl;
+	//}
+
 	this->clear();
+	for (Order* order : myOrderQueue) {
+		cout << "Order " << order->getName() << endl;
+	}
 	/*Changes possesion*/
 	if (myCurrentClient < myNumberOfClients-1) {
 		myCurrentClient ++;
@@ -47,7 +57,7 @@ void GameManager::endTurn() {
 }
 
 void GameManager::clear() {
-	myWorkingOrder = nullptr;
+	myWorkingOrder = new Order();
 	myMovementOrder = new MovementOrder();
 	myAttackOrder = new AttackOrder();
 	myUpgradeOrder = new UpgradeOrder();
@@ -64,9 +74,7 @@ void GameManager::clear() {
 	myWorkingNumberOfUnits = 0;
 	myUnitType = "";
 	myWorkingUnit = nullptr;
-	for (Order* order : myOrderQueue) {
-		order = nullptr;
-	}
+	myOrderQueue.clear();
 }
 
 void GameManager::addOrder(Order* order) {

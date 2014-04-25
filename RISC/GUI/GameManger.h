@@ -90,6 +90,7 @@ private:
 	
 	GameState* state1;
 	GameState* state2;
+	GameState* serverState;
 
 	Location* myLocation;
 	Location* myDestination;
