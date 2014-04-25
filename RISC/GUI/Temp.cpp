@@ -238,21 +238,21 @@ void Temp::createOrderSelectionBoxes(std::shared_ptr<sfg::Box> box, std::shared_
 }
 
 void Temp::drawTerritories(std::shared_ptr<sfg::Canvas> sfml_canvas) {
-	for each (TerritoryBinder* binder in gameManager->getMadeTerritories())
+	for (TerritoryBinder* binder : gameManager->getMadeTerritories())
 	{
 		sfml_canvas->Draw(*binder->getShape());
 	}
 }
 
 void Temp::drawConnections(std::shared_ptr<sfg::Canvas> sfml_canvas) {
-	for each (VertexArray* line in gameManager->getMadeLines()) {
+	for (VertexArray* line : gameManager->getMadeLines()) {
 		sfml_canvas->Draw(*line);
 	}
 }
 
 void Temp::clickTerritory(float adjustedX, float adjustedY) {
 
-	for each (TerritoryBinder* binder in gameManager->getMadeTerritories())
+	for (TerritoryBinder* binder : gameManager->getMadeTerritories())
 	{
 		FloatRect bounds = binder->getShape()->getGlobalBounds();
 		InitializationUtilities::scrollOverTerritory(&bounds, binder->getShape(), adjustedX, adjustedY);
@@ -262,10 +262,10 @@ void Temp::clickTerritory(float adjustedX, float adjustedY) {
 			string units = "Units: ";
 			string resources = "Resources: ";
 
-			for each (Unit* u in binder->getTerritory()->getTerritoryContents()) {
+			for (Unit* u : binder->getTerritory()->getTerritoryContents()) {
 				units += u->getUnitType()->getType() + " ";
 			}
-			for each (ResourceType* rt in binder->getTerritory()->getProduction()) {
+			for (ResourceType* rt : binder->getTerritory()->getProduction()) {
 				resources += rt->getResourceName() + " ";
 			}
 			territory_id_label->SetText(id + binder->getTerritory()->getTerritoryID());
@@ -322,7 +322,7 @@ void Temp::ButtonSelect() {
 
 Temp::~Temp() {
 	delete(gameManager);
-	for each (TerritoryBinder* binder in gameManager->getMadeTerritories())
+	for (TerritoryBinder* binder : gameManager->getMadeTerritories())
 	{
 		delete(binder->getShape());
 		delete(binder->getTerritory());

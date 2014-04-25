@@ -11,7 +11,7 @@ ServerLogic::ServerLogic(vector<Client*> clientList) {
 void ServerLogic::handleOrder(Order* order, GameState* state) {
 	Response* response = order->execute(state);
 	  
-	for each (Client* client in myClientList) {
+	for (Client* client : myClientList) {
 		client->update(response);
 	}
 }
@@ -22,7 +22,7 @@ void ServerLogic::handleQueue(vector<Order*> orderQueue, GameState* state) {
 		//Remove first element
 		orderQueue.erase(orderQueue.begin() + 0);
 
-		for each (Client* client in myClientList) {
+		for (Client* client : myClientList) {
 			client->update(response);
 		}
 	}

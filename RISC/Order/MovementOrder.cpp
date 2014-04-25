@@ -31,7 +31,7 @@ MovementOrder::MovementOrder(Location* source, Location* destination, vector<Uni
  */
 
 Response* MovementOrder::execute(GameState* state) {
-	for each (Unit* unit in myUnitList)
+	for (Unit* unit : myUnitList)
 	{
 
 		Location* initialLocation = state->getUnitLocation(unit);

@@ -7,7 +7,7 @@ AddUnitResponse::AddUnitResponse(Territory* destination, vector<Unit*> unitList)
 
 void AddUnitResponse::executeResponse(GameState* state) {
 	cout << "size is " << myDestination->getTerritoryContents().size() << endl;
-	for each (Unit* unit in myUnitList) {
+	for (Unit* unit : myUnitList) {
 		myDestination->addToContent(unit);
 	}
 	cout << "next size is " << myDestination->getTerritoryContents().size() << endl;

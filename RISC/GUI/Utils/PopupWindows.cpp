@@ -60,7 +60,7 @@ void PopupWindows::makeText(Text* text, string str, Font* font, int x, int y, in
 string PopupWindows::makeInfoString(TerritoryBinder* binder) {
 	map<string, int> unitMap;
 
-	for each (Unit* unit in binder->getTerritory()->getTerritoryContents())
+	for (Unit* unit : binder->getTerritory()->getTerritoryContents())
 	{
 		if (unitMap.count(unit->getUnitType()->getType()) == 0) {
 			unitMap[unit->getUnitType()->getType()] = 1;
@@ -84,7 +84,7 @@ string PopupWindows::makeInfoString(TerritoryBinder* binder) {
 string PopupWindows::makeProductionString(TerritoryBinder* binder) {
 	map<string, int> resourceMap;
 
-	for each (ResourceType* resource in binder->getTerritory()->getProduction())
+	for (ResourceType* resource : binder->getTerritory()->getProduction())
 	{
 		if (resourceMap.count(resource->getResourceName()) == 0) {
 			resourceMap[resource->getResourceName()] = 1;

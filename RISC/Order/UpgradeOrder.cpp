@@ -122,7 +122,7 @@ Response* UpgradeOrder::upgradeUnits(){
 	vector<Unit*> updatedUnits = vector<Unit*>();
 
 	if (this->techManager->isUpgradeAllowed(this->myUnitType)){
-		for each(Unit* unit in this->myUnitList){
+		for (Unit* unit : this->myUnitList){
 			Unit* modifiedUnit = unit;
 			modifiedUnit->setUnitType(this->myUnitType);
 			updatedUnits.push_back(modifiedUnit);
