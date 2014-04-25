@@ -9,6 +9,8 @@
 #include "../../GameObject/Unit/AutomaticWeapons.h"
 #include "../../GameObject/Unit/UnitType.h"
 #include "../../GameObject/Unit/Unit.h"
+#include "../../GameObject/Unit/Nukes.h"
+#include "../../GameObject/Unit/NukeInterceptor.h"
 
 using namespace std;
 
@@ -59,6 +61,8 @@ public:
 	void openNextUpgrade();
 	void setTechPoint(int);
 	void setPossibleUpgrades(vector<UnitType*>);
+	bool ableToLaunchNuke();
+	bool isThereANuke();
 
 	~TechnologyManager();
 

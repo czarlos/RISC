@@ -11,11 +11,13 @@ void TechnologyManager::initTechManager(){
 	this->possibleUpgrades = vector<UnitType*>();
 	this->unavaliableUpgrades = vector<UnitType*>();
 	this->possibleUpgrades.push_back(new Infantry());
+	this->possibleUpgrades.push_back(new NukeInterceptor());
 	this->unavaliableUpgrades.push_back(new AutomaticWeapons());
 	this->unavaliableUpgrades.push_back(new RocketLaunchers());
 	this->unavaliableUpgrades.push_back(new Tanks());
 	this->unavaliableUpgrades.push_back(new ImprovedTanks());
 	this->unavaliableUpgrades.push_back(new FighterPlanes());
+	this->unavaliableUpgrades.push_back(new Nukes());
 	this->updateHighestAvaUpgrade();
 }
 
@@ -200,6 +202,26 @@ void TechnologyManager::setTechPoint(int amount){
 
 void TechnologyManager::setPossibleUpgrades(vector<UnitType*> possibleUpgrades){
 	this->possibleUpgrades = possibleUpgrades;
+}
+
+bool TechnologyManager::ableToLaunchNuke(){
+
+	for (UnitType* unitType : possibleUpgrades){
+		if (unitType->getType() == "Nukes" && this->techPoint >= 50){
+			return true;
+		}
+	}
+	return false;
+}
+
+bool TechnologyManager::isThereANuke(){
+	for (UnitType* unitType : possibleUpgrades){
+		if (unitType->getType() == "Nukes"){
+			//broadcase a message to all players
+			return true;
+		}
+	}
+	return false;
 }
 
 TechnologyManager::~TechnologyManager()
