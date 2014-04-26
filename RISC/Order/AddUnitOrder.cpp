@@ -14,9 +14,10 @@ Response* AddUnitOrder::execute(GameState* state) {
 		cout << "not valid" << endl;
 		return new SpoofResponse();
 	}
+	cout << "unit list size: " << myUnitList.size() << endl;
 
 	if (myUnitList.empty()) {
-		cout << "add some people" << endl;
+		cout << "no units added!" << endl;
 		return new SpoofResponse();
 	}
 

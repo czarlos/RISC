@@ -44,6 +44,7 @@ int BoxPacker::getEntryValue() {
 }
 
 vector<Unit*> BoxPacker::buildUnitList() {
+
 	vector<Unit*> unitList;
 	for (int i = 0; i < myGameManager->getWorkingNumberOfUnits(); i++) {
 		if (myGameManager->getUnitType() == "Infantry") {
@@ -51,13 +52,13 @@ vector<Unit*> BoxPacker::buildUnitList() {
 			infantry->setUnitType(new Infantry());
 			unitList.push_back(infantry);
 		}
-		else if (myGameManager->getUnitType() == "Automatic Weapons") {
+		else if (myGameManager->getUnitType() == "AutomaticWeapons") {
 			Unit* automatic_weapons = new Unit();
 			automatic_weapons->setUnitType(new AutomaticWeapons());
 			unitList.push_back(automatic_weapons);
 
 		}
-		else if (myGameManager->getUnitType() == "Rocket Launchers") {
+		else if (myGameManager->getUnitType() == "RocketLaunchers") {
 			Unit* rocket_launchers = new Unit();
 			rocket_launchers->setUnitType(new RocketLaunchers());
 			unitList.push_back(rocket_launchers);
@@ -67,12 +68,12 @@ vector<Unit*> BoxPacker::buildUnitList() {
 			tanks->setUnitType(new Tanks());
 			unitList.push_back(tanks);
 		}
-		else if (myGameManager->getUnitType() == "Improved Tanks") {
+		else if (myGameManager->getUnitType() == "ImprovedTanks") {
 			Unit* improved_tanks = new Unit();
 			improved_tanks->setUnitType(new ImprovedTanks());
 			unitList.push_back(improved_tanks);
 		}
-		else if (myGameManager->getUnitType() == "Fighter Planes") {
+		else if (myGameManager->getUnitType() == "FighterPlanes") {
 			Unit* fighter_planes = new Unit();
 			fighter_planes->setUnitType(new FighterPlanes());
 			unitList.push_back(fighter_planes);
@@ -87,11 +88,11 @@ void BoxPacker::createDropdownMenu() {
 
 	myComboBox = sfg::ComboBox::Create();
 	myComboBox->AppendItem("Infantry");
-	myComboBox->AppendItem("Automatic Weapons");
-	myComboBox->AppendItem("Rocket Launchers");
+	myComboBox->AppendItem("AutomaticWeapons");
+	myComboBox->AppendItem("RocketLaunchers");
 	myComboBox->AppendItem("Tanks");
-	myComboBox->AppendItem("Improved Tanks");
-	myComboBox->AppendItem("Fighter Planes");
+	myComboBox->AppendItem("ImprovedTanks");
+	myComboBox->AppendItem("FighterPlanes");
 
 	myComboBox->GetSignal(sfg::ComboBox::OnSelect).Connect(std::bind(&BoxPacker::OnDropDownSelect, this));
 
@@ -125,11 +126,11 @@ void BoxPacker::addToOrderQueue(string str) {
 void BoxPacker::unitSelection() {
 
 	infantry_button = sfg::CheckButton::Create("Infantry");
-	automatic_weapons_button = sfg::CheckButton::Create("Automatic Weapons");
-	rocket_launcher_button = sfg::CheckButton::Create("Rocket Launchers");
+	automatic_weapons_button = sfg::CheckButton::Create("AutomaticWeapons");
+	rocket_launcher_button = sfg::CheckButton::Create("RocketLaunchers");
 	tanks_button = sfg::CheckButton::Create("Tanks");
-	improved_tanks_button = sfg::CheckButton::Create("Improved Tanks");
-	fighter_planes_button = sfg::CheckButton::Create("Fighter Planes");
+	improved_tanks_button = sfg::CheckButton::Create("ImprovedTanks");
+	fighter_planes_button = sfg::CheckButton::Create("FighterPlanes");
 
 	infantry_button->GetSignal(sfg::ToggleButton::OnToggle).Connect(std::bind(&BoxPacker::InfantryButtonCheck, this));
 	automatic_weapons_button->GetSignal(sfg::ToggleButton::OnToggle).Connect(std::bind(&BoxPacker::AutomaticWeaponsButtonCheck, this));

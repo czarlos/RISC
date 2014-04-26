@@ -36,17 +36,14 @@ void GameManager::setUpState() {
 }
 
 void GameManager::endTurn() {
-	/*Sends order queue*/
-	server->handleQueue(myOrderQueue);
-
-	//for (Order* order : myOrderQueue) {
-	//	cout << "Order " << order->getName() << endl;
-	//}
-
-	this->clear();
 	for (Order* order : myOrderQueue) {
 		cout << "Order " << order->getName() << endl;
 	}
+	/*Sends order queue*/
+	server->handleQueue(myOrderQueue);
+
+	this->clear();
+
 	/*Changes possesion*/
 	if (myCurrentClient < myNumberOfClients-1) {
 		myCurrentClient ++;
@@ -57,7 +54,7 @@ void GameManager::endTurn() {
 }
 
 void GameManager::clear() {
-	myWorkingOrder = new Order();
+	myWorkingOrder = new SpoofOrder();
 	myMovementOrder = new MovementOrder();
 	myAttackOrder = new AttackOrder();
 	myUpgradeOrder = new UpgradeOrder();
@@ -67,14 +64,47 @@ void GameManager::clear() {
 
 	myWorkingUnitType = nullptr;
 	
-	for (Unit* u : myWorkingUnits) {
-		u = nullptr;
-	}	
+	myWorkingUnits.clear();
 
 	myWorkingNumberOfUnits = 0;
 	myUnitType = "";
 	myWorkingUnit = nullptr;
 	myOrderQueue.clear();
+}
+
+void GameManager::clearAfterCommit() {
+	myMovementOrder = new MovementOrder();
+	myAttackOrder = new AttackOrder();
+	myUpgradeOrder = new UpgradeOrder();
+	myAddUnitOrder = new AddUnitOrder();
+
+	if (myWorkingOrder->getName() == "AddUnitOrder") {
+		myWorkingOrder = new AddUnitOrder();
+		myAddUnitOrder = static_cast<AddUnitOrder*>(myWorkingOrder);
+	}
+	else if (myWorkingOrder->getName() == "MovementOrder") {
+		myWorkingOrder = new MovementOrder();
+		myMovementOrder = static_cast<MovementOrder*>(myWorkingOrder);
+	}
+	else if (myWorkingOrder->getName() == "AttackOrder") {
+		myWorkingOrder = new AttackOrder();
+		myAttackOrder = static_cast<AttackOrder*>(myWorkingOrder);
+	}
+	else if (myWorkingOrder->getName() == "UpgradeOrder") {
+		myWorkingOrder = new UpgradeOrder();
+		myUpgradeOrder = static_cast<UpgradeOrder*>(myWorkingOrder);
+	}
+	else {
+		myWorkingOrder = new SpoofOrder();
+	}
+
+	myWorkingUnitType = nullptr;
+
+	myWorkingUnits.clear();
+
+	myWorkingNumberOfUnits = 0;
+	myUnitType = "";
+	myWorkingUnit = nullptr;
 }
 
 void GameManager::addOrder(Order* order) {

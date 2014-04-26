@@ -24,6 +24,7 @@
 #include "..\Order\AttackOrder.h"
 #include "..\Order\UpgradeOrder.h"
 #include "..\Order\AddUnitOrder.h"
+#include "..\Order\SpoofOrder.h"
 
 
 
@@ -73,6 +74,7 @@ public:
 	UnitType* getWorkingUnitType();
 
 	void clear();
+	void clearAfterCommit();
 
 	virtual ~GameManager();
 

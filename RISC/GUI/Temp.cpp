@@ -319,7 +319,6 @@ void Temp::SetTextClick() {
 }
 
 void Temp::CommitOrderClick() {
-	gameManager->addOrder(gameManager->getWorkingOrder());
 
 	gameManager->setWorkingNumberOfUnits(myBoxPacker->getEntryValue());
 	
@@ -327,7 +326,12 @@ void Temp::CommitOrderClick() {
 	gameManager->getAddUnitOrder()->setUnitList(myBoxPacker->buildUnitList());
 	gameManager->getUpgradeOrder()->setUnitList(myBoxPacker->buildUnitList());
 
-	cout << gameManager->getWorkingOrder()->getName() << endl;
+	//Set Location/Destination
+	cout << gameManager->getAddUnitOrder() << endl;
+	gameManager->getAddUnitOrder()->setDestination(gameManager->getBoard()->getTerritory(gameManager->getDestination()));
+	gameManager->addOrder(gameManager->getWorkingOrder());
+
+	gameManager->clearAfterCommit();
 	//myBoxPacker->addToOrderQueue(gameManager->getWorkingOrder()->getName());
 }
 
