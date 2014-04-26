@@ -102,11 +102,17 @@ void Territory::addToContent(Unit* itemToAdd){
 }
 
 void Territory::removeFromContent(Unit* itemToRemove){
-	for (vector <Unit*>::iterator it = (this->contents).begin(); it != (this->contents).end(); ++it){
-		if ((*it)->getGameObjectID() == itemToRemove->getGameObjectID()){
-			it = this->contents.erase(it);
+	int pos = -1;
+	for (int i = 0; i < contents.size(); i++) {
+		if (contents.at(i) == itemToRemove) {
+			pos = i;
 		}
 	}
+
+	if (pos != -1) {
+		contents.erase(contents.begin() + pos);
+	}
+
 }
 
 string Territory::getTerritoryID(){

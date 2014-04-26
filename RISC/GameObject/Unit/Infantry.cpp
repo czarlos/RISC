@@ -7,7 +7,7 @@
 
 #include "Infantry.h"
 
-Infantry::Infantry():UnitType(){
+Infantry::Infantry() : UnitType() {
 	this->level = 0;
 	this->type = "Infantry";
 	this->myCombatBonus = 0;

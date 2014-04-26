@@ -20,6 +20,10 @@ string PlayerObject::getTeamName() {
 	return this->myTeamName;
 }
 
+void PlayerObject::setTeamName(string teamName) {
+	myTeamName = teamName;
+}
+
 PlayerObject::~PlayerObject() {
 	
 }

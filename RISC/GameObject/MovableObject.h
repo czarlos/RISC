@@ -13,5 +13,6 @@ public:
 	MovableObject();
 	MovableObject(int health, string teamName, string objID, int movementRange);
 	int getMovementRange();
+	void setMovementRange(int range);
 	~MovableObject();
 };

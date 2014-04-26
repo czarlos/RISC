@@ -1,22 +1,44 @@
 #include "AddUnitOrder.h"
 
-AddUnitOrder::AddUnitOrder(Territory* destination, Unit* unit) : Order(){
-	this->myUnit = unit;
+AddUnitOrder::AddUnitOrder() : Order() {
+
+}
+
+AddUnitOrder::AddUnitOrder(Territory* destination, vector<Unit*> unitList) : Order() {
+	this->myUnitList = unitList;
 	this->myDestination = destination;
 }
 
 Response* AddUnitOrder::execute(GameState* state) {
-	if (state->getLocation(myDestination) != nullptr) {
-		return nullptr;
+	if (!state->getLocation(myDestination)) {
+		cout << "not a valid location" << endl;
+		return new SpoofResponse();
+	}
+	cout << "unit list size: " << myUnitList.size() << endl;
+
+	if (myUnitList.empty()) {
+		cout << "no units added!" << endl;
+		return new SpoofResponse();
 	}
 
-	string me = myUnit->getTeamName();
-	if (myDestination->getOwner() != me) {
-		return nullptr;
-	}
-	Response* response = new AddUnitResponse(myDestination, myUnit);
+	/*There needs to be a valid check that this territory belongs to this owner*/
+
+	Response* response = new AddUnitResponse(myDestination, myUnitList);
 	return response;
 }
+
+string AddUnitOrder::getName() {
+	return myName;
+}
+
+void AddUnitOrder::setDestination(Territory* destination) {
+	myDestination = destination;
+}
+
+void AddUnitOrder::setUnitList(vector<Unit*> unitList) {
+	myUnitList = unitList;
+}
+
 
 AddUnitOrder::~AddUnitOrder() {
 

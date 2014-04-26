@@ -1,21 +1,26 @@
 #pragma once
-
 #include <iostream>
 #include "../GameMap/Location.h"
 #include "Order.h"
 #include "../GameObject/CombatObject.h"
 #include "AttackResponse.h"
+#include "SpoofResponse.h"
 
 class AttackOrder : public Order {
 	
 public:
-	//constructor for attackOrder
-	AttackOrder(Location* source, Location* destination);
-	//attack order execute and returns a response
+	AttackOrder();
+	AttackOrder(Location* source, Location* destination, vector<Unit*> unitList);
 	Response* execute(GameState* gamestate);
+	string getName();
+	void setDestination(Location* destination);
+	void setSource(Location* source);
+	void setUnitList(vector<Unit*> unitList);
 	~AttackOrder();
 
 private:
-	Location* mySource;
 	Location* myDestination;
+	Location* mySource;
+	vector<Unit*> myUnitList;
+	string myName = "AttackOrder";
 };

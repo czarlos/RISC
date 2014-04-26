@@ -1,12 +1,15 @@
 #include "AddUnitResponse.h"
 
-AddUnitResponse::AddUnitResponse(Territory* destination, Unit* unit) : Response() {
-	this->myUnit = unit;
+AddUnitResponse::AddUnitResponse(Territory* destination, vector<Unit*> unitList) : Response() {
+	this->myUnitList = unitList;
 	this->myDestination = destination;
 }
 
 void AddUnitResponse::executeResponse(GameState* state) {
-	myDestination->addToContent(myUnit);
+	for (Unit* unit : myUnitList) {
+		myDestination->addToContent(unit);
+	}
+	cout << "done executing response" << endl;
 }
 
 AddUnitResponse::~AddUnitResponse() {

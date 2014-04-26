@@ -8,7 +8,7 @@
 #include "Tanks.h"
 
 Tanks::Tanks() : UnitType(){
-	this->type = "Tank";
+	this->type = "Tanks";
 	this->level = 3;
 	this->myCombatBonus = 6;
 	this->myUpgradeCost = 25;

@@ -17,6 +17,7 @@ public:
 	
 	int getUnitType();
 	int getHealth();
+	void setHealth(int health);
 	~CombatObject();
 
 

@@ -3,17 +3,22 @@
 #include "../GameObject/Unit/Unit.h"
 #include "Order.h"
 #include "../GameState/Managers/TechnologyManager.h"
-#include "../Order/UpgradeResponse.h"
+#include "UpgradeResponse.h"
+#include "SpoofResponse.h"
+
 using namespace std;
 
 class UpgradeOrder : public Order {
 public:
 	//for upgrading units
+	UpgradeOrder();
 	UpgradeOrder(vector<Unit*>, UnitType*,TechnologyManager*);
 	//for making/unmaking spies
 	UpgradeOrder(Unit*, bool, TechnologyManager*);
 	//for unlocking next upgrades
 	UpgradeOrder(TechnologyManager*);
+
+	UpgradeOrder(Location* destination, UnitType* unitType, TechnologyManager* techManager);
 
 	void isUnlocking(bool);
 	void isUnitUpgrading(bool);
@@ -21,6 +26,9 @@ public:
 	bool getUnlocking();
 	bool getUnitUpgrading();
 	bool getConvertingUpgrade();
+	string getName();
+	void setDestination(Location* location);
+	void setUnitList(vector<Unit*> unitList);
 	Response* execute(GameState* state);
 	~UpgradeOrder();
 
@@ -33,7 +41,9 @@ private:
 	Response* unlockNextUpgrade();
 	Response* upgradeUnits();
 	TechnologyManager* techManager;
-	vector<Unit*> listOfUnitsToUpgrade;
 	Unit* unit;
+	string myName = "UpgradeOrder";
 	UnitType* myUnitType;
+	vector<Unit*> myUnitList;
+	Location* myLocation;
 };

@@ -8,7 +8,12 @@
 
 #include "Unit.h"
 
-Unit::Unit() {
+Unit::Unit() : MovableObject() {
+	setHealth(10);
+	setUnitType(new Infantry());
+	setTeamName("none");
+	setObjectID("none");
+	setMovementRange(1);
 }
 
 Unit::Unit(int health, UnitType* unitType, string teamName, string objID, int movementRange) : MovableObject(health, teamName, objID, movementRange) {

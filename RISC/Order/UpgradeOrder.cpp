@@ -7,8 +7,12 @@
 
 #include "UpgradeOrder.h"
 
+UpgradeOrder::UpgradeOrder() : Order() {
+
+}
+
 UpgradeOrder::UpgradeOrder(vector<Unit*> listOfUnitsToUpgrade, UnitType* unitType,TechnologyManager* techManager) : Order() {
-	this->listOfUnitsToUpgrade = listOfUnitsToUpgrade;
+	this->myUnitList = listOfUnitsToUpgrade;
 	this->techManager = techManager;
 	this->myUnitType = unitType;
 	this->unlocking = false;
@@ -17,7 +21,7 @@ UpgradeOrder::UpgradeOrder(vector<Unit*> listOfUnitsToUpgrade, UnitType* unitTyp
 	this->makeSpy = false;
 }
 
-UpgradeOrder::UpgradeOrder(Unit* unit, bool isSpy, TechnologyManager* techManager){
+UpgradeOrder::UpgradeOrder(Unit* unit, bool isSpy, TechnologyManager* techManager) : Order() {
 	this->unit = unit;
 	this->unlocking = false;
 	this->unitUpgrading = false;
@@ -26,10 +30,20 @@ UpgradeOrder::UpgradeOrder(Unit* unit, bool isSpy, TechnologyManager* techManage
 	this->techManager = techManager;
 }
 
-UpgradeOrder::UpgradeOrder(TechnologyManager* techManager){
+UpgradeOrder::UpgradeOrder(TechnologyManager* techManager) : Order() {
 	this->unlocking = true;
 	this->unitUpgrading = false;
 	this->convertingUpgrade = false;
+	this->makeSpy = false;
+	this->techManager = techManager;
+}
+
+UpgradeOrder::UpgradeOrder(Location* location, UnitType* unitType, TechnologyManager* techManager) : Order() {
+	this->myLocation = location;
+	this->unit = unit;
+	this->unlocking = false;
+	this->unitUpgrading = false;
+	this->convertingUpgrade = true;
 	this->makeSpy = false;
 	this->techManager = techManager;
 }
@@ -59,24 +73,30 @@ bool UpgradeOrder::getConvertingUpgrade(){
 }
 
 Response* UpgradeOrder::execute(GameState* state) {
-	Response* returnResponse = new Response();
+
+	if (!this->myLocation) {
+		return new SpoofResponse();
+	}
 
 	if (this->convertingUpgrade){
 		//make in to a spy or turn back into a reg unit and modify return response
-		returnResponse = makeASpy();
+		return makeASpy();
 	}
 
-	if (this->unitUpgrading){
+	else if (this->unitUpgrading){
 		//check the list of units to upgrade and modify return response
-		returnResponse = upgradeUnits();
+		return upgradeUnits();
 	}
 
-	if (this->unlocking){
+	else if (this->unlocking){
 		//unlock the next upgrade in the TechManager and modify return response
-		returnResponse = unlockNextUpgrade();
+		return unlockNextUpgrade();
 	}
 
-	return returnResponse;
+	else {
+		return new SpoofResponse();
+	}
+
 }
 
 Response* UpgradeOrder::makeASpy(){
@@ -102,7 +122,7 @@ Response* UpgradeOrder::upgradeUnits(){
 	vector<Unit*> updatedUnits = vector<Unit*>();
 
 	if (this->techManager->isUpgradeAllowed(this->myUnitType)){
-		for each(Unit* unit in this->listOfUnitsToUpgrade){
+		for each(Unit* unit in this->myUnitList){
 			Unit* modifiedUnit = unit;
 			modifiedUnit->setUnitType(this->myUnitType);
 			updatedUnits.push_back(modifiedUnit);
@@ -124,7 +144,19 @@ Response* UpgradeOrder::unlockNextUpgrade(){
 		//techmanager, make sure to update its highest avaliable upgrade using
 		//the call above from tech manager
 	}
-	return 	new UpgradeResponse(updatedPossUps,updatedTechPtAmt);
+	return new UpgradeResponse(updatedPossUps,updatedTechPtAmt);
+}
+
+string UpgradeOrder::getName() {
+	return myName;
+}
+
+void UpgradeOrder::setDestination(Location* location) {
+	myLocation = location;
+}
+
+void UpgradeOrder::setUnitList(vector<Unit*> unitList) {
+	myUnitList = unitList;
 }
 
 UpgradeOrder::~UpgradeOrder() {

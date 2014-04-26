@@ -60,12 +60,12 @@ void Board::generateBoard(){
 
 
 void Board::generateFixedBoard(){
-	Territory * a = new Territory("wei", new Location(700, 300));
-	Territory * b = new Territory("let", new Location(500, 300));
-	Territory * c = new Territory("us", new Location(850, 300));
-	Territory * d = new Territory("not", new Location(400, 500));
-	Territory * e = new Territory("do", new Location(200, 500));
-	Territory * f = new Territory("that", new Location(800, 500));
+	Territory* a = new Territory("wei", new Location(700, 300));
+	Territory* b = new Territory("let", new Location(500, 300));
+	Territory* c = new Territory("us", new Location(850, 300));
+	Territory* d = new Territory("not", new Location(400, 500));
+	Territory* e = new Territory("do", new Location(200, 500));
+	Territory* f = new Territory("that", new Location(800, 500));
 
 	a->setOwner("Carlos");
 	b->setOwner("Carlos");
@@ -130,14 +130,7 @@ void Board::generateFixedBoard(){
 	this->gameMap[5][4]= edge10;
 	this->gameMap[5][5] = nullptr;
 
-
-	
-
-
 }
-
-
-
 
 vector<Territory> Board::populateListOfTerritories(){
 	vector<Location*> assignedLocations = vector<Location*>();
@@ -189,18 +182,19 @@ int Board::getNumberofEdges(){
 vector<Territory*> Board::getAdjacentTerritory(Territory *territory){
 
 	vector<Territory*> neighborTerritories;
-	neighborTerritories = vector<Territory*>();
 	
 	for each (vector<Edge*> edgeVector in gameMap)
 	{
 		for each (Edge *edge in edgeVector)
 		{
-			if (edge->getEndPointATerritory()->getTerritoryID() == territory->getTerritoryID())
-			{
-				neighborTerritories.push_back(edge->getEndPointBTerritory());
-			}
-			if (edge->getEndPointBTerritory()->getTerritoryID() == territory->getTerritoryID()) {
-				neighborTerritories.push_back(edge->getEndPointATerritory());
+			if (edge) {
+				if (edge->getEndPointATerritory()->getTerritoryID() == territory->getTerritoryID())
+				{
+					neighborTerritories.push_back(edge->getEndPointBTerritory());
+				}
+				if (edge->getEndPointBTerritory()->getTerritoryID() == territory->getTerritoryID()) {
+					neighborTerritories.push_back(edge->getEndPointATerritory());
+				}
 			}
 		}
 	}
@@ -218,25 +212,25 @@ vector<Territory*> Board::getAdjacentTerritory(Territory *territory){
 //	return false;
 //}
 
-//NOTE: Possiblity re-do this method
 Territory* Board::getTerritory(Location* location){
-	Territory* desireTerritory;
-	desireTerritory = new Territory();
-
-	for each (vector<Edge*> edgeList in gameMap)
+	Territory* desiredTerritory = nullptr;
+	for (vector<Edge*> edgeList : gameMap)
 	{
-		for each (Edge *edge in edgeList)
+
+		for (Edge *edge : edgeList)
 		{
-			if (edge->getEndPointATerritory()->getLocation()->getX() == location->getX() && edge->getEndPointATerritory()->getLocation()->getY() == location->getY()) {
-				desireTerritory = edge->getEndPointATerritory();
-			}
-			if (edge->getEndPointBTerritory()->getLocation()->getX() == location->getX() && edge->getEndPointBTerritory()->getLocation()->getY() == location->getY()) {
-				desireTerritory = edge->getEndPointBTerritory();
+			//checking for nullptrs, very important
+			if (edge) {
+				if (edge->getEndPointATerritory()->getLocation()->getX() == location->getX() && edge->getEndPointATerritory()->getLocation()->getY() == location->getY()) {
+					desiredTerritory = edge->getEndPointATerritory();
+				}
+				if (edge->getEndPointBTerritory()->getLocation()->getX() == location->getX() && edge->getEndPointBTerritory()->getLocation()->getY() == location->getY()) {
+					desiredTerritory = edge->getEndPointBTerritory();
+				}
 			}
 		}
 	}
-
-	return desireTerritory;
+	return desiredTerritory;
 
 }
 

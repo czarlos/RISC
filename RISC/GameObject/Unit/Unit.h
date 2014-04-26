@@ -2,6 +2,7 @@
 #include <iostream>
 #include <vector>
 #include "../MovableObject.h"
+#include "Infantry.h"
 #include "UnitType.h"
 
 using namespace std;
