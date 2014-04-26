@@ -333,8 +333,8 @@ void GameView::CommitOrderClick() {
 
 	//Set Units Lists
 	gameManager->getAddUnitOrder()->setUnitList(myBoxPacker->buildUnitList());
-	gameManager->getAttackOrder()->setUnitList(myBoxPacker->buildUnitList());
-	gameManager->getUpgradeOrder()->setUnitList(myBoxPacker->buildMultipleUnitList(myBoxPacker->getMultipleEntryValues(),
+	gameManager->getUpgradeOrder()->setUnitList(myBoxPacker->buildUnitList());
+	gameManager->getAttackOrder()->setUnitList(myBoxPacker->buildMultipleUnitList(myBoxPacker->getMultipleEntryValues(),
 		gameManager->getBoard()->getTerritory(gameManager->getLocation())));
 	gameManager->getMovementOrder()->setObjectList(myBoxPacker->buildMultipleUnitList(myBoxPacker->getMultipleEntryValues(), 
 		gameManager->getBoard()->getTerritory(gameManager->getLocation())));
