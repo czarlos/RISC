@@ -32,18 +32,20 @@
 
 
 
-class Temp {
+class GameView {
 public:
-	Temp();
+	GameView();
 	void showMainView();
 
 	void EndTurnClick();
 	void SetTextClick();
 	void CommitOrderClick();
 
-	virtual ~Temp();
+	virtual ~GameView();
 
 private:
+	std::shared_ptr<sfg::Widget> resource_window;
+
 	int xCounter = 0;
 	int yCounter = 0;
 	const int WIDTH = 1024;

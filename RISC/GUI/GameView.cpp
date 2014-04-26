@@ -1,12 +1,12 @@
-#include "Temp.h"
+#include "GameView.h"
 
 using namespace sf;
 
-Temp::Temp() {
+GameView::GameView() {
 
 }
 
-void Temp::showMainView() {
+void GameView::showMainView() {
 	/*Display Stuff*/
 	sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "RISC");
 	window.setFramerateLimit(40);
@@ -20,10 +20,10 @@ void Temp::showMainView() {
 	/*Canvas for drawing SFML stuff*/
 	auto sfml_canvas = sfg::Canvas::Create();
 	auto sfml_window = createSFMLWindow(sfml_canvas);
-
+	resource_window = createResourceWindow();
 	/*Set up whats on the Desktop*/
 	sfg::Desktop desktop;
-	desktop.Add(createResourceWindow());
+	desktop.Add(resource_window);
 	desktop.Add(sfml_window);
 	desktop.Add(createInformationWindow());
 	desktop.Add(createTerritoryInformationWIndow());
@@ -59,16 +59,16 @@ void Temp::showMainView() {
 
 }
 
-std::shared_ptr<sfg::Widget> Temp::createResourceWindow() {
+std::shared_ptr<sfg::Widget> GameView::createResourceWindow() {
 	auto resource_window = sfg::Window::Create();
 
 	/*Button*/
 	auto endTurn = sfg::Button::Create("End Turn");
 	auto setText = sfg::Button::Create("Set Number of Units");
 	auto sendOrder = sfg::Button::Create("Commit Order");
-	endTurn->GetSignal(sfg::Widget::OnLeftClick).Connect(std::bind(&Temp::EndTurnClick, this));
-	setText->GetSignal(sfg::Widget::OnLeftClick).Connect(std::bind(&Temp::SetTextClick, this));
-	sendOrder->GetSignal(sfg::Widget::OnLeftClick).Connect(std::bind(&Temp::CommitOrderClick, this));
+	endTurn->GetSignal(sfg::Widget::OnLeftClick).Connect(std::bind(&GameView::EndTurnClick, this));
+	setText->GetSignal(sfg::Widget::OnLeftClick).Connect(std::bind(&GameView::SetTextClick, this));
+	sendOrder->GetSignal(sfg::Widget::OnLeftClick).Connect(std::bind(&GameView::CommitOrderClick, this));
 
 	/*Box*/
 	auto box = sfg::Box::Create(sfg::Box::Orientation::VERTICAL, 5.0f);
@@ -104,7 +104,7 @@ std::shared_ptr<sfg::Widget> Temp::createResourceWindow() {
 	return resource_window;
 }
 
-std::shared_ptr<sfg::Widget> Temp::createInformationWindow() {
+std::shared_ptr<sfg::Widget> GameView::createInformationWindow() {
 	/*Information Window*/
 	auto information_window = sfg::Window::Create();
 	information_window->SetTitle("Information Window");
@@ -114,7 +114,7 @@ std::shared_ptr<sfg::Widget> Temp::createInformationWindow() {
 	return information_window;
 }
 
-std::shared_ptr<sfg::Widget> Temp::createTerritoryInformationWIndow() {
+std::shared_ptr<sfg::Widget> GameView::createTerritoryInformationWIndow() {
 	auto territory_information_window = sfg::Window::Create();
 	territory_information_window->SetTitle("Territory Information Window");
 	territory_information_window->SetPosition(Vector2f(WIDTH + (WIDTH / 4), 0));
@@ -161,7 +161,7 @@ std::shared_ptr<sfg::Widget> Temp::createTerritoryInformationWIndow() {
 	return territory_information_window;
 }
 
-std::shared_ptr<sfg::Window> Temp::createSFMLWindow(std::shared_ptr<sfg::Canvas> sfml_canvas) {
+std::shared_ptr<sfg::Window> GameView::createSFMLWindow(std::shared_ptr<sfg::Canvas> sfml_canvas) {
 	/*SFML Render Window*/
 	auto sfml_window = sfg::Window::Create();
 	sfml_window->SetTitle("SFML Canvas");
@@ -171,12 +171,12 @@ std::shared_ptr<sfg::Window> Temp::createSFMLWindow(std::shared_ptr<sfg::Canvas>
 	return sfml_window;
 }
 
-void Temp::makeSprite(std::string file) {
+void GameView::makeSprite(std::string file) {
 	backgroundTexture.loadFromFile(file);
 	backgroundSprite.setTexture(backgroundTexture);
 }
 
-void Temp::drawSFML(std::shared_ptr<sfg::Canvas> sfml_canvas, Sprite* background, RenderWindow* window) {
+void GameView::drawSFML(std::shared_ptr<sfg::Canvas> sfml_canvas, Sprite* background, RenderWindow* window) {
 	sfml_canvas->Bind();
 	sfml_canvas->Clear(sf::Color(0, 0, 0, 0));
 
@@ -196,15 +196,16 @@ void Temp::drawSFML(std::shared_ptr<sfg::Canvas> sfml_canvas, Sprite* background
 	sfml_canvas->Unbind();
 }
 
-void Temp::paintUpdates(sfg::Desktop* desktop) {
+void GameView::paintUpdates(sfg::Desktop* desktop) {
 	if (radio_box_number != old_radio_box_number) {
 		cout << "repainting" << endl;
-		desktop->Add(createResourceWindow());
+		resource_window = createResourceWindow();
+		desktop->Add(resource_window);
 		old_radio_box_number = radio_box_number;
 	}
 }
 
-void Temp::handleScrolling(View* game_view, Vector2f* position) {
+void GameView::handleScrolling(View* game_view, Vector2f* position) {
 	if (Keyboard::isKeyPressed(Keyboard::Up)) {
 		if (position->y > 0){
 			position->y -= 15;
@@ -230,17 +231,17 @@ void Temp::handleScrolling(View* game_view, Vector2f* position) {
 
 }
 
-void Temp::createOrderSelectionBoxes(std::shared_ptr<sfg::Box> box, std::shared_ptr<sfg::Window> window) {
+void GameView::createOrderSelectionBoxes(std::shared_ptr<sfg::Box> box, std::shared_ptr<sfg::Window> window) {
 	/*Radio Buttons*/
 	movement_radio_button = sfg::RadioButton::Create("Move");
 	attack_radio_button = sfg::RadioButton::Create("Attack", movement_radio_button->GetGroup());
 	upgrade_radio_button = sfg::RadioButton::Create("Upgrade", movement_radio_button->GetGroup());
 	add_unit_radio_button = sfg::RadioButton::Create("Add Unit", movement_radio_button->GetGroup());
 
-	movement_radio_button->GetSignal(sfg::ToggleButton::OnToggle).Connect(std::bind(&Temp::ButtonSelect, this));
-	attack_radio_button->GetSignal(sfg::ToggleButton::OnToggle).Connect(std::bind(&Temp::ButtonSelect, this));
-	upgrade_radio_button->GetSignal(sfg::ToggleButton::OnToggle).Connect(std::bind(&Temp::ButtonSelect, this));
-	add_unit_radio_button->GetSignal(sfg::ToggleButton::OnToggle).Connect(std::bind(&Temp::ButtonSelect, this));
+	movement_radio_button->GetSignal(sfg::ToggleButton::OnToggle).Connect(std::bind(&GameView::ButtonSelect, this));
+	attack_radio_button->GetSignal(sfg::ToggleButton::OnToggle).Connect(std::bind(&GameView::ButtonSelect, this));
+	upgrade_radio_button->GetSignal(sfg::ToggleButton::OnToggle).Connect(std::bind(&GameView::ButtonSelect, this));
+	add_unit_radio_button->GetSignal(sfg::ToggleButton::OnToggle).Connect(std::bind(&GameView::ButtonSelect, this));
 
 	box->Pack(movement_radio_button, false);
 	box->Pack(attack_radio_button, false);
@@ -270,20 +271,20 @@ void Temp::createOrderSelectionBoxes(std::shared_ptr<sfg::Box> box, std::shared_
 	}
 }
 
-void Temp::drawTerritories(std::shared_ptr<sfg::Canvas> sfml_canvas) {
+void GameView::drawTerritories(std::shared_ptr<sfg::Canvas> sfml_canvas) {
 	for (TerritoryBinder* binder : gameManager->getMadeTerritories())
 	{
 		sfml_canvas->Draw(*binder->getShape());
 	}
 }
 
-void Temp::drawConnections(std::shared_ptr<sfg::Canvas> sfml_canvas) {
+void GameView::drawConnections(std::shared_ptr<sfg::Canvas> sfml_canvas) {
 	for (VertexArray* line : gameManager->getMadeLines()) {
 		sfml_canvas->Draw(*line);
 	}
 }
 
-void Temp::clickTerritory(float adjustedX, float adjustedY) {
+void GameView::clickTerritory(float adjustedX, float adjustedY) {
 
 	for (TerritoryBinder* binder : gameManager->getMadeTerritories())
 	{
@@ -307,29 +308,34 @@ void Temp::clickTerritory(float adjustedX, float adjustedY) {
 	}
 }
 
-void Temp::EndTurnClick() {
+void GameView::EndTurnClick() {
 	gameManager->endTurn();
 	m_label->SetText(gameManager->getCurrentClient());
 }
 
-void Temp::SetTextClick() {
+void GameView::SetTextClick() {
 	entry_label->SetText(m_entry->GetText());
 	string nums = m_entry->GetText();
 	gameManager->setWorkingNumberOfUnits(std::stoi(nums));
 }
 
-void Temp::CommitOrderClick() {
+void GameView::CommitOrderClick() {
 
 	gameManager->setWorkingNumberOfUnits(myBoxPacker->getEntryValue());
 
 	//Set Location/Destination
 	gameManager->getAddUnitOrder()->setDestination(gameManager->getBoard()->getTerritory(gameManager->getDestination()));
+	gameManager->getUpgradeOrder()->setDestination(gameManager->getDestination());
 	gameManager->getMovementOrder()->setDestination(gameManager->getDestination());
 	gameManager->getMovementOrder()->setSource(gameManager->getLocation());
+	gameManager->getAttackOrder()->setDestination(gameManager->getDestination());
+	gameManager->getAttackOrder()->setSource(gameManager->getLocation());
 
 	//Set Units Lists
 	gameManager->getAddUnitOrder()->setUnitList(myBoxPacker->buildUnitList());
-	gameManager->getUpgradeOrder()->setUnitList(myBoxPacker->buildUnitList());
+	gameManager->getAttackOrder()->setUnitList(myBoxPacker->buildUnitList());
+	gameManager->getUpgradeOrder()->setUnitList(myBoxPacker->buildMultipleUnitList(myBoxPacker->getMultipleEntryValues(),
+		gameManager->getBoard()->getTerritory(gameManager->getLocation())));
 	gameManager->getMovementOrder()->setObjectList(myBoxPacker->buildMultipleUnitList(myBoxPacker->getMultipleEntryValues(), 
 		gameManager->getBoard()->getTerritory(gameManager->getLocation())));
 
@@ -340,7 +346,7 @@ void Temp::CommitOrderClick() {
 	//myBoxPacker->addToOrderQueue(gameManager->getWorkingOrder()->getName());
 }
 
-void Temp::ButtonSelect() {
+void GameView::ButtonSelect() {
 
 	if (movement_radio_button->IsActive()) {
 		radio_box_number = 1;
@@ -356,7 +362,7 @@ void Temp::ButtonSelect() {
 	}
 }
 
-Temp::~Temp() {
+GameView::~GameView() {
 	delete(gameManager);
 	for (TerritoryBinder* binder : gameManager->getMadeTerritories())
 	{
