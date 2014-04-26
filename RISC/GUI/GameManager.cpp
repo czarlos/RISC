@@ -63,7 +63,6 @@ void GameManager::clear() {
 	myDestination = nullptr;
 
 	myWorkingUnitType = nullptr;
-	
 	myWorkingUnits.clear();
 
 	myWorkingNumberOfUnits = 0;
@@ -243,7 +242,6 @@ Unit* GameManager::getWorkingUnit() {
 void GameManager::setWorkingUnit(Unit* unit) {
 	myWorkingUnit = unit;
 }
-
 
 GameManager::~GameManager() {
 

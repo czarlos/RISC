@@ -10,17 +10,6 @@ SpoofOrder::SpoofOrder(Territory* destination, vector<Unit*> unitList) : Order()
 }
 
 Response* SpoofOrder::execute(GameState* state) {
-	if (!state->getLocation(myDestination)) {
-		cout << "not valid" << endl;
-		return new SpoofResponse();
-	}
-
-	if (myUnitList.empty()) {
-		cout << "add some people" << endl;
-		return new SpoofResponse();
-	}
-
-	/*There needs to be a valid check that this territory belongs to this owner*/
 
 	Response* response = new SpoofResponse();
 	return response;

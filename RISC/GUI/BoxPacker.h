@@ -15,6 +15,7 @@
 #include "..\GameMap\Board.h"
 #include "..\GameObject\Unit\Tanks.h"
 #include "GameManger.h"
+#include "..\Utilities\Constants.h"
 
 class BoxPacker {
 public:
@@ -36,7 +37,10 @@ public:
 	void createDropdownQueue(std::shared_ptr<sfg::Box> box);
 	void addToOrderQueue(string str);
 
+	vector<string> getMultipleEntryValues();
+
 	vector<Unit*> buildUnitList();
+	vector<Unit*> buildMultipleUnitList(vector<string> stringVector, Territory* territory);
 	int getEntryValue();
 
 	virtual ~BoxPacker();
@@ -61,7 +65,7 @@ private:
 	sfg::Entry::Ptr improved_tanks_entry;
 	sfg::Entry::Ptr fighter_planes_entry;
 
-	sfg::Entry::Ptr add_unit_entry;
+	sfg::Entry::Ptr add_upgrade_unit_entry;
 
 	void unitSelection();
 	void OnOrderSelect();

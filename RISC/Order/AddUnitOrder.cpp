@@ -11,7 +11,7 @@ AddUnitOrder::AddUnitOrder(Territory* destination, vector<Unit*> unitList) : Ord
 
 Response* AddUnitOrder::execute(GameState* state) {
 	if (!state->getLocation(myDestination)) {
-		cout << "not valid" << endl;
+		cout << "not a valid location" << endl;
 		return new SpoofResponse();
 	}
 	cout << "unit list size: " << myUnitList.size() << endl;

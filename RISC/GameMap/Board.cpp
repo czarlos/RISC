@@ -212,13 +212,12 @@ vector<Territory*> Board::getAdjacentTerritory(Territory *territory){
 //	return false;
 //}
 
-//NOTE: Possiblity re-do this method
 Territory* Board::getTerritory(Location* location){
 	Territory* desiredTerritory = nullptr;
-	for each (vector<Edge*> edgeList in gameMap)
+	for (vector<Edge*> edgeList : gameMap)
 	{
 
-		for each (Edge *edge in edgeList)
+		for (Edge *edge : edgeList)
 		{
 			//checking for nullptrs, very important
 			if (edge) {

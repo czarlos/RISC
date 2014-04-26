@@ -32,7 +32,7 @@ void ServerLogic::handleQueue(vector<Order*> orderQueue) {
 }
 
 void ServerLogic::update(Response* response) {
-	response->executeResponse((this->myState));
+	response->executeResponse(myState);
 }
 
 ServerLogic::~ServerLogic() {

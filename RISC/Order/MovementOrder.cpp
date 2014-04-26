@@ -31,32 +31,25 @@ MovementOrder::MovementOrder(Location* source, Location* destination, vector<Uni
  */
 
 Response* MovementOrder::execute(GameState* state) {
-	for each (Unit* unit in myUnitList)
-	{
+	// Check if occupied by enemies
+	//string owner = state->getTerritoryByLocation(myDestination)->getOwner();
+	bool occupied = state->getTerritoryByLocation(myDestination)->getTerritoryContents().empty();
+	//string me = unit->getTeamName();
 
-		Location* initialLocation = state->getUnitLocation(unit);
+	//if (occupied != false && owner != me) {
+	//	return new SpoofResponse();
+	//}
 
-		// Check if occupied by enemies
-		//string owner = state->getTerritoryByLocation(myDestination)->getOwner();
-		bool occupied = state->getTerritoryByLocation(myDestination)->getTerritoryContents().empty();
-		//string me = unit->getTeamName();
-
-		//if (occupied != false && owner != me) {
-		//	return new SpoofResponse();
-		//}
-
-		// Check if the location exists
-		if (!myDestination) {
-			return new SpoofResponse();
-		}
-
-		if (MathUtilities::findDistance(initialLocation, myDestination)
-			<= unit->getMovementRange()) {
-			return new MovementResponse(unit, this->myDestination);
-		}
-
+	// Check if the location exists
+	if (!myDestination) {
+		cout << "invalid destination" << endl;
+		return new SpoofResponse();
 	}
-	return new SpoofResponse();
+	else {
+		cout << "generating movement response" << endl;
+		return new MovementResponse(myUnitList, this->myDestination);
+	}
+
 }
 
 string MovementOrder::getName() {

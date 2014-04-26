@@ -18,20 +18,20 @@ void BoxPacker::packAttackOrder() {
 }
 
 void BoxPacker::packUpgradeOrder() {
-	add_unit_entry = sfg::Entry::Create();
+	add_upgrade_unit_entry = sfg::Entry::Create();
 	myBox->Pack(sfg::Label::Create("Select Unit To Upgrade"), false);
 	createDropdownMenu();
-	myBox->Pack(add_unit_entry, false);
+	myBox->Pack(add_upgrade_unit_entry, false);
 
 	myGameManager->setWorkingOrder(myGameManager->getUpgradeOrder());
 }
 
 void BoxPacker::packAddUnitOrder() {
-	add_unit_entry = sfg::Entry::Create();
+	add_upgrade_unit_entry = sfg::Entry::Create();
 	
 	myBox->Pack(sfg::Label::Create("Select Unit To Add"), false);
 	createDropdownMenu();
-	myBox->Pack(add_unit_entry, false);
+	myBox->Pack(add_upgrade_unit_entry, false);
 
 	//Units set in commit order
 	myGameManager->setWorkingOrder(myGameManager->getAddUnitOrder());
@@ -39,8 +39,62 @@ void BoxPacker::packAddUnitOrder() {
 }
 
 int BoxPacker::getEntryValue() {
-	string str = add_unit_entry->GetText();
+	string str;
+	if (add_upgrade_unit_entry) {
+		str = add_upgrade_unit_entry->GetText();
+	}
+	else {
+		str = "0";
+	}
 	return std::stoi(str);
+}
+
+vector<string> BoxPacker::getMultipleEntryValues() {
+	string inf = "0";
+	string automatic = "0";
+	string rocket = "0";
+	string tanks = "0";
+	string i_tanks = "0";
+	string fighter = "0";
+	vector<string> unitVector;
+
+	if (infantry_entry->GetText() != "") {
+		inf = infantry_entry->GetText();
+		for (int i = 0; i < std::stoi(inf); i++) {
+			unitVector.push_back(Constants::INFANTRY);
+		}
+	}
+	if (automatic_weapons_entry->GetText() != "") {
+		automatic = automatic_weapons_entry->GetText();
+		for (int i = 0; i < std::stoi(automatic); i++) {
+			unitVector.push_back(Constants::AUTOMATIC_WEAPONS);
+		}
+	}
+	if (rocket_launcher_entry->GetText() != "") {
+		rocket = rocket_launcher_entry->GetText();
+		for (int i = 0; i < std::stoi(rocket); i++) {
+			unitVector.push_back(Constants::ROCKET_LAUNCHERS);
+		}
+	}
+	if (tanks_entry->GetText() != "") {
+		tanks = tanks_entry->GetText();
+		for (int i = 0; i < std::stoi(tanks); i++) {
+			unitVector.push_back(Constants::TANKS);
+		}
+	}
+	if (improved_tanks_entry->GetText() != "") {
+		i_tanks = improved_tanks_entry->GetText();
+		for (int i = 0; i < std::stoi(i_tanks); i++) {
+			unitVector.push_back(Constants::IMPROVED_TANKS);
+		}
+	}
+	if (fighter_planes_entry->GetText() != "") {
+		fighter = fighter_planes_entry->GetText();
+		for (int i = 0; i < std::stoi(fighter); i++) {
+			unitVector.push_back(Constants::FIGHTER_PLANES);
+		}
+	}
+	return unitVector;
 }
 
 vector<Unit*> BoxPacker::buildUnitList() {
@@ -80,6 +134,20 @@ vector<Unit*> BoxPacker::buildUnitList() {
 		}
 
 	}
+	return unitList;
+}
+
+vector<Unit*> BoxPacker::buildMultipleUnitList(vector<string> multipleUnitVector, Territory* territory) {
+	set<Unit*> unitSet;
+	
+	for (string s : multipleUnitVector) {
+		for (Unit* u : territory->getTerritoryContents()) {
+			if (u->getUnitType()->getType() == s) {
+				unitSet.insert(u);
+			}
+		}
+	}
+	std::vector<Unit*> unitList(unitSet.begin(), unitSet.end());
 	return unitList;
 }
 
@@ -177,22 +245,22 @@ void BoxPacker::OnDropDownSelect() {
 }
 
 void BoxPacker::InfantryButtonCheck() {
-	myGameManager->setUnitType("Infantry");
+	//myGameManager->addToMultipleUnitVector(Constants::INFANTRY);
 }
 void BoxPacker::AutomaticWeaponsButtonCheck() {
-	myGameManager->setUnitType("AutomaticWeapons");
+	//myGameManager->addToMultipleUnitVector(Constants::AUTOMATIC_WEAPONS);
 }
 void BoxPacker::RocketLaunchersButtonCheck() {
-	myGameManager->setUnitType("RocketLaunchers");
+	//myGameManager->addToMultipleUnitVector(Constants::ROCKET_LAUNCHERS);
 }
 void BoxPacker::TanksButtonCheck() {
-	myGameManager->setUnitType("Tanks");
+	//myGameManager->addToMultipleUnitVector(Constants::TANKS);
 }
 void BoxPacker::ImprovedTanksButtonCheck() {
-	myGameManager->setUnitType("ImprovedTanks");
+	//myGameManager->addToMultipleUnitVector(Constants::IMPROVED_TANKS);
 }
 void BoxPacker::FighterPlanesButtonCheck() {
-	myGameManager->setUnitType("FighterPlanes");
+	//myGameManager->addToMultipleUnitVector(Constants::FIGHTER_PLANES);
 }
 
 BoxPacker::~BoxPacker() {

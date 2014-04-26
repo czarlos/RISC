@@ -67,11 +67,9 @@ void GameState::checkGameEnd(){
 void GameState::setUnitPosition(Unit* unit, Location* location) {
 	// 1. Remove unit from old territory
 	this->getTerritoryByLocation(this->getUnitLocation(unit))->removeFromContent(unit);
-
 	// 2. Put desired unit in desired territory
 	Territory* terr = this->getTerritoryByLocation(location);
 	terr->addToContent(unit);
-	cout << "SETTING POSITION OF UNIT" << endl;
 }
 
 Territory* GameState::getUnitTerritory(Unit* unit) {
@@ -89,7 +87,7 @@ Location* GameState::getUnitLocation(Unit* u) {
 						return edge->getEndPointATerritory()->getLocation();
 					}
 				}
-				for each (Unit* unit in edge->getEndPointBTerritory()->getTerritoryContents()) {
+				for (Unit* unit : edge->getEndPointBTerritory()->getTerritoryContents()) {
 					if (unit == u) {
 						return edge->getEndPointBTerritory()->getLocation();
 					}
@@ -97,6 +95,7 @@ Location* GameState::getUnitLocation(Unit* u) {
 			}
 		}
 	}
+	cout << "nothing found" << endl;
 	return nullptr;
 }
 
