@@ -91,14 +91,14 @@ void Territory::addToContent(Unit* itemToAdd){
 }
 
 void Territory::removeFromContent(Unit* itemToRemove){
-	int pos;
+	int pos = -1;
 	for (int i = 0; i < contents.size(); i++) {
 		if (contents.at(i) == itemToRemove) {
 			pos = i;
 		}
 	}
 
-	if (pos) {
+	if (pos != -1) {
 		contents.erase(contents.begin() + pos);
 	}
 
