@@ -52,7 +52,7 @@ CombatResults* CombatResolution::combatResolution(string playerAName, string pla
 
 queue<Unit*> CombatResolution::turnToQueue(vector<Unit*> listOfUnits){
 	queue<Unit*> unitQ;
-	for each(Unit* unit in listOfUnits){
+	for (Unit* unit : listOfUnits){
 		unitQ.push(unit);
 	}
 	return unitQ;

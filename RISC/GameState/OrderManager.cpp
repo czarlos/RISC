@@ -36,7 +36,7 @@ void OrderManager::removeOrderAtIndex(int index){
 queue<Order*> OrderManager::getOrderQ(){
 	queue<Order*> orderQ;
 
-	for each(Order* order in possibleOrders){
+	for (Order* order : possibleOrders){
 		orderQ.push(order);
 	}
 
