@@ -1,6 +1,6 @@
 #include "Nukes.h"
 
-Nukes::Nukes(){
+Nukes::Nukes() : UnitType() {
 	this->type = "Nukes";
 	this->level = 6;
 	this->myCombatBonus = 0;
