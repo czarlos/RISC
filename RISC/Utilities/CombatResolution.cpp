@@ -130,7 +130,7 @@ vector<Unit*> CombatResolution::mergeSortUnits(vector<Unit*> listOfUnits){
 Unit* CombatResolution::findHighestLvlUnit(vector<Unit*>listOfUnits) {
 	Unit* highestLevelUnit = listOfUnits.at(0);
 
-	for each(Unit* unit in listOfUnits){
+	for (Unit* unit : listOfUnits){
 		if (highestLevelUnit->getUnitType()->getLevel() < unit->getUnitType()->getLevel()){
 			highestLevelUnit = unit;
 		}

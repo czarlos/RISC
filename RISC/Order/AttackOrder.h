@@ -5,6 +5,9 @@
 #include "../GameObject/CombatObject.h"
 #include "AttackResponse.h"
 #include "SpoofResponse.h"
+#include "../ProtocolBuffers/SerializationUtilities.h"
+#include "../ProtocolBuffers/AttackOrder.pb.h"
+#include "../ProtocolBuffers/Unit.pb.h"
 
 class AttackOrder : public Order {
 	
@@ -13,6 +16,7 @@ public:
 	AttackOrder(Location* source, Location* destination, vector<Unit*> unitList);
 	Response* execute(GameState* gamestate);
 	string getName();
+	void serializeAndSend();
 	void setDestination(Location* destination);
 	void setSource(Location* source);
 	void setUnitList(vector<Unit*> unitList);

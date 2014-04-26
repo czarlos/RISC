@@ -297,6 +297,7 @@ void Temp::clickTerritory(float adjustedX, float adjustedY) {
 			InformationDisplay::displayResourceInformation(food_resource_label, technology_resource_label, binder);
 			
 			source_territory_label->SetText("Source: " + binder->getTerritory()->getTerritoryID());
+
 			gameManager->setLocation(binder->getTerritory()->getLocation());
 		}
 		else if (Mouse::isButtonPressed(Mouse::Right) && bounds.contains(adjustedX, adjustedY)) {

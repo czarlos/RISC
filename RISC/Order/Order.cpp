@@ -9,6 +9,9 @@ Response* Order::execute(GameState* gamestate){
 	return nullptr;
 }
 
+void Order::serializeAndSend() {
+}
+
 string Order::getName() {
 	return nullptr;
 }

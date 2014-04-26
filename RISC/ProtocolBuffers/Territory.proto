@@ -1,0 +1,21 @@
+package Buffers;
+
+import "Unit.proto";
+import "Location.proto";
+
+message Territory {
+	optional string territoryID = 1;
+	optional string owner = 2;
+	optional int32 maxResourceProduction = 3;
+	optional int32 maxCapacity = 4;
+
+	message ResourceType {
+      required string resourceName = 1;
+	} 
+
+    repeated ResourceType production = 5;
+	
+	required Location location = 6;
+	repeated Unit contents = 7;
+	required bool visible = 8;
+}

@@ -1,0 +1,12 @@
+package Buffers;
+
+message UnitType {
+	required int32 level = 1;
+	required string type = 2;
+	required int32 combatBonus = 3;
+	required int32 upgradeCost = 4;
+	required int32 costToUnlock = 5;
+	required bool spy = 6;
+	required string nextType = 7;
+	required string previousType = 8;
+}

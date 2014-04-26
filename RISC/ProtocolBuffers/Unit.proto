@@ -1,0 +1,11 @@
+package Buffers;
+
+import "UnitType.proto";
+
+message Unit {
+	required int32 health = 1;
+	required UnitType unitType = 2;
+	required string teamName = 3;
+	required string unitID = 4;
+	required int32 movementRange = 5;
+}

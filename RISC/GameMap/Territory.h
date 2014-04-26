@@ -59,7 +59,10 @@ public:
 	string getOwner();
 	void setOwner(string owner);
 	//get the current units in the territory
-	vector<Unit*> getTerritoryContents();
+	vector<Unit*> getTerritoryContents(); 
+
+	int getMaxResourceProduction();	
+
 	//get the different resources that the territory produces
 	vector<ResourceType*> getProduction();
 	//add to the territory's production

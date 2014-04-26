@@ -187,7 +187,7 @@ UnitType* TechnologyManager::findNextUpgrade(){
 
 	string nameOfNextUpgrade = this->highestAvaUpgrade->getNextUp();
 	UnitType* nextUpgradeType = nullptr;
-	for each (UnitType* unitType in this->unavaliableUpgrades){
+	for (UnitType* unitType : this->unavaliableUpgrades){
 		if (unitType->getType() == nameOfNextUpgrade){
 			nextUpgradeType = unitType;
 		}

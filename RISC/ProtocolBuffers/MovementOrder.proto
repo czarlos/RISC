@@ -1,0 +1,10 @@
+package Buffers;
+
+import "Unit.proto";
+import "Location.proto";
+
+message MovementOrder {
+	required Location source = 1;
+	required Location destination = 2;
+	repeated Unit unitList = 3;
+}

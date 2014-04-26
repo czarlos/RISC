@@ -1,0 +1,9 @@
+package Buffers;
+
+import "Territory.proto";
+import "Unit.proto";
+
+message AddUnitOrder {
+	required Territory destination = 1;
+	repeated Unit unitList = 2;
+}

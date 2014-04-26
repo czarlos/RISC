@@ -49,3 +49,9 @@ Release\
 .project
 .cproject
 Debug/
+
+#Protocol Buffers
+*.pb.*
+
+#Swap Files
+*.swp

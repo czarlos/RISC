@@ -171,6 +171,10 @@ void Territory::setTeam(string team){
 	this->team = team;
 }
 
+int Territory::getMaxResourceProduction() {
+	return this->maxResourceProduction;
+}
+
 Territory::~Territory()
 {
 }

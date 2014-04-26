@@ -122,18 +122,6 @@ ResourceManager* Player::getResourceManager(){
 	return this->resourceManager;
 }
 
-//Order* Player::createUpgradeOrder(UnitType* unitType, Unit* unitToApply){
-//	//written in a way that you have to check if the unitType is avaliable before
-//	//applying it ot the unit that is selected
-//	for each (UnitType* unitType in this->getTechManager()->getCurrentPossibleUpgrade()) {
-//		if (unitType == unitType) {
-//			return new UpgradeOrder(unitToApply, unitType);
-//		}
-//	}
-//
-//	return nullptr;
-//}
-
 Player::~Player() {
 
 }

@@ -17,6 +17,9 @@
 #include "Order.h"
 #include "MovementResponse.h"
 #include "SpoofResponse.h"
+#include "../ProtocolBuffers/SerializationUtilities.h"
+#include "../ProtocolBuffers/Unit.pb.h"
+#include "../ProtocolBuffers/MovementOrder.pb.h"
 
 class MovementOrder : public Order {
 
@@ -27,7 +30,7 @@ public:
 	MovementOrder(Location* source, Location* destination, vector<Unit*> unitList);
 	//execute of movement
 	Response* execute(GameState* state);
-
+	void serializeAndSend();
 	void setDestination(Location* destination);
 	void setSource(Location* source);
 	void setObjectList(vector<Unit*> unitList);

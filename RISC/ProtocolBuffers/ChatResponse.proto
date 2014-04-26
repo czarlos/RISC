@@ -1,0 +1,6 @@
+package Buffers;
+
+message ChatResponse {
+	required string username = 1;
+	required string message = 2;
+}
