@@ -8,6 +8,7 @@ char * host;
 void go() {	
 	boost::asio::io_service io_service;
 	client c(io_service, host);
+	c.start();
 	io_service.run();
 }
 
@@ -32,12 +33,6 @@ int main(int argc, char* argv[]) {
 		for (int j = 0; j < i; j++){
 			threads[j].join();
 		}
-		
-		/*
-		boost::asio::io_service io_service;
-		client c(io_service, argv[1]);
-		io_service.run();
-		*/
 	}
 	catch (std::exception &e) {
 		std::cout << "Exception: " << e.what() << std::endl;
