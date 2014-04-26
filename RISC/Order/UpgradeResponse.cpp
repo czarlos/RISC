@@ -25,22 +25,28 @@ UpgradeResponse::UpgradeResponse(Unit* unit, int updatedTechPtAmt){
 	this->unlockUp = false;
 }
 
+UpgradeResponse::UpgradeResponse(vector<Unit*> unitList, UnitType* type) {
+	this->myUnitList = unitList;
+	this->myType = type;
+}
 
-void UpgradeResponse::executeResponse(GameState* gamestate){
+void UpgradeResponse::executeResponse(GameState* state){
 	if (this->covertingUnit){
 		//update game state after converting
 	}
 
-	if (this->unlockUp){
+	else if (this->unlockUp){
 		//update gamestate after unlocking
 	}
 
-	if (this->upgradUnit){
+	else if (this->upgradUnit){
 
 		//update game state after upgrading units
 	}
-
-
+	
+	for (Unit* unit : myUnitList) {
+		unit->setUnitType(myType);
+	}
 }
 
 

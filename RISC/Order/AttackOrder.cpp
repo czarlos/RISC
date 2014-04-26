@@ -13,16 +13,24 @@ AttackOrder::AttackOrder(Location* source, Location* destination, vector<Unit*> 
 Response* AttackOrder::execute(GameState* state) {
 	Territory* sourceTerr = state->getTerritoryByLocation(mySource);
 	Territory* destinationTerr = state->getTerritoryByLocation(myDestination);
-	if (sourceTerr && destinationTerr && !myUnitList.empty()) {
-		for (Territory* territory : state->getBoard()->getAdjacentTerritory(sourceTerr)) {
-			if (territory == destinationTerr) {
-				return new AttackResponse(sourceTerr, destinationTerr, myUnitList);
+	if (sourceTerr && destinationTerr) {
+		if (!myUnitList.empty()) {
+			if (sourceTerr->getOwner() != destinationTerr->getOwner()) {
+				for each (Territory* territory in state->getBoard()->getAdjacentTerritory(sourceTerr)) {
+					if (territory == destinationTerr) {
+						return new AttackResponse(sourceTerr, destinationTerr, myUnitList);
+					}
+				}
+			}
+			else {
+				cout << "You can't attack your own territory!" << endl;
 			}
 		}
+		else {
+			cout << "You can't attack with no units!" << endl;
+		}
 	}
-	else {
-		return new SpoofResponse();
-	}
+	return new SpoofResponse();
 }
 
 string AttackOrder::getName() {

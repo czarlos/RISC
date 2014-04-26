@@ -38,6 +38,7 @@ public:
 	void addToOrderQueue(string str);
 
 	vector<string> getMultipleEntryValues();
+	vector<string> gatherPreexistingUnits();
 
 	vector<Unit*> buildUnitList();
 	vector<Unit*> buildMultipleUnitList(vector<string> stringVector, Territory* territory);

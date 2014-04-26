@@ -243,6 +243,14 @@ void GameManager::setWorkingUnit(Unit* unit) {
 	myWorkingUnit = unit;
 }
 
+void GameManager::setSelectedTerritoryOwner(string owner) {
+	mySelectedTerritoryOwner = owner;
+}
+
+string GameManager::getSelectedTerritoryOwner() {
+	return mySelectedTerritoryOwner;
+}
+
 GameManager::~GameManager() {
 
 }
