@@ -44,6 +44,10 @@ Debug/
 Release/
 Release\
 
+
+*.sublime-project
+*.sublime-workspace
+
 #Eclipse
 .settings/
 .project

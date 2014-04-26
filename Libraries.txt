@@ -1,0 +1,4 @@
+Boost Libraries 1.55
+SFML 
+SFML GUI
+Google Protocol Buffers
