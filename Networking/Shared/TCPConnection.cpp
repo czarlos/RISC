@@ -184,7 +184,7 @@ void TCPConnection::handle_read_header(const boost::system::error_code& e, char 
 		delete read_header;
 		
 		boost::asio::async_read(socket_, boost::asio::buffer(*read_data),
-		boost::bind(&TCPConnection::handle_read_data, this, boost::asio::placeholders::error, (NetworkMessageType)message_type), read_data);
+		boost::bind(&TCPConnection::handle_read_data, this, boost::asio::placeholders::error, (NetworkMessageType)message_type, read_data));
 	}
 }
 void TCPConnection::handle_read_data(const boost::system::error_code& e, NetworkMessageType nm,  std::vector<char> * read_data) 
@@ -203,8 +203,9 @@ void TCPConnection::handle_read_data(const boost::system::error_code& e, Network
 		// turn it into GPB here?
 
 		delete read_data;
+		this->handle_read(e, message /* size */);
+
 	}
-	this->handle_read(e, message /* size */ );
 }
 
 bool TCPConnection::handle_socket_error(const boost::system::error_code& e)
@@ -224,7 +225,7 @@ bool TCPConnection::handle_socket_error(const boost::system::error_code& e)
 		}
 
 		// otherwise, what's up?
-		throw boost::system::system_error(err);
+		throw boost::system::system_error(e);
 		return true;
 	}
 }
