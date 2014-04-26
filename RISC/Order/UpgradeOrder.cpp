@@ -74,11 +74,15 @@ bool UpgradeOrder::getConvertingUpgrade(){
 
 Response* UpgradeOrder::execute(GameState* state) {
 
-	if (!this->myLocation) {
+	if (!myLocation) {
 		return new SpoofResponse();
 	}
 
-	if (this->convertingUpgrade){
+	else if (myUnitList.size() == 0) {
+		return new SpoofResponse();
+	}
+
+	else if (this->convertingUpgrade){
 		//make in to a spy or turn back into a reg unit and modify return response
 		return makeASpy();
 	}
@@ -94,9 +98,33 @@ Response* UpgradeOrder::execute(GameState* state) {
 	}
 
 	else {
-		return new SpoofResponse();
+		string nextUnitType = myUnitList.at(0)->getUnitType()->getNextUp();
+		UnitType* type = getNextType(nextUnitType);
+
+		return new UpgradeResponse(myUnitList, type);
 	}
 
+}
+
+UnitType* UpgradeOrder::getNextType(string type) {
+	if (type == Constants::INFANTRY) {
+		return new Infantry();
+	}
+	else if (type == Constants::AUTOMATIC_WEAPONS) {
+		return new AutomaticWeapons();
+	}
+	else if (type == Constants::ROCKET_LAUNCHERS) {
+		return new RocketLaunchers();
+	}
+	else if (type == Constants::TANKS) {
+		return new Tanks();
+	}
+	else if (type == Constants::IMPROVED_TANKS) {
+		return new ImprovedTanks();
+	}
+	else if (type == Constants::FIGHTER_PLANES) {
+		return new FighterPlanes();
+	}
 }
 
 Response* UpgradeOrder::makeASpy(){
@@ -157,6 +185,10 @@ void UpgradeOrder::setDestination(Location* location) {
 
 void UpgradeOrder::setUnitList(vector<Unit*> unitList) {
 	myUnitList = unitList;
+}
+
+void UpgradeOrder::setOwner(string owner) {
+	myOwner = owner;
 }
 
 UpgradeOrder::~UpgradeOrder() {

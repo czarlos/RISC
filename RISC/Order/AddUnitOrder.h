@@ -18,10 +18,12 @@ public:
 	void setDestination(Territory* destination);
 	void setQuantity(int quantity);
 	void setUnitList(vector<Unit*> unitList);
+	void setOwner(string owner);
 	~AddUnitOrder();
 
 private:
 	vector<Unit*> myUnitList;
 	Territory* myDestination;
 	string myName = "AddUnitOrder";
+	string myOwner = "";
 };

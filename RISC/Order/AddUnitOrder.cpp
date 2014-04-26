@@ -21,6 +21,12 @@ Response* AddUnitOrder::execute(GameState* state) {
 		return new SpoofResponse();
 	}
 
+	if ( (myDestination->getOwner() != myOwner )) {
+		cout << myDestination->getOwner() << " " << myOwner << endl;
+		cout << "You can't add units to somebody else's territory" << endl;
+		return new SpoofResponse();
+	}
+
 	/*There needs to be a valid check that this territory belongs to this owner*/
 
 	Response* response = new AddUnitResponse(myDestination, myUnitList);
@@ -39,6 +45,9 @@ void AddUnitOrder::setUnitList(vector<Unit*> unitList) {
 	myUnitList = unitList;
 }
 
+void AddUnitOrder::setOwner(string owner) {
+	myOwner = owner;
+}
 
 AddUnitOrder::~AddUnitOrder() {
 

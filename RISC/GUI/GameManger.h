@@ -73,6 +73,9 @@ public:
 	void setWorkingUnit(Unit* unit);
 	UnitType* getWorkingUnitType();
 
+	void setSelectedTerritoryOwner(string owner);
+	string getSelectedTerritoryOwner();
+
 	void clear();
 	void clearAfterCommit();
 
@@ -111,4 +114,6 @@ private:
 	ServerLogic* server;
 	vector<Order*> myOrderQueue;
 	vector<Client*> myClientList;
+
+	string mySelectedTerritoryOwner = "";
 };

@@ -137,6 +137,15 @@ vector<Unit*> BoxPacker::buildUnitList() {
 	return unitList;
 }
 
+vector<string> BoxPacker::gatherPreexistingUnits() {
+
+	vector<string> unitList;
+	for (int i = 0; i < myGameManager->getWorkingNumberOfUnits(); i++) {
+		unitList.push_back(myGameManager->getUnitType());
+	}
+	return unitList;
+}
+
 vector<Unit*> BoxPacker::buildMultipleUnitList(vector<string> multipleUnitVector, Territory* territory) {
 	set<Unit*> unitSet;
 	

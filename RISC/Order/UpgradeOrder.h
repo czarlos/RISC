@@ -5,6 +5,7 @@
 #include "../GameState/Managers/TechnologyManager.h"
 #include "UpgradeResponse.h"
 #include "SpoofResponse.h"
+#include "..\Utilities\Constants.h"
 
 using namespace std;
 
@@ -26,16 +27,18 @@ public:
 	bool getUnlocking();
 	bool getUnitUpgrading();
 	bool getConvertingUpgrade();
+	UnitType* getNextType(string type);
 	string getName();
 	void setDestination(Location* location);
 	void setUnitList(vector<Unit*> unitList);
+	void setOwner(string owner);
 	Response* execute(GameState* state);
 	~UpgradeOrder();
 
 private:
-	bool unlocking; //true /false is this to upgrade upgrades in the manager
-	bool unitUpgrading; // true/false this is to upgrade the units
-	bool convertingUpgrade; // to or false this is to convert and unit to a spy
+	bool unlocking = false; //true /false is this to upgrade upgrades in the manager
+	bool unitUpgrading = false; // true/false this is to upgrade the units
+	bool convertingUpgrade = false; // to or false this is to convert and unit to a spy
 	bool makeSpy;
 	Response* makeASpy();
 	Response* unlockNextUpgrade();
@@ -46,4 +49,5 @@ private:
 	UnitType* myUnitType;
 	vector<Unit*> myUnitList;
 	Location* myLocation;
+	string myOwner;
 };

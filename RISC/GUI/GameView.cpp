@@ -294,6 +294,7 @@ void GameView::clickTerritory(float adjustedX, float adjustedY) {
 		if (Mouse::isButtonPressed(Mouse::Left) && bounds.contains(adjustedX, adjustedY)) {
 			territory_id_label->SetText("Territory ID: " + binder->getTerritory()->getTerritoryID());
 			territory_owner_label->SetText("Owner: " + binder->getTerritory()->getOwner());
+			gameManager->setSelectedTerritoryOwner(binder->getTerritory()->getOwner());
 			InformationDisplay::displayTerritoryInformation(infantry_label, automatic_weapons_label, rocket_launchers_label, tanks_label, improved_tanks_label, fighter_planes_label, binder);
 			InformationDisplay::displayResourceInformation(food_resource_label, technology_resource_label, binder);
 			
@@ -331,15 +332,24 @@ void GameView::CommitOrderClick() {
 	gameManager->getAttackOrder()->setDestination(gameManager->getDestination());
 	gameManager->getAttackOrder()->setSource(gameManager->getLocation());
 
-	//Set Units Lists
-	gameManager->getAddUnitOrder()->setUnitList(myBoxPacker->buildUnitList());
-	gameManager->getUpgradeOrder()->setUnitList(myBoxPacker->buildUnitList());
-	gameManager->getAttackOrder()->setUnitList(myBoxPacker->buildMultipleUnitList(myBoxPacker->getMultipleEntryValues(),
-		gameManager->getBoard()->getTerritory(gameManager->getLocation())));
-	gameManager->getMovementOrder()->setObjectList(myBoxPacker->buildMultipleUnitList(myBoxPacker->getMultipleEntryValues(), 
-		gameManager->getBoard()->getTerritory(gameManager->getLocation())));
+	//Set User
+	gameManager->getAddUnitOrder()->setOwner(gameManager->getSelectedTerritoryOwner());
+	gameManager->getUpgradeOrder()->setOwner(gameManager->getSelectedTerritoryOwner());
 
-	
+	//Set Units Lists
+	if (gameManager->getWorkingOrder()->getName() == "AddUnitOrder") {
+		gameManager->getAddUnitOrder()->setUnitList(myBoxPacker->buildUnitList());
+	}
+	else if (gameManager->getWorkingOrder()->getName() == "UpgradeOrder") {
+		gameManager->getUpgradeOrder()->setUnitList(myBoxPacker->buildMultipleUnitList(myBoxPacker->gatherPreexistingUnits(),
+			gameManager->getBoard()->getTerritory(gameManager->getLocation())));
+	}
+	else {
+		gameManager->getAttackOrder()->setUnitList(myBoxPacker->buildMultipleUnitList(myBoxPacker->getMultipleEntryValues(),
+			gameManager->getBoard()->getTerritory(gameManager->getLocation())));
+		gameManager->getMovementOrder()->setObjectList(myBoxPacker->buildMultipleUnitList(myBoxPacker->getMultipleEntryValues(),
+			gameManager->getBoard()->getTerritory(gameManager->getLocation())));
+	}
 	gameManager->addOrder(gameManager->getWorkingOrder());
 
 	gameManager->clearAfterCommit();

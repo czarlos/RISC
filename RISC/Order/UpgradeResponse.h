@@ -13,6 +13,7 @@ public:
 	UpgradeResponse(vector<UnitType*>, int);
 	//resposne construct for making/unmaking spies;
 	UpgradeResponse(Unit*,int);
+	UpgradeResponse(vector<Unit*> unitList, UnitType* type);
 	vector<Unit*> getListOfUpdatedUnits();
 	vector<UnitType*> getUpdatedPossUps();
 	void setListOfUpdatedUnits(vector<Unit*>);
@@ -25,6 +26,8 @@ private:
 	bool upgradUnit;
 	bool covertingUnit;
 
+	UnitType* myType;
+	vector<Unit*> myUnitList;
 	vector<Unit*> listOfUpdatedUnits;
 	Unit* unit;
 	vector<UnitType*> updatedPossUps;
