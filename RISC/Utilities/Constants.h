@@ -9,6 +9,7 @@ public:
 	const static std::string TANKS;
 	const static std::string IMPROVED_TANKS;
 	const static std::string FIGHTER_PLANES;
+	const static std::string NUKES;	
 
 	const static std::string FOOD;
 	const static std::string TECH;
