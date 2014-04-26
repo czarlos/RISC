@@ -143,7 +143,10 @@ vector<Unit*> BoxPacker::buildMultipleUnitList(vector<string> multipleUnitVector
 	for (string s : multipleUnitVector) {
 		for (Unit* u : territory->getTerritoryContents()) {
 			if (u->getUnitType()->getType() == s) {
-				unitSet.insert(u);
+				if (unitSet.find(u) == unitSet.end()) {
+					unitSet.insert(u);
+					break;
+				}
 			}
 		}
 	}
