@@ -9,7 +9,7 @@ class Team{
 public:
 	Team();
 	Team(string teamName);
-	void addTeamMember();
+	void addTeamMember(Player*);
 	void leaveTeam(string playerName);
 	vector<Player*> getListOfPlayers();
 	~Team();
