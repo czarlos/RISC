@@ -47,3 +47,9 @@ Release\
 
 *.sublime-project
 *.sublime-workspace
+
+#Eclipse
+.settings/
+.project
+.cproject
+Debug/
