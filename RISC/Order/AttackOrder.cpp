@@ -13,9 +13,7 @@ AttackOrder::AttackOrder(Location* source, Location* destination, vector<Unit*> 
 Response* AttackOrder::execute(GameState* state) {
 	Territory* sourceTerr = state->getTerritoryByLocation(mySource);
 	Territory* destinationTerr = state->getTerritoryByLocation(myDestination);
-	cout << "information " << sourceTerr << " " << destinationTerr << " " << myUnitList.size() << endl;
 	if (sourceTerr && destinationTerr && !myUnitList.empty()) {
-		cout << "here???" << endl;
 		for each (Territory* territory in state->getBoard()->getAdjacentTerritory(sourceTerr)) {
 			if (territory == destinationTerr) {
 				return new AttackResponse(sourceTerr, destinationTerr, myUnitList);

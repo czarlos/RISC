@@ -18,7 +18,6 @@ void ServerLogic::handleOrder(Order* order) {
 }
 
 void ServerLogic::handleQueue(vector<Order*> orderQueue) {
-	cout << "order queue length " << orderQueue.size() << endl;
 	while (!orderQueue.empty()) {
 		Response* response = orderQueue.front()->execute(myState);
 		this->update(response);

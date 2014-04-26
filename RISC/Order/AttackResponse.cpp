@@ -18,63 +18,45 @@ void AttackResponse::executeResponse(GameState* state) {
 		destinationStack.push(myDestinationVector.at(x));
 	}
 	/*Setup Ends*/
-
-
+	srand(time(0));
 	while (!sourceStack.empty() && !destinationStack.empty()) {
 
-		Unit* unitOne = sourceStack.top();
-		Unit* unitTwo = destinationStack.top();
-
-		int unitOneBonus = unitOne->getCombatBonus();
-		int unitTwoBonus = unitTwo->getCombatBonus();
+		Unit* attacker = sourceStack.top();
+		Unit* defender = destinationStack.top();
+		int attackerBonus = attacker->getCombatBonus();
+		int defenderBonus = defender->getCombatBonus();
 
 		/*Dice Rolling*/
-		int rollOne;
-		srand(time(0));
-		rollOne = rand() % 20 + 1;
-		rollOne += unitOneBonus;
-		cout << "RollOne: " << rollOne << endl;
+		int attackerRoll;
+		attackerRoll = rand() % 20 + 1;
+		attackerRoll += attackerBonus;
+		cout << "RollOne: " << attackerRoll << endl;
 
-		int rollTwo;
-		srand(time(0));
-		rollTwo = rand() % 20 + 1;
-		rollTwo += unitTwoBonus;
-		cout << "RollTwo: " << rollTwo << endl;
+		int defenderRoll;
+		defenderRoll = rand() % 20 + 1;
+		defenderRoll += defenderBonus;
+		cout << "RollTwo: " << defenderRoll << endl;
 
-		if (rollTwo > rollOne) {
+		if (defenderRoll > attackerRoll) {
 			//Unit Two wins
-			destinationStack.pop();
-			removeUnit(state, unitTwo);
-		}
-		else if (rollOne > rollTwo) {
-			//Unit One wins
 			sourceStack.pop();
-			removeUnit(state, unitTwo);
+			removeUnit(state, attacker);
+		}
+		else if (attackerRoll > defenderRoll) {
+			//Unit One wins
+			destinationStack.pop();
+			removeUnit(state, defender);
 		}
 		else {
 			//Higher Mod wins
-			if (unitOneBonus > unitTwoBonus) {
+			if (attackerBonus > defenderBonus) {
 				destinationStack.pop();
-				removeUnit(state, unitTwo);
+				removeUnit(state, defender);
 			}
 			else {
 				sourceStack.pop();
-				removeUnit(state, unitOne);
+				removeUnit(state, attacker);
 			}
-		}
-	}
-
-	// Now we need to move the unit lists
-	if (sourceStack.empty()) {
-		while (!destinationStack.empty()) {
-			myDestination->addToContent(destinationStack.top());
-			destinationStack.pop();
-		}
-	}
-	else if (destinationStack.empty()) {
-		while (!sourceStack.empty()) {
-			mySource->addToContent(sourceStack.top());
-			sourceStack.pop();
 		}
 	}
 
