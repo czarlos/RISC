@@ -25,7 +25,7 @@ void GameView::showMainView() {
 	sfg::Desktop desktop;
 	desktop.Add(resource_window);
 	desktop.Add(sfml_window);
-	desktop.Add(createInformationWindow());
+	//desktop.Add(createInformationWindow());
 	desktop.Add(createTerritoryInformationWIndow());
 
 	/*Window execute loop*/

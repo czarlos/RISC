@@ -11,10 +11,11 @@ ServerLogic::ServerLogic(vector<Client*> clientList, GameState* state) {
  */
 void ServerLogic::handleOrder(Order* order) {
 	Response* response = order->execute(myState);
-	  
-	for (Client* client : myClientList) {
-		client->update(response);
-	}
+	
+	this->update(response);
+	//for (Client* client : myClientList) {
+	//	client->update(response);
+	//}
 }
 
 void ServerLogic::handleQueue(vector<Order*> orderQueue) {

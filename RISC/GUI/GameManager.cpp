@@ -53,6 +53,11 @@ void GameManager::endTurn() {
 	}
 }
 
+void GameManager::initializeBoard() {
+	Order* assignTerritoryOrder = new AssignTerritoryOrder();
+	server->handleOrder(assignTerritoryOrder);
+}
+
 void GameManager::clear() {
 	myWorkingOrder = new SpoofOrder();
 	myMovementOrder = new MovementOrder();

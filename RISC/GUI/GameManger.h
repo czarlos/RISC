@@ -51,6 +51,7 @@ public:
 	void setAddUnitOrder(AddUnitOrder* order);
 	
 	void setUpState();
+	void initializeBoard();
 
 	Location* getDestination();
 	Location* getLocation();
