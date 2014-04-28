@@ -83,17 +83,14 @@ Response* UpgradeOrder::execute(GameState* state) {
 	}
 
 	else if (this->convertingUpgrade){
-		//make in to a spy or turn back into a reg unit and modify return response
 		return makeASpy();
 	}
 
 	else if (this->unitUpgrading){
-		//check the list of units to upgrade and modify return response
 		return upgradeUnits();
 	}
 
 	else if (this->unlocking){
-		//unlock the next upgrade in the TechManager and modify return response
 		return unlockNextUpgrade();
 	}
 
@@ -130,11 +127,8 @@ UnitType* UpgradeOrder::getNextType(string type) {
 Response* UpgradeOrder::makeASpy(){
 	int updatedTechPoint;
 	Unit* updatedUnit;
-	//assumes that the the unit can turn into a spy/ turn out of being a spy
 
 	updatedTechPoint = techManager->getCurrentTechPoint() - 35;
-		//note - check if the unit is a spy is in it's types for some reason
-		//changing it to the units directly if there is time
 	updatedUnit = this->unit;
 	updatedUnit->getUnitType()->setSpy(this->makeSpy);
 	
@@ -144,8 +138,6 @@ Response* UpgradeOrder::makeASpy(){
 }
 
 Response* UpgradeOrder::upgradeUnits(){
-	//this method assumes that the units in the list are already checked
-	//to be upgradable
 	int updatedTechPt = this->techManager->getCurrentTechPoint();
 	vector<Unit*> updatedUnits = vector<Unit*>();
 
@@ -167,10 +159,6 @@ Response* UpgradeOrder::unlockNextUpgrade(){
 		updatedTechPtAmt = this->techManager->getCurrentTechPoint() - nextUpgradeType->getCostToUnlock();
 		updatedPossUps = this->techManager->getCurrentPossibleUpgrade();
 		updatedPossUps.push_back(nextUpgradeType);
-		//updateHighestAvaUpgrade();
-		//Note: after the server give back the response to make the updates to 
-		//techmanager, make sure to update its highest avaliable upgrade using
-		//the call above from tech manager
 	}
 	return new UpgradeResponse(updatedPossUps,updatedTechPtAmt);
 }

@@ -25,6 +25,7 @@
 #include "..\Order\UpgradeOrder.h"
 #include "..\Order\AddUnitOrder.h"
 #include "..\Order\SpoofOrder.h"
+#include "..\Order\BoardOrders\AssignTerritoryOrder.h"
 
 
 
@@ -51,6 +52,7 @@ public:
 	void setAddUnitOrder(AddUnitOrder* order);
 	
 	void setUpState();
+	void initializeBoard();
 
 	Location* getDestination();
 	Location* getLocation();
@@ -76,12 +78,15 @@ public:
 	void setSelectedTerritoryOwner(string owner);
 	string getSelectedTerritoryOwner();
 
+	int getTurnCount();
+
 	void clear();
 	void clearAfterCommit();
 
 	virtual ~GameManager();
 
 private:
+	int myTurnCounter = 0;
 	int myCurrentClient;
 	int myNumberOfClients;
 	

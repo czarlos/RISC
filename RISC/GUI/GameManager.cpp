@@ -16,7 +16,7 @@ void GameManager::setUpState() {
 	/*Set up board*/
 	board = new Board();
 	board->generateFixedBoard();
-	InitializationUtilities::addUnitsToBoard(board);
+	//InitializationUtilities::addUnitsToBoard(board);
 	
 	/*Add board to states*/
 	state1->setBoard(board);
@@ -36,6 +36,17 @@ void GameManager::setUpState() {
 }
 
 void GameManager::endTurn() {
+	if (myTurnCounter < 6) {
+		myTurnCounter++;
+		initializeBoard();
+		if (myCurrentClient < myNumberOfClients - 1) {
+			myCurrentClient++;
+		}
+		else {
+			myCurrentClient = 0;
+		}
+		return;
+	}
 	for (Order* order : myOrderQueue) {
 		cout << "Order " << order->getName() << endl;
 	}
@@ -51,6 +62,14 @@ void GameManager::endTurn() {
 	else {
 		myCurrentClient = 0;
 	}
+
+	myTurnCounter++;
+}
+
+void GameManager::initializeBoard() {
+	server->handleOrder(myWorkingOrder);
+	cout << myWorkingOrder << endl;
+	clear();
 }
 
 void GameManager::clear() {
@@ -120,7 +139,7 @@ Order* GameManager::retrieveLastOrder() {
 
 string GameManager::getCurrentClient() {
 	cout << myCurrentClient << endl;
-	return "Current Player: " + myClientList.at(myCurrentClient)->getUserName();
+	return myClientList.at(myCurrentClient)->getUserName();
 }
 
 vector<TerritoryBinder*> GameManager::getMadeTerritories() {
@@ -249,6 +268,10 @@ void GameManager::setSelectedTerritoryOwner(string owner) {
 
 string GameManager::getSelectedTerritoryOwner() {
 	return mySelectedTerritoryOwner;
+}
+
+int GameManager::getTurnCount() {
+	return myTurnCounter;
 }
 
 GameManager::~GameManager() {

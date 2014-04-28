@@ -67,12 +67,12 @@ void Board::generateFixedBoard(){
 	Territory* e = new Territory("Cairo", new Location(200, 500));
 	Territory* f = new Territory("Paris", new Location(800, 500));
 
-	a->setOwner("Carlos");
-	b->setOwner("Carlos");
-	c->setOwner("Carlos");
-	d->setOwner("Evil_Carlos");
-	e->setOwner("Evil_Carlos");
-	f->setOwner("Evil_Carlos");
+	a->setOwner(Constants::NO_OWNER);
+	b->setOwner(Constants::NO_OWNER);
+	c->setOwner(Constants::NO_OWNER);
+	d->setOwner(Constants::NO_OWNER);
+	e->setOwner(Constants::NO_OWNER);
+	f->setOwner(Constants::NO_OWNER);
 
 
 	Edge* edge1 = new Edge(a,b,20);
