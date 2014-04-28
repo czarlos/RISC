@@ -16,7 +16,7 @@ void GameManager::setUpState() {
 	/*Set up board*/
 	board = new Board();
 	board->generateFixedBoard();
-	InitializationUtilities::addUnitsToBoard(board);
+	//InitializationUtilities::addUnitsToBoard(board);
 	
 	/*Add board to states*/
 	state1->setBoard(board);
@@ -36,6 +36,11 @@ void GameManager::setUpState() {
 }
 
 void GameManager::endTurn() {
+	if (myTurnCounter < 6) {
+		myTurnCounter++;
+		initializeBoard();
+		return;
+	}
 	for (Order* order : myOrderQueue) {
 		cout << "Order " << order->getName() << endl;
 	}
@@ -51,11 +56,13 @@ void GameManager::endTurn() {
 	else {
 		myCurrentClient = 0;
 	}
+
+	myTurnCounter++;
 }
 
 void GameManager::initializeBoard() {
-	Order* assignTerritoryOrder = new AssignTerritoryOrder();
-	server->handleOrder(assignTerritoryOrder);
+	server->handleOrder(myWorkingOrder);
+	clear();
 }
 
 void GameManager::clear() {
@@ -254,6 +261,10 @@ void GameManager::setSelectedTerritoryOwner(string owner) {
 
 string GameManager::getSelectedTerritoryOwner() {
 	return mySelectedTerritoryOwner;
+}
+
+int GameManager::getTurnCount() {
+	return myTurnCounter;
 }
 
 GameManager::~GameManager() {

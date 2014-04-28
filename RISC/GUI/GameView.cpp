@@ -8,7 +8,7 @@ GameView::GameView() {
 
 void GameView::showMainView() {
 	/*Display Stuff*/
-	sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "RISC");
+	sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, SFML_WINDOW_HEIGHT), "RISC");
 	window.setFramerateLimit(40);
 
 	/*Set Up Some Preconfigured Settings*/
@@ -99,7 +99,7 @@ std::shared_ptr<sfg::Widget> GameView::createResourceWindow() {
 	//resource_window->SetTitle("Hello world!");
 	resource_window->Add(box);
 	//resource_window->AddWithViewport(box);
-	resource_window->SetRequisition(Vector2f(WIDTH / 4, WINDOW_HEIGHT));
+	resource_window->SetRequisition(Vector2f(WIDTH / 4, SFML_WINDOW_HEIGHT));
 
 	return resource_window;
 }
@@ -118,7 +118,7 @@ std::shared_ptr<sfg::Widget> GameView::createTerritoryInformationWIndow() {
 	auto territory_information_window = sfg::Window::Create();
 	territory_information_window->SetTitle("Territory Information Window");
 	territory_information_window->SetPosition(Vector2f(WIDTH + (WIDTH / 4), 0));
-	territory_information_window->SetRequisition(Vector2f(WIDTH / 4, WINDOW_HEIGHT));
+	territory_information_window->SetRequisition(Vector2f(WIDTH / 4, SFML_WINDOW_HEIGHT));
 
 	auto box = sfg::Box::Create(sfg::Box::Orientation::VERTICAL, 5.0f);
 	territory_id_label = sfg::Label::Create("");
@@ -302,6 +302,12 @@ void GameView::clickTerritory(float adjustedX, float adjustedY) {
 			gameManager->setLocation(binder->getTerritory()->getLocation());
 		}
 		else if (Mouse::isButtonPressed(Mouse::Right) && bounds.contains(adjustedX, adjustedY)) {
+
+			/*Temporary Remove Later*/
+			if (gameManager->getTurnCount() < 6) {
+				gameManager->setWorkingOrder(new AssignTerritoryOrder(gameManager->getCurrentClient(), binder->getTerritory()));
+			}
+
 			//This is now the destination target
 			destination_territory_label->SetText("Destination: " + binder->getTerritory()->getTerritoryID());
 			gameManager->setDestination(binder->getTerritory()->getLocation());

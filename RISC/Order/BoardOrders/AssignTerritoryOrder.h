@@ -8,6 +8,7 @@
 class AssignTerritoryOrder : public Order {
 public:
 	AssignTerritoryOrder();
+	AssignTerritoryOrder(string ownerName, Territory* territory);
 	Response* execute(GameState* state);
 	void setOwnerName(string ownerName);
 	void setTerritory(Territory* territory);
