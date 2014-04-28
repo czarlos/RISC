@@ -6,6 +6,7 @@
 #include "Edge.h"
 #include "Location.h"
 #include "../GameObject/Unit/Unit.h"
+#include "..\Utilities\Constants.h"
 
 using namespace std;
 //NUM_OF_TERRITORYS also means that the board is 6x6

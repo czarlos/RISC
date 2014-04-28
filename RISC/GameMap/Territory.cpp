@@ -57,14 +57,14 @@ void Territory::generateResourceProduction(){
 	possibleResources.push_back(new Technology());
 	int maxResourceOfTerritory = possibleResources.size();
 	//init seeding
-	srand((unsigned int)time(NULL));
+	srand(time(0));
 	int randIndex = rand() % maxResourceOfTerritory +0;
 	//put the first resource that a territory produce inside it's production
 	this->production.push_back(possibleResources.at(randIndex));
 
 	while (this->production.size() != this->maxResourceProduction)
 	{
-		int randDecision = rand() % 10 + 0;
+		int randDecision = rand() % 10 + 1;
 		//if the randomDecision is 5 or below, the while loop will break
 		//and territory's productions will be decided.
 		if (randDecision <= 4){

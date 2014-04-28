@@ -39,6 +39,12 @@ void GameManager::endTurn() {
 	if (myTurnCounter < 6) {
 		myTurnCounter++;
 		initializeBoard();
+		if (myCurrentClient < myNumberOfClients - 1) {
+			myCurrentClient++;
+		}
+		else {
+			myCurrentClient = 0;
+		}
 		return;
 	}
 	for (Order* order : myOrderQueue) {
@@ -62,6 +68,7 @@ void GameManager::endTurn() {
 
 void GameManager::initializeBoard() {
 	server->handleOrder(myWorkingOrder);
+	cout << myWorkingOrder << endl;
 	clear();
 }
 
@@ -132,7 +139,7 @@ Order* GameManager::retrieveLastOrder() {
 
 string GameManager::getCurrentClient() {
 	cout << myCurrentClient << endl;
-	return "Current Player: " + myClientList.at(myCurrentClient)->getUserName();
+	return myClientList.at(myCurrentClient)->getUserName();
 }
 
 vector<TerritoryBinder*> GameManager::getMadeTerritories() {

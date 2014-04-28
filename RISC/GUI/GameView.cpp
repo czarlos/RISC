@@ -75,7 +75,7 @@ std::shared_ptr<sfg::Widget> GameView::createResourceWindow() {
 
 	myBoxPacker = new BoxPacker(box, gameManager, resource_window);
 
-	m_label = sfg::Label::Create(gameManager->getCurrentClient());
+	m_label = sfg::Label::Create("Current Player: " + gameManager->getCurrentClient());
 	entry_label = sfg::Label::Create("");	
 	m_entry = sfg::Entry::Create();
 
@@ -317,7 +317,7 @@ void GameView::clickTerritory(float adjustedX, float adjustedY) {
 
 void GameView::EndTurnClick() {
 	gameManager->endTurn();
-	m_label->SetText(gameManager->getCurrentClient());
+	m_label->SetText("Current Player: " +  gameManager->getCurrentClient());
 }
 
 void GameView::SetTextClick() {
